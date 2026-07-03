@@ -2,3 +2,4 @@
 .env*
 _qa*.png
 Thumbs.db
+.gstack/
