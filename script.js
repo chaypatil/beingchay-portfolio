@@ -52,7 +52,7 @@ function setupConsultationZoom() {
     const scrollable = Math.max(1, rect.height - window.innerHeight);
     const raw = Math.min(1, Math.max(0, -rect.top / scrollable));
     const eased = 1 - Math.pow(1 - raw, 2);
-    root.style.setProperty("--consult-zoom-scale", (1 + eased * 0.55).toFixed(3));
+    root.style.setProperty("--consult-zoom-scale", (1 + eased * 0.18).toFixed(3));
   }
 
   updateZoom();
