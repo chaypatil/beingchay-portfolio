@@ -700,6 +700,376 @@ h3 {
   gap: 10px;
 }
 
+body.consultation-body {
+  --bg: #fff9ef;
+  --panel: #ffffff;
+  --panel-2: #f7fbff;
+  --ink: #172235;
+  --muted: #5d6a7c;
+  --dim: #8a96a6;
+  --line: #dbe5f2;
+  --warm: #096eea;
+  --warm-strong: #086fec;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    linear-gradient(180deg, #fff6e8 0%, #ffffff 38%, #f5f9ff 100%);
+  color: var(--ink);
+}
+
+.consultation-body .site-header {
+  min-height: 78px;
+  border-bottom: 1px solid rgba(23, 34, 53, 0.1);
+  background: rgba(255, 252, 247, 0.84);
+  box-shadow: 0 18px 50px rgba(37, 62, 103, 0.08);
+}
+
+.consultation-body .brand {
+  color: var(--ink);
+}
+
+.consultation-body .brand-mark {
+  border-color: rgba(8, 111, 236, 0.28);
+  background: #eef6ff;
+  color: var(--warm-strong);
+}
+
+.consultation-body nav {
+  color: #526075;
+}
+
+.consultation-body nav a:hover,
+.consultation-body nav a:focus-visible {
+  color: var(--warm-strong);
+}
+
+.consultation-body .nav-cta,
+.consultation-body .button {
+  border-color: rgba(8, 111, 236, 0.18);
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.consultation-body .nav-cta:not(.subtle),
+.consultation-body .button.primary {
+  background: var(--warm-strong);
+  color: #ffffff;
+  box-shadow: 0 14px 34px rgba(8, 111, 236, 0.22);
+}
+
+.consult-laptop-hero {
+  position: relative;
+  min-height: 178vh;
+  overflow: clip;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.96), rgba(255, 247, 235, 0.7) 42%, transparent 72%),
+    linear-gradient(180deg, #fff2df 0%, #fffaf3 54%, #f7fbff 100%);
+}
+
+.consult-laptop-hero::after {
+  content: "";
+  position: absolute;
+  right: -5vw;
+  bottom: -5vh;
+  left: -5vw;
+  height: 28vh;
+  min-height: 170px;
+  background:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.08) 0 8%, transparent 8% 100%),
+    linear-gradient(8deg, #172c99 0%, #06104f 74%);
+  box-shadow: inset 0 26px 34px rgba(255, 255, 255, 0.12);
+}
+
+.consult-laptop-sticky {
+  position: sticky;
+  top: 78px;
+  z-index: 1;
+  min-height: calc(100vh - 78px);
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 4vh, 44px) 0 clamp(76px, 12vh, 128px);
+}
+
+.consult-laptop-sticky::after {
+  content: "";
+  position: absolute;
+  right: -5vw;
+  bottom: 0;
+  left: -5vw;
+  z-index: 0;
+  height: clamp(120px, 18vh, 210px);
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.1) 0 10%, transparent 10% 100%),
+    linear-gradient(9deg, #1d36b4 0%, #071254 76%);
+  box-shadow: inset 0 24px 34px rgba(255, 255, 255, 0.12);
+}
+
+.consult-laptop-stage {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100vw - 44px));
+  transform: scale(var(--consult-zoom-scale, 1));
+  transform-origin: center center;
+  transition: transform 90ms linear;
+  will-change: transform;
+}
+
+.consult-laptop-frame {
+  position: relative;
+  padding: clamp(10px, 1.3vw, 18px);
+  border: 2px solid #14181f;
+  border-radius: 30px 30px 12px 12px;
+  background: #050608;
+  box-shadow:
+    0 42px 80px rgba(9, 21, 49, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.consult-camera-notch {
+  position: absolute;
+  top: clamp(10px, 1.3vw, 18px);
+  left: 50%;
+  z-index: 2;
+  width: clamp(86px, 8vw, 118px);
+  height: 22px;
+  transform: translateX(-50%);
+  border-radius: 0 0 10px 10px;
+  background: #020304;
+}
+
+.consult-camera-notch::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #111820;
+  box-shadow: 0 0 0 2px #050607;
+}
+
+.consult-laptop-screen {
+  min-height: clamp(470px, calc(100vh - 245px), 620px);
+  display: grid;
+  place-items: center;
+  padding: clamp(34px, 4.4vw, 64px);
+  border: 1px solid rgba(13, 24, 39, 0.14);
+  border-radius: 16px 16px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), #ffffff),
+    #ffffff;
+  color: var(--ink);
+}
+
+.consult-screen-copy {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.consult-eyebrow {
+  margin: 0 0 24px;
+  color: var(--warm-strong);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.consult-screen-copy h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(34px, 3.3vw, 48px);
+  font-weight: 600;
+  line-height: 1.14;
+}
+
+.consult-screen-copy h1 span {
+  color: var(--warm-strong);
+}
+
+.consult-screen-copy p:not(.consult-eyebrow) {
+  max-width: 730px;
+  margin: 28px auto 0;
+  color: #46556a;
+  font-size: clamp(18px, 1.7vw, 25px);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.consult-actions {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 38px;
+}
+
+.consult-button {
+  min-width: min(340px, 100%);
+  min-height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(23, 34, 53, 0.2);
+  border-radius: 8px;
+  padding: 16px 26px;
+  color: var(--ink);
+  background: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.consult-button.primary {
+  border-color: transparent;
+  background: linear-gradient(180deg, #147cff 0%, #0669ee 100%);
+  color: #ffffff;
+  box-shadow: 0 18px 42px rgba(8, 111, 236, 0.25);
+}
+
+.consult-laptop-base {
+  position: relative;
+  z-index: 2;
+  width: min(1230px, calc(100% + 88px));
+  height: 38px;
+  margin: -1px auto 0;
+  border-radius: 0 0 54px 54px;
+  background:
+    linear-gradient(90deg, #0c1016 0%, #1a2029 16%, #111720 50%, #1a2029 84%, #090d13 100%);
+  box-shadow: 0 30px 42px rgba(4, 7, 13, 0.46);
+}
+
+.consult-laptop-base span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(130px, 16vw, 210px);
+  height: 14px;
+  transform: translateX(-50%);
+  border-radius: 0 0 18px 18px;
+  background: linear-gradient(180deg, #2a3038, #11161d);
+}
+
+.consultation-body .consultation-panel,
+.consultation-body .journey-card,
+.consultation-body .case-card,
+.consultation-body .final-cta,
+.consult-process-grid article {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 24px 70px rgba(37, 62, 103, 0.08);
+}
+
+.consultation-body .consultation-panel {
+  margin-top: clamp(72px, 10vw, 130px);
+}
+
+.consultation-body .feature-section,
+.consultation-body .timeline-section,
+.consultation-body .journey-section,
+.consult-process-section,
+.consultation-body .project-section {
+  padding: clamp(78px, 10vw, 120px) 0;
+}
+
+.consultation-body .eyebrow,
+.consultation-body .case-kicker,
+.consultation-body .journey-role,
+.consult-process-grid span,
+.consultation-body .metric {
+  color: var(--warm-strong) !important;
+}
+
+.consultation-body .section-heading h2,
+.consultation-body .consultation-panel h2,
+.consultation-body .case-card h3,
+.consultation-body .final-cta h2 {
+  color: var(--ink);
+}
+
+.consultation-body .section-heading {
+  max-width: 1040px;
+}
+
+.consultation-body .section-heading h2,
+.consultation-body .consultation-panel h2,
+.consultation-body .final-cta h2 {
+  font-size: clamp(34px, 4.35vw, 62px);
+  font-weight: 600;
+  line-height: 1.08;
+}
+
+.consultation-body .copy-stack,
+.consultation-body .feature-card p,
+.consultation-body .case-card p,
+.consultation-body .journey-card p,
+.consultation-body .timeline-grid p,
+.consultation-body .final-cta p,
+.consultation-body .consultation-panel p,
+.consult-process-grid p {
+  color: var(--muted);
+}
+
+.consult-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.consult-process-grid article {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+}
+
+.consult-process-grid span {
+  margin-bottom: 28px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.consult-process-grid strong {
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.consult-process-grid p {
+  margin: 18px 0 0;
+}
+
+.consultation-body .logo-row {
+  min-height: 62px;
+}
+
+.consultation-body .multi-logo {
+  justify-content: flex-start;
+  gap: 18px;
+}
+
+.consultation-body .multi-logo img[src*="prosp-logo-white"] {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #111827;
+}
+
+.consultation-body .yc-badge {
+  border-color: rgba(8, 111, 236, 0.22);
+  color: var(--warm-strong);
+  background: #eef6ff;
+}
+
+.consultation-body .site-footer {
+  border-top-color: var(--line);
+  background: #ffffff;
+  color: var(--muted);
+}
+
 .case-card dl div {
   display: grid;
   grid-template-columns: 94px 1fr;
@@ -860,9 +1230,18 @@ dd {
   .feature-grid,
   .case-grid,
   .project-grid,
+  .consult-process-grid,
   .consultation-panel,
   .split-section {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .consult-laptop-stage {
+    width: min(940px, calc(100vw - 34px));
+  }
+
+  .consult-screen-copy h1 {
+    font-size: clamp(36px, 5.7vw, 58px);
   }
 
   .feature-case {
@@ -878,6 +1257,11 @@ dd {
   .site-header {
     min-height: auto;
     gap: 12px;
+  }
+
+  .consultation-body .site-header {
+    min-height: auto;
+    background: rgba(255, 252, 247, 0.94);
   }
 
   .brand {
@@ -975,6 +1359,93 @@ dd {
     height: 7px;
   }
 
+  .consult-laptop-hero {
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .consult-laptop-hero::after {
+    height: 140px;
+    min-height: 140px;
+  }
+
+  .consult-laptop-sticky {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    padding: 28px 0 72px;
+  }
+
+  .consult-laptop-stage {
+    width: min(430px, calc(100vw - 24px));
+    transform: none !important;
+  }
+
+  .consult-laptop-frame {
+    padding: 8px;
+    border-radius: 22px 22px 10px 10px;
+  }
+
+  .consult-camera-notch {
+    top: 8px;
+    width: 72px;
+    height: 16px;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .consult-camera-notch::after {
+    top: 5px;
+    width: 5px;
+    height: 5px;
+  }
+
+  .consult-laptop-screen {
+    min-height: 520px;
+    padding: 44px 18px 28px;
+    border-radius: 14px 14px 4px 4px;
+  }
+
+  .consult-eyebrow {
+    margin-bottom: 18px;
+    font-size: 11px;
+  }
+
+  .consult-screen-copy h1 {
+    font-size: clamp(29px, 8.6vw, 38px);
+    line-height: 1.08;
+  }
+
+  .consult-screen-copy p:not(.consult-eyebrow) {
+    margin-top: 18px;
+    font-size: 15px;
+  }
+
+  .consult-actions {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .consult-button {
+    width: 100%;
+    min-height: 54px;
+    font-size: 16px;
+  }
+
+  .consult-laptop-base {
+    width: calc(100% + 28px);
+    height: 24px;
+    border-radius: 0 0 26px 26px;
+  }
+
+  .consult-laptop-base span {
+    width: 86px;
+    height: 9px;
+  }
+
+  .consultation-body .consultation-panel {
+    margin-top: 54px;
+  }
+
   .offer-pill {
     margin-bottom: 34px;
     font-size: 13px;
@@ -993,6 +1464,7 @@ dd {
   .feature-grid,
   .case-grid,
   .project-grid,
+  .consult-process-grid,
   .consultation-panel,
   .split-section {
     grid-template-columns: 1fr;
@@ -1010,6 +1482,7 @@ dd {
   .feature-section,
   .timeline-section,
   .journey-section,
+  .consult-process-section,
   .project-section {
     padding: 70px 0;
   }

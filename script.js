@@ -33,3 +33,33 @@ async function hydratePretext() {
 }
 
 hydratePretext();
+
+function setupConsultationZoom() {
+  const hero = document.querySelector("[data-consult-zoom]");
+  if (!hero) return;
+
+  const root = document.documentElement;
+  const mobile = window.matchMedia("(max-width: 640px)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function updateZoom() {
+    if (mobile.matches || reducedMotion.matches) {
+      root.style.setProperty("--consult-zoom-scale", "1");
+      return;
+    }
+
+    const rect = hero.getBoundingClientRect();
+    const scrollable = Math.max(1, rect.height - window.innerHeight);
+    const raw = Math.min(1, Math.max(0, -rect.top / scrollable));
+    const eased = 1 - Math.pow(1 - raw, 2);
+    root.style.setProperty("--consult-zoom-scale", (1 + eased * 0.55).toFixed(3));
+  }
+
+  updateZoom();
+  window.addEventListener("scroll", updateZoom, { passive: true });
+  window.addEventListener("resize", updateZoom);
+  mobile.addEventListener("change", updateZoom);
+  reducedMotion.addEventListener("change", updateZoom);
+}
+
+setupConsultationZoom();
