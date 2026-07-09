@@ -13,21 +13,22 @@
   <body class="consultation-body">
     <main>
       <section class="consultation-hero" aria-label="Context-to-Execution consultation">
-        <div class="hero-stage">
-          <img class="laptop-couch-image" src="../assets/consultation-laptop-couch.png" alt="">
-          <div class="screen-content">
-            <h1>
-              Buying the best AI model isn't <span>enough.</span><br>
-              It needs to <span>know</span> how your business works.
-            </h1>
-            <p>
-              Turn your team's scattered docs, chats, CRM notes, founder decisions,
-              and workflow rules into AI-assisted execution systems.
-            </p>
-            <div class="pixel-hero-actions">
-              <a class="primary-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book a Context Leak Audit</a>
-              <a class="secondary-cta" href="#process">See the 30-Day Process</a>
-            </div>
+        <img class="consultation-hero__image" src="../assets/consultation-hero-desktop.png" alt="">
+        <a class="hero-hotspot hero-hotspot-primary" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit" aria-label="Book a Context Leak Audit"></a>
+        <a class="hero-hotspot hero-hotspot-secondary" href="#process" aria-label="See the 30-Day Process" onclick="event.preventDefault(); document.getElementById('process')?.scrollIntoView({ behavior: 'smooth' }); history.replaceState(null, '', '#process');"></a>
+
+        <div class="mobile-hero-panel">
+          <h1>
+            Buying the best AI model isn't <span>enough.</span><br>
+            It needs to <span>know</span> how your business works.
+          </h1>
+          <p>
+            Turn your team's scattered docs, chats, CRM notes, founder decisions,
+            and workflow rules into AI-assisted execution systems.
+          </p>
+          <div class="mobile-hero-actions">
+            <a class="primary-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book a Context Leak Audit</a>
+            <a class="secondary-cta" href="#process">See the 30-Day Process</a>
           </div>
         </div>
       </section>
@@ -115,7 +116,7 @@
           <article class="journey-card">
             <div class="logo-row multi-logo">
               <img src="../assets/logos/everis.png" alt="Everis logo" class="icon-logo">
-              <img src="../assets/logos/prosp-logo-white.svg" alt="Prosp logo">
+              <img src="../assets/logos/prosp-logo-color.png" alt="Prosp logo">
             </div>
             <p class="journey-role">Sales, partner, and onboarding workflows</p>
             <p>Built AI-assisted closing, affiliate enrichment, onboarding intelligence, and partner-page systems around founder-led SaaS work.</p>

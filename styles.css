@@ -719,7 +719,9 @@ body.consultation-body {
 }
 
 .consultation-hero {
+  position: relative;
   min-height: 100svh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -728,68 +730,38 @@ body.consultation-body {
   background: var(--bc-cream);
 }
 
-.hero-stage {
-  position: relative;
-  width: min(100vw, calc(100svh * 1444 / 1089));
-  aspect-ratio: 1444 / 1089;
-  flex: 0 0 auto;
-}
-
-.laptop-couch-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.consultation-hero__image {
+  width: 100vw;
+  height: 100svh;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
   user-select: none;
-  pointer-events: none;
 }
 
-.screen-content {
+.hero-hotspot {
   position: absolute;
-  left: 22%;
-  top: 30%;
-  width: 56%;
-  height: 38%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  opacity: 0;
   z-index: 2;
+  display: block;
+  border-radius: 8px;
 }
 
-.screen-content h1 {
-  margin: 0;
-  color: var(--bc-navy);
-  font-size: clamp(34px, 3.2vw, 58px);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: 0;
+.hero-hotspot-primary {
+  left: 30.6%;
+  top: 54.3%;
+  width: 19.3%;
+  height: 5.7%;
 }
 
-.screen-content h1 span {
-  color: var(--bc-blue);
+.hero-hotspot-secondary {
+  left: 51.1%;
+  top: 54.3%;
+  width: 19.1%;
+  height: 5.7%;
 }
 
-.screen-content p {
-  max-width: 760px;
-  margin: 24px auto 0;
-  color: var(--bc-muted);
-  font-size: clamp(16px, 1.25vw, 24px);
-  line-height: 1.35;
-}
-
-.pixel-hero-actions {
-  position: absolute;
-  top: 69%;
-  left: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 3%;
-  transform: translateX(-50%);
+.mobile-hero-panel {
+  display: none;
 }
 
 .primary-cta,
@@ -1156,10 +1128,11 @@ body.consultation-body {
   gap: 18px;
 }
 
-.consultation-body .multi-logo img[src*="prosp-logo-white"] {
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #111827;
+.consultation-body .multi-logo img[src*="prosp-logo-color"] {
+  max-width: 122px;
+  max-height: 42px;
+  padding: 0;
+  background: transparent;
 }
 
 .consultation-body .yc-badge {
@@ -1358,53 +1331,60 @@ dd {
     min-height: auto;
     display: block;
     overflow: visible;
-    padding: 18px 0 34px;
+    padding: 0 0 34px;
   }
 
-  .hero-stage {
-    width: 100%;
-    aspect-ratio: auto;
-  }
-
-  .laptop-couch-image {
-    position: relative;
+  .consultation-hero__image {
     display: block;
     width: 100%;
     height: auto;
+    min-height: 360px;
+    object-fit: cover;
+    object-position: center top;
   }
 
-  .screen-content {
+  .hero-hotspot {
+    display: none;
+  }
+
+  .mobile-hero-panel {
+    display: block;
     position: relative;
-    left: auto;
-    top: auto;
     width: min(100% - 28px, 520px);
-    height: auto;
     margin: -18px auto 0;
     padding: 28px 18px 22px;
     border: 1px solid var(--bc-border);
     border-radius: 12px;
     background: #ffffff;
     box-shadow: 0 22px 54px rgba(31, 41, 55, 0.12);
-    opacity: 1;
+    text-align: center;
   }
 
-  .screen-content h1 {
+  .mobile-hero-panel h1 {
+    margin: 0;
+    color: var(--bc-navy);
     font-size: clamp(30px, 9.2vw, 44px);
+    font-weight: 700;
     line-height: 1.08;
+    letter-spacing: 0;
   }
 
-  .screen-content p {
-    margin-top: 18px;
+  .mobile-hero-panel h1 span {
+    color: var(--bc-blue);
+  }
+
+  .mobile-hero-panel p {
+    margin: 18px 0 0;
+    color: var(--bc-muted);
     font-size: 16px;
+    line-height: 1.45;
   }
 
-  .pixel-hero-actions {
-    position: static;
-    width: 100%;
+  .mobile-hero-actions {
+    display: flex;
     flex-direction: column;
     gap: 12px;
     margin-top: 22px;
-    transform: none;
   }
 
   .primary-cta,
