@@ -7,28 +7,47 @@
     <meta name="description" content="Professional work and consultation offer for Chaitanya Patil's AI Context-to-Execution Sprint.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="../assets/consultation-laptop-blank.png">
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700;800&family=Inter:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
   </head>
   <body class="consultation-body">
     <main>
-      <section class="consultation-hero" aria-label="Context-to-Execution consultation">
-        <img class="consultation-hero__image" src="../assets/consultation-hero-desktop.png" alt="">
-        <a class="hero-hotspot hero-hotspot-primary" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit" aria-label="Book a Context Leak Audit"></a>
-        <a class="hero-hotspot hero-hotspot-secondary" href="#process" aria-label="See the 30-Day Process" onclick="event.preventDefault(); document.getElementById('process')?.scrollIntoView({ behavior: 'smooth' }); history.replaceState(null, '', '#process');"></a>
+      <section class="consultation-scroll-hero" aria-label="Context-to-Execution consultation">
+        <div class="consultation-sticky">
+          <div class="consultation-scene">
+            <img
+              class="consultation-laptop"
+              src="../assets/consultation-laptop-blank.png"
+              alt=""
+              decoding="async"
+              fetchpriority="high"
+            >
 
-        <div class="mobile-hero-panel">
-          <h1>
-            Buying the best AI model isn't <span>enough.</span><br>
-            It needs to <span>know</span> how your business works.
-          </h1>
-          <p>
-            Turn your team's scattered docs, chats, CRM notes, founder decisions,
-            and workflow rules into AI-assisted execution systems.
-          </p>
-          <div class="mobile-hero-actions">
-            <a class="primary-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book a Context Leak Audit</a>
-            <a class="secondary-cta" href="#process">See the 30-Day Process</a>
+            <div class="consultation-screen-layer">
+              <div class="consultation-screen-bg"></div>
+
+              <div class="consultation-screen-content">
+                <h1>
+                  Buying the best AI model isn't <span>enough.</span><br>
+                  It needs to <span>know</span> how your business works.
+                </h1>
+
+                <p>
+                  Turn your team's scattered docs, chats, CRM notes, founder decisions,
+                  and workflow rules into AI-assisted execution systems.
+                </p>
+
+                <div class="consultation-actions">
+                  <a class="consultation-primary-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">
+                    Book a Context Leak Audit
+                  </a>
+                  <a class="consultation-secondary-cta" href="#process">
+                    See the 30-Day Process
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
