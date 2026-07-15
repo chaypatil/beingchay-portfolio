@@ -46,6 +46,19 @@ function initConsultationHero() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (!scene || !screen || !liveContent) return;
 
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  function forceHeroStart() {
+    if (window.location.hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }
+
+  forceHeroStart();
+  window.requestAnimationFrame(forceHeroStart);
+  window.addEventListener("pageshow", forceHeroStart);
+
   window.setTimeout(() => {
     hero.classList.add("is-powered-on");
   }, reducedMotion.matches ? 0 : 500);
