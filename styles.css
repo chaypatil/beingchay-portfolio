@@ -918,6 +918,12 @@ body.consultation-body {
   color: var(--ink);
 }
 
+.consultation-body .offer-brand {
+  max-width: min(42vw, 520px);
+  font-size: clamp(17px, 1.55vw, 22px);
+  white-space: nowrap;
+}
+
 .consultation-body .consult-brand {
   font-size: clamp(20px, 2vw, 28px);
 }

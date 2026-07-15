@@ -82,20 +82,11 @@ function initConsultationHero() {
       liveStartTop: sceneTop + screen.offsetTop,
       liveStartWidth: screenWidth,
       liveStartHeight: screenHeight,
-      liveEndLeft: 0,
-      liveEndTop: 0,
-      liveEndWidth: window.innerWidth,
-      liveEndHeight: window.innerHeight,
       headlineStart: window.innerWidth < 768 ? 15.5 : Math.min(Math.max(window.innerWidth * 0.022, 24), 38),
-      headlineEnd: window.innerWidth < 768 ? 21 : Math.min(Math.max(window.innerWidth * 0.042, 42), 66),
       subheadlineStart: window.innerWidth < 768 ? 9 : Math.min(Math.max(window.innerWidth * 0.0112, 14), 20),
-      subheadlineEnd: window.innerWidth < 768 ? 12 : Math.min(Math.max(window.innerWidth * 0.016, 18), 26),
       ctaHeightStart: window.innerWidth < 768 ? 29 : Math.min(Math.max(window.innerWidth * 0.04, 46), 60),
-      ctaHeightEnd: window.innerWidth < 768 ? 38 : Math.min(Math.max(window.innerWidth * 0.048, 56), 72),
       ctaFontStart: window.innerWidth < 768 ? 8.5 : Math.min(Math.max(window.innerWidth * 0.0105, 13), 18),
-      ctaFontEnd: window.innerWidth < 768 ? 11 : Math.min(Math.max(window.innerWidth * 0.012, 16), 22),
       ctaWidthStart: window.innerWidth < 768 ? 160 : 310,
-      ctaWidthEnd: window.innerWidth < 768 ? 180 : 360,
     };
 
     scene.style.setProperty("--scene-origin-x", `${(screenCenterX / sceneWidth) * 100}%`);
@@ -116,15 +107,15 @@ function initConsultationHero() {
     scene.style.setProperty("--scene-scale", scale.toFixed(4));
     scene.style.setProperty("--scene-x", `${x.toFixed(2)}px`);
     scene.style.setProperty("--scene-y", `${y.toFixed(2)}px`);
-    liveContent.style.setProperty("--live-left", `${lerp(metrics.liveStartLeft, metrics.liveEndLeft, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--live-top", `${lerp(metrics.liveStartTop, metrics.liveEndTop, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--live-width", `${lerp(metrics.liveStartWidth, metrics.liveEndWidth, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--live-height", `${lerp(metrics.liveStartHeight, metrics.liveEndHeight, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--headline-size", `${lerp(metrics.headlineStart, metrics.headlineEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--subheadline-size", `${lerp(metrics.subheadlineStart, metrics.subheadlineEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--cta-height", `${lerp(metrics.ctaHeightStart, metrics.ctaHeightEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--cta-font-size", `${lerp(metrics.ctaFontStart, metrics.ctaFontEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--cta-width", `${lerp(metrics.ctaWidthStart, metrics.ctaWidthEnd, progress).toFixed(2)}px`);
+    liveContent.style.setProperty("--live-left", `${metrics.liveStartLeft.toFixed(2)}px`);
+    liveContent.style.setProperty("--live-top", `${metrics.liveStartTop.toFixed(2)}px`);
+    liveContent.style.setProperty("--live-width", `${metrics.liveStartWidth.toFixed(2)}px`);
+    liveContent.style.setProperty("--live-height", `${metrics.liveStartHeight.toFixed(2)}px`);
+    liveContent.style.setProperty("--headline-size", `${metrics.headlineStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--subheadline-size", `${metrics.subheadlineStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--cta-height", `${metrics.ctaHeightStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--cta-font-size", `${metrics.ctaFontStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--cta-width", `${metrics.ctaWidthStart.toFixed(2)}px`);
   }
 
   function requestRender() {
