@@ -920,7 +920,11 @@ body.consultation-body {
 
 .consultation-body .offer-brand {
   max-width: min(42vw, 520px);
-  font-size: clamp(17px, 1.55vw, 22px);
+  font-family: "Inter", "Geist", system-ui, sans-serif;
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
