@@ -782,11 +782,22 @@ body.consultation-body {
     opacity 900ms ease;
 }
 
-.consultation-screen-content {
-  position: relative;
+.consultation-live-screen-content {
+  --live-left: 0px;
+  --live-top: 0px;
+  --live-width: 100vw;
+  --live-height: 100svh;
+  --headline-size: 38px;
+  --subheadline-size: 18px;
+  --cta-height: 54px;
+  --cta-font-size: 15px;
+  --cta-width: 270px;
+  position: absolute;
   z-index: 1;
-  height: 100%;
-  width: 100%;
+  left: var(--live-left);
+  top: var(--live-top);
+  width: var(--live-width);
+  height: var(--live-height);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -795,6 +806,9 @@ body.consultation-body {
   text-align: center;
   opacity: 0;
   transform: translate3d(0, 12px, 0);
+  pointer-events: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
   transition:
     opacity 700ms ease 420ms,
     transform 700ms ease 420ms;
@@ -804,32 +818,33 @@ body.consultation-body {
   opacity: 1;
 }
 
-.consultation-scroll-hero.is-powered-on .consultation-screen-content {
+.consultation-scroll-hero.is-powered-on .consultation-live-screen-content {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+  pointer-events: auto;
 }
 
-.consultation-screen-content h1 {
+.consultation-live-screen-content h1 {
   margin: 0;
   max-width: 800px;
   color: var(--bc-navy);
   font-family: "Geist", "Inter", system-ui, sans-serif;
-  font-size: clamp(23px, 2.22vw, 38px);
+  font-size: var(--headline-size);
   font-weight: 700;
   line-height: 1.16;
   letter-spacing: 0;
 }
 
-.consultation-screen-content h1 span {
+.consultation-live-screen-content h1 span {
   color: var(--bc-blue);
 }
 
-.consultation-screen-content p {
+.consultation-live-screen-content p {
   max-width: 640px;
   margin: 22px 0 0;
   color: var(--bc-muted);
   font-family: "Inter", system-ui, sans-serif;
-  font-size: clamp(14px, 1.12vw, 20px);
+  font-size: var(--subheadline-size);
   font-weight: 500;
   line-height: 1.42;
 }
@@ -844,15 +859,15 @@ body.consultation-body {
 
 .consultation-primary-cta,
 .consultation-secondary-cta {
-  min-height: clamp(46px, 4vw, 60px);
-  min-width: min(46%, 310px);
+  min-height: var(--cta-height);
+  min-width: min(46%, var(--cta-width));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 7px;
   padding: 0 26px;
   font-family: "Inter", system-ui, sans-serif;
-  font-size: clamp(13px, 1.05vw, 18px);
+  font-size: var(--cta-font-size);
   font-weight: 700;
   line-height: 1.1;
   text-align: center;
@@ -871,11 +886,32 @@ body.consultation-body {
   color: var(--bc-navy);
 }
 
+.consultation-hero-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(140px, 20vh, 280px);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(246, 239, 227, 0) 0%,
+    rgba(255, 255, 255, 0.92) 78%,
+    #ffffff 100%
+  );
+  z-index: 5;
+}
+
 .consultation-body .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
   min-height: 78px;
   border-bottom: 1px solid rgba(23, 34, 53, 0.1);
-  background: rgba(255, 252, 247, 0.84);
-  box-shadow: 0 18px 50px rgba(37, 62, 103, 0.08);
+  background: rgba(255, 252, 247, 0.72);
+  box-shadow: none;
 }
 
 .consultation-body .brand {
@@ -1229,6 +1265,11 @@ body.consultation-body {
   color: var(--muted);
 }
 
+.consultation-footer {
+  min-height: 54px;
+  padding: 0;
+}
+
 .case-card dl div {
   display: grid;
   grid-template-columns: 94px 1fr;
@@ -1418,20 +1459,18 @@ dd {
     max-width: none;
   }
 
-  .consultation-screen-content {
+  .consultation-live-screen-content {
     padding: 6% 5% 5%;
   }
 
-  .consultation-screen-content h1 {
+  .consultation-live-screen-content h1 {
     max-width: 320px;
-    font-size: 15.5px;
     line-height: 1.15;
   }
 
-  .consultation-screen-content p {
+  .consultation-live-screen-content p {
     max-width: 290px;
     margin-top: 9px;
-    font-size: 9px;
     line-height: 1.35;
   }
 
@@ -1443,11 +1482,9 @@ dd {
 
   .consultation-primary-cta,
   .consultation-secondary-cta {
-    min-height: 29px;
     min-width: 0;
     width: 50%;
     padding: 0 7px;
-    font-size: 8.5px;
   }
 }
 
@@ -1465,7 +1502,7 @@ dd {
   }
 
   .consultation-screen-bg,
-  .consultation-screen-content {
+  .consultation-live-screen-content {
     transition: none;
   }
 
@@ -1474,7 +1511,7 @@ dd {
     opacity: 1;
   }
 
-  .consultation-scroll-hero .consultation-screen-content {
+  .consultation-scroll-hero .consultation-live-screen-content {
     opacity: 1;
     transform: none;
   }

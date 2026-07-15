@@ -12,6 +12,22 @@
     <link rel="stylesheet" href="../styles.css">
   </head>
   <body class="consultation-body">
+    <header class="site-header offer-header">
+      <a class="brand offer-brand" href="../index.html" aria-label="beingchay home">
+        <span class="brand-mark">bc</span>
+        <span>beingchay</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="../index.html#features">Features</a>
+        <a href="./">Consultation</a>
+        <a href="mailto:chaitanya.cp19@gmail.com">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="nav-cta subtle" href="https://github.com/chaypatil/beingchay-portfolio">GitHub</a>
+        <a class="nav-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book audit</a>
+      </div>
+    </header>
+
     <main>
       <section class="consultation-scroll-hero" aria-label="Context-to-Execution consultation">
         <div class="consultation-sticky">
@@ -26,30 +42,32 @@
 
             <div class="consultation-screen-layer">
               <div class="consultation-screen-bg"></div>
+            </div>
+          </div>
 
-              <div class="consultation-screen-content">
-                <h1>
-                  Buying the best AI model isn't <span>enough.</span><br>
-                  It needs to <span>know</span> how your business works.
-                </h1>
+          <div class="consultation-live-screen-content">
+            <h1>
+              Buying the best AI model isn't <span>enough.</span><br>
+              It needs to <span>know</span> how your business works.
+            </h1>
 
-                <p>
-                  Turn your team's scattered docs, chats, CRM notes, founder decisions,
-                  and workflow rules into AI-assisted execution systems.
-                </p>
+            <p>
+              Turn your team's scattered docs, chats, CRM notes, founder decisions,
+              and workflow rules into AI-assisted execution systems.
+            </p>
 
-                <div class="consultation-actions">
-                  <a class="consultation-primary-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">
-                    Book a Context Leak Audit
-                  </a>
-                  <a class="consultation-secondary-cta" href="#process">
-                    See the 30-Day Process
-                  </a>
-                </div>
-              </div>
+            <div class="consultation-actions">
+              <a class="consultation-primary-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">
+                Book a Context Leak Audit
+              </a>
+              <a class="consultation-secondary-cta" href="#process">
+                See the 30-Day Process
+              </a>
             </div>
           </div>
         </div>
+
+        <div class="consultation-hero-fade" aria-hidden="true"></div>
       </section>
 
       <section id="offer" class="section-shell consultation-panel">
@@ -212,10 +230,7 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <span>beingchay consultation</span>
-      <a href="mailto:chaitanya.cp19@gmail.com">chaitanya.cp19@gmail.com</a>
-    </footer>
+    <footer class="site-footer consultation-footer" aria-hidden="true"></footer>
 
     <script type="module" src="../script.js"></script>
   </body>
