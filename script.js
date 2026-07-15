@@ -44,6 +44,7 @@ function initConsultationHero() {
   const processSection = document.querySelector("#process");
   const secondaryCta = hero.querySelector(".consultation-secondary-cta");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mobileLayout = window.matchMedia("(max-width: 767px)");
   if (!scene || !screen || !liveContent) return;
 
   if ("scrollRestoration" in window.history) {
@@ -63,7 +64,7 @@ function initConsultationHero() {
     hero.classList.add("is-powered-on");
   }, reducedMotion.matches ? 0 : 500);
 
-  if (reducedMotion.matches) return;
+  if (reducedMotion.matches || mobileLayout.matches) return;
 
   let metrics = null;
   let ticking = false;
@@ -159,3 +160,41 @@ function initConsultationHero() {
 }
 
 initConsultationHero();
+
+function initBookingFlow() {
+  const form = document.querySelector(".booking-form");
+  if (!form) return;
+
+  const packageSelect = form.querySelector("#package");
+  const packageLinks = document.querySelectorAll("[data-package-choice]");
+  const formShell = document.querySelector(".booking-form-shell");
+  const success = document.querySelector(".booking-success");
+  const params = new URLSearchParams(window.location.search);
+  const requestedPackage = params.get("package");
+
+  if (packageSelect) {
+    if (requestedPackage === "sprint") {
+      packageSelect.value = "Context-to-Execution Sprint - $3,000";
+    } else if (requestedPackage === "audit") {
+      packageSelect.value = "Context Leak Audit - $500";
+    }
+  }
+
+  for (const link of packageLinks) {
+    link.addEventListener("click", () => {
+      if (!packageSelect) return;
+      packageSelect.value = link.dataset.packageChoice || "";
+    });
+  }
+
+  if (params.get("submitted") === "true" && formShell && success) {
+    formShell.hidden = true;
+    success.hidden = false;
+    document.title = "Inquiry received | beingchay";
+    window.requestAnimationFrame(() => {
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+}
+
+initBookingFlow();
