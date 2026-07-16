@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080807">
+  <title>चैतन्य — beingchay</title>
+  <meta name="description" content="चैतन्य — a living map of Chay's memories, beliefs, patterns, influences, and contradictions.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080807;
+      --ink: #f0eff8;
+      --muted: #8a8997;
+      --dim: #4d4c59;
+      --line: rgba(155, 143, 255, .11);
+      --line-strong: rgba(155, 143, 255, .25);
+      --accent: #927cff;
+      --memory: #aab4ff;
+      --belief: #9a7cff;
+      --drive: #6f78ff;
+      --pattern: #62b6ff;
+      --tension: #bd78ff;
+      --influence: #58d4ff;
+      --question: #d9d6ff;
+      --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --sans: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+      --serif: Iowan Old Style, Baskerville, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-width: 320px; min-height: 100%; background: var(--bg); color: var(--ink); }
+    body { font-family: var(--sans); overflow: hidden; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    ::selection { background: var(--ink); color: var(--bg); }
+
+    .shell {
+      height: 100svh;
+      display: grid;
+      grid-template: 66px minmax(0, 1fr) 54px / 224px minmax(0, 1fr) 340px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .topbar {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 224px 1fr 340px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8,8,7,.92);
+      z-index: 20;
+    }
+
+    .brand, .view-tabs, .meta-actions { display: flex; align-items: center; }
+    .brand { gap: 10px; padding: 0 18px; border-right: 1px solid var(--line); }
+    .brand-star { width: 18px; height: 18px; position: relative; flex: 0 0 auto; }
+    .brand-star::before, .brand-star::after { content: ""; position: absolute; background: var(--ink); }
+    .brand-star::before { width: 1px; height: 18px; left: 8px; top: 0; }
+    .brand-star::after { width: 18px; height: 1px; top: 8px; left: 0; }
+    .brand-name { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+
+    .view-tabs { gap: 2px; padding: 0 18px; }
+    .view-tab, .privacy-toggle, .filter, .thread-link {
+      appearance: none; border: 0; background: transparent; cursor: pointer;
+    }
+    .view-tab {
+      min-height: 36px; padding: 0 14px; color: var(--dim);
+      font: 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+    }
+    .view-tab:hover, .view-tab:focus-visible { color: var(--ink); }
+    .view-tab.active { color: var(--ink); border-color: var(--ink); }
+
+    .meta-actions {
+      justify-content: space-between; gap: 12px; padding: 0 16px;
+      border-left: 1px solid var(--line);
+      font: 9px/1 var(--mono); letter-spacing: .11em; text-transform: uppercase;
+    }
+    .live-mark { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+    .live-mark::before { content: ""; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; animation: blink 2.4s ease-in-out infinite; box-shadow: 0 0 10px var(--accent); }
+    .privacy-toggle {
+      display: flex; align-items: center; gap: 8px; padding: 8px 0;
+      color: var(--ink); font: inherit; text-transform: inherit; letter-spacing: inherit;
+    }
+    .toggle-track { width: 28px; height: 12px; border: 1px solid var(--line-strong); position: relative; }
+    .toggle-dot { position: absolute; width: 6px; height: 6px; background: var(--ink); top: 2px; left: 3px; transition: transform .25s ease; }
+    body.private-mode .toggle-dot { transform: translateX(14px); background: var(--accent); }
+
+    .left-rail {
+      grid-row: 2; grid-column: 1; border-right: 1px solid var(--line);
+      padding: 22px 18px; background: rgba(8,8,7,.74); overflow: auto;
+    }
+    .rail-kicker, .panel-kicker, .section-kicker {
+      margin: 0; color: var(--dim); font: 9px/1.3 var(--mono);
+      letter-spacing: .13em; text-transform: uppercase;
+    }
+    .rail-title { margin: 10px 0 26px; font: 30px/.92 var(--serif); font-weight: 400; }
+    .filter-list { display: grid; gap: 5px; }
+    .filter {
+      width: 100%; min-height: 34px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0; color: var(--muted); text-align: left; font: 10px/1 var(--mono);
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .filter:hover, .filter:focus-visible, .filter.active { color: var(--ink); }
+    .filter-label { display: flex; align-items: center; gap: 9px; }
+    .swatch { width: 6px; height: 6px; border-radius: 50%; background: var(--swatch); box-shadow: 0 0 8px color-mix(in srgb, var(--swatch), transparent 35%); }
+    .count { color: var(--dim); }
+    .rail-divider { height: 1px; background: var(--line); margin: 24px 0; }
+    .thread-list { display: grid; }
+    .thread-link {
+      display: grid; grid-template-columns: 28px 1fr; gap: 4px; width: 100%;
+      padding: 12px 0; border-bottom: 1px solid var(--line); text-align: left;
+    }
+    .thread-link small { color: var(--dim); font: 9px/1.2 var(--mono); }
+    .thread-link span { color: var(--muted); font: 13px/1.15 var(--serif); }
+    .thread-link:hover span, .thread-link:focus-visible span { color: var(--ink); }
+
+    .stage { grid-row: 2; grid-column: 2; min-width: 0; min-height: 0; position: relative; overflow: hidden; }
+    .view { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .35s ease, transform .35s ease, visibility .35s; }
+    .view.active { opacity: 1; visibility: visible; transform: none; }
+
+    .map-view { background: var(--bg); }
+    .map-head { position: absolute; z-index: 6; top: 20px; left: 24px; pointer-events: none; }
+    .map-head h1 { margin: 0; font: 22px/1.2 "Nirmala UI", "Noto Sans Devanagari", "Mangal", sans-serif; letter-spacing: 0; font-weight: 400; }
+    .map-canvas { width: 100%; height: 100%; display: block; }
+    .edge { stroke: rgba(238,234,224,.14); stroke-width: 1; vector-effect: non-scaling-stroke; transition: opacity .25s ease, stroke .25s ease; }
+    .edge.hot { stroke: rgba(238,234,224,.52); }
+    .edge-label { fill: var(--dim); font: 8px var(--mono); letter-spacing: .04em; pointer-events: none; opacity: 0; transition: opacity .2s ease; }
+    .edge.hot + .edge-label { opacity: 1; }
+    .node { cursor: pointer; outline: none; transition: opacity .25s ease; }
+    .node .halo { fill: none; stroke: var(--node-color); stroke-opacity: .12; stroke-width: 1; transform-origin: center; animation: breathe 4.8s ease-in-out infinite; }
+    .node .core { fill: var(--bg); stroke: var(--node-color); stroke-width: 1.2; vector-effect: non-scaling-stroke; transition: fill .2s ease, stroke-width .2s ease; }
+    .node .point { fill: var(--node-color); }
+    .node text { fill: var(--muted); font: 9px var(--mono); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; transition: fill .2s ease; }
+    .node:hover .core, .node:focus-visible .core, .node.active .core { fill: color-mix(in srgb, var(--node-color), var(--bg) 78%); stroke-width: 2; }
+    .node:hover text, .node:focus-visible text, .node.active text { fill: var(--ink); }
+    .node.active .halo { stroke-opacity: .62; animation-duration: 2s; }
+    .node.dim { opacity: .08; pointer-events: none; }
+
+    .editorial-view { overflow: auto; padding: clamp(36px, 5vw, 72px); background: rgba(8,8,7,.84); }
+    .editorial-header { max-width: 850px; margin-bottom: 64px; }
+    .editorial-header h2 { max-width: 740px; margin: 12px 0 0; font: clamp(48px, 7vw, 104px)/.86 var(--serif); font-weight: 400; letter-spacing: -.045em; }
+    .editorial-header p { max-width: 560px; margin: 28px 0 0 auto; color: var(--muted); font: 15px/1.5 var(--sans); }
+    .thread-row {
+      min-height: 180px; display: grid; grid-template-columns: 62px minmax(180px, .72fr) minmax(240px, 1.28fr) 90px;
+      align-items: start; gap: 22px; padding: 24px 0; border-top: 1px solid var(--line);
+    }
+    .thread-row:last-child { border-bottom: 1px solid var(--line); }
+    .thread-number { color: var(--dim); font: 10px/1 var(--mono); }
+    .thread-name { font: clamp(25px, 3vw, 46px)/.95 var(--serif); }
+    .thread-copy { margin: 0; max-width: 560px; color: var(--muted); font: 14px/1.55 var(--sans); }
+    .thread-state { color: var(--dim); font: 9px/1.4 var(--mono); text-align: right; text-transform: uppercase; }
+
+    .time-view { overflow: auto; padding: 40px clamp(26px, 5vw, 72px) 80px; }
+    .time-header { display: flex; justify-content: space-between; gap: 28px; align-items: end; margin-bottom: 54px; }
+    .time-header h2 { margin: 8px 0 0; font: clamp(44px, 7vw, 90px)/.88 var(--serif); font-weight: 400; }
+    .time-header p { max-width: 360px; margin: 0; color: var(--muted); font: 13px/1.5 var(--sans); }
+    .time-line { position: relative; margin-left: 90px; border-left: 1px solid var(--line-strong); }
+    .era { position: relative; display: grid; grid-template-columns: minmax(140px,.55fr) minmax(240px,1.45fr); gap: 34px; padding: 0 0 58px 42px; }
+    .era::before { content: ""; position: absolute; left: -4px; top: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--era-color, var(--ink)); box-shadow: 0 0 18px var(--era-color, var(--ink)); }
+    .era-year { position: absolute; left: -90px; top: 0; color: var(--dim); font: 10px/1 var(--mono); }
+    .era h3 { margin: 0; font: 28px/1 var(--serif); font-weight: 400; }
+    .era p { margin: 0; max-width: 560px; color: var(--muted); font: 14px/1.5 var(--sans); }
+    .era-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 7px; margin-top: -18px; }
+    .era-tags span { padding: 5px 7px; border: 1px solid var(--line); color: var(--dim); font: 8px/1 var(--mono); text-transform: uppercase; }
+
+    .voice-view { display: grid; grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr); }
+    .voice-intro { padding: clamp(36px, 6vw, 82px); display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); }
+    .voice-intro h2 { max-width: 580px; margin: 10px 0 0; font: clamp(52px, 7vw, 106px)/.84 var(--serif); font-weight: 400; letter-spacing: -.05em; }
+    .voice-intro p { max-width: 410px; color: var(--muted); font: 14px/1.55 var(--sans); }
+    .voice-console { min-height: 0; padding: 34px; display: flex; flex-direction: column; background: #0b0b09; }
+    .console-meta { display: flex; justify-content: space-between; color: var(--dim); font: 8px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .conversation { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 22px; overflow: auto; padding: 34px 0; }
+    .message { max-width: 86%; margin: 0; font: 18px/1.42 var(--serif); }
+    .message.user { margin-left: auto; color: var(--muted); text-align: right; }
+    .message.mirror { color: var(--ink); }
+    .evidence-line { padding-left: 12px; border-left: 1px solid var(--belief); color: var(--dim); font: 9px/1.55 var(--mono); text-transform: uppercase; }
+    .ask-form { display: grid; grid-template-columns: 1fr auto; border-top: 1px solid var(--line-strong); }
+    .ask-input { min-width: 0; height: 58px; border: 0; outline: 0; background: transparent; color: var(--ink); font: 13px var(--mono); }
+    .ask-input::placeholder { color: var(--dim); }
+    .ask-submit { width: 62px; border: 0; background: transparent; color: var(--ink); cursor: pointer; font: 20px var(--serif); }
+
+    .detail-panel {
+      grid-row: 2; grid-column: 3; border-left: 1px solid var(--line);
+      background: rgba(11,11,9,.92); overflow: auto; display: flex; flex-direction: column;
+    }
+    .detail-head { padding: 22px 20px 18px; border-bottom: 1px solid var(--line); }
+    .detail-type { display: flex; align-items: center; gap: 8px; color: var(--node-color, var(--belief)); font: 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .detail-type::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+    .detail-head h2 { margin: 16px 0 0; font: 35px/.96 var(--serif); font-weight: 400; letter-spacing: -.025em; }
+    .detail-body { padding: 20px; display: grid; gap: 24px; }
+    .detail-summary { margin: 0; color: var(--muted); font: 14px/1.55 var(--sans); }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); }
+    .metric { min-width: 0; padding: 13px 4px; border-right: 1px solid var(--line); }
+    .metric:last-child { border-right: 0; padding-left: 10px; }
+    .metric b { display: block; color: var(--ink); font: 16px/1 var(--serif); font-weight: 400; }
+    .metric span { display: block; margin-top: 5px; color: var(--dim); font: 7px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .detail-section h3 { margin: 0 0 10px; color: var(--dim); font: 8px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; font-weight: 400; }
+    .source { margin: 0; padding-left: 12px; border-left: 1px solid var(--node-color, var(--belief)); color: var(--ink); font: 15px/1.42 var(--serif); }
+    .source-meta { display: block; margin-top: 9px; color: var(--dim); font: 8px/1.4 var(--mono); text-transform: uppercase; }
+    .relation-list { display: grid; }
+    .relation { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); color: var(--muted); font: 11px/1.3 var(--sans); }
+    .relation em { color: var(--dim); font: 8px/1.4 var(--mono); font-style: normal; text-transform: uppercase; }
+    .inference-note { padding: 12px; border: 1px solid var(--line); color: var(--dim); font: 9px/1.55 var(--mono); }
+
+    .private-dialog {
+      width: min(410px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--line-strong);
+      background: #0b0b09; color: var(--ink); box-shadow: 0 24px 90px rgba(0,0,0,.72);
+    }
+    .private-dialog::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(7px); }
+    .private-dialog-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    .private-dialog-title { color: var(--muted); font: 9px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .private-dialog-close { appearance: none; border: 0; padding: 4px; background: transparent; color: var(--dim); cursor: pointer; font: 17px/1 var(--sans); }
+    .private-form { display: grid; grid-template-columns: 1fr auto; gap: 0; padding: 24px 20px 18px; }
+    .private-password { min-width: 0; height: 48px; border: 0; border-bottom: 1px solid var(--line-strong); outline: 0; background: transparent; color: var(--ink); font: 13px var(--mono); }
+    .private-password::placeholder { color: var(--dim); }
+    .private-submit { width: 58px; border: 0; border-bottom: 1px solid var(--line-strong); background: transparent; color: var(--accent); cursor: pointer; font: 18px/1 var(--serif); }
+    .private-submit:disabled { color: var(--dim); cursor: wait; }
+    .private-error { grid-column: 1 / -1; min-height: 14px; margin: 12px 0 0; color: var(--tension); font: 8px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+
+    .bottom-bar {
+      grid-column: 1 / -1; grid-row: 3; display: block;
+      border-top: 1px solid var(--line); background: rgba(8,8,7,.96); z-index: 20;
+    }
+    .time-scrub { position: relative; justify-content: space-between; padding: 0 24px; color: var(--dim); font: 8px/1 var(--mono); }
+    .time-scrub { height: 54px; display: flex; }
+    .time-scrub::before { content: ""; position: absolute; left: 24px; right: 24px; top: 26px; height: 1px; background: var(--line); }
+    .time-scrub::after { content: ""; position: absolute; left: 24px; right: 24px; top: 26px; height: 1px; background: var(--accent); box-shadow: 0 0 12px rgba(146,124,255,.34); }
+    .time-scrub span { position: relative; padding-top: 11px; }
+    .time-scrub span::before { content: ""; position: absolute; width: 3px; height: 3px; background: currentColor; top: 10px; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; }
+    .time-scrub .current { color: var(--accent); }
+    .time-scrub .current::before { width: 6px; height: 6px; box-shadow: 0 0 12px var(--accent); }
+
+    :focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+    [contenteditable="true"]:focus-visible { outline-color: var(--belief); }
+    .sr-only {
+      position: absolute !important; width: 1px !important; height: 1px !important;
+      padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important;
+    }
+    @keyframes breathe { 0%,100% { transform: scale(.96); opacity: .35; } 50% { transform: scale(1.12); opacity: 1; } }
+    @keyframes blink { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+
+    @media (max-width: 1024px) {
+      .shell { grid-template-columns: 168px minmax(0, 1fr) 290px; }
+      .topbar, .bottom-bar { grid-template-columns: 168px 1fr 290px; }
+      .left-rail { padding-inline: 14px; }
+      .rail-title { font-size: 25px; }
+      .detail-head h2 { font-size: 29px; }
+    }
+
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      .shell { min-height: 100svh; height: auto; grid-template: 58px minmax(650px, 1fr) 54px / minmax(0,1fr); overflow: visible; }
+      .topbar { position: sticky; top: 0; grid-column: 1; grid-template-columns: 118px 1fr; }
+      .brand { padding: 0 12px; }
+      .brand-name { font-size: 9px; }
+      .view-tabs { justify-content: flex-end; overflow-x: auto; padding: 0 8px; }
+      .view-tab { padding-inline: 9px; }
+      .meta-actions, .left-rail { display: none; }
+      .stage { grid-row: 2; grid-column: 1; min-height: 650px; }
+      .detail-panel {
+        position: fixed; z-index: 30; left: 0; right: 0; bottom: 54px; max-height: 52svh;
+        grid-row: auto; grid-column: auto; border: 1px solid var(--line-strong);
+        transform: translateY(calc(100% - 78px)); transition: transform .32s ease;
+      }
+      .detail-panel.open { transform: translateY(0); }
+      .detail-head { cursor: pointer; }
+      .detail-head h2 { font-size: 25px; margin-top: 9px; }
+      .bottom-bar { position: fixed; left: 0; right: 0; bottom: 0; grid-column: 1; }
+      .time-scrub { display: flex; padding-inline: 14px; }
+      .time-scrub::before, .time-scrub::after { left: 14px; right: 14px; }
+      .editorial-view, .time-view { padding: 30px 20px 120px; }
+      .thread-row { grid-template-columns: 34px 1fr; min-height: 0; }
+      .thread-copy, .thread-state { grid-column: 2; text-align: left; }
+      .voice-view { grid-template-columns: 1fr; }
+      .voice-intro { min-height: 330px; padding: 34px 22px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .voice-console { min-height: 420px; padding: 24px 20px 120px; }
+      .time-header { display: block; }
+      .time-header p { margin-top: 20px; }
+      .time-line { margin-left: 48px; }
+      .era { grid-template-columns: 1fr; padding-left: 24px; }
+      .era-year { left: -50px; }
+      .era-tags { grid-column: 1; margin-top: -30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell" aria-label="Consciousness, Chay's living cognitive map">
+    <header class="topbar">
+      <a class="brand" href="../" aria-label="beingchay home">
+        <span class="brand-star" aria-hidden="true"></span>
+        <span class="brand-name">beingchay</span>
+      </a>
+      <nav class="view-tabs" aria-label="Consciousness views">
+        <button class="view-tab active" data-view="map">Map</button>
+        <button class="view-tab" data-view="threads">Threads</button>
+        <button class="view-tab" data-view="time">Time</button>
+        <button class="view-tab" data-view="voice">Voice</button>
+      </nav>
+      <div class="meta-actions">
+        <span class="live-mark">living model / v1</span>
+        <button class="privacy-toggle" id="privacy-toggle" aria-pressed="false">
+          <span id="privacy-label">public layer</span>
+          <span class="toggle-track" aria-hidden="true"><span class="toggle-dot"></span></span>
+        </button>
+      </div>
+    </header>
+
+    <aside class="left-rail" aria-label="Map filters">
+      <h2 class="rail-title">What made<br>this mind?</h2>
+      <div class="filter-list" id="filter-list"></div>
+      <div class="rail-divider"></div>
+      <p class="rail-kicker">Active threads</p>
+      <div class="thread-list">
+        <button class="thread-link" data-focus="preparation"><small>01</small><span>Preparation as protection</span></button>
+        <button class="thread-link" data-focus="pothos"><small>02</small><span>Pothos and impossible desire</span></button>
+        <button class="thread-link" data-focus="agency"><small>03</small><span>Agency as first principle</span></button>
+        <button class="thread-link" data-focus="expression"><small>04</small><span>Expression against loneliness</span></button>
+      </div>
+    </aside>
+
+    <section class="stage">
+      <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
+        <div class="map-head">
+          <h1 lang="hi">चैतन्य</h1>
+        </div>
+        <svg class="map-canvas" id="map-canvas" viewBox="0 0 1000 650" role="img" aria-label="Interactive graph of memories, beliefs, drives, patterns and influences"></svg>
+      </section>
+
+      <section class="view editorial-view" id="view-threads" aria-label="Curated cognitive threads">
+        <header class="editorial-header">
+          <p class="section-kicker">Threads / not categories</p>
+          <h2 data-pretext>Ideas that keep finding each other.</h2>
+          <p data-pretext>The map is not arranged by folders. It is arranged by recurrence: the same desire appearing in love, work, art, ambition and the stories I tell myself.</p>
+        </header>
+        <div class="thread-row">
+          <span class="thread-number">01</span>
+          <strong class="thread-name">Preparation as protection</strong>
+          <p class="thread-copy" data-pretext>Systems create control before exposure. The same instinct that built the vault can also delay the moment the work must be judged.</p>
+          <span class="thread-state">9 nodes<br>2 tensions</span>
+        </div>
+        <div class="thread-row">
+          <span class="thread-number">02</span>
+          <strong class="thread-name">Pothos</strong>
+          <p class="thread-copy" data-pretext>Longing is not merely directed toward people or outcomes. It is the engine that turns distance into vision, obsession and motion.</p>
+          <span class="thread-state">13 nodes<br>evolving</span>
+        </div>
+        <div class="thread-row">
+          <span class="thread-number">03</span>
+          <strong class="thread-name">Agency</strong>
+          <p class="thread-copy" data-pretext>The refusal to remain acted upon. Agency links the dropout, the builder, the lover, the strategist and the inner critic demanding proof.</p>
+          <span class="thread-state">17 nodes<br>core value</span>
+        </div>
+        <div class="thread-row">
+          <span class="thread-number">04</span>
+          <strong class="thread-name">Expression against loneliness</strong>
+          <p class="thread-copy" data-pretext>Philosophy, ANRXYST, Fallout and Cloud Consciousness converge on one need: reduce the distance between what is experienced internally and what can be received by another mind.</p>
+          <span class="thread-state">11 nodes<br>public</span>
+        </div>
+      </section>
+
+      <section class="view time-view" id="view-time" aria-label="Evolution over time">
+        <header class="time-header">
+          <div><p class="section-kicker">A mind has versions</p><h2>Evolution,<br>not diagnosis.</h2></div>
+          <p data-pretext>Nothing here is treated as permanently true. Beliefs acquire dates, evidence, contradictions and later revisions.</p>
+        </header>
+        <div class="time-line">
+          <article class="era" style="--era-color:var(--memory)">
+            <time class="era-year">2004—16</time><h3>Origin conditions</h3>
+            <p>Family systems, early status sensitivity, first private worlds, the beginnings of imagination as refuge and rehearsal.</p>
+            <div class="era-tags"><span>upbringing</span><span>belonging</span><span>double life</span></div>
+          </article>
+          <article class="era" style="--era-color:var(--drive)">
+            <time class="era-year">2017</time><h3>The founding wound</h3>
+            <p>First love joins desire to distance. Pothos stops being a feeling and becomes a durable engine for identity, fantasy and achievement.</p>
+            <div class="era-tags"><span>first love</span><span>pothos</span><span>glory</span></div>
+          </article>
+          <article class="era" style="--era-color:var(--tension)">
+            <time class="era-year">2021—23</time><h3>Constraint and reinvention</h3>
+            <p>Jail, rupture, financial pressure and altered self-image. Suits and Harvey Specter become an intentional scaffold for composure and power.</p>
+            <div class="era-tags"><span>survival</span><span>identity scaffold</span><span>control</span></div>
+          </article>
+          <article class="era" style="--era-color:var(--influence)">
+            <time class="era-year">2024—25</time><h3>Public forms appear</h3>
+            <p>ANRXYST and Fallout turn private taste into objects, events and communities. Expression begins to close the information gap.</p>
+            <div class="era-tags"><span>sound</span><span>fashion</span><span>fallout</span><span>anrxyst</span></div>
+          </article>
+          <article class="era" style="--era-color:var(--belief)">
+            <time class="era-year">2026—</time><h3>The mirror looks back</h3>
+            <p>The vault becomes Consciousness: not an archive of what happened, but a model that can show recurrence, contradiction and change.</p>
+            <div class="era-tags"><span>cognitive mirror</span><span>voice</span><span>second self</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view voice-view" id="view-voice" aria-label="Talk to the public mirror">
+        <div class="voice-intro">
+          <div><p class="section-kicker">The map speaks</p><h2>Ask the mirror.</h2></div>
+          <p data-pretext>It answers from explicit evidence, tells you when it is inferring, and preserves contradictions instead of flattening them into a personality summary.</p>
+        </div>
+        <div class="voice-console">
+          <div class="console-meta"><span>public projection</span><span>evidence mode / on</span></div>
+          <div class="conversation" id="conversation" aria-live="polite">
+            <p class="message user">Why does Chay keep building systems before publishing?</p>
+            <p class="message mirror">Because preparation does two jobs at once. It genuinely increases his leverage, and it postpones exposure. The system is useful. The safety it provides can become the trap.</p>
+            <p class="evidence-line">Synthesis from 7 notes · confidence 86%<br>Contradicted by: 2025 Fallout execution record</p>
+          </div>
+          <form class="ask-form" id="ask-form">
+            <label class="sr-only" for="ask-input">Ask the mirror</label>
+            <input class="ask-input" id="ask-input" placeholder="Ask what shaped a belief, pattern or desire…" autocomplete="off">
+            <button class="ask-submit" aria-label="Ask">↗</button>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <aside class="detail-panel" id="detail-panel" aria-label="Selected thought detail">
+      <header class="detail-head" id="detail-head">
+        <span class="detail-type" id="detail-type">Belief</span>
+        <h2 id="detail-title" data-pretext>Agency is the first principle.</h2>
+      </header>
+      <div class="detail-body">
+        <p class="detail-summary" id="detail-summary" data-pretext contenteditable="true">The recurring refusal to remain acted upon. Agency appears as moral value, survival strategy, aesthetic preference and the standard used to judge both self and others.</p>
+        <div class="metrics">
+          <div class="metric"><b id="detail-confidence">94%</b><span>confidence</span></div>
+          <div class="metric"><b id="detail-era">2017—</b><span>observed</span></div>
+          <div class="metric"><b id="detail-status">core</b><span>status</span></div>
+        </div>
+        <section class="detail-section">
+          <h3>Primary evidence</h3>
+          <blockquote class="source" id="detail-source">“The fastest way to lose his respect: lack of agency — complaining without acting, learned helplessness.”<span class="source-meta">Cognitive operating manual · explicit self-model</span></blockquote>
+        </section>
+        <section class="detail-section">
+          <h3>Connected because</h3>
+          <div class="relation-list" id="relation-list"></div>
+        </section>
+        <p class="inference-note" id="inference-note">MODEL NOTE / This node is supported by repeated explicit statements. One contested link is withheld from the public layer.</p>
+      </div>
+    </aside>
+
+    <footer class="bottom-bar">
+      <div class="time-scrub" aria-label="Timeline from 2004 through July 2026"><span>2004</span><span>2017</span><span>2021</span><span>2025</span><span class="current">2026 / NOW</span></div>
+    </footer>
+  </main>
+
+  <dialog class="private-dialog" id="private-dialog" aria-labelledby="private-dialog-title">
+    <header class="private-dialog-head">
+      <span class="private-dialog-title" id="private-dialog-title">Private layer</span>
+      <button class="private-dialog-close" id="private-dialog-close" type="button" aria-label="Close">×</button>
+    </header>
+    <form class="private-form" id="private-form">
+      <label class="sr-only" for="private-password">Password</label>
+      <input class="private-password" id="private-password" name="password" type="password" placeholder="password" autocomplete="current-password" required maxlength="256">
+      <button class="private-submit" id="private-submit" type="submit" aria-label="Unlock">↗</button>
+      <p class="private-error" id="private-error" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <script type="module">
+    const typeMeta = {
+      memory: { label: "Memory", color: "#aab4ff" },
+      belief: { label: "Belief", color: "#9a7cff" },
+      drive: { label: "Drive", color: "#6f78ff" },
+      pattern: { label: "Pattern", color: "#62b6ff" },
+      tension: { label: "Tension", color: "#bd78ff" },
+      influence: { label: "Influence", color: "#58d4ff" },
+      question: { label: "Open question", color: "#d9d6ff" },
+      locked: { label: "Private", color: "#4d4c59" }
+    };
+
+    const publicNodes = [
+      { id:"agency", label:"AGENCY", type:"belief", x:500, y:330, r:21, confidence:"94%", era:"2017—", status:"core", privacy:"public",
+        summary:"The recurring refusal to remain acted upon. Agency appears as moral value, survival strategy, aesthetic preference and the standard used to judge both self and others.",
+        source:"“The fastest way to lose his respect: lack of agency — complaining without acting, learned helplessness.”",
+        sourceMeta:"Cognitive operating manual · explicit self-model",
+        note:"This node is supported by repeated explicit statements. One contested link is withheld from the public layer.",
+        relations:[["preparation","protects"],["glory","pursues"],["fallout","expresses"]] },
+      { id:"preparation", label:"PREPARATION", type:"pattern", x:368, y:236, r:16, confidence:"89%", era:"2024—", status:"tension", privacy:"public",
+        summary:"Building systems creates real leverage while delaying exposure. The pattern is productive until preparation becomes the work itself.",
+        source:"“Am I building toward something real, or am I just getting really good at preparing to build?”",
+        sourceMeta:"Cognitive operating manual · central paradox",
+        note:"The protective function is an inference from recurrence across planning, content and project notes.",
+        relations:[["agency","protects"],["adhd","scaffolds"],["consciousness","creates"]] },
+      { id:"pothos", label:"POTHOS", type:"drive", x:635, y:230, r:18, confidence:"91%", era:"2017—", status:"engine", privacy:"public",
+        summary:"Desire intensified by distance. Pothos turns what is absent or impossible into vision, obsession, identity and motion.",
+        source:"“Vision as cope-since-childhood.”",
+        sourceMeta:"Pothos cognitive core · recurring synthesis",
+        note:"The term is explicit. Its role as a cross-domain motivational engine is synthesized.",
+        relations:[["glory","propels"],["manifestation","ritualizes"],["274","conflicts"]] },
+      { id:"glory", label:"GLORY", type:"drive", x:735, y:345, r:14, confidence:"83%", era:"2017—", status:"active", privacy:"public",
+        summary:"The desire not merely to succeed, but to become undeniable enough that the internal image receives external proof.",
+        source:"“Aspirations toward global influence through philosophy, art, music, technology and business.”",
+        sourceMeta:"Identity snapshot · explicit aspiration",
+        note:"‘Undeniable’ is interpretive language inferred from repeated ambition and self-proof patterns.",
+        relations:[["agency","demands"],["anrxyst","expresses"]] },
+      { id:"adhd", label:"ADHD", type:"pattern", x:318, y:465, r:13, confidence:"97%", era:"2026—", status:"clinical", privacy:"public",
+        summary:"An attention and activation profile that changes how urgency, novelty, rejection, structure and momentum interact.",
+        source:"Clinical evaluation dated 2026-06-25.",
+        sourceMeta:"Psychological assessment · clinical source",
+        note:"Clinical evidence and lived working model are kept separate in the private layer.",
+        relations:[["preparation","scaffolds"],["urgency","activates"]] },
+      { id:"spiral", label:"VERDICTS", type:"pattern", x:166, y:395, r:9, confidence:"88%", era:"2026—", status:"identified", privacy:"public",
+        summary:"Future-projection catastrophizing disguised as strategic thought. The diagnostic difference: real thinking creates options; spiraling creates verdicts.",
+        source:"“Real thinking produces options; the spiral only produces verdicts.”",
+        sourceMeta:"Cognitive operating manual · explicit pattern",
+        note:"Strongly evidenced by explicit language and repeated examples.",
+        relations:[["movement","interrupted by"]] },
+      { id:"movement", label:"MOVEMENT", type:"pattern", x:126, y:510, r:8, confidence:"86%", era:"2026—", status:"intervention", privacy:"public",
+        summary:"Physical motion changes the state of cognition more reliably than continued argument inside the same mental loop.",
+        source:"“Spiral breaker: physical movement.”",
+        sourceMeta:"Cognitive operating manual · explicit intervention",
+        note:"Intervention efficacy is self-reported rather than experimentally measured.",
+        relations:[["spiral","interrupts"],["flow","enables"]] },
+      { id:"manifestation", label:"MANIFESTATION", type:"belief", x:805, y:215, r:13, confidence:"82%", era:"2017—", status:"evolving", privacy:"public",
+        summary:"Vivid identity-image plus conviction plus unconventional action plus repetition. Less magical wish than an autobiographical theory of directed becoming.",
+        source:"Thirteen-row personal manifestation track record.",
+        sourceMeta:"Manifestation arc · autobiographical analysis",
+        note:"Causal claims remain interpretations; the behavior sequence is directly evidenced.",
+        relations:[["pothos","ritualizes"],["agency","requires"],["synchronicity","reads"]] },
+      { id:"synchronicity", label:"SYNCHRONICITY", type:"belief", x:887, y:320, r:9, confidence:"68%", era:"2025—", status:"question", privacy:"public",
+        summary:"Meaning found in recurrence and improbable alignment. Held as psychologically potent evidence without pretending the metaphysics are settled.",
+        source:"Repeated 1111 / 333 / 1331 observations.",
+        sourceMeta:"Topic synthesis · personal interpretation",
+        note:"The experiences are explicit; metaphysical causation is unresolved.",
+        relations:[["manifestation","supports"],["evidence-gap","opens"]] },
+      { id:"anrxyst", label:"ANRXYST", type:"influence", x:685, y:545, r:13, confidence:"95%", era:"2024—", status:"expression", privacy:"public",
+        summary:"The public language for private synthesis: philosophy, aesthetics, voice and provocation shaped into communicable artifacts.",
+        source:"Substance + format + voice.",
+        sourceMeta:"ANRXYST content engine · project model",
+        note:"Project role is explicit and still evolving through publication.",
+        relations:[["agency","expresses"],["information-gap","closes"],["glory","carries"]] },
+      { id:"fallout", label:"FALLØUT", type:"influence", x:448, y:555, r:12, confidence:"96%", era:"2025—", status:"expression", privacy:"public",
+        summary:"Rave culture, sound, fashion and community turned into a physical proof that private taste can organize a world outside the self.",
+        source:"Fallout / July 9, 2025 genesis.",
+        sourceMeta:"Project archive · executed artifact",
+        note:"A counterexample to the claim that preparation always defeats execution.",
+        relations:[["agency","expresses"],["sound","embodies"],["preparation","contradicts"]] },
+      { id:"sound", label:"SOUND", type:"influence", x:340, y:575, r:9, confidence:"90%", era:"childhood—", status:"deepening", privacy:"public",
+        summary:"Music is not background taste. It is memory indexing, emotional regulation, cultural pattern recognition and the material of belonging.",
+        source:"Schranz, hard techno, dekbass and artist references.",
+        sourceMeta:"Creative archive · repeated influence",
+        note:"Future version should ingest listening history and attach songs to memories and eras.",
+        relations:[["fallout","embodied by"],["memory-index","indexes"]] },
+      { id:"information-gap", label:"INFORMATION GAP", type:"belief", x:815, y:495, r:12, confidence:"90%", era:"2026—", status:"thesis", privacy:"public",
+        summary:"The distance between what exists in one mind and what another can receive is the central enemy of expression.",
+        source:"“Audience is blind; I’m the guy explaining colors.”",
+        sourceMeta:"Content-engine session · explicit metaphor",
+        note:"This connects communication philosophy, content strategy and Cloud Consciousness.",
+        relations:[["anrxyst","closed by"],["consciousness","closed by"],["loneliness","produces"]] },
+      { id:"consciousness", label:"THIS MIRROR", type:"question", x:500, y:112, r:15, confidence:"100%", era:"2026—", status:"becoming", privacy:"public",
+        summary:"A persistent, inspectable model of a life that can preserve evidence, show contradiction, speak in a recognizable voice and continue changing.",
+        source:"“I want to map my brain quite literally in the long run, make the best mirror of myself and give it a voice.”",
+        sourceMeta:"Consciousness design conversation · explicit intent",
+        note:"The system should never confuse model completeness with the person himself.",
+        relations:[["preparation","created by"],["information-gap","addresses"],["self-model-gap","admits"]] },
+      { id:"self-model-gap", label:"WHAT IS MISSING?", type:"question", x:515, y:50, r:8, confidence:"100%", era:"always", status:"open", privacy:"public",
+        summary:"Which parts of a life remain invisible because they were never written, were misremembered, or do not fit the current model?",
+        source:"Gap generated by the limits of the archive itself.",
+        sourceMeta:"System question · intentionally unresolved",
+        note:"The model must surface absences rather than present itself as total.",
+        relations:[["consciousness","constrains"]] },
+      { id:"locked-a", label:"LOCKED", type:"locked", x:268, y:354, r:12, privacy:"locked" },
+      { id:"locked-b", label:"LOCKED", type:"locked", x:212, y:490, r:10, privacy:"locked" },
+      { id:"locked-c", label:"LOCKED", type:"locked", x:696, y:115, r:12, privacy:"locked" },
+      { id:"locked-d", label:"LOCKED", type:"locked", x:572, y:475, r:14, privacy:"locked" }
+    ];
+
+    const publicEdges = [
+      ["agency","preparation","protects"],["agency","pothos","directs"],["agency","glory","pursues"],
+      ["preparation","adhd","scaffolds"],["preparation","consciousness","creates"],
+      ["pothos","manifestation","ritualized as"],["pothos","glory","propels"],
+      ["manifestation","synchronicity","reads as evidence"],["spiral","movement","interrupted by"],
+      ["agency","fallout","expressed as"],["agency","anrxyst","expressed as"],["fallout","sound","embodies"],
+      ["anrxyst","information-gap","closes"],["information-gap","consciousness","motivates"],
+      ["consciousness","self-model-gap","admits"]
+    ];
+
+    let nodes = publicNodes.map(node => ({ ...node, relations: node.relations ? [...node.relations] : [] }));
+    let edges = [...publicEdges];
+
+    const svg = document.querySelector("#map-canvas");
+    const ns = "http://www.w3.org/2000/svg";
+    let nodeById = new Map();
+    let activeNodeId = "agency";
+    let activeFilter = "all";
+
+    function el(name, attrs = {}) {
+      const node = document.createElementNS(ns, name);
+      for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
+      return node;
+    }
+
+    function renderGraph() {
+      svg.replaceChildren();
+      nodeById = new Map(nodes.map(node => [node.id, node]));
+      const edgeLayer = el("g", { class:"edges" });
+      const nodeLayer = el("g", { class:"nodes" });
+      svg.append(edgeLayer, nodeLayer);
+
+      for (const [fromId, toId, label] of edges) {
+        const from = nodeById.get(fromId);
+        const to = nodeById.get(toId);
+        if (!from || !to) continue;
+        const line = el("line", { x1:from.x, y1:from.y, x2:to.x, y2:to.y, class:"edge", "data-from":fromId, "data-to":toId });
+        const text = el("text", { x:(from.x+to.x)/2, y:(from.y+to.y)/2 - 5, class:"edge-label", "text-anchor":"middle" });
+        text.textContent = label;
+        edgeLayer.append(line, text);
+      }
+
+      for (const node of nodes) {
+        const meta = typeMeta[node.type];
+        const group = el("g", {
+          class:"node", transform:`translate(${node.x} ${node.y})`, tabindex:"0",
+          role:"button", "aria-label":`${node.label}, ${meta.label}`, "data-id":node.id, "data-type":node.type,
+          style:`--node-color:${meta.color}`
+        });
+        const halo = el("circle", { class:"halo", r:node.r + 9 });
+        const core = el("circle", { class:"core", r:node.r });
+        const point = el("circle", { class:"point", r:Math.max(2, node.r * .16) });
+        const text = el("text", { x:node.r + 9, y:3 });
+        text.textContent = node.label;
+        group.append(halo, core, point, text);
+        group.addEventListener("click", () => selectNode(node.id, true));
+        group.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNode(node.id, true); }
+        });
+        nodeLayer.append(group);
+      }
+      applyFilter();
+      selectNode(activeNodeId, false);
+    }
+
+    function selectNode(id, openMobile) {
+      const node = nodeById.get(id);
+      if (!node) return;
+      if (node.privacy === "locked") {
+        openPrivateDialog();
+        return;
+      }
+      activeNodeId = id;
+      const meta = typeMeta[node.type];
+      document.querySelectorAll(".node").forEach(item => item.classList.toggle("active", item.dataset.id === id));
+      document.querySelectorAll(".edge").forEach(line => line.classList.toggle("hot", line.dataset.from === id || line.dataset.to === id));
+      document.querySelector("#detail-panel").style.setProperty("--node-color", meta.color);
+      document.querySelector("#detail-type").textContent = meta.label;
+      document.querySelector("#detail-title").textContent = node.label.replace("THIS MIRROR", "The mirror looks back.");
+      document.querySelector("#detail-summary").textContent = node.summary;
+      document.querySelector("#detail-confidence").textContent = node.confidence;
+      document.querySelector("#detail-era").textContent = node.era;
+      document.querySelector("#detail-status").textContent = node.status;
+      document.querySelector("#detail-source").innerHTML = `${node.source}<span class="source-meta">${node.sourceMeta}</span>`;
+      document.querySelector("#inference-note").textContent = `MODEL NOTE / ${node.note}`;
+      const list = document.querySelector("#relation-list");
+      list.replaceChildren();
+      for (const [targetId, relationship] of node.relations) {
+        const target = nodeById.get(targetId);
+        const item = document.createElement("div");
+        item.className = "relation";
+        item.innerHTML = `<span>${target?.label || targetId.replaceAll("-"," ")}</span><em>${relationship}</em>`;
+        list.append(item);
+      }
+      if (openMobile && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
+    }
+
+    function buildFilters() {
+      const counts = nodes.reduce((result, node) => {
+        result[node.type] = (result[node.type] || 0) + 1;
+        return result;
+      }, {});
+      const filterList = document.querySelector("#filter-list");
+      filterList.replaceChildren();
+      const entries = [["all", {label:"Everything", color:"#f0eff8"}, nodes.length], ...Object.entries(typeMeta).filter(([key]) => counts[key]).map(([key, meta]) => [key, meta, counts[key]])];
+      for (const [key, meta, count] of entries) {
+        const button = document.createElement("button");
+        button.className = "filter" + (key === "all" ? " active" : "");
+        button.dataset.filter = key;
+        button.innerHTML = `<span class="filter-label"><span class="swatch" style="--swatch:${meta.color}"></span>${meta.label}</span><span class="count">${String(count).padStart(2,"0")}</span>`;
+        button.addEventListener("click", () => {
+          activeFilter = key;
+          document.querySelectorAll(".filter").forEach(item => item.classList.toggle("active", item === button));
+          applyFilter();
+        });
+        filterList.append(button);
+      }
+    }
+
+    function applyFilter() {
+      document.querySelectorAll(".node").forEach(item => item.classList.toggle("dim", activeFilter !== "all" && item.dataset.type !== activeFilter));
+    }
+
+    const privateDialog = document.querySelector("#private-dialog");
+    const privatePassword = document.querySelector("#private-password");
+    const privateError = document.querySelector("#private-error");
+    const privateSubmit = document.querySelector("#private-submit");
+
+    function openPrivateDialog() {
+      privateError.textContent = "";
+      if (!privateDialog.open) privateDialog.showModal();
+      requestAnimationFrame(() => privatePassword.focus());
+    }
+
+    function setPrivateState(unlocked) {
+      document.body.classList.toggle("private-mode", unlocked);
+      const toggle = document.querySelector("#privacy-toggle");
+      toggle.setAttribute("aria-pressed", String(unlocked));
+      document.querySelector("#privacy-label").textContent = unlocked ? "private model" : "public layer";
+    }
+
+    function lockPrivate() {
+      nodes = publicNodes.map(node => ({ ...node, relations: node.relations ? [...node.relations] : [] }));
+      edges = [...publicEdges];
+      activeNodeId = "agency";
+      activeFilter = "all";
+      setPrivateState(false);
+      buildFilters();
+      renderGraph();
+    }
+
+    document.querySelector("#privacy-toggle").addEventListener("click", () => {
+      if (document.body.classList.contains("private-mode")) lockPrivate();
+      else openPrivateDialog();
+    });
+
+    document.querySelector("#private-dialog-close").addEventListener("click", () => privateDialog.close());
+
+    privateDialog.addEventListener("close", () => {
+      privatePassword.value = "";
+      privateError.textContent = "";
+    });
+
+    document.querySelector("#private-form").addEventListener("submit", async event => {
+      event.preventDefault();
+      privateSubmit.disabled = true;
+      privateError.textContent = "";
+      try {
+        const response = await fetch("/api/consciousness-private", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          cache: "no-store",
+          body: JSON.stringify({ password: privatePassword.value })
+        });
+        if (!response.ok) throw new Error(response.status === 401 ? "Wrong password" : "Private layer unavailable");
+        const payload = await response.json();
+        if (!Array.isArray(payload.nodes) || !Array.isArray(payload.edges) || typeof payload.relationAdditions !== "object") {
+          throw new Error("Private layer unavailable");
+        }
+        const unlockedPublic = publicNodes
+          .filter(node => node.privacy !== "locked")
+          .map(node => ({ ...node, relations: [...(node.relations || []), ...(payload.relationAdditions[node.id] || [])] }));
+        nodes = [...unlockedPublic, ...payload.nodes];
+        edges = [...publicEdges, ...payload.edges];
+        activeNodeId = "agency";
+        activeFilter = "all";
+        setPrivateState(true);
+        buildFilters();
+        renderGraph();
+        privateDialog.close();
+      } catch (error) {
+        privateError.textContent = error.message;
+        privatePassword.select();
+      } finally {
+        privateSubmit.disabled = false;
+      }
+    });
+
+    document.querySelectorAll(".view-tab").forEach(button => button.addEventListener("click", () => {
+      document.querySelectorAll(".view-tab").forEach(tab => tab.classList.toggle("active", tab === button));
+      document.querySelectorAll(".view").forEach(view => view.classList.toggle("active", view.id === `view-${button.dataset.view}`));
+    }));
+
+    document.querySelectorAll(".thread-link").forEach(button => button.addEventListener("click", () => {
+      const focus = button.dataset.focus;
+      const nodeId = focus === "expression" ? "information-gap" : focus;
+      selectNode(nodeId, true);
+    }));
+
+    document.querySelector("#detail-head").addEventListener("click", () => {
+      if (window.innerWidth <= 768) document.querySelector("#detail-panel").classList.toggle("open");
+    });
+
+    document.querySelector("#ask-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const input = document.querySelector("#ask-input");
+      const question = input.value.trim();
+      if (!question) return;
+      const conversation = document.querySelector("#conversation");
+      const user = document.createElement("p");
+      user.className = "message user";
+      user.textContent = question;
+      const mirror = document.createElement("p");
+      mirror.className = "message mirror";
+      const lower = question.toLowerCase();
+      mirror.textContent = lower.includes("love") || lower.includes("desire")
+        ? "The current model sees desire as more than attraction. Distance creates an image of who he might become, then he pursues both the person and that possible self. This is a synthesis, not a settled fact."
+        : lower.includes("afraid") || lower.includes("fear")
+          ? "The strongest recurring fear is not simple failure. It is the possibility that failure invalidates the identity built around it. Evidence is mixed because Fallout records decisive action under risk."
+          : "The public model does not have enough evidence to answer that cleanly yet. It can show related threads, but the honest response is an open question rather than a personality verdict.";
+      const evidence = document.createElement("p");
+      evidence.className = "evidence-line";
+      evidence.textContent = "Public synthesis · evidence boundary preserved · private sources withheld";
+      conversation.append(user, mirror, evidence);
+      input.value = "";
+      conversation.scrollTop = conversation.scrollHeight;
+    });
+
+    buildFilters();
+    renderGraph();
+
+    try {
+      const { prepare, layout } = await import("./pretext.js");
+      await document.fonts.ready;
+      const prepared = new Map();
+      const elements = document.querySelectorAll("[data-pretext]");
+      const prepareElement = element => prepared.set(element, prepare(element.textContent, getComputedStyle(element).font));
+      elements.forEach(prepareElement);
+      const relayout = () => {
+        for (const [element, handle] of prepared) {
+          const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
+          if (!Number.isFinite(lineHeight) || element.clientWidth < 1) continue;
+          const result = layout(handle, element.clientWidth, lineHeight);
+          element.style.minHeight = `${Math.ceil(result.height)}px`;
+        }
+      };
+      elements.forEach(element => {
+        if (element.contentEditable === "true") {
+          new MutationObserver(() => { prepareElement(element); relayout(); }).observe(element, { childList:true, subtree:true, characterData:true });
+        }
+      });
+      new ResizeObserver(relayout).observe(document.body);
+      relayout();
+    } catch (error) {
+      console.info("Pretext enhancement unavailable; native responsive layout remains active.", error);
+    }
+  </script>
+</body>
+</html>

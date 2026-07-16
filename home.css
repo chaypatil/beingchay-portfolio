@@ -158,6 +158,15 @@ body.is-ready .project-link {
   left: 21%;
 }
 
+.project-link-bottom {
+  --reveal-delay: 2050ms;
+  top: 83%;
+  left: 50%;
+  font-family: "Nirmala UI", "Noto Sans Devanagari", "Mangal", var(--font-sans, sans-serif);
+  font-size: clamp(13px, 1.12vw, 18px);
+  letter-spacing: 0.02em;
+}
+
 body.is-focused .project-link {
   color: rgba(255, 255, 255, 0.96);
   opacity: 1;
@@ -176,6 +185,10 @@ body.is-focused .project-link-top {
 
 body.is-focused .project-link-left {
   left: 31%;
+}
+
+body.is-focused .project-link-bottom {
+  top: 73%;
 }
 
 .project-link:hover,
@@ -290,6 +303,11 @@ body.is-traveling .departure-flare {
     top: 20%;
   }
 
+  .project-link-bottom {
+    top: 82%;
+    font-size: 14px;
+  }
+
   body.is-focused .project-link-right {
     left: 72%;
   }
@@ -300,6 +318,10 @@ body.is-traveling .departure-flare {
 
   body.is-focused .project-link-top {
     top: 31%;
+  }
+
+  body.is-focused .project-link-bottom {
+    top: 70%;
   }
 
   .light-trigger {
