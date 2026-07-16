@@ -70,7 +70,6 @@ function initConsultationHero() {
   let ticking = false;
 
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-  const lerp = (start, end, progress) => start + (end - start) * progress;
   const ease = (progress) => progress * progress * (3 - 2 * progress);
 
   function measure() {
@@ -78,50 +77,22 @@ function initConsultationHero() {
     const sceneHeight = scene.offsetHeight;
     const screenWidth = screen.offsetWidth;
     const screenHeight = screen.offsetHeight;
-    const screenCenterX = screen.offsetLeft + screenWidth / 2;
-    const screenCenterY = screen.offsetTop + screenHeight / 2;
     const sceneLeft = (window.innerWidth - sceneWidth) / 2;
     const sceneTop = (window.innerHeight - sceneHeight) / 2;
-    const desktopScale = Math.max(window.innerWidth / screenWidth, window.innerHeight / screenHeight) * 1.01;
-    const mobileScale = Math.min(Math.max((window.innerWidth / screenWidth) * 1.1, 1.08), 1.24);
-    const targetScale = window.innerWidth < 768 ? mobileScale : desktopScale;
 
     metrics = {
       start: hero.offsetTop,
       end: hero.offsetTop + hero.offsetHeight - window.innerHeight,
-      targetScale,
-      targetX: window.innerWidth / 2 - (sceneLeft + screenCenterX),
-      targetY: window.innerHeight / 2 - (sceneTop + screenCenterY),
       liveStartLeft: sceneLeft + screen.offsetLeft,
       liveStartTop: sceneTop + screen.offsetTop,
       liveStartWidth: screenWidth,
       liveStartHeight: screenHeight,
-      liveEndLeft: 0,
-      liveEndTop: 0,
-      liveEndWidth: window.innerWidth,
-      liveEndHeight: window.innerHeight,
-      headlineStart: window.innerWidth < 768 ? 15.5 : Math.min(Math.max(window.innerWidth * 0.022, 24), 38),
-      headlineEnd: Math.min(Math.max(window.innerWidth * 0.046, 54), 70),
-      subheadlineStart: window.innerWidth < 768 ? 9 : Math.min(Math.max(window.innerWidth * 0.0112, 14), 20),
-      subheadlineEnd: Math.min(Math.max(window.innerWidth * 0.014, 18), 22),
-      ctaHeightStart: window.innerWidth < 768 ? 29 : Math.min(Math.max(window.innerWidth * 0.04, 46), 60),
-      ctaHeightEnd: 60,
-      ctaFontStart: window.innerWidth < 768 ? 8.5 : Math.min(Math.max(window.innerWidth * 0.0105, 13), 18),
-      ctaFontEnd: 16,
-      ctaWidthStart: window.innerWidth < 768 ? 160 : 310,
-      ctaWidthEnd: 300,
-      headlineWidthStart: Math.min(screenWidth * 0.94, 860),
-      headlineWidthEnd: Math.min(window.innerWidth * 0.94, 1360),
-      subheadlineWidthStart: Math.min(screenWidth * 0.78, 640),
-      subheadlineWidthEnd: Math.min(window.innerWidth * 0.7, 760),
-      actionsWidthStart: Math.min(screenWidth * 0.76, 640),
-      actionsWidthEnd: Math.min(window.innerWidth * 0.72, 680),
-      screenCenterViewportX: sceneLeft + screenCenterX,
-      screenCenterViewportY: sceneTop + screenCenterY,
+      headlineStart: Math.min(Math.max(screenWidth * 0.046, 32), 42),
+      subheadlineStart: Math.min(Math.max(screenWidth * 0.022, 16), 19),
+      ctaHeightStart: Math.min(Math.max(screenWidth * 0.067, 52), 58),
+      ctaFontStart: Math.min(Math.max(screenWidth * 0.019, 14), 16),
+      ctaWidthStart: Math.min(Math.max(screenWidth * 0.37, 270), 305),
     };
-
-    scene.style.setProperty("--scene-origin-x", `${(screenCenterX / sceneWidth) * 100}%`);
-    scene.style.setProperty("--scene-origin-y", `${(screenCenterY / sceneHeight) * 100}%`);
   }
 
   function render() {
@@ -130,37 +101,20 @@ function initConsultationHero() {
 
     const distance = Math.max(metrics.end - metrics.start, 1);
     const rawProgress = (window.scrollY - metrics.start) / distance;
-    const progress = ease(clamp(rawProgress, 0, 1));
-    const scale = lerp(1, metrics.targetScale, progress);
-    const x = lerp(0, metrics.targetX, progress);
-    const y = lerp(0, metrics.targetY, progress);
-    const screenWidth = metrics.liveStartWidth * scale;
-    const screenHeight = metrics.liveStartHeight * scale;
-    const screenLeft = metrics.screenCenterViewportX + x - screenWidth / 2;
-    const screenTop = metrics.screenCenterViewportY + y - screenHeight / 2;
-    const settleProgress = ease(clamp((progress - 0.62) / 0.38, 0, 1));
-    const sceneOpacity = 1 - settleProgress;
-    const liveLeft = lerp(screenLeft, metrics.liveEndLeft, settleProgress);
-    const liveTop = lerp(screenTop, metrics.liveEndTop, settleProgress);
-    const liveWidth = lerp(screenWidth, metrics.liveEndWidth, settleProgress);
-    const liveHeight = lerp(screenHeight, metrics.liveEndHeight, settleProgress);
+    const shutdownProgress = ease(clamp(rawProgress, 0, 1));
 
-    scene.style.setProperty("--scene-scale", scale.toFixed(4));
-    scene.style.setProperty("--scene-x", `${x.toFixed(2)}px`);
-    scene.style.setProperty("--scene-y", `${y.toFixed(2)}px`);
-    scene.style.setProperty("--scene-opacity", sceneOpacity.toFixed(4));
-    liveContent.style.setProperty("--live-left", `${liveLeft.toFixed(2)}px`);
-    liveContent.style.setProperty("--live-top", `${liveTop.toFixed(2)}px`);
-    liveContent.style.setProperty("--live-width", `${liveWidth.toFixed(2)}px`);
-    liveContent.style.setProperty("--live-height", `${liveHeight.toFixed(2)}px`);
-    liveContent.style.setProperty("--headline-size", `${lerp(metrics.headlineStart, metrics.headlineEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--subheadline-size", `${lerp(metrics.subheadlineStart, metrics.subheadlineEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--cta-height", `${lerp(metrics.ctaHeightStart, metrics.ctaHeightEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--cta-font-size", `${lerp(metrics.ctaFontStart, metrics.ctaFontEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--cta-width", `${lerp(metrics.ctaWidthStart, metrics.ctaWidthEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--headline-width", `${lerp(metrics.headlineWidthStart, metrics.headlineWidthEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--subheadline-width", `${lerp(metrics.subheadlineWidthStart, metrics.subheadlineWidthEnd, progress).toFixed(2)}px`);
-    liveContent.style.setProperty("--actions-width", `${lerp(metrics.actionsWidthStart, metrics.actionsWidthEnd, progress).toFixed(2)}px`);
+    hero.style.setProperty("--shutdown-progress", shutdownProgress.toFixed(4));
+    hero.classList.toggle("is-shutting-down", rawProgress > 0.001);
+    liveContent.style.setProperty("--live-left", `${metrics.liveStartLeft.toFixed(2)}px`);
+    liveContent.style.setProperty("--live-top", `${metrics.liveStartTop.toFixed(2)}px`);
+    liveContent.style.setProperty("--live-width", `${metrics.liveStartWidth.toFixed(2)}px`);
+    liveContent.style.setProperty("--live-height", `${metrics.liveStartHeight.toFixed(2)}px`);
+    liveContent.style.setProperty("--headline-size", `${metrics.headlineStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--subheadline-size", `${metrics.subheadlineStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--cta-height", `${metrics.ctaHeightStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--cta-font-size", `${metrics.ctaFontStart.toFixed(2)}px`);
+    liveContent.style.setProperty("--cta-width", `${metrics.ctaWidthStart.toFixed(2)}px`);
+    liveContent.style.pointerEvents = shutdownProgress > 0.85 ? "none" : "auto";
   }
 
   function requestRender() {

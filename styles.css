@@ -720,7 +720,7 @@ body.consultation-body {
 
 .consultation-scroll-hero {
   position: relative;
-  min-height: 245svh;
+  min-height: 160svh;
   width: 100%;
   background: var(--bc-cream);
 }
@@ -738,21 +738,12 @@ body.consultation-body {
 }
 
 .consultation-scene {
-  --scene-scale: 1;
-  --scene-x: 0px;
-  --scene-y: 0px;
-  --scene-opacity: 1;
-  --scene-origin-x: 50%;
-  --scene-origin-y: 50%;
   position: relative;
   width: max(100vw, calc(100svh * 1.5));
   max-width: 1920px;
   aspect-ratio: 3 / 2;
   flex: 0 0 auto;
-  transform: translate3d(var(--scene-x), var(--scene-y), 0) scale(var(--scene-scale));
-  transform-origin: var(--scene-origin-x) var(--scene-origin-y);
-  opacity: var(--scene-opacity);
-  will-change: transform, opacity;
+  transform: none;
 }
 
 .consultation-laptop {
@@ -794,9 +785,6 @@ body.consultation-body {
   --cta-height: 54px;
   --cta-font-size: 15px;
   --cta-width: 270px;
-  --headline-width: 800px;
-  --subheadline-width: 640px;
-  --actions-width: 640px;
   position: absolute;
   z-index: 1;
   left: var(--live-left);
@@ -808,8 +796,6 @@ body.consultation-body {
   align-items: center;
   justify-content: center;
   padding: 7% 5% 6%;
-  overflow: hidden;
-  background: #ffffff;
   text-align: center;
   opacity: 0;
   transform: translate3d(0, 12px, 0);
@@ -822,19 +808,25 @@ body.consultation-body {
 }
 
 .consultation-scroll-hero.is-powered-on .consultation-screen-bg {
-  opacity: 1;
+  opacity: calc(1 - var(--shutdown-progress, 0));
 }
 
 .consultation-scroll-hero.is-powered-on .consultation-live-screen-content {
-  opacity: 1;
+  opacity: calc(1 - var(--shutdown-progress, 0));
   transform: translate3d(0, 0, 0);
   pointer-events: auto;
 }
 
+.consultation-scroll-hero.is-shutting-down .consultation-screen-bg,
+.consultation-scroll-hero.is-shutting-down .consultation-live-screen-content {
+  transition-duration: 90ms;
+  transition-delay: 0ms;
+  transition-timing-function: linear;
+}
+
 .consultation-live-screen-content h1 {
   margin: 0;
-  width: min(100%, var(--headline-width));
-  max-width: none;
+  max-width: 800px;
   color: var(--bc-navy);
   font-family: "Geist", "Inter", system-ui, sans-serif;
   font-size: var(--headline-size);
@@ -849,8 +841,7 @@ body.consultation-body {
 }
 
 .consultation-live-screen-content p {
-  width: min(100%, var(--subheadline-width));
-  max-width: none;
+  max-width: 640px;
   margin: 22px 0 0;
   color: var(--bc-muted);
   font-family: "Inter", system-ui, sans-serif;
@@ -863,7 +854,7 @@ body.consultation-body {
   display: flex;
   justify-content: center;
   gap: 20px;
-  width: min(72%, var(--actions-width));
+  width: min(72%, 640px);
   margin-top: 30px;
 }
 
@@ -2359,8 +2350,6 @@ dd {
     width: min(100%, 560px);
     height: auto;
     padding: 22px 20px 26px;
-    overflow: visible;
-    background: transparent;
   }
 
   .consultation-live-screen-content h1 {
