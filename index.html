@@ -3,137 +3,52 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>beingchay | AI Context-to-Execution Sprint</title>
-    <meta name="description" content="A 30-day AI Context-to-Execution Sprint for founder-led B2B teams with scattered docs, CRM data, support conversations, and founder context.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700;800&family=Inter:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#000000">
+    <title>beingchay</title>
+    <meta name="description" content="Three connected projects by Chay: fallout, ANRXYST, and C2X.">
+    <link rel="preload" as="image" href="assets/central-light-hero.png" fetchpriority="high">
+    <link rel="stylesheet" href="home.css">
   </head>
-  <body class="offer-body">
-    <header class="site-header offer-header">
-      <a class="brand offer-brand" href="index.html" aria-label="beingchay home">
-        <span class="brand-mark">bc</span>
-        <span>beingchay</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="#features">Features</a>
-        <a href="consultation/">Consultation</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <a class="nav-cta subtle" href="https://github.com/chaypatil/beingchay-portfolio">GitHub</a>
-        <a class="nav-cta" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book audit</a>
-      </div>
-    </header>
+  <body>
+    <main class="constellation" aria-labelledby="home-title">
+      <h1 id="home-title" class="visually-hidden">beingchay projects</h1>
 
-    <main>
-      <section class="offer-hero section-shell">
-        <p class="offer-pill">30-day pilot - human-reviewed - founder-led B2B</p>
-        <h1 data-pretext>Turn scattered company context into AI workflows your team can actually use.</h1>
-        <p class="offer-lede" data-pretext>
-          I help founder-led B2B teams convert messy docs, CRM exports, support conversations,
-          founder decisions, and workflow habits into AI-assisted execution systems.
+      <section class="constellation-scene" aria-describedby="interaction-note">
+        <img
+          class="light-field"
+          src="assets/central-light-hero.png"
+          alt=""
+          width="1728"
+          height="960"
+          decoding="async"
+          fetchpriority="high"
+        >
+
+        <button
+          class="light-trigger"
+          type="button"
+          aria-label="Bring the projects closer"
+          aria-pressed="false"
+        ></button>
+
+        <nav class="project-orbit" aria-label="Projects">
+          <a class="project-link project-link-right" href="https://fall0ut.in" rel="external">
+            <span>fallØut</span>
+          </a>
+          <a class="project-link project-link-top" href="c2x/">
+            <span>C2X</span>
+          </a>
+          <a class="project-link project-link-left" href="anrxyst.html">
+            <span>ANRXYST</span>
+          </a>
+        </nav>
+
+        <p id="interaction-note" class="visually-hidden">
+          Scroll in either direction or activate the central light to bring the project links into focus.
         </p>
-        <div class="mode-switch" aria-label="Workflow mode">
-          <span><i></i> Human context</span>
-          <span><i></i> Machine execution</span>
-        </div>
-        <div class="hero-actions">
-          <a class="button primary" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book a Context Leak Audit</a>
-          <a class="button secondary" href="consultation/">See consultation page</a>
-        </div>
-      </section>
-
-      <section class="signal-band" aria-label="Selected context signals">
-        <div class="signal-inner section-shell">
-          <span>Built from work across</span>
-          <img src="assets/logos/soileum-logo.png" alt="Soileum logo">
-          <img src="assets/logos/ticombo.svg" alt="Ticombo logo">
-          <img src="assets/logos/peoplebox.jpg" alt="Peoplebox.ai logo">
-          <img src="assets/logos/everis.png" alt="Everis logo" class="icon-logo">
-          <img src="assets/logos/prosp-logo-color.png" alt="Prosp logo">
-          <img src="assets/logos/pebble-mascot-logo.png" alt="Pebble logo" class="round-logo">
-        </div>
-      </section>
-
-      <section id="features" class="section-shell feature-section">
-        <div class="section-heading centered">
-          <p class="eyebrow">What the sprint ships</p>
-          <h2>One messy workflow becomes a usable operating system.</h2>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card">
-            <span>01</span>
-            <h3>Context layer</h3>
-            <p>Source-of-truth folder, context map, source list, decision log, tone examples, and workflow rules.</p>
-          </article>
-          <article class="feature-card">
-            <span>02</span>
-            <h3>AI instructions</h3>
-            <p>Reusable prompts, role instructions, review criteria, handoff SOPs, and guardrails for one workflow.</p>
-          </article>
-          <article class="feature-card">
-            <span>03</span>
-            <h3>Execution loop</h3>
-            <p>A human-reviewed workflow for partner activation, lead drafts, onboarding recovery, or support-to-activation.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="process" class="section-shell timeline-section">
-        <div class="section-heading centered">
-          <p class="eyebrow">30-day build rhythm</p>
-          <h2>Audit, map, build, test, hand off.</h2>
-        </div>
-        <div class="timeline-grid">
-          <article>
-            <span>Days 1-3</span>
-            <strong>Find context leaks</strong>
-            <p>Where does the same explanation keep getting repeated?</p>
-          </article>
-          <article>
-            <span>Days 4-8</span>
-            <strong>Map sources</strong>
-            <p>Docs, exports, tickets, examples, decisions, and workflow habits.</p>
-          </article>
-          <article>
-            <span>Days 9-15</span>
-            <strong>Build instructions</strong>
-            <p>Reusable context, prompts, rules, and review criteria.</p>
-          </article>
-          <article>
-            <span>Days 16-23</span>
-            <strong>Ship one workflow</strong>
-            <p>One reviewable system your team can actually run.</p>
-          </article>
-          <article>
-            <span>Days 24-30</span>
-            <strong>Measure and hand off</strong>
-            <p>Usage, acceptance, time saved, SOPs, and next actions.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="contact" class="section-shell final-cta">
-        <p class="eyebrow">Pilot offer</p>
-        <h2>Looking for 2 beta clients.</h2>
-        <p>
-          Best fit: 10-100 person B2B SaaS or service teams where AI output still needs constant re-explaining,
-          rewriting, or re-checking because company memory is scattered.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="mailto:chaitanya.cp19@gmail.com?subject=Context%20Leak%20Audit">Book a Context Leak Audit</a>
-          <a class="button secondary" href="consultation/">Read the consultation offer</a>
-        </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <span>beingchay</span>
-      <a href="mailto:chaitanya.cp19@gmail.com">chaitanya.cp19@gmail.com</a>
-    </footer>
-
-    <script type="module" src="script.js"></script>
+    <script type="module" src="home.js"></script>
   </body>
 </html>

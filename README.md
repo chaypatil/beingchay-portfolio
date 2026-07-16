@@ -30,7 +30,7 @@ It documents my work building AI workflows, growth systems, content systems, par
 
 - Repositioned the homepage around the AI Context-to-Execution Sprint offer
 - Added a Sinas-inspired dark product landing page direction
-- Added `/consultation/` for professional work and pilot details
+- Added `/c2x/` for professional work and pilot details (`/consultation/` redirects there)
 - Replaced Soileum and Pebble logo assets
 - Kept Fall0ut, Anrxyst, and Cloud Consciousness as separate universe pages for later redesign
 
