@@ -741,6 +741,7 @@ body.consultation-body {
   --scene-scale: 1;
   --scene-x: 0px;
   --scene-y: 0px;
+  --scene-opacity: 1;
   --scene-origin-x: 50%;
   --scene-origin-y: 50%;
   position: relative;
@@ -750,7 +751,8 @@ body.consultation-body {
   flex: 0 0 auto;
   transform: translate3d(var(--scene-x), var(--scene-y), 0) scale(var(--scene-scale));
   transform-origin: var(--scene-origin-x) var(--scene-origin-y);
-  will-change: transform;
+  opacity: var(--scene-opacity);
+  will-change: transform, opacity;
 }
 
 .consultation-laptop {
@@ -792,6 +794,9 @@ body.consultation-body {
   --cta-height: 54px;
   --cta-font-size: 15px;
   --cta-width: 270px;
+  --headline-width: 800px;
+  --subheadline-width: 640px;
+  --actions-width: 640px;
   position: absolute;
   z-index: 1;
   left: var(--live-left);
@@ -803,6 +808,8 @@ body.consultation-body {
   align-items: center;
   justify-content: center;
   padding: 7% 5% 6%;
+  overflow: hidden;
+  background: #ffffff;
   text-align: center;
   opacity: 0;
   transform: translate3d(0, 12px, 0);
@@ -826,13 +833,15 @@ body.consultation-body {
 
 .consultation-live-screen-content h1 {
   margin: 0;
-  max-width: 800px;
+  width: min(100%, var(--headline-width));
+  max-width: none;
   color: var(--bc-navy);
   font-family: "Geist", "Inter", system-ui, sans-serif;
   font-size: var(--headline-size);
   font-weight: 700;
   line-height: 1.16;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .consultation-live-screen-content h1 span {
@@ -840,7 +849,8 @@ body.consultation-body {
 }
 
 .consultation-live-screen-content p {
-  max-width: 640px;
+  width: min(100%, var(--subheadline-width));
+  max-width: none;
   margin: 22px 0 0;
   color: var(--bc-muted);
   font-family: "Inter", system-ui, sans-serif;
@@ -853,7 +863,7 @@ body.consultation-body {
   display: flex;
   justify-content: center;
   gap: 20px;
-  width: min(72%, 640px);
+  width: min(72%, var(--actions-width));
   margin-top: 30px;
 }
 
@@ -910,7 +920,7 @@ body.consultation-body {
   z-index: 30;
   min-height: 78px;
   border-bottom: 1px solid rgba(23, 34, 53, 0.1);
-  background: rgba(255, 252, 247, 0.72);
+  background: rgba(255, 252, 247, 0.62);
   box-shadow: none;
 }
 
@@ -926,6 +936,56 @@ body.consultation-body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.consultation-body .c2x-brand {
+  width: max-content;
+  max-width: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  overflow: visible;
+  font-family: "Geist", "Inter", system-ui, sans-serif;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.c2x-mark {
+  position: relative;
+  display: inline-block;
+  padding-right: 24px;
+}
+
+.c2x-name {
+  color: var(--bc-navy);
+  font-size: 25px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+}
+
+.c2x-beta {
+  position: absolute;
+  top: -4px;
+  right: 0;
+  color: #cf3037;
+  font-family: "Segoe Script", "Bradley Hand", "Brush Script MT", cursive;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0;
+  transform: rotate(-7deg);
+  transform-origin: left bottom;
+}
+
+.c2x-expansion {
+  color: #747e8c;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.045em;
+  line-height: 1.15;
 }
 
 .consultation-body .consult-brand {
@@ -1801,6 +1861,11 @@ dd {
   text-overflow: ellipsis;
 }
 
+.consultation-body .offer-brand.c2x-brand {
+  overflow: visible;
+  text-overflow: clip;
+}
+
 .consultation-body .nav-cta {
   min-height: 46px;
   padding: 10px 18px;
@@ -2211,6 +2276,32 @@ dd {
     letter-spacing: 0.06em;
   }
 
+  .consultation-body .site-header {
+    background: rgba(255, 252, 247, 0.84);
+  }
+
+  .consultation-body .c2x-brand {
+    gap: 0;
+    letter-spacing: 0;
+  }
+
+  .c2x-mark {
+    padding-right: 20px;
+  }
+
+  .c2x-name {
+    font-size: 21px;
+  }
+
+  .c2x-beta {
+    top: -3px;
+    font-size: 9px;
+  }
+
+  .c2x-expansion {
+    font-size: 8px;
+  }
+
   .consultation-body .header-actions {
     width: auto;
     justify-self: end;
@@ -2268,12 +2359,15 @@ dd {
     width: min(100%, 560px);
     height: auto;
     padding: 22px 20px 26px;
+    overflow: visible;
+    background: transparent;
   }
 
   .consultation-live-screen-content h1 {
     max-width: 520px;
     font-size: clamp(32px, 9.4vw, 42px);
     line-height: 1.08;
+    white-space: normal;
   }
 
   .consultation-live-screen-content p {
