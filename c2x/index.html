@@ -4,231 +4,214 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>C2X | beingchay</title>
-    <meta name="description" content="C2X is Chaitanya Patil's Context-to-Execution offer for founder-led teams.">
+    <meta name="description" content="C2X is Chaitanya Patil's portfolio for context-to-execution AI workflow systems.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="../assets/consultation-laptop-blank.png">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700;800&family=Inter:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./c2x.css">
   </head>
-  <body class="consultation-body">
-    <header class="site-header offer-header">
-      <a class="brand offer-brand c2x-brand" href="../index.html" aria-label="beingchay home">
+  <body class="c2x-body">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="c2x-spine" aria-hidden="true"></div>
+
+    <header class="c2x-header" aria-label="C2X">
+      <a class="c2x-brand" href="./" aria-label="C2X home">
         <span class="c2x-mark">
           <span class="c2x-name">C2X</span>
           <span class="c2x-beta">Beta</span>
         </span>
         <span class="c2x-expansion">Context-to-Execution</span>
       </a>
-      <div class="header-actions">
-        <a class="nav-cta" href="./book/?package=audit">Book audit</a>
+
+      <div class="c2x-header-actions">
+        <button class="spine-toggle" type="button" aria-pressed="true" aria-label="Toggle the vertical spine line">
+          Line on
+        </button>
+        <a class="text-cta" href="./book/?package=audit">[ Let's talk ]</a>
       </div>
     </header>
 
-    <main>
-      <section class="consultation-scroll-hero" aria-label="C2X Context-to-Execution offer">
-        <div class="consultation-sticky">
-          <div class="consultation-scene">
-            <img
-              class="consultation-laptop"
-              src="../assets/consultation-laptop-blank.png"
-              alt=""
-              decoding="async"
-              fetchpriority="high"
-            >
-
-            <div class="consultation-screen-layer">
-              <div class="consultation-screen-bg"></div>
-            </div>
-          </div>
-
-          <div class="consultation-live-screen-content">
-            <h1>
-              Buying the best AI model isn't <span>enough.</span><br>
-              It needs to <span>know</span> how your business works.
-            </h1>
-
+    <main id="main" class="c2x-page">
+      <section id="signal" class="c2x-section hero-section" aria-labelledby="signal-title">
+        <div class="section-inner hero-inner">
+          <p class="section-label"><span>01</span><span>/</span><span>Signal</span></p>
+          <p class="mono-tag">[ AI WORKFLOWS - BUILT, NOT BOUGHT ]</p>
+          <h1 id="signal-title">Most teams already have AI. Few have it working the way they actually work.</h1>
+          <div class="hero-lower">
             <p>
-              Turn your team's scattered docs, chats, CRM notes, founder decisions,
-              and workflow rules into AI-assisted execution systems.
+              I'm Chay. I take one messy, repetitive workflow at a time and rebuild it so AI does the heavy lifting
+              and a human still signs off on what matters.
             </p>
-
-            <div class="consultation-actions">
-              <a class="consultation-primary-cta" href="./book/?package=audit">
-                Book a Context Leak Audit
-              </a>
-              <a class="consultation-secondary-cta" href="#process">
-                See the 30-Day Process
-              </a>
-            </div>
+            <a class="text-cta hero-cta" href="./book/?package=audit">[ Let's talk ]</a>
           </div>
         </div>
-
-        <div class="consultation-hero-fade" aria-hidden="true"></div>
       </section>
 
-      <section id="offer" class="section-shell consultation-panel">
-        <div>
-          <p class="eyebrow">The offer</p>
-          <h2>AI Context-to-Execution Sprint</h2>
-        </div>
-        <div class="copy-stack">
-          <p>
-            In 30 days, one messy growth or onboarding workflow becomes a documented, AI-assisted execution system
-            with reusable context, instructions, review loops, and measurable output.
-          </p>
-          <p>
-            Built assets include a context map, source-of-truth folder, prompt/workflow library, decision log,
-            human review queue, handoff SOP, and one live workflow.
-          </p>
-        </div>
-      </section>
+      <section id="work" class="c2x-section blue-section work-section" aria-labelledby="work-title">
+        <div class="section-inner">
+          <div class="section-topline">
+            <p class="section-label"><span>02</span><span>/</span><span>Selected Work</span></p>
+            <p class="section-status">Active 01 / 06</p>
+          </div>
 
-      <section id="process" class="section-shell consult-process-section">
-        <div class="section-heading centered">
-          <p class="eyebrow">30-day process</p>
-          <h2>From scattered context to one shipped execution loop.</h2>
-        </div>
-        <div class="consult-process-grid">
-          <article>
-            <span>01</span>
-            <strong>Audit context leaks</strong>
-            <p>Find the places where founders, operators, or customer teams keep re-explaining the same business context.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <strong>Map the source layer</strong>
-            <p>Pull docs, chats, CRM notes, founder decisions, examples, and workflow rules into a usable context map.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <strong>Build the execution system</strong>
-            <p>Turn that context into prompts, review criteria, handoff docs, and one human-reviewed AI-assisted workflow.</p>
-          </article>
-          <article>
-            <span>04</span>
-            <strong>Test, measure, hand off</strong>
-            <p>Run the workflow, measure acceptance and time saved, then leave the team with SOPs and next build paths.</p>
-          </article>
-        </div>
-      </section>
+          <div class="section-intro">
+            <h2 id="work-title">Selected work, shaped as systems.</h2>
+            <p>The through-line: I turn scattered, manual work into AI-assisted systems a team can actually run.</p>
+          </div>
 
-      <section id="work" class="section-shell journey-section" aria-label="Professional work">
-        <div class="section-heading centered">
-          <p class="eyebrow">Professional work</p>
-          <h2>Context from startup, SaaS, growth, and AI workflow work.</h2>
-        </div>
-        <div class="journey-grid">
-          <article class="journey-card">
-            <div class="logo-row">
-              <img src="../assets/logos/soileum-logo.png" alt="Soileum logo" class="wide-logo">
-            </div>
-            <p class="journey-role">Early startup operator</p>
-            <p>First reps in product context, startup execution, and turning loose problem statements into usable work.</p>
-          </article>
-
-          <article class="journey-card">
-            <div class="logo-row">
-              <img src="../assets/logos/ticombo.svg" alt="Ticombo logo">
-            </div>
-            <p class="journey-role">Early AI adoption in content systems</p>
-            <p>Used AI to support content generation and repeatable production workflows inside an international live-events marketplace.</p>
-          </article>
-
-          <article class="journey-card peoplebox-card">
-            <div class="logo-row">
-              <img src="../assets/logos/peoplebox.jpg" alt="Peoplebox.ai logo">
-              <span class="yc-badge">
-                <img src="../assets/logos/ycombinator.svg" alt="Y Combinator logo">
-                YC S22
+          <div class="work-list" aria-label="Selected work">
+            <a class="work-row" href="./work/prosp/">
+              <span class="logo-cell"><img src="../assets/logos/prosp-logo-color.png" alt="Prosp logo" loading="lazy" decoding="async"></span>
+              <span class="work-title-group">
+                <strong>Prosp <span>(via Everis)</span></strong>
+                <em>Sales-setter workflow</em>
               </span>
-            </div>
-            <p class="journey-role">AI product build lead</p>
-            <p>Chosen at 20 to lead five engineering interns at Peoplebox.ai, a YC-backed startup, and help build an AI product from scratch.</p>
-          </article>
+              <span class="work-win">Rebuilt the sales-setter workflow with human-reviewed AI outreach: cut time-per-lead by ~75% and freed the team to work more of the funnel.</span>
+              <span class="work-meta">[ 2026 &middot; Contract &middot; Growth workflows ]</span>
+            </a>
 
-          <article class="journey-card">
-            <div class="logo-row multi-logo">
-              <img src="../assets/logos/everis.png" alt="Everis logo" class="icon-logo">
-              <img src="../assets/logos/prosp-logo-color.png" alt="Prosp logo">
-            </div>
-            <p class="journey-role">Sales, partner, and onboarding workflows</p>
-            <p>Built AI-assisted closing, affiliate enrichment, onboarding intelligence, and partner-page systems around founder-led SaaS work.</p>
-          </article>
+            <a class="work-row" href="./work/pebble/">
+              <span class="logo-cell mascot-logo"><img src="../assets/logos/pebble-mascot-logo.png" alt="Pebble logo" loading="lazy" decoding="async"></span>
+              <span class="work-title-group">
+                <strong>Pebble <span>(via Everis)</span></strong>
+                <em>Content ops engine</em>
+              </span>
+              <span class="work-win">Built an AI short-form content engine - prompts, scenes, voice, captions, QA - producing 20+ review-ready pieces a week on a locked brand kit.</span>
+              <span class="work-meta">[ 2026 &middot; Contract &middot; Content ops ]</span>
+            </a>
 
-          <article class="journey-card">
-            <div class="logo-row">
-              <img src="../assets/logos/pebble-mascot-logo.png" alt="Pebble logo" class="round-logo">
-              <strong>Pebble</strong>
-            </div>
-            <p class="journey-role">Short-form content engine</p>
-            <p>Locked the brand kit, tone rules, and output rhythm into an AI content workflow capable of producing 20+ short-form pieces per week.</p>
-          </article>
+            <a class="work-row" href="./work/testlify/">
+              <span class="logo-cell logo-placeholder" aria-label="Testlify logo pending">T</span>
+              <span class="work-title-group">
+                <strong>Testlify <span>(via Everis)</span></strong>
+                <em>Hiring + context layer</em>
+              </span>
+              <span class="work-win">Built AI-assisted hiring workflows and a shared context layer across their acquired products, so AI and the team pull from one source of truth.</span>
+              <span class="work-meta">[ 2026 &middot; Contract &middot; Hiring + context ]</span>
+            </a>
+
+            <a class="work-row" href="./work/peoplebox-ai/">
+              <span class="logo-cell"><img src="../assets/logos/peoplebox.jpg" alt="Peoplebox.ai logo" loading="lazy" decoding="async"></span>
+              <span class="work-title-group">
+                <strong>Peoplebox.ai <span>(YC S22)</span></strong>
+                <em>AI data & workflow ops</em>
+              </span>
+              <span class="work-win">Led a 5-engineer team running the human-review layer behind an AI product - annotation, QA, review loops, turning messy requirements into repeatable rules.</span>
+              <span class="work-meta">[ 2025 &middot; Full-time &middot; AI data & workflow ops ]</span>
+            </a>
+
+            <a class="work-row" href="./work/ticombo/">
+              <span class="logo-cell"><img src="../assets/logos/ticombo.svg" alt="Ticombo logo" loading="lazy" decoding="async"></span>
+              <span class="work-title-group">
+                <strong>Ticombo</strong>
+                <em>Content + AI workflow</em>
+              </span>
+              <span class="work-win">Ran website + Instagram content with AI in the production pipeline - the first real reps making AI useful inside a live marketing workflow.</span>
+              <span class="work-meta">[ 2023-2025 &middot; Full-time &middot; Content + AI ]</span>
+            </a>
+
+            <a class="work-row" href="./work/soileum/">
+              <span class="logo-cell dark-logo-cell wide-logo"><img src="../assets/logos/soileum-logo.png" alt="Soileum logo" loading="lazy" decoding="async"></span>
+              <span class="work-title-group">
+                <strong>Soileum</strong>
+                <em>Growth internship</em>
+              </span>
+              <span class="work-win">First startup reps: community, growth, and turning loose problems into shipped work.</span>
+              <span class="work-meta">[ 2023 &middot; Internship &middot; Growth ]</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      <section class="case-grid section-shell" aria-label="Selected work">
-        <article class="case-card feature-case">
-          <p class="case-kicker">AI-assisted sales</p>
-          <h3>Cut lead handling time by up to 80%.</h3>
-          <p>Converted lead context, post context, comment behavior, and tone rules into human-reviewed DM drafts for faster closing work.</p>
-          <dl>
-            <div><dt>Before</dt><dd>3 to 5 minutes per lead</dd></div>
-            <div><dt>After</dt><dd>About 1 minute per reviewed lead</dd></div>
-            <div><dt>Receipt</dt><dd>56 personalized DMs sent in 12 minutes</dd></div>
-          </dl>
-        </article>
+      <section id="method" class="c2x-section method-section" aria-labelledby="method-title">
+        <div class="section-inner">
+          <div class="section-topline">
+            <p class="section-label"><span>03</span><span>/</span><span>Method</span></p>
+            <p class="section-status">In focus 01 / 05</p>
+          </div>
 
-        <article class="case-card">
-          <p class="case-kicker">Peoplebox.ai</p>
-          <h3>Led five interns in a YC-backed AI build.</h3>
-          <p>Ran team rhythm for a scratch-built AI product: goals, specs, agent loops, review lanes, QA context, and handoffs.</p>
-          <span class="metric">Selected at 20 to lead the build team</span>
-        </article>
+          <div class="section-intro">
+            <h2 id="method-title">The system I build.</h2>
+            <p>Same shape every time - small, bounded, and yours to keep.</p>
+          </div>
 
-        <article class="case-card">
-          <p class="case-kicker">Partner enrichment</p>
-          <h3>Moved top affiliates from export to relationship lane.</h3>
-          <p>Audited a 614-affiliate Rewardful export, shortlisted the top 14, and built targeted outreach plus partner-page surfaces.</p>
-          <span class="metric">4 of 14 top affiliates moved into active 1:1 work</span>
-        </article>
+          <ol class="method-list">
+            <li>
+              <span>01</span>
+              <strong>Find the leak</strong>
+              <p>I pick one workflow that eats time or keeps getting redone, and find where it actually breaks.</p>
+            </li>
+            <li>
+              <span>02</span>
+              <strong>Redesign it</strong>
+              <p>I map what should happen: the steps, the inputs, what AI handles, what a human decides.</p>
+            </li>
+            <li>
+              <span>03</span>
+              <strong>Build it with what you have</strong>
+              <p>I build it into the tools you already use - no new platform to adopt.</p>
+            </li>
+            <li>
+              <span>04</span>
+              <strong>Keep a human in the loop</strong>
+              <p>AI drafts and prepares; a person approves anything that matters. Rejections become feedback the system learns from.</p>
+            </li>
+            <li>
+              <span>05</span>
+              <strong>Hand it off</strong>
+              <p>You keep the workflow, the rules, and the docs to run it without me.</p>
+            </li>
+          </ol>
 
-        <article class="case-card">
-          <p class="case-kicker">Partner pages</p>
-          <h3>Built dedicated sales surfaces for high-leverage partners.</h3>
-          <p>Created tailored landing pages, comparison content, referral-link routing, and partner handoffs for priority routes.</p>
-          <span class="metric">Demandii / LinkedOtter / FluidCRM / Lars Kruger lanes</span>
-        </article>
-
-        <article class="case-card">
-          <p class="case-kicker">Activation intelligence</p>
-          <h3>Turned support friction into onboarding specs.</h3>
-          <p>Mapped 30+ support conversations into email, Intercom tour, PostHog, and measurement specs for cleaner activation.</p>
-          <span class="metric">LinkedIn authentication identified as first wall</span>
-        </article>
-
-        <article class="case-card">
-          <p class="case-kicker">AI content ops</p>
-          <h3>Built a 20+ pieces/week short-form system.</h3>
-          <p>Locked prompt rules, scene structure, voiceover stages, caption rules, QA loops, and creator handoff docs around a brand kit.</p>
-          <span class="metric">Tuned for repeatable viral-format output</span>
-        </article>
+          <p class="method-note">This is how I work, not a purchasable package.</p>
+        </div>
       </section>
 
-      <section class="section-shell final-cta">
-        <p class="eyebrow">Pilot fit</p>
-        <h2>Best for teams where AI output still needs re-explaining.</h2>
-        <p>
-          The strongest entry point is a founder, Head of Growth, RevOps, CS, or Ops lead at a 10-100 person B2B SaaS or service business.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="./book/?package=audit">Book a Context Leak Audit</a>
+      <section id="about" class="c2x-section about-section" aria-labelledby="about-title">
+        <div class="section-inner">
+          <p class="section-label"><span>04</span><span>/</span><span>About</span></p>
+          <div class="section-intro about-intro">
+            <h2 id="about-title">One line - from intern to building my own thing.</h2>
+            <p>
+              I started as a growth intern at Soileum, learned to actually use AI in production at Ticombo,
+              then took an AI job at Peoplebox - a YC startup - and led a team building an AI product.
+              From there I went independent, working as a contractor across Everis (Prosp, Pebble, Testlify),
+              and I'm building toward my own thing.
+            </p>
+          </div>
+
+          <div class="about-line" aria-hidden="true">
+            <span>INTERN</span>
+            <i></i>
+            <span>BUILDING MY OWN</span>
+          </div>
+
+          <p class="fallout-line">
+            On the side I built <a href="../fallout.html">Fallout</a>, one of India's fastest-growing hard-techno collectives -
+            end-to-end with AI-assisted workflows: content, scripting, voice/tone-cloned reels, outreach, ticketing,
+            a sales dashboard, and the site itself.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact" class="c2x-section blue-section contact-section" aria-labelledby="contact-title">
+        <div class="section-inner contact-inner">
+          <p class="section-label"><span>05</span><span>/</span><span>Contact</span></p>
+          <h2 id="contact-title">Got a workflow that's more manual than it should be?</h2>
+          <a class="contact-cta" href="./book/?package=audit">[ Let's talk ]</a>
+          <p class="direct-email">or write directly <a href="mailto:chaitanya.cp19@gmail.com">chaitanya.cp19@gmail.com</a></p>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer consultation-footer" aria-hidden="true"></footer>
+    <footer class="c2x-footer">
+      <p>C2X &copy; 2026</p>
+      <nav aria-label="Footer">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </footer>
 
-    <script type="module" src="../script.js"></script>
+    <script src="./c2x.js" defer></script>
   </body>
 </html>
