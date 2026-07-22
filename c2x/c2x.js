@@ -11,7 +11,6 @@ const menuScrim = document.querySelector(".menu-scrim");
 const menuLinks = document.querySelectorAll(".menu-nav a");
 const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const coarsePointer = window.matchMedia("(pointer: coarse)");
 
 let lastScrollY = window.scrollY;
 let restX = Math.round(window.innerWidth * 0.62);
@@ -96,7 +95,7 @@ function updateRevealClip() {
 }
 
 function animateReveal() {
-  revealX += (targetX - revealX) * 0.12;
+  revealX += (targetX - revealX) * 0.06;
   revealWidth += (targetWidth - revealWidth) * 0.18;
   updateRevealClip();
 
@@ -176,10 +175,19 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("resize", handleResize);
 
-if (!reducedMotion.matches && !coarsePointer.matches && hero && revealLayer) {
+if (!reducedMotion.matches && hero && revealLayer) {
   hero.addEventListener("pointerenter", (event) => setRevealTarget(event.clientX));
   hero.addEventListener("pointermove", (event) => setRevealTarget(event.clientX));
   hero.addEventListener("pointerleave", resetReveal);
+  hero.addEventListener(
+    "touchmove",
+    (event) => {
+      if (event.touches[0]) setRevealTarget(event.touches[0].clientX);
+    },
+    { passive: true }
+  );
+  hero.addEventListener("touchend", resetReveal, { passive: true });
+  hero.addEventListener("touchcancel", resetReveal, { passive: true });
 }
 
 if (document.fonts?.ready) {

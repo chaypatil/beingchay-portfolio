@@ -64,7 +64,7 @@ body.c2x-body {
 
 .c2x-body button,
 .c2x-body a {
-  font: inherit;
+  font-family: inherit;
 }
 
 .skip-link {
@@ -360,9 +360,22 @@ body.c2x-body {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: 0;
   line-height: 1.2;
   text-transform: uppercase;
+}
+
+.section-label,
+.section-status,
+.work-meta,
+.axis-detail em,
+.practice-stage {
+  letter-spacing: 0.14em;
+}
+
+.hero-location,
+.c2x-footer,
+.footer-location {
+  letter-spacing: 0.06em;
 }
 
 .section-label {
@@ -468,13 +481,13 @@ body.c2x-body {
   background: var(--accent);
   clip-path: inset(0 var(--clip-right) 0 var(--clip-left));
   pointer-events: none;
-  transition: clip-path 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-layer--reveal .section-label,
 .hero-layer--reveal .section-label span:first-child,
 .hero-layer--reveal .hero-location,
 .hero-layer--reveal .hero-location time,
+.hero-layer--reveal .hero-standfirst,
 .hero-layer--reveal .text-cta {
   color: var(--panel);
 }
@@ -488,7 +501,7 @@ body.c2x-body {
 .hero-inner {
   min-height: calc(100svh - var(--header-h) - 92px);
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
   align-items: start;
 }
 
@@ -497,7 +510,18 @@ body.c2x-body {
   align-self: center;
   font-size: clamp(58px, 6.95vw, 90px);
   line-height: 0.94;
+  letter-spacing: -0.04em;
   text-wrap: balance;
+}
+
+.hero-standfirst {
+  max-width: 560px;
+  margin: 0 0 clamp(28px, 4vw, 44px);
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.18vw, 18px);
+  line-height: 1.45;
+  text-align: left;
 }
 
 .line-word,
@@ -543,7 +567,7 @@ body.c2x-body {
   font-family: var(--font-display);
   font-size: clamp(26px, 2.45vw, 30px);
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: -0.03em;
   line-height: 1.05;
 }
 
@@ -1180,12 +1204,6 @@ body.c2x-body {
   .footer-left {
     flex-direction: column;
     align-items: flex-start;
-  }
-}
-
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .hero-layer--reveal {
-    transition: none;
   }
 }
 
