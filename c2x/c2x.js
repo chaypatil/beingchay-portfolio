@@ -1,30 +1,44 @@
 const body = document.body;
 const header = document.querySelector(".c2x-header");
 const hero = document.querySelector(".hero-section");
-const heroLine = document.querySelector(".hero-blue-line");
+const revealLayer = document.querySelector(".hero-layer--reveal");
+const axisAnchor = document.querySelector(".axis-anchor");
 const menuButton = document.querySelector(".menu-button");
+const menuButtonLabel = menuButton?.querySelector("span:first-child");
 const menuPanel = document.querySelector(".menu-panel");
 const menuClose = document.querySelector(".menu-close");
 const menuScrim = document.querySelector(".menu-scrim");
 const menuLinks = document.querySelectorAll(".menu-nav a");
-const timeNode = document.querySelector("#ist-time");
+const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const coarsePointer = window.matchMedia("(pointer: coarse)");
 
 let lastScrollY = window.scrollY;
-let lastScrollT = performance.now();
+let restX = Math.round(window.innerWidth * 0.62);
+let revealX = restX;
+let targetX = restX;
+let revealWidth = 1.5;
+let targetWidth = 1.5;
+let revealFrame = null;
+let resizeFrame = null;
 let headerTimer = null;
-let heroIdleTimer = null;
 
 function updateIstTime() {
-  if (!timeNode) return;
+  if (!timeNodes.length) return;
   const formatter = new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
-  timeNode.textContent = `${formatter.format(new Date())} IST`;
+  const value = `${formatter.format(new Date())} IST`;
+  for (const node of timeNodes) node.textContent = value;
+}
+
+function setMenuButtonState(isOpen) {
+  if (!menuButton) return;
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  if (menuButtonLabel) menuButtonLabel.textContent = isOpen ? "Close" : "Menu";
 }
 
 function openMenu() {
@@ -33,20 +47,85 @@ function openMenu() {
     menuPanel?.classList.add("is-open");
   });
   menuPanel?.setAttribute("aria-hidden", "false");
-  menuButton?.setAttribute("aria-expanded", "true");
   if (menuScrim) menuScrim.hidden = false;
   body.classList.add("menu-open");
+  setMenuButtonState(true);
 }
 
 function closeMenu() {
   menuPanel?.classList.remove("is-open");
   menuPanel?.setAttribute("aria-hidden", "true");
-  menuButton?.setAttribute("aria-expanded", "false");
   if (menuScrim) menuScrim.hidden = true;
   body.classList.remove("menu-open");
+  setMenuButtonState(false);
   window.setTimeout(() => {
     if (!menuPanel?.classList.contains("is-open") && menuPanel) menuPanel.hidden = true;
-  }, 280);
+  }, 320);
+}
+
+function toggleMenu() {
+  if (menuPanel?.classList.contains("is-open")) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+}
+
+function setAxisFromAnchor() {
+  if (!axisAnchor) return;
+  const rect = axisAnchor.getBoundingClientRect();
+  const sectionInner = document.querySelector("#work .section-inner") || document.querySelector(".section-inner");
+  const innerLeft = sectionInner ? sectionInner.getBoundingClientRect().left : 0;
+  const x = rect.left + rect.width / 2;
+  const startY = rect.bottom + window.scrollY - 2;
+  restX = Math.round(x);
+  targetX = restX;
+  if (Math.abs(revealX - restX) < 4 || targetWidth <= 2) revealX = restX;
+  body.style.setProperty("--axis-x", `${restX}px`);
+  body.style.setProperty("--axis-local-x", `${Math.round(restX - innerLeft)}px`);
+  body.style.setProperty("--axis-start-y", `${Math.max(0, Math.round(startY))}px`);
+  updateRevealClip();
+}
+
+function updateRevealClip() {
+  const width = Math.max(1, revealWidth);
+  const left = Math.max(0, revealX - width / 2);
+  const right = Math.max(0, window.innerWidth - (revealX + width / 2));
+  body.style.setProperty("--clip-left", `${left.toFixed(2)}px`);
+  body.style.setProperty("--clip-right", `${right.toFixed(2)}px`);
+}
+
+function animateReveal() {
+  revealX += (targetX - revealX) * 0.12;
+  revealWidth += (targetWidth - revealWidth) * 0.18;
+  updateRevealClip();
+
+  if (Math.abs(targetX - revealX) > 0.2 || Math.abs(targetWidth - revealWidth) > 0.2) {
+    revealFrame = window.requestAnimationFrame(animateReveal);
+  } else {
+    revealX = targetX;
+    revealWidth = targetWidth;
+    updateRevealClip();
+    revealFrame = null;
+  }
+}
+
+function startRevealLoop() {
+  if (!revealFrame) revealFrame = window.requestAnimationFrame(animateReveal);
+}
+
+function setRevealTarget(clientX, width = 112) {
+  const min = 24;
+  const max = window.innerWidth - 24;
+  targetX = Math.min(Math.max(clientX, min), max);
+  targetWidth = width;
+  startRevealLoop();
+}
+
+function resetReveal() {
+  targetX = restX;
+  targetWidth = 1.5;
+  startRevealLoop();
 }
 
 function showHeaderBriefly() {
@@ -54,43 +133,35 @@ function showHeaderBriefly() {
   header.classList.remove("is-hidden");
   window.clearTimeout(headerTimer);
   if (window.scrollY > 80) {
-    headerTimer = window.setTimeout(() => header.classList.add("is-hidden"), 950);
+    headerTimer = window.setTimeout(() => header.classList.add("is-hidden"), 850);
   }
 }
 
 function handleScroll() {
   if (!header) return;
-  const now = performance.now();
   const currentY = window.scrollY;
-  const velocity = Math.abs(currentY - lastScrollY) / Math.max(now - lastScrollT, 1);
+  const delta = currentY - lastScrollY;
+  const fastUp = delta < -8;
+  const nearHero = hero ? currentY < hero.offsetHeight * 0.82 : currentY < 120;
 
-  if (currentY < 36) {
+  if (currentY < 36 || nearHero) {
     header.classList.remove("is-hidden");
     window.clearTimeout(headerTimer);
-  } else if (velocity > 1.05) {
+  } else if (fastUp) {
     showHeaderBriefly();
   } else {
     header.classList.add("is-hidden");
   }
 
   lastScrollY = currentY;
-  lastScrollT = now;
 }
 
-function setHeroLineX(clientX) {
-  if (!hero || !heroLine) return;
-  const rect = hero.getBoundingClientRect();
-  const x = Math.min(Math.max(clientX - rect.left, 24), rect.width - 24);
-  heroLine.style.setProperty("--hero-line-x", `${x}px`);
+function handleResize() {
+  window.cancelAnimationFrame(resizeFrame);
+  resizeFrame = window.requestAnimationFrame(setAxisFromAnchor);
 }
 
-function resetHeroLine() {
-  if (!hero || !heroLine) return;
-  hero.classList.remove("is-line-active");
-  heroLine.style.setProperty("--hero-line-x", "62%");
-}
-
-menuButton?.addEventListener("click", openMenu);
+menuButton?.addEventListener("click", toggleMenu);
 menuClose?.addEventListener("click", closeMenu);
 menuScrim?.addEventListener("click", closeMenu);
 
@@ -103,19 +174,19 @@ window.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("scroll", handleScroll, { passive: true });
+window.addEventListener("resize", handleResize);
 
-if (!reducedMotion.matches && !coarsePointer.matches && hero) {
-  hero.addEventListener("pointermove", (event) => {
-    setHeroLineX(event.clientX);
-    hero.classList.add("is-line-active");
-    window.clearTimeout(heroIdleTimer);
-    heroIdleTimer = window.setTimeout(resetHeroLine, 650);
-  });
-
-  hero.addEventListener("pointerleave", resetHeroLine);
-} else {
-  resetHeroLine();
+if (!reducedMotion.matches && !coarsePointer.matches && hero && revealLayer) {
+  hero.addEventListener("pointerenter", (event) => setRevealTarget(event.clientX));
+  hero.addEventListener("pointermove", (event) => setRevealTarget(event.clientX));
+  hero.addEventListener("pointerleave", resetReveal);
 }
 
+if (document.fonts?.ready) {
+  document.fonts.ready.then(setAxisFromAnchor);
+}
+
+setAxisFromAnchor();
+resetReveal();
 updateIstTime();
-window.setInterval(updateIstTime, 30000);
+window.setInterval(updateIstTime, 60000);

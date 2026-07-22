@@ -7,7 +7,7 @@
     <meta name="description" content="C2X is Chaitanya Patil's portfolio for context-to-execution AI workflow systems.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./c2x.css">
   </head>
   <body class="c2x-body">
@@ -52,20 +52,33 @@
     </aside>
 
     <main id="main" class="c2x-page">
+      <span class="c2x-axis" aria-hidden="true"></span>
+
       <section id="signal" class="c2x-section hero-section" aria-labelledby="signal-title">
-        <div class="hero-blue-line" aria-hidden="true"></div>
-        <div class="section-inner hero-inner">
-          <p class="section-label"><span>01</span><span>/</span><span>Signal</span></p>
-          <h1 id="signal-title">Most teams already have AI. Few have the through <span>line</span> that makes it actually work.</h1>
-          <div class="hero-bottom">
-            <p class="hero-location"><span></span> Mumbai, India <time id="ist-time">--:-- IST</time></p>
-            <a class="text-cta hero-cta" href="./book/?package=audit">[ Let's talk ]</a>
+        <div class="hero-layer hero-layer--base">
+          <div class="section-inner hero-inner">
+            <p class="section-label"><span>01</span><span>/</span><span>Signal</span></p>
+            <h1 id="signal-title">Most teams already have AI. Few have the through <span class="line-word"><span class="axis-anchor">l</span>ine</span> that makes it actually work.</h1>
+            <div class="hero-bottom">
+              <p class="hero-location"><span></span> Mumbai, India <time data-ist-time>--:-- IST</time></p>
+              <a class="text-cta hero-cta" href="./book/?package=audit"><span class="cta-bracket">[</span><span class="cta-words"><span>Let's</span><span>talk</span></span><span class="cta-bracket">]</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-layer hero-layer--reveal" aria-hidden="true">
+          <div class="section-inner hero-inner">
+            <p class="section-label"><span>01</span><span>/</span><span>Signal</span></p>
+            <h1>Most teams already have AI. Few have the through <span class="line-word"><span>l</span>ine</span> that makes it actually work.</h1>
+            <div class="hero-bottom">
+              <p class="hero-location"><span></span> Mumbai, India <time data-ist-time>--:-- IST</time></p>
+              <a class="text-cta hero-cta" href="./book/?package=audit" tabindex="-1"><span class="cta-bracket">[</span><span class="cta-words"><span>Let's</span><span>talk</span></span><span class="cta-bracket">]</span></a>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="work" class="c2x-section blue-section work-section" aria-labelledby="work-title">
-        <span class="section-rail" aria-hidden="true"></span>
         <div class="section-inner">
           <div class="section-topline">
             <p class="section-label"><span>02</span><span>/</span><span>Selected Work</span></p>
@@ -80,9 +93,9 @@
           <div class="work-list" aria-label="Selected work">
             <a class="work-row" href="./work/fallout/">
               <span class="work-logo fallout-logo"><img src="../assets/logos/fallout-wordmark.png" alt="Fallout logo" loading="lazy" decoding="async"></span>
-              <span class="work-name"><strong>Fallout</strong></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-title work-name"><strong>Fallout</strong></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>Music agency and collective</em>
                 <span>My own build, run entirely on AI-assisted workflows of content, outreach, ticketing, sales, and the site dashboard itself, now one of India's fastest-growing hard-techno collectives.</span>
               </span>
@@ -91,9 +104,9 @@
 
             <a class="work-row" href="./work/prosp/">
               <span class="work-logo"><img src="../assets/logos/prosp-logo-color.png" alt="Prosp logo" loading="lazy" decoding="async"></span>
-              <span class="work-name"><strong>Prosp</strong></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-title work-name"><strong>Prosp</strong></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>Growth workflows</em>
                 <span>Human-reviewed AI outreach I built for Everis that cut time-per-lead by ~75%, so the team works live leads instead of admin.</span>
               </span>
@@ -102,9 +115,9 @@
 
             <a class="work-row" href="./work/pebble/">
               <span class="work-logo pebble-logo"><img src="../assets/logos/pebble-mascot-logo.png" alt="Pebble logo" loading="lazy" decoding="async"></span>
-              <span class="work-name"><strong>Pebble</strong></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-title work-name"><strong>Pebble</strong></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>Content ops</em>
                 <span>An AI content pipeline for Everis: prompts, scenes, voice, captions, QA, producing 20+ review-ready pieces a week on a locked brand kit.</span>
               </span>
@@ -113,9 +126,9 @@
 
             <a class="work-row" href="./work/everis/">
               <span class="work-logo everis-logo"><img src="../assets/logos/everis-transparent.png" alt="Everis logo" loading="lazy" decoding="async"></span>
-              <span class="work-name"><strong>Everis</strong></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-title work-name"><strong>Everis</strong></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>Hiring + context</em>
                 <span>AI-assisted hiring flows and tests built on Testlify, with one shared source of truth so hiring runs on AI without re-explaining the company.</span>
               </span>
@@ -124,12 +137,12 @@
 
             <a class="work-row" href="./work/peoplebox-ai/">
               <span class="work-logo peoplebox-logo"><img src="../assets/logos/peoplebox-transparent.png" alt="Peoplebox.ai logo" loading="lazy" decoding="async"></span>
-              <span class="work-name peoplebox-name">
+              <span class="axis-title work-name peoplebox-name">
                 <strong>Peoplebox.ai</strong>
                 <img src="../assets/logos/ycombinator.svg" alt="Y Combinator logo" loading="lazy" decoding="async">
               </span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>AI data & workflow ops</em>
                 <span>Led a 5-engineer team on the human-review layer behind an AI product: annotation, QA, and review loops that turned messy requirements into repeatable rules.</span>
               </span>
@@ -138,9 +151,9 @@
 
             <a class="work-row" href="./work/ticombo/">
               <span class="work-logo"><img src="../assets/logos/ticombo.svg" alt="Ticombo logo" loading="lazy" decoding="async"></span>
-              <span class="work-name"><strong>Ticombo</strong></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-title work-name"><strong>Ticombo</strong></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>Content + AI</em>
                 <span>Ran website and Instagram content with AI built into the production pipeline, my first real go at making AI useful inside a live marketing team.</span>
               </span>
@@ -149,9 +162,9 @@
 
             <a class="work-row" href="./work/soileum/">
               <span class="work-logo"><img src="../assets/logos/soileum-logo.png" alt="Soileum logo" loading="lazy" decoding="async"></span>
-              <span class="work-name"><strong>Soileum</strong></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="work-detail">
+              <span class="axis-title work-name"><strong>Soileum</strong></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail work-detail">
                 <em>Growth</em>
                 <span>First startup reps: community, growth, and turning loose problems into shipped work.</span>
               </span>
@@ -162,7 +175,6 @@
       </section>
 
       <section id="method" class="c2x-section method-section" aria-labelledby="method-title">
-        <span class="section-rail" aria-hidden="true"></span>
         <div class="section-inner">
           <div class="section-topline">
             <p class="section-label"><span>03</span><span>/</span><span>Practice</span></p>
@@ -176,29 +188,29 @@
 
           <ol class="practice-list">
             <li>
-              <span class="practice-copy"><strong>Find the leak</strong><em>I pick one workflow that eats time or keeps getting redone, and find where it actually breaks.</em></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="practice-stage">Context break</span>
+              <span class="axis-title practice-copy"><strong>Find the leak</strong><em>I pick one workflow that eats time or keeps getting redone, and find where it actually breaks.</em></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail practice-stage"><em>Context break</em></span>
             </li>
             <li>
-              <span class="practice-copy"><strong>Redesign it</strong><em>I map what should happen: the steps, the inputs, what AI handles, what a human decides.</em></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="practice-stage">Workflow logic</span>
+              <span class="axis-title practice-copy"><strong>Redesign it</strong><em>I map what should happen: the steps, the inputs, what AI handles, what a human decides.</em></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail practice-stage"><em>Workflow logic</em></span>
             </li>
             <li>
-              <span class="practice-copy"><strong>Build it with what you have</strong><em>I build into the tools the team already uses, so there is no new platform to adopt.</em></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="practice-stage">Existing stack</span>
+              <span class="axis-title practice-copy"><strong>Build it with what you have</strong><em>I build into the tools the team already uses, so there is no new platform to adopt.</em></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail practice-stage"><em>Existing stack</em></span>
             </li>
             <li>
-              <span class="practice-copy"><strong>Keep a human in the loop</strong><em>AI drafts and prepares. A person approves anything that matters, and rejections become feedback.</em></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="practice-stage">Review gate</span>
+              <span class="axis-title practice-copy"><strong>Keep a human in the loop</strong><em>AI drafts and prepares. A person approves anything that matters, and rejections become feedback.</em></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail practice-stage"><em>Review gate</em></span>
             </li>
             <li>
-              <span class="practice-copy"><strong>Hand it off</strong><em>The team keeps the workflow, the rules, and the docs to run it without me.</em></span>
-              <span class="work-marker" aria-hidden="true"><i></i></span>
-              <span class="practice-stage">Operating system</span>
+              <span class="axis-title practice-copy"><strong>Hand it off</strong><em>The team keeps the workflow, the rules, and the docs to run it without me.</em></span>
+              <span class="axis-marker" aria-hidden="true"><i></i></span>
+              <span class="axis-detail practice-stage"><em>Operating system</em></span>
             </li>
           </ol>
         </div>
@@ -214,7 +226,7 @@
 
           <div class="through-line-map" aria-label="Context to execution line">
             <span>Context</span>
-            <i aria-hidden="true"></i>
+            <span class="axis-marker" aria-hidden="true"><i></i></span>
             <p>That's the through line. It holds from context to execution, and stays intact after I hand it off. <strong>C2X</strong></p>
             <span>Execution</span>
           </div>
@@ -222,25 +234,27 @@
       </section>
 
       <section id="contact" class="c2x-section blue-section contact-section" aria-labelledby="contact-title">
-        <span class="section-rail" aria-hidden="true"></span>
         <div class="section-inner contact-inner">
           <div class="section-topline">
             <p class="section-label"><span>05</span><span>/</span><span>Contact</span></p>
           </div>
           <div class="section-intro contact-intro">
             <h2 id="contact-title">Got a workflow that's more manual than it should be?</h2>
-            <p><a class="text-cta" href="./book/?package=audit">[ Let's talk ]</a><br><span>or write directly</span> <a href="mailto:chaitanya.cp19@gmail.com">chaitanya.cp19@gmail.com</a></p>
+            <p><a class="text-cta" href="./book/?package=audit"><span class="cta-bracket">[</span><span class="cta-words"><span>Let's</span><span>talk</span></span><span class="cta-bracket">]</span></a><br><span>or write directly</span> <a href="mailto:chaitanya.cp19@gmail.com">chaitanya.cp19@gmail.com</a></p>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="c2x-footer">
-      <p>C2X &copy; 2026 &middot; Chaitanya Patil</p>
-      <nav aria-label="Footer">
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-      </nav>
+      <div class="footer-left">
+        <p>C2X &copy; 2026 &middot; Chaitanya Patil</p>
+        <nav aria-label="Footer">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </nav>
+      </div>
+      <p class="footer-location">Mumbai, India <time data-ist-time>--:-- IST</time></p>
     </footer>
 
     <script src="./c2x.js" defer></script>
