@@ -11,6 +11,9 @@ const menuScrim = document.querySelector(".menu-scrim");
 const menuLinks = document.querySelectorAll(".menu-nav a");
 const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const coarsePointer = window.matchMedia("(pointer: coarse)");
+const axisEl = document.querySelector(".c2x-axis");
+const SPINE_LEAD = 40;
 
 let lastScrollY = window.scrollY;
 let restX = Math.round(window.innerWidth * 0.62);
@@ -21,6 +24,9 @@ let targetWidth = 1.5;
 let revealFrame = null;
 let resizeFrame = null;
 let headerTimer = null;
+let spineFrame = null;
+let spineTotalHeight = 0;
+let spineStaticReveal = reducedMotion.matches || coarsePointer.matches;
 
 function updateIstTime() {
   if (!timeNodes.length) return;
@@ -70,6 +76,29 @@ function toggleMenu() {
   }
 }
 
+function rebuildAxisSegments(startY) {
+  if (!axisEl) return;
+  axisEl.innerHTML = "";
+  const boxTop = startY - SPINE_LEAD;
+  const sections = document.querySelectorAll(".c2x-section");
+  let maxBottom = boxTop;
+  for (const section of sections) {
+    const rect = section.getBoundingClientRect();
+    const sectionTopAbs = rect.top + window.scrollY;
+    const sectionBottomAbs = sectionTopAbs + rect.height;
+    const segTop = sectionTopAbs - boxTop;
+    const segBottom = sectionBottomAbs - boxTop;
+    if (segBottom <= 0) continue;
+    const seg = document.createElement("span");
+    seg.className = "c2x-axis-seg" + (section.classList.contains("blue-section") ? " is-inverted" : "");
+    seg.style.top = `${Math.max(0, segTop)}px`;
+    seg.style.height = `${segBottom - Math.max(0, segTop)}px`;
+    axisEl.appendChild(seg);
+    maxBottom = Math.max(maxBottom, sectionBottomAbs);
+  }
+  spineTotalHeight = Math.max(1, maxBottom - boxTop);
+}
+
 function setAxisFromAnchor() {
   if (!axisAnchor) return;
   const rect = axisAnchor.getBoundingClientRect();
@@ -83,7 +112,35 @@ function setAxisFromAnchor() {
   body.style.setProperty("--axis-x", `${restX}px`);
   body.style.setProperty("--axis-local-x", `${Math.round(restX - innerLeft)}px`);
   body.style.setProperty("--axis-start-y", `${Math.max(0, Math.round(startY))}px`);
+  body.style.setProperty("--spine-lead", `${SPINE_LEAD}px`);
+  rebuildAxisSegments(Math.max(0, startY));
   updateRevealClip();
+  updateSpineReveal();
+}
+
+function updateSpineReveal() {
+  if (!axisEl) return;
+  let progress;
+  if (spineStaticReveal) {
+    progress = 1;
+  } else {
+    const anchorAbsY = parseFloat(body.style.getPropertyValue("--axis-start-y")) || 0;
+    const anchorInViewport = anchorAbsY - window.scrollY;
+    const half = window.innerHeight * 0.5;
+    progress = Math.min(1, Math.max(0, (half - anchorInViewport) / half));
+  }
+  const topInset = SPINE_LEAD * (1 - progress);
+  const bottomInsetPx = Math.max(0, spineTotalHeight - SPINE_LEAD) * (1 - progress);
+  body.style.setProperty("--spine-top-inset", `${topInset.toFixed(1)}px`);
+  body.style.setProperty("--spine-bottom-inset", `${bottomInsetPx.toFixed(1)}px`);
+}
+
+function requestSpineUpdate() {
+  if (spineFrame) return;
+  spineFrame = window.requestAnimationFrame(() => {
+    spineFrame = null;
+    updateSpineReveal();
+  });
 }
 
 function updateRevealClip() {
@@ -137,6 +194,7 @@ function showHeaderBriefly() {
 }
 
 function handleScroll() {
+  requestSpineUpdate();
   if (!header) return;
   const currentY = window.scrollY;
   const delta = currentY - lastScrollY;
@@ -191,7 +249,9 @@ if (!reducedMotion.matches && hero && revealLayer) {
 }
 
 if (document.fonts?.ready) {
-  document.fonts.ready.then(setAxisFromAnchor);
+  document.fonts.ready.then(() => {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(setAxisFromAnchor));
+  });
 }
 
 setAxisFromAnchor();
