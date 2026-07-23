@@ -164,22 +164,18 @@ body.c2x-body {
   line-height: 1;
 }
 
-.menu-button {
-  font-size: 12px;
-}
-
 .menu-grid {
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   display: grid;
-  grid-template-columns: repeat(2, 4px);
-  grid-template-rows: repeat(2, 4px);
-  gap: 2px;
+  grid-template-columns: repeat(2, 6px);
+  grid-template-rows: repeat(2, 6px);
+  gap: 4px;
 }
 
 .menu-grid i {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   background: var(--accent);
 }
 
@@ -306,7 +302,7 @@ body.c2x-body {
 }
 
 .menu-nav strong {
-  font-size: clamp(46px, 8vw, 64px);
+  font-size: clamp(28px, 4.8vw, 38px);
   font-weight: 600;
   line-height: 0.92;
   letter-spacing: 0;
@@ -344,7 +340,12 @@ body.c2x-body {
   pointer-events: none;
   transform: translateX(-50%);
   clip-path: inset(var(--spine-top-inset, 40px) 0 var(--spine-bottom-inset, 100%) 0);
-  transition: clip-path var(--spine-draw-duration, 1.4s) linear;
+  transition: clip-path var(--spine-draw-duration, 3s) cubic-bezier(0.16, 1, 0.3, 1),
+    width var(--spine-thicken-duration, 1.5s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c2x-axis.is-drawn {
+  width: 2.5px;
 }
 
 .c2x-axis-seg {
@@ -673,6 +674,7 @@ body.c2x-body {
   align-items: center;
   padding: 22px 0;
   border-bottom: 1px solid rgba(246, 246, 244, 0.32);
+  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .practice-list li {
@@ -717,7 +719,7 @@ body.c2x-body {
 .work-row:hover .axis-marker,
 .work-row:focus-visible .axis-marker,
 .practice-list li:hover .axis-marker {
-  transform: translateY(-50%);
+  transform: translateY(-58%);
 }
 
 .work-logo {
@@ -971,9 +973,52 @@ body.c2x-body {
 }
 
 .contact-section {
+  position: relative;
   min-height: 78svh;
   display: grid;
   align-items: center;
+  overflow: hidden;
+}
+
+.contact-layer--base {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-layer--reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  align-items: center;
+  background: var(--panel);
+  color: var(--ink);
+  clip-path: inset(0 var(--contact-clip-right, 100%) 0 var(--contact-clip-left, 0));
+  pointer-events: none;
+}
+
+.contact-layer--reveal .section-label {
+  color: var(--muted);
+}
+
+.contact-layer--reveal .section-label span:first-child {
+  color: var(--accent);
+}
+
+.contact-layer--reveal .contact-intro p {
+  color: var(--ink-2);
+}
+
+.contact-layer--reveal .contact-intro .text-cta {
+  color: var(--ink);
+}
+
+.contact-layer--reveal .cta-bracket {
+  color: var(--accent);
+}
+
+.contact-layer--reveal .contact-intro a:not(.text-cta) {
+  color: var(--accent);
 }
 
 .contact-inner {
@@ -1081,7 +1126,7 @@ body.c2x-body {
   }
 
   .menu-button {
-    font-size: 10px;
+    font-size: 15px;
   }
 
   .menu-panel {
@@ -1100,7 +1145,7 @@ body.c2x-body {
   }
 
   .menu-nav strong {
-    font-size: clamp(42px, 15vw, 58px);
+    font-size: clamp(25px, 9vw, 35px);
   }
 
   .menu-nav em {
@@ -1117,7 +1162,8 @@ body.c2x-body {
     padding: calc(var(--header-h) + 30px) 18px 30px;
   }
 
-  .hero-layer--reveal {
+  .hero-layer--reveal,
+  .contact-layer--reveal {
     display: none;
   }
 

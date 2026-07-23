@@ -2,6 +2,8 @@ const body = document.body;
 const header = document.querySelector(".c2x-header");
 const hero = document.querySelector(".hero-section");
 const revealLayer = document.querySelector(".hero-layer--reveal");
+const contactSection = document.querySelector(".contact-section");
+const contactRevealLayer = document.querySelector(".contact-layer--reveal");
 const axisAnchor = document.querySelector(".axis-anchor");
 const menuButton = document.querySelector(".menu-button");
 const menuButtonLabel = menuButton?.querySelector("span:first-child");
@@ -13,9 +15,10 @@ const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const axisEl = document.querySelector(".c2x-axis");
 const SPINE_LEAD = 40;
-const SPINE_DRAW_SPEED = 2000;
-const SPINE_DRAW_MIN_MS = 900;
-const SPINE_DRAW_MAX_MS = 2600;
+const SPINE_DRAW_SPEED = 1500;
+const SPINE_DRAW_MIN_MS = 2500;
+const SPINE_DRAW_MAX_MS = 3500;
+const SPINE_THICKEN_MS = 1500;
 const SPINE_TRIGGER_SCROLL_Y = 10;
 
 let lenis = null;
@@ -31,6 +34,12 @@ let resizeFrame = null;
 let headerTimer = null;
 let spineTotalHeight = 0;
 let spineDrawn = false;
+
+let contactRevealX = window.innerWidth / 2;
+let contactTargetX = contactRevealX;
+let contactRevealWidth = 1.5;
+let contactTargetWidth = 1.5;
+let contactRevealFrame = null;
 
 function updateIstTime() {
   if (!timeNodes.length) return;
@@ -129,9 +138,11 @@ function triggerSpineDraw() {
     Math.max(SPINE_DRAW_MIN_MS, (spineTotalHeight / SPINE_DRAW_SPEED) * 1000)
   );
   body.style.setProperty("--spine-draw-duration", `${Math.round(drawMs)}ms`);
+  body.style.setProperty("--spine-thicken-duration", `${SPINE_THICKEN_MS}ms`);
   window.requestAnimationFrame(() => {
     body.style.setProperty("--spine-top-inset", "0px");
     body.style.setProperty("--spine-bottom-inset", "0px");
+    axisEl.classList.add("is-drawn");
   });
   axisAnchor?.classList.add("is-lit");
 }
@@ -175,6 +186,46 @@ function resetReveal() {
   targetX = restX;
   targetWidth = 1.5;
   startRevealLoop();
+}
+
+function updateContactRevealClip() {
+  const width = Math.max(1, contactRevealWidth);
+  const left = Math.max(0, contactRevealX - width / 2);
+  const right = Math.max(0, window.innerWidth - (contactRevealX + width / 2));
+  body.style.setProperty("--contact-clip-left", `${left.toFixed(2)}px`);
+  body.style.setProperty("--contact-clip-right", `${right.toFixed(2)}px`);
+}
+
+function animateContactReveal() {
+  contactRevealX += (contactTargetX - contactRevealX) * 0.06;
+  contactRevealWidth += (contactTargetWidth - contactRevealWidth) * 0.18;
+  updateContactRevealClip();
+
+  if (Math.abs(contactTargetX - contactRevealX) > 0.2 || Math.abs(contactTargetWidth - contactRevealWidth) > 0.2) {
+    contactRevealFrame = window.requestAnimationFrame(animateContactReveal);
+  } else {
+    contactRevealX = contactTargetX;
+    contactRevealWidth = contactTargetWidth;
+    updateContactRevealClip();
+    contactRevealFrame = null;
+  }
+}
+
+function startContactRevealLoop() {
+  if (!contactRevealFrame) contactRevealFrame = window.requestAnimationFrame(animateContactReveal);
+}
+
+function setContactRevealTarget(clientX, width = 112) {
+  const min = 24;
+  const max = window.innerWidth - 24;
+  contactTargetX = Math.min(Math.max(clientX, min), max);
+  contactTargetWidth = width;
+  startContactRevealLoop();
+}
+
+function resetContactReveal() {
+  contactTargetWidth = 1.5;
+  startContactRevealLoop();
 }
 
 function showHeaderBriefly(currentY) {
@@ -268,6 +319,21 @@ if (!reducedMotion.matches && hero && revealLayer) {
   hero.addEventListener("touchcancel", resetReveal, { passive: true });
 }
 
+if (!reducedMotion.matches && contactSection && contactRevealLayer) {
+  contactSection.addEventListener("pointerenter", (event) => setContactRevealTarget(event.clientX));
+  contactSection.addEventListener("pointermove", (event) => setContactRevealTarget(event.clientX));
+  contactSection.addEventListener("pointerleave", resetContactReveal);
+  contactSection.addEventListener(
+    "touchmove",
+    (event) => {
+      if (event.touches[0]) setContactRevealTarget(event.touches[0].clientX);
+    },
+    { passive: true }
+  );
+  contactSection.addEventListener("touchend", resetContactReveal, { passive: true });
+  contactSection.addEventListener("touchcancel", resetContactReveal, { passive: true });
+}
+
 if (document.fonts?.ready) {
   document.fonts.ready.then(() => {
     window.requestAnimationFrame(() => window.requestAnimationFrame(setAxisFromAnchor));
@@ -276,5 +342,6 @@ if (document.fonts?.ready) {
 
 setAxisFromAnchor();
 resetReveal();
+updateContactRevealClip();
 updateIstTime();
 window.setInterval(updateIstTime, 60000);
