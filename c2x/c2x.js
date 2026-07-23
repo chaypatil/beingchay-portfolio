@@ -15,9 +15,9 @@ const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const axisEl = document.querySelector(".c2x-axis");
 const SPINE_LEAD = 40;
-const SPINE_DRAW_SPEED = 1500;
-const SPINE_DRAW_MIN_MS = 2500;
-const SPINE_DRAW_MAX_MS = 3500;
+const SPINE_DRAW_SPEED = 750;
+const SPINE_DRAW_MIN_MS = 5000;
+const SPINE_DRAW_MAX_MS = 7000;
 const SPINE_THICKEN_MS = 1500;
 const SPINE_TRIGGER_SCROLL_Y = 10;
 

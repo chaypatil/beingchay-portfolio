@@ -279,7 +279,7 @@ body.c2x-body {
   padding: 0 12px;
   margin: 0 -12px;
   border-top: 1px solid rgba(246, 246, 244, 0.22);
-  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .menu-nav a:last-child {
@@ -340,7 +340,7 @@ body.c2x-body {
   pointer-events: none;
   transform: translateX(-50%);
   clip-path: inset(var(--spine-top-inset, 40px) 0 var(--spine-bottom-inset, 100%) 0);
-  transition: clip-path var(--spine-draw-duration, 3s) cubic-bezier(0.16, 1, 0.3, 1),
+  transition: clip-path var(--spine-draw-duration, 6s) cubic-bezier(0.16, 1, 0.3, 1),
     width var(--spine-thicken-duration, 1.5s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -634,7 +634,7 @@ body.c2x-body {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .text-cta:hover .cta-words::after,
@@ -674,7 +674,7 @@ body.c2x-body {
   align-items: center;
   padding: 22px 0;
   border-bottom: 1px solid rgba(246, 246, 244, 0.32);
-  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .practice-list li {
@@ -691,7 +691,7 @@ body.c2x-body {
   right: 0;
   height: 1px;
   background: transparent;
-  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .work-row::before,
@@ -806,7 +806,7 @@ body.c2x-body {
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1;
-  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 1100ms cubic-bezier(0.22, 1, 0.36, 1);
   transform: translateY(-50%);
 }
 
