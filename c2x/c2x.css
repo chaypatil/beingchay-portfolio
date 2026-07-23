@@ -12,7 +12,8 @@
   --on-blue: var(--panel);
   --max: 1280px;
   --header-h: 58px;
-  --axis-x: 62vw;
+  --axis-target-x: 50vw;
+  --axis-x: var(--axis-target-x);
   --axis-inner-x: calc(var(--axis-x) - max(0px, (100vw - var(--max)) / 2));
   --axis-local-x: calc(var(--axis-x) - clamp(18px, 4vw, 56px));
   --axis-start-y: 54vh;
@@ -126,15 +127,15 @@ body.c2x-body {
 
 .c2x-beta {
   position: absolute;
-  top: -4px;
-  right: 0;
+  top: -6px;
+  right: -2px;
   color: #cf3037;
-  font-family: var(--font-mono);
-  font-size: 9px;
+  font-family: "Sacramento", cursive;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0;
-  text-transform: uppercase;
+  text-transform: none;
   transform: rotate(-6deg);
   transform-origin: left bottom;
 }
@@ -331,6 +332,7 @@ body.c2x-body {
   pointer-events: none;
   transform: translateX(-50%);
   clip-path: inset(var(--spine-top-inset, 40px) 0 var(--spine-bottom-inset, 100%) 0);
+  transition: clip-path var(--spine-draw-duration, 1.4s) linear;
 }
 
 .c2x-axis-seg {
@@ -518,10 +520,10 @@ body.c2x-body {
 }
 
 .hero-section h1 {
-  max-width: 940px;
-  margin-left: clamp(120px, 15vw, 200px);
+  max-width: none;
+  margin-left: 0;
   align-self: end;
-  font-size: clamp(48px, 5.6vw, 74px);
+  font-size: clamp(36px, 4.6vw, 62px);
   line-height: 0.96;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -530,9 +532,10 @@ body.c2x-body {
 .hero-standfirst {
   max-width: 360px;
   margin: clamp(16px, 2.4vw, 22px) 0 clamp(28px, 4vw, 44px);
+  margin-left: calc(var(--axis-target-x) - 111.6px - max(clamp(18px, 4vw, 56px), (100vw - var(--max)) / 2));
   color: var(--ink-2);
   font-family: var(--font-body);
-  font-size: clamp(20px, 1.5vw, 24px);
+  font-size: 20px;
   line-height: 1.4;
   text-align: left;
 }
@@ -540,6 +543,11 @@ body.c2x-body {
 .line-word,
 .axis-anchor {
   display: inline;
+}
+
+.axis-anchor.is-lit {
+  color: var(--accent);
+  transition: color 500ms ease;
 }
 
 .hero-bottom {
@@ -613,7 +621,7 @@ body.c2x-body {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .text-cta:hover .cta-words::after,
@@ -669,7 +677,7 @@ body.c2x-body {
   right: 0;
   height: 1px;
   background: transparent;
-  transition: background 180ms ease;
+  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .work-row::before,
@@ -741,7 +749,12 @@ body.c2x-body {
 }
 
 .work-row {
-  grid-template-columns: 112px minmax(180px, calc(var(--axis-local-x) - 250px)) 96px minmax(260px, 1fr) minmax(150px, 0.46fr);
+  grid-template-columns: 112px minmax(180px, calc(var(--axis-local-x) - 190px)) 96px minmax(260px, 1fr) minmax(150px, 0.46fr);
+}
+
+.work-name {
+  justify-content: end;
+  text-align: right;
 }
 
 .work-name strong,
@@ -775,11 +788,11 @@ body.c2x-body {
   grid-template-columns: auto 8px auto;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 6px;
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1;
-  transition: transform 180ms ease;
+  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
   transform: translateY(-50%);
 }
 
@@ -911,12 +924,38 @@ body.c2x-body {
   text-transform: none;
 }
 
-.through-line-map strong {
-  display: block;
-  margin-top: 12px;
+.tl-letter {
+  position: absolute;
   color: var(--ink);
+  font-family: var(--font-display);
   font-size: clamp(32px, 3vw, 42px);
-  line-height: 0.95;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: none;
+}
+
+.tl-letter-c {
+  bottom: 100%;
+  left: 100%;
+  transform: translate(-6px, 6px);
+}
+
+.tl-letter-x {
+  top: 100%;
+  right: 100%;
+  transform: translate(6px, -6px);
+}
+
+.tl-two {
+  display: inline-block;
+  margin: 0 3px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3vw, 42px);
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+  text-transform: none;
 }
 
 .contact-section {
@@ -991,7 +1030,7 @@ body.c2x-body {
   }
 
   .work-row {
-    grid-template-columns: 92px minmax(0, calc(var(--axis-local-x) - 150px)) minmax(0, 1fr);
+    grid-template-columns: 92px minmax(0, calc(var(--axis-local-x) - 155px)) 66px minmax(0, 1fr);
   }
 
   .axis-marker {
@@ -1006,7 +1045,7 @@ body.c2x-body {
 
   .work-detail,
   .work-meta {
-    grid-column: 3;
+    grid-column: 4;
     justify-self: start;
     max-width: none;
     text-align: left;
@@ -1081,6 +1120,10 @@ body.c2x-body {
     line-height: 0.98;
   }
 
+  .hero-standfirst {
+    margin-left: 0;
+  }
+
   .hero-bottom {
     align-items: flex-start;
     flex-direction: column;
@@ -1123,6 +1166,11 @@ body.c2x-body {
     padding: 24px 0;
   }
 
+  .work-name {
+    justify-content: start;
+    text-align: left;
+  }
+
   .work-logo img {
     max-width: 58px;
     max-height: 34px;
@@ -1151,7 +1199,7 @@ body.c2x-body {
   .axis-marker {
     width: 54px;
     left: calc(var(--axis-local-x) - 27px);
-    gap: 10px;
+    gap: 4px;
     font-size: 12px;
   }
 
@@ -1212,6 +1260,14 @@ body.c2x-body {
     grid-column: 2;
     transform: none;
     text-align: left;
+  }
+
+  .tl-letter {
+    display: none;
+  }
+
+  .tl-two {
+    font-size: clamp(26px, 9vw, 34px);
   }
 
   .contact-intro .text-cta {

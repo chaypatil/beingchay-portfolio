@@ -11,12 +11,14 @@ const menuScrim = document.querySelector(".menu-scrim");
 const menuLinks = document.querySelectorAll(".menu-nav a");
 const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const coarsePointer = window.matchMedia("(pointer: coarse)");
 const axisEl = document.querySelector(".c2x-axis");
 const SPINE_LEAD = 40;
+const SPINE_DRAW_SPEED = 2000;
+const SPINE_DRAW_MIN_MS = 900;
+const SPINE_DRAW_MAX_MS = 2600;
 
 let lastScrollY = window.scrollY;
-let restX = Math.round(window.innerWidth * 0.62);
+let restX = Math.round(window.innerWidth * 0.5);
 let revealX = restX;
 let targetX = restX;
 let revealWidth = 1.5;
@@ -24,9 +26,8 @@ let targetWidth = 1.5;
 let revealFrame = null;
 let resizeFrame = null;
 let headerTimer = null;
-let spineFrame = null;
 let spineTotalHeight = 0;
-let spineStaticReveal = reducedMotion.matches || coarsePointer.matches;
+let spineDrawn = false;
 
 function updateIstTime() {
   if (!timeNodes.length) return;
@@ -115,32 +116,21 @@ function setAxisFromAnchor() {
   body.style.setProperty("--spine-lead", `${SPINE_LEAD}px`);
   rebuildAxisSegments(Math.max(0, startY));
   updateRevealClip();
-  updateSpineReveal();
 }
 
-function updateSpineReveal() {
-  if (!axisEl) return;
-  let progress;
-  if (spineStaticReveal) {
-    progress = 1;
-  } else {
-    const anchorAbsY = parseFloat(body.style.getPropertyValue("--axis-start-y")) || 0;
-    const anchorInViewport = anchorAbsY - window.scrollY;
-    const half = window.innerHeight * 0.5;
-    progress = Math.min(1, Math.max(0, (half - anchorInViewport) / half));
-  }
-  const topInset = SPINE_LEAD * (1 - progress);
-  const bottomInsetPx = Math.max(0, spineTotalHeight - SPINE_LEAD) * (1 - progress);
-  body.style.setProperty("--spine-top-inset", `${topInset.toFixed(1)}px`);
-  body.style.setProperty("--spine-bottom-inset", `${bottomInsetPx.toFixed(1)}px`);
-}
-
-function requestSpineUpdate() {
-  if (spineFrame) return;
-  spineFrame = window.requestAnimationFrame(() => {
-    spineFrame = null;
-    updateSpineReveal();
+function triggerSpineDraw() {
+  if (spineDrawn || !axisEl) return;
+  spineDrawn = true;
+  const drawMs = Math.min(
+    SPINE_DRAW_MAX_MS,
+    Math.max(SPINE_DRAW_MIN_MS, (spineTotalHeight / SPINE_DRAW_SPEED) * 1000)
+  );
+  body.style.setProperty("--spine-draw-duration", `${Math.round(drawMs)}ms`);
+  window.requestAnimationFrame(() => {
+    body.style.setProperty("--spine-top-inset", "0px");
+    body.style.setProperty("--spine-bottom-inset", "0px");
   });
+  axisAnchor?.classList.add("is-lit");
 }
 
 function updateRevealClip() {
@@ -194,7 +184,6 @@ function showHeaderBriefly() {
 }
 
 function handleScroll() {
-  requestSpineUpdate();
   if (!header) return;
   const currentY = window.scrollY;
   const delta = currentY - lastScrollY;
@@ -232,6 +221,23 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("resize", handleResize);
+
+if (hero && "IntersectionObserver" in window) {
+  const heroObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          triggerSpineDraw();
+          heroObserver.disconnect();
+        }
+      }
+    },
+    { threshold: 0 }
+  );
+  heroObserver.observe(hero);
+} else {
+  triggerSpineDraw();
+}
 
 if (!reducedMotion.matches && hero && revealLayer) {
   hero.addEventListener("pointerenter", (event) => setRevealTarget(event.clientX));
