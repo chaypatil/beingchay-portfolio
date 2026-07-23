@@ -16,6 +16,9 @@ const SPINE_LEAD = 40;
 const SPINE_DRAW_SPEED = 2000;
 const SPINE_DRAW_MIN_MS = 900;
 const SPINE_DRAW_MAX_MS = 2600;
+const SPINE_TRIGGER_SCROLL_Y = 10;
+
+let lenis = null;
 
 let lastScrollY = window.scrollY;
 let restX = Math.round(window.innerWidth * 0.5);
@@ -174,18 +177,22 @@ function resetReveal() {
   startRevealLoop();
 }
 
-function showHeaderBriefly() {
+function showHeaderBriefly(currentY) {
   if (!header) return;
   header.classList.remove("is-hidden");
   window.clearTimeout(headerTimer);
-  if (window.scrollY > 80) {
+  if (currentY > 80) {
     headerTimer = window.setTimeout(() => header.classList.add("is-hidden"), 850);
   }
 }
 
-function handleScroll() {
+function maybeTriggerSpineFromScroll(currentY) {
+  if (!spineDrawn && currentY > SPINE_TRIGGER_SCROLL_Y) triggerSpineDraw();
+}
+
+function handleScroll(currentY) {
+  maybeTriggerSpineFromScroll(currentY);
   if (!header) return;
-  const currentY = window.scrollY;
   const delta = currentY - lastScrollY;
   const fastUp = delta < -8;
   const nearHero = hero ? currentY < hero.offsetHeight * 0.82 : currentY < 120;
@@ -194,7 +201,7 @@ function handleScroll() {
     header.classList.remove("is-hidden");
     window.clearTimeout(headerTimer);
   } else if (fastUp) {
-    showHeaderBriefly();
+    showHeaderBriefly(currentY);
   } else {
     header.classList.add("is-hidden");
   }
@@ -219,25 +226,32 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeMenu();
 });
 
-window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("resize", handleResize);
 
-if (hero && "IntersectionObserver" in window) {
-  const heroObserver = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) {
-          triggerSpineDraw();
-          heroObserver.disconnect();
-        }
-      }
-    },
-    { threshold: 0 }
-  );
-  heroObserver.observe(hero);
+if (!reducedMotion.matches && typeof window.Lenis === "function") {
+  lenis = new window.Lenis({
+    duration: 1.1,
+    autoRaf: true,
+  });
+  document.documentElement.style.scrollBehavior = "auto";
+  lenis.on("scroll", (instance) => handleScroll(instance.scroll));
+
+  for (const link of document.querySelectorAll('a[href^="#"]')) {
+    link.addEventListener("click", (event) => {
+      const id = link.getAttribute("href");
+      if (!id || id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      event.preventDefault();
+      lenis.scrollTo(target);
+    });
+  }
 } else {
-  triggerSpineDraw();
+  window.addEventListener("scroll", () => handleScroll(window.scrollY), { passive: true });
 }
+
+window.addEventListener("wheel", () => triggerSpineDraw(), { passive: true, once: true });
+window.addEventListener("touchmove", () => triggerSpineDraw(), { passive: true, once: true });
 
 if (!reducedMotion.matches && hero && revealLayer) {
   hero.addEventListener("pointerenter", (event) => setRevealTarget(event.clientX));

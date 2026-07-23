@@ -19,8 +19,8 @@
   --axis-start-y: 54vh;
   --clip-left: calc(var(--axis-x) - 0.75px);
   --clip-right: calc(100vw - var(--axis-x) - 0.75px);
-  --font-display: Geist, "Helvetica Neue", Arial, sans-serif;
-  --font-body: Geist, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Geist Mono", Consolas, monospace;
 }
 
@@ -164,18 +164,22 @@ body.c2x-body {
   line-height: 1;
 }
 
+.menu-button {
+  font-size: 12px;
+}
+
 .menu-grid {
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   display: grid;
-  grid-template-columns: repeat(2, 6px);
-  grid-template-rows: repeat(2, 6px);
-  gap: 4px;
+  grid-template-columns: repeat(2, 4px);
+  grid-template-rows: repeat(2, 4px);
+  gap: 2px;
 }
 
 .menu-grid i {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   background: var(--accent);
 }
 
@@ -276,11 +280,19 @@ body.c2x-body {
   grid-template-columns: 58px 1fr auto;
   gap: 18px;
   align-items: center;
+  padding: 0 12px;
+  margin: 0 -12px;
   border-top: 1px solid rgba(246, 246, 244, 0.22);
+  transition: all 550ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .menu-nav a:last-child {
   border-bottom: 1px solid rgba(246, 246, 244, 0.22);
+}
+
+.menu-nav a:hover,
+.menu-nav a:focus-visible {
+  background: rgba(246, 246, 244, 0.08);
 }
 
 .menu-nav span,
@@ -525,7 +537,7 @@ body.c2x-body {
   align-self: end;
   font-size: clamp(36px, 4.6vw, 62px);
   line-height: 0.96;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -936,8 +948,8 @@ body.c2x-body {
 
 .tl-letter-c {
   bottom: 100%;
-  left: 100%;
-  transform: translate(-6px, 6px);
+  right: 100%;
+  transform: translate(6px, 6px);
 }
 
 .tl-letter-x {
@@ -1069,7 +1081,7 @@ body.c2x-body {
   }
 
   .menu-button {
-    font-size: 15px;
+    font-size: 10px;
   }
 
   .menu-panel {
