@@ -202,6 +202,23 @@ body.is-focused .project-link-bottom {
   outline-offset: 5px;
 }
 
+.warp-field {
+  position: fixed;
+  z-index: 15;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+  will-change: opacity;
+}
+
+body.is-departing .warp-field {
+  opacity: 1;
+}
+
 .departure-flare {
   position: fixed;
   z-index: 20;

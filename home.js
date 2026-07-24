@@ -63,6 +63,90 @@ for (const link of projectLinks) {
   });
 }
 
+// --- Hyperspace warp field: stars streak toward the chosen star, then whiteout ---
+const warpCanvas = document.querySelector(".warp-field");
+const warpCtx = warpCanvas?.getContext("2d");
+let warpStars = [];
+let warpRaf = 0;
+let warpStart = 0;
+let warpDir = { x: 0, y: 0 };
+let warpW = 0;
+let warpH = 0;
+
+function sizeWarp() {
+  if (!warpCanvas) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  warpW = window.innerWidth;
+  warpH = window.innerHeight;
+  warpCanvas.width = Math.round(warpW * dpr);
+  warpCanvas.height = Math.round(warpH * dpr);
+  warpCtx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+function seedStars() {
+  const count = warpW < 700 ? 260 : 460;
+  warpStars = [];
+  for (let i = 0; i < count; i += 1) {
+    warpStars.push({ x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random() });
+  }
+}
+
+function drawWarp(now) {
+  if (!warpCtx) return;
+  const t = Math.min(1, (now - warpStart) / 1300);
+  const ease = t * t;
+  const cx = warpW / 2 + warpDir.x * warpW * 0.22;
+  const cy = warpH / 2 + warpDir.y * warpH * 0.22;
+  const spread = Math.max(warpW, warpH) * 0.55;
+  const speed = 0.004 + ease * 0.05;
+
+  warpCtx.clearRect(0, 0, warpW, warpH);
+  warpCtx.lineCap = "round";
+
+  for (const star of warpStars) {
+    star.z -= speed;
+    if (star.z <= 0.02) {
+      star.z = 1;
+      star.x = Math.random() * 2 - 1;
+      star.y = Math.random() * 2 - 1;
+    }
+    const dz = speed * (1 + ease * 9);
+    const zPrev = Math.min(1, star.z + dz);
+    const k = spread / star.z;
+    const kPrev = spread / zPrev;
+    const depth = 1 - star.z;
+    warpCtx.strokeStyle = `rgba(255,255,255,${(0.12 + depth * 0.85).toFixed(3)})`;
+    warpCtx.lineWidth = 0.6 + depth * 2.4;
+    warpCtx.beginPath();
+    warpCtx.moveTo(cx + star.x * kPrev, cy + star.y * kPrev);
+    warpCtx.lineTo(cx + star.x * k, cy + star.y * k);
+    warpCtx.stroke();
+  }
+
+  if (t < 1) warpRaf = window.requestAnimationFrame(drawWarp);
+}
+
+function startWarp(dirX, dirY) {
+  if (!warpCtx) return;
+  sizeWarp();
+  seedStars();
+  const mag = Math.hypot(dirX, dirY) || 1;
+  warpDir = { x: dirX / mag, y: dirY / mag };
+  warpStart = window.performance.now();
+  window.cancelAnimationFrame(warpRaf);
+  warpRaf = window.requestAnimationFrame(drawWarp);
+}
+
+function stopWarp() {
+  window.cancelAnimationFrame(warpRaf);
+  warpRaf = 0;
+  if (warpCtx) warpCtx.clearRect(0, 0, warpW, warpH);
+}
+
+window.addEventListener("resize", () => {
+  if (warpRaf) sizeWarp();
+});
+
 function beginDeparture(selectedLink) {
   if (isDeparting) return;
   isDeparting = true;
@@ -107,6 +191,11 @@ function beginDeparture(selectedLink) {
     return;
   }
 
+  startWarp(
+    selectedPosition.centerX - viewportCenterX,
+    selectedPosition.centerY - viewportCenterY,
+  );
+
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => body.classList.add("is-traveling"));
   });
@@ -120,6 +209,7 @@ function resetDeparture() {
   if (departureTimer) window.clearTimeout(departureTimer);
   departureTimer = null;
   isDeparting = false;
+  stopWarp();
   body.classList.remove("is-departing", "is-traveling");
   body.style.removeProperty("--travel-x");
   body.style.removeProperty("--travel-y");
