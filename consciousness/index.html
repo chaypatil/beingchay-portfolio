@@ -448,9 +448,12 @@
       position: relative;
       z-index: 2;
       touch-action: none;
-      cursor: default;
+      cursor: grab;
       shape-rendering: geometricPrecision;
     }
+    body.canvas-dragging .map-canvas { cursor: grabbing; }
+    body.canvas-dragging .node { transition: none; }
+    body.orbiting .map-canvas { cursor: move; }
     .boot-field {
       position: absolute;
       z-index: 20;
@@ -908,10 +911,10 @@
       <nav class="ui-dock" aria-label="Interface and spatial controls">
         <button class="ui-tool" id="rail-toggle" type="button" aria-pressed="false" title="Toggle library">LIB</button>
         <button class="ui-tool" id="detail-toggle" type="button" aria-pressed="false" title="Toggle node detail">INFO</button>
-        <button class="ui-tool map-only" id="depth-toggle" type="button" aria-pressed="false" title="Toggle depth">3D</button>
-        <button class="ui-tool map-only depth-adjust" id="depth-back" type="button" title="Move selected node away">Z−</button>
-        <button class="ui-tool map-only depth-adjust" id="depth-forward" type="button" title="Move selected node closer">Z+</button>
-        <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset node positions">RST</button>
+        <button class="ui-tool map-only" id="depth-toggle" type="button" aria-pressed="false" title="Toggle 3D — then drag empty space to orbit">3D</button>
+        <button class="ui-tool map-only depth-adjust" id="depth-back" type="button" title="Push selected node deeper">Z−</button>
+        <button class="ui-tool map-only depth-adjust" id="depth-forward" type="button" title="Pull selected node closer">Z+</button>
+        <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset positions and view">RST</button>
       </nav>
       <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
         <div class="map-head">
@@ -1347,8 +1350,10 @@
     let pointById = new Map();
     let nodePositions = new Map();
     let dragState = null;
+    let canvasDrag = null;
     let suppressClickUntil = 0;
     let depthMode = false;
+    let camera = { panX:0, panY:0, zoom:1, yaw:0, pitch:0 };
     const publicNodeIds = new Set(publicNodes.map(node => node.id));
     const positionStorageKey = "consciousness-public-layout-v1";
     const interfaceStorageKey = "consciousness-interface-v1";
@@ -1439,18 +1444,59 @@
       };
     }
 
+    function applyCamera(layout) {
+      const base = layout || graphLayout();
+      const vw = base.width / camera.zoom;
+      const vh = base.height / camera.zoom;
+      camera.panX = clamp(camera.panX, -base.width, base.width);
+      camera.panY = clamp(camera.panY, -base.height, base.height);
+      svg.setAttribute("viewBox", `${camera.panX.toFixed(2)} ${camera.panY.toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}`);
+    }
+
+    function clientToLayout(clientX, clientY) {
+      const matrix = svg.getScreenCTM();
+      if (!matrix) return { x:0, y:0 };
+      return new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
+    }
+
+    function zoomAt(clientX, clientY, factor) {
+      const before = clientToLayout(clientX, clientY);
+      camera.zoom = clamp(camera.zoom * factor, 0.45, 6);
+      applyCamera();
+      const after = clientToLayout(clientX, clientY);
+      camera.panX += before.x - after.x;
+      camera.panY += before.y - after.y;
+      applyCamera();
+    }
+
+    function resetCamera() {
+      camera = { panX:0, panY:0, zoom:1, yaw:0, pitch:0 };
+      applyCamera();
+    }
+
     function projectNode(node, layout) {
       const position = getNodePosition(node);
       const baseX = layout.xOffset + position.x * layout.xScale;
       const baseY = layout.yOffset + position.y * layout.yScale;
-      const z = depthMode ? clamp(position.z, -180, 180) : 0;
-      const scale = depthMode ? 900 / (900 - z) : 1;
       const centerX = layout.width / 2;
       const centerY = layout.height / 2;
+      if (!depthMode) {
+        return { x:baseX, y:baseY, z:0, scale:1 };
+      }
+      const px = baseX - centerX;
+      const py = baseY - centerY;
+      const pz = clamp(position.z, -180, 180);
+      const cosY = Math.cos(camera.yaw), sinY = Math.sin(camera.yaw);
+      const rx = px * cosY + pz * sinY;
+      let rz = -px * sinY + pz * cosY;
+      const cosX = Math.cos(camera.pitch), sinX = Math.sin(camera.pitch);
+      const ry = py * cosX - rz * sinX;
+      rz = py * sinX + rz * cosX;
+      const scale = 900 / (900 - rz);
       return {
-        x:centerX + (baseX - centerX) * scale,
-        y:centerY + (baseY - centerY) * scale,
-        z,
+        x:centerX + rx * scale,
+        y:centerY + ry * scale,
+        z:rz,
         scale
       };
     }
@@ -1533,7 +1579,7 @@
       svg.replaceChildren();
       nodeById = new Map(nodes.map(node => [node.id, node]));
       const layout = graphLayout();
-      svg.setAttribute("viewBox", `0 0 ${layout.width} ${layout.height}`);
+      applyCamera(layout);
       pointById = new Map(nodes.map(node => [node.id, projectNode(node, layout)]));
       const signalLayer = el("g", { class:"signal-field", "aria-hidden":"true" });
       const edgeLayer = el("g", { class:"edges" });
@@ -1677,6 +1723,56 @@
       renderGraph();
     }
 
+    function beginCanvasDrag(event) {
+      if (dragState || canvasDrag) return;
+      if (event.button !== undefined && event.button !== 0) return;
+      if (event.target.closest?.(".node")) return;
+      canvasDrag = {
+        pointerId:event.pointerId,
+        mode:depthMode ? "orbit" : "pan",
+        startClientX:event.clientX,
+        startClientY:event.clientY,
+        startPanX:camera.panX,
+        startPanY:camera.panY,
+        startYaw:camera.yaw,
+        startPitch:camera.pitch
+      };
+      document.body.classList.add("canvas-dragging");
+      if (canvasDrag.mode === "orbit") document.body.classList.add("orbiting");
+      svg.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+    }
+
+    function moveCanvasDrag(event) {
+      if (!canvasDrag || event.pointerId !== canvasDrag.pointerId) return;
+      if (canvasDrag.mode === "orbit") {
+        camera.yaw = canvasDrag.startYaw + (event.clientX - canvasDrag.startClientX) * 0.006;
+        camera.pitch = clamp(canvasDrag.startPitch + (event.clientY - canvasDrag.startClientY) * 0.006, -1.05, 1.05);
+        renderGraph();
+      } else {
+        const base = graphLayout();
+        const rect = svg.getBoundingClientRect();
+        const unitX = (base.width / camera.zoom) / Math.max(1, rect.width);
+        const unitY = (base.height / camera.zoom) / Math.max(1, rect.height);
+        camera.panX = canvasDrag.startPanX - (event.clientX - canvasDrag.startClientX) * unitX;
+        camera.panY = canvasDrag.startPanY - (event.clientY - canvasDrag.startClientY) * unitY;
+        applyCamera(base);
+      }
+    }
+
+    function finishCanvasDrag(event) {
+      if (!canvasDrag || event.pointerId !== canvasDrag.pointerId) return;
+      canvasDrag = null;
+      document.body.classList.remove("canvas-dragging", "orbiting");
+      try { svg.releasePointerCapture?.(event.pointerId); } catch {}
+    }
+
+    function onWheel(event) {
+      event.preventDefault();
+      const factor = Math.exp(-event.deltaY * 0.0016);
+      zoomAt(event.clientX, event.clientY, factor);
+    }
+
     function selectNode(id, openMobile) {
       const node = nodeById.get(id);
       if (!node) return;
@@ -1771,6 +1867,11 @@
       depthMode = enabled;
       document.body.classList.toggle("depth-mode", enabled);
       document.querySelector("#depth-toggle").setAttribute("aria-pressed", String(enabled));
+      if (enabled && camera.yaw === 0 && camera.pitch === 0) {
+        camera.yaw = 0.6;
+        camera.pitch = -0.32;
+      }
+      if (!enabled) { camera.yaw = 0; camera.pitch = 0; }
       if (persist) writeInterfaceState();
       renderGraph();
     }
@@ -1881,9 +1982,14 @@
       if (window.innerWidth <= 768) setPanelCollapsed("detail", true);
     });
 
+    svg.addEventListener("pointerdown", beginCanvasDrag);
     svg.addEventListener("pointermove", moveDraggedNode);
+    svg.addEventListener("pointermove", moveCanvasDrag);
     svg.addEventListener("pointerup", finishNodeDrag);
+    svg.addEventListener("pointerup", finishCanvasDrag);
     svg.addEventListener("pointercancel", finishNodeDrag);
+    svg.addEventListener("pointercancel", finishCanvasDrag);
+    svg.addEventListener("wheel", onWheel, { passive:false });
 
     document.querySelector("#rail-toggle").addEventListener("click", () => {
       setPanelCollapsed("rail", !document.body.classList.contains("rail-collapsed"));
@@ -1902,6 +2008,7 @@
       nodePositions.clear();
       savedPublicPositions = {};
       try { localStorage.removeItem(positionStorageKey); } catch {}
+      resetCamera();
       renderGraph();
     });
 
