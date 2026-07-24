@@ -1,0 +1,11 @@
+# Internal / working docs — never publish to the live site
+HANDOVER-FINAL.md
+HANDOVER-claude-code-deploy.md
+HANDOVER-for-claude-code-vault-work.md
+consciousness/NODE-BACKLOG.md
+consciousness/NODE-PUBLISHING-PROCESS.md
+assets/logos/peoplebox.jfif
+
+# Secrets / local tooling (also gitignored)
+.env*
+.gstack
