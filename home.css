@@ -22,186 +22,260 @@ body {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  /* Same dark backdrop as before, no paper, no tabs. */
-  background:
-    radial-gradient(120% 120% at 50% 46%, #17181c 0%, #0b0b0d 46%, #050506 100%);
+  background: radial-gradient(120% 120% at 50% 50%, #14151a 0%, #0a0a0c 45%, #030304 100%);
+  cursor: grab;
 }
 
-/* --- The central star: bright, borderless, realistic, barely-there cross rays --- */
+body.orbiting .constellation {
+  cursor: grabbing;
+}
+
+/* ---------------------------------------------------------------
+   The star. Built from four layers so it reads as light, not paint:
+   a wide bloom, a small intense core, thin diffraction spikes, and
+   lens-flare ghosts that slide as the constellation rotates.
+   --------------------------------------------------------------- */
 .star {
   position: absolute;
   left: 50%;
-  top: 48%;
-  width: min(54vmin, 520px);
-  height: min(54vmin, 520px);
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.star span {
+  position: absolute;
+  left: 0;
+  top: 0;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  pointer-events: none;
+}
+
+/* Wide, faint atmospheric bloom. Warm at the heart, cold at the edge. */
+.star-bloom {
+  width: min(86vmin, 900px);
+  height: min(86vmin, 900px);
   background:
     radial-gradient(circle,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 253, 247, 0.98) 5%,
-      rgba(255, 246, 228, 0.62) 15%,
-      rgba(255, 238, 208, 0.26) 32%,
-      rgba(255, 232, 196, 0.08) 52%,
-      rgba(255, 232, 196, 0) 70%);
-  filter: blur(1.5px);
-  animation: star-pulse 6.5s ease-in-out infinite;
-  will-change: transform, opacity;
+      rgba(255, 252, 244, 0.50) 0%,
+      rgba(255, 246, 226, 0.22) 8%,
+      rgba(214, 226, 255, 0.10) 22%,
+      rgba(160, 190, 255, 0.045) 40%,
+      rgba(120, 160, 255, 0.015) 62%,
+      rgba(0, 0, 0, 0) 78%);
+  animation: bloom-breathe 7s ease-in-out infinite;
 }
 
-.star::before {
-  content: "";
-  position: absolute;
-  inset: -60%;
+/* The actual point of light: small, blown out, with a tight falloff. */
+.star-core {
+  width: min(13vmin, 128px);
+  height: min(13vmin, 128px);
   background:
-    linear-gradient(0deg, transparent 47.5%, rgba(255, 247, 230, 0.10) 50%, transparent 52.5%),
-    linear-gradient(90deg, transparent 47.5%, rgba(255, 247, 230, 0.10) 50%, transparent 52.5%);
-  filter: blur(7px);
-  opacity: 0.8;
+    radial-gradient(circle,
+      #ffffff 0%,
+      #ffffff 22%,
+      rgba(255, 251, 240, 0.85) 34%,
+      rgba(255, 240, 214, 0.35) 52%,
+      rgba(255, 236, 206, 0.10) 70%,
+      rgba(255, 236, 206, 0) 84%);
+  filter: blur(0.4px);
+  animation: core-flicker 5.5s ease-in-out infinite;
 }
 
-.star::after {
-  content: "";
-  position: absolute;
-  inset: 30%;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0) 72%);
-  filter: blur(2px);
+/* Four thin spikes. Present, but nowhere near the old grey bars. */
+.star-spikes {
+  width: min(120vmin, 1500px);
+  height: min(120vmin, 1500px);
+  border-radius: 0;
+  transform: translate(-50%, -50%) rotate(var(--flare-spin, 0deg));
+  background:
+    linear-gradient(90deg, transparent 0%, transparent 43%, rgba(255, 250, 238, 0.16) 50%, transparent 57%, transparent 100%),
+    linear-gradient(0deg, transparent 0%, transparent 45.5%, rgba(255, 250, 238, 0.11) 50%, transparent 54.5%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, rgba(0, 0, 0, 0.45) 22%, transparent 60%);
+  mask-image: radial-gradient(circle, #000 0%, rgba(0, 0, 0, 0.45) 22%, transparent 60%);
+  filter: blur(1.2px);
+  opacity: 0.9;
 }
 
-@keyframes star-pulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.95; }
-  50% { transform: translate(-50%, -50%) scale(1.035); opacity: 1; }
-}
-
-/* --- Node field: black voxel boxes with white borders (decorative, no links) --- */
-.node-field {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.node-box,
-.node-field i {
-  display: block;
-  background: #060606;
-  border: 1px solid rgba(244, 241, 232, 0.9);
-  /* hard offset = minecraft/voxel extrusion, no blur */
+/* Lens ghosts. These move against the orbit, which sells the rotation. */
+.star-flare {
+  width: 10px;
+  height: 10px;
+  border-radius: 0;
+  background: none;
   box-shadow:
-    2px 2px 0 rgba(244, 241, 232, 0.28),
-    4px 4px 0 rgba(244, 241, 232, 0.10);
+    calc(var(--flare-x, 0px) * 1.7) calc(var(--flare-y, 0px) * 1.7) 0 7px rgba(150, 190, 255, 0.10),
+    calc(var(--flare-x, 0px) * -2.4) calc(var(--flare-y, 0px) * -2.4) 0 13px rgba(255, 214, 170, 0.075),
+    calc(var(--flare-x, 0px) * 3.5) calc(var(--flare-y, 0px) * 3.5) 0 4px rgba(190, 255, 226, 0.075),
+    calc(var(--flare-x, 0px) * -4.6) calc(var(--flare-y, 0px) * -4.6) 0 20px rgba(140, 170, 255, 0.05);
+  filter: blur(5px);
 }
 
-.node-field i {
-  position: absolute;
-  width: var(--s, 14px);
-  height: var(--s, 14px);
-  left: var(--x);
-  top: var(--y);
-  opacity: var(--o, 0.85);
-  animation: node-drift var(--dur, 9s) ease-in-out var(--delay, 0s) infinite;
-  will-change: transform;
+@keyframes bloom-breathe {
+  0%, 100% { opacity: 0.92; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
 }
 
-@keyframes node-drift {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(var(--dx, 6px), var(--dy, -8px)); }
+@keyframes core-flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.96; }
+  70% { opacity: 1; }
 }
 
-/* --- The four real project nodes --- */
-.project-orbit {
+/* ---------------------------------------------------------------
+   Nodes. Same colours and coordinates as the consciousness map,
+   drawn as voxel boxes. No connecting lines here.
+   --------------------------------------------------------------- */
+.node-sky {
   position: absolute;
   inset: 0;
 }
 
-.project-link {
+.sky-node {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
   text-decoration: none;
-  color: #f4f1e8;
-  transform: translate(-50%, -50%);
-  animation: node-drift var(--dur, 11s) ease-in-out var(--delay, 0s) infinite;
-  will-change: transform;
+  cursor: pointer;
+  will-change: transform, left, top;
 }
 
-.project-link .node-box {
-  width: 22px;
-  height: 22px;
-  transition: box-shadow 0.24s ease, transform 0.24s ease, background 0.24s ease;
-}
-
-.project-link .node-label {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(244, 241, 232, 0.72);
-  transition: color 0.22s ease, text-shadow 0.22s ease;
-  white-space: nowrap;
-}
-
-.project-link:hover .node-box,
-.project-link:focus-visible .node-box {
-  background: #f4f1e8;
-  transform: scale(1.12);
+.sky-box {
+  display: block;
+  width: var(--box, 14px);
+  height: var(--box, 14px);
+  background: var(--tone, #0a0a0a);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  /* Hard offsets, no blur: the voxel read. */
   box-shadow:
-    2px 2px 0 rgba(244, 241, 232, 0.4),
-    4px 4px 0 rgba(244, 241, 232, 0.18);
+    2px 2px 0 rgba(255, 255, 255, 0.22),
+    4px 4px 0 rgba(0, 0, 0, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.project-link:hover .node-label,
-.project-link:focus-visible .node-label {
+.sky-label {
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(244, 241, 232, 0.0);
+  transition: color 0.2s ease;
+  pointer-events: none;
+}
+
+/* Only the three built things are labelled by default. */
+.sky-node.pillar .sky-label {
+  color: rgba(244, 241, 232, 0.85);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+
+.sky-node.pillar .sky-box {
+  border-width: 2px;
+  box-shadow:
+    3px 3px 0 rgba(255, 255, 255, 0.3),
+    6px 6px 0 rgba(0, 0, 0, 0.6),
+    0 0 22px rgba(255, 255, 255, 0.14);
+}
+
+.sky-node.locked .sky-box {
+  background: #060606;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.sky-node:hover .sky-label,
+.sky-node:focus-visible .sky-label {
   color: #ffffff;
-  text-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
 }
 
-.project-link:focus-visible {
-  outline: 1px solid rgba(255, 255, 255, 0.48);
-  outline-offset: 8px;
+.sky-node:hover .sky-box,
+.sky-node:focus-visible .sky-box {
+  transform: scale(1.18);
+  box-shadow:
+    3px 3px 0 rgba(255, 255, 255, 0.4),
+    6px 6px 0 rgba(0, 0, 0, 0.6),
+    0 0 26px rgba(255, 255, 255, 0.3);
 }
 
-/* Outer three, spread around the star. */
-.project-link[data-node="fallout"] { left: 24%; top: 30%; }
-.project-link[data-node="anrxyst"] { left: 77%; top: 36%; }
-.project-link[data-node="c2x"] { left: 50%; top: 82%; }
+.sky-node:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 6px;
+}
 
-/* Consciousness lives at the heart of the light. */
-.core-link {
+/* ---------------------------------------------------------------
+   Deep dive switch. Off, but present: the door to the brain view.
+   --------------------------------------------------------------- */
+.top-rail {
+  position: fixed;
+  z-index: 60;
+  top: 22px;
   left: 50%;
-  top: 48%;
-  gap: 0;
-  animation: none;
+  transform: translateX(-50%);
 }
 
-.core-link .node-label {
-  font-size: 13px;
-  letter-spacing: 0.28em;
-  color: rgba(20, 18, 14, 0.9);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
-  transition: letter-spacing 0.35s ease, color 0.24s ease;
+.deep-toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
 }
 
-.core-link:hover .node-label,
-.core-link:focus-visible .node-label {
-  color: #000000;
-  letter-spacing: 0.34em;
-  text-shadow: 0 0 18px rgba(255, 255, 255, 1);
+.deep-track {
+  display: block;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: transparent;
+  position: relative;
+  transition: background 0.24s ease, border-color 0.24s ease;
 }
 
-/* --- Ambient sound toggle --- */
+.deep-knob {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-50%);
+  transition: left 0.24s cubic-bezier(0.32, 0, 0.2, 1), background 0.24s ease;
+}
+
+.deep-toggle[aria-pressed="true"] .deep-track {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.deep-toggle[aria-pressed="true"] .deep-knob {
+  left: 27px;
+  background: #050506;
+}
+
+.deep-toggle:focus-visible .deep-track {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+}
+
+/* --- Ambient sound --- */
 .audio-toggle {
   position: fixed;
-  z-index: 12;
+  z-index: 60;
   right: 22px;
   bottom: 20px;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   padding: 0;
-  border: 1px solid rgba(244, 241, 232, 0.55);
-  background: rgba(6, 6, 6, 0.6);
+  border: 1px solid rgba(244, 241, 232, 0.5);
+  background: rgba(6, 6, 6, 0.55);
   color: #f4f1e8;
   cursor: pointer;
   display: grid;
@@ -209,25 +283,107 @@ body {
 }
 
 .audio-icon {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border: 1px solid currentColor;
-  border-radius: 1px;
 }
 
 body.sound-on .audio-icon {
   background: currentColor;
 }
 
-.audio-toggle:focus-visible {
-  outline: 1px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 3px;
+/* --- Open Cloud Consciousness prompt --- */
+.open-prompt {
+  position: fixed;
+  z-index: 70;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(3, 3, 4, 0.72);
+  opacity: 0;
+  transition: opacity 0.22s ease;
 }
 
-/* --- Departure: warp + whiteout (kept from before) --- */
+body.prompt-open .open-prompt {
+  opacity: 1;
+}
+
+.open-prompt-card {
+  width: min(420px, calc(100vw - 44px));
+  padding: 26px 26px 20px;
+  background: #08080a;
+  border: 1px solid rgba(244, 241, 232, 0.85);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+  transform: translateY(6px);
+  transition: transform 0.22s ease;
+}
+
+body.prompt-open .open-prompt-card {
+  transform: translateY(0);
+}
+
+.open-prompt-kicker {
+  margin: 0 0 14px;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.5);
+}
+
+.open-prompt-title {
+  margin: 0 0 12px;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.open-prompt-meta {
+  margin: 0 0 22px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: rgba(244, 241, 232, 0.62);
+}
+
+.open-prompt-node {
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.open-prompt-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.open-prompt-actions button {
+  padding: 9px 16px;
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid rgba(244, 241, 232, 0.55);
+  background: transparent;
+  color: rgba(244, 241, 232, 0.8);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.open-prompt-confirm {
+  background: #f4f1e8;
+  color: #08080a;
+  border-color: #f4f1e8;
+}
+
+.open-prompt-actions button:hover {
+  background: #ffffff;
+  color: #08080a;
+}
+
+/* --- Departure --- */
 .warp-field {
   position: fixed;
-  z-index: 15;
+  z-index: 80;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -235,7 +391,6 @@ body.sound-on .audio-icon {
   opacity: 0;
   pointer-events: none;
   transition: opacity 260ms ease;
-  will-change: opacity;
 }
 
 body.is-departing .warp-field {
@@ -244,32 +399,22 @@ body.is-departing .warp-field {
 
 .departure-flare {
   position: fixed;
-  z-index: 20;
+  z-index: 90;
   inset: 0;
   background: #ffffff;
   opacity: 0;
   pointer-events: none;
   transition: opacity 480ms cubic-bezier(0.32, 0, 0.2, 1) 650ms;
-  will-change: opacity;
-}
-
-body.is-departing .project-orbit,
-body.is-departing .audio-toggle {
-  pointer-events: none;
-}
-
-body.is-departing .project-link:not(.is-selected) {
-  opacity: 0;
-  transition: opacity 260ms ease;
-}
-
-body.is-departing .project-link.is-selected .node-label {
-  color: #ffffff;
-  text-shadow: 0 0 24px rgba(255, 255, 255, 0.62);
 }
 
 body.is-traveling .departure-flare {
   opacity: 1;
+}
+
+body.is-departing .node-sky,
+body.is-departing .top-rail,
+body.is-departing .audio-toggle {
+  pointer-events: none;
 }
 
 .visually-hidden {
@@ -285,17 +430,14 @@ body.is-traveling .departure-flare {
 }
 
 @media (max-width: 640px) {
-  .star { width: min(70vmin, 360px); height: min(70vmin, 360px); }
-  .project-link[data-node="fallout"] { left: 22%; top: 26%; }
-  .project-link[data-node="anrxyst"] { left: 78%; top: 32%; }
-  .project-link[data-node="c2x"] { left: 50%; top: 84%; }
-  .project-link .node-label { font-size: 10px; }
+  .sky-node.pillar .sky-label { font-size: 9px; }
+  .star-core { width: min(17vmin, 96px); height: min(17vmin, 96px); }
+  .top-rail { top: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .star,
-  .node-field i,
-  .project-link {
-    animation: none !important;
+  .star-bloom,
+  .star-core {
+    animation: none;
   }
 }

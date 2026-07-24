@@ -5,34 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
     <title>beingchay</title>
-    <meta name="description" content="Four points of Chay: fallout, ANRXYST, C2X, and consciousness.">
+    <meta name="description" content="The constellation behind Chay: fallout, ANRXYST, C2X, and the consciousness at the centre.">
     <link rel="stylesheet" href="home.css">
   </head>
   <body>
     <main class="constellation" aria-labelledby="home-title">
       <h1 id="home-title" class="visually-hidden">beingchay</h1>
 
-      <div class="star" aria-hidden="true"></div>
-      <div class="node-field" aria-hidden="true"></div>
+      <div class="star" aria-hidden="true">
+        <span class="star-bloom"></span>
+        <span class="star-core"></span>
+        <span class="star-spikes"></span>
+        <span class="star-flare"></span>
+      </div>
 
-      <nav class="project-orbit" aria-label="Projects">
-        <a class="project-link" data-node="fallout" href="https://fall0ut.in" rel="external">
-          <span class="node-box"></span><span class="node-label">fallØut</span>
-        </a>
-        <a class="project-link" data-node="anrxyst" href="https://www.instagram.com/anrxyst/" rel="external">
-          <span class="node-box"></span><span class="node-label">ANRXYST</span>
-        </a>
-        <a class="project-link" data-node="c2x" href="c2x/">
-          <span class="node-box"></span><span class="node-label">C2X</span>
-        </a>
-        <a class="project-link core-link" data-node="core" href="consciousness/">
-          <span class="node-label">consciousness</span>
-        </a>
-      </nav>
+      <div class="node-sky" aria-label="Constellation of concepts"></div>
 
-      <button class="audio-toggle" type="button" aria-pressed="false" aria-label="Play ambient sound" title="Sound">
+      <div class="top-rail">
+        <button class="deep-toggle" type="button" role="switch" aria-checked="false" aria-pressed="false" aria-label="Deep dive into the psyche">
+          <span class="deep-track" aria-hidden="true"><span class="deep-knob"></span></span>
+        </button>
+      </div>
+
+      <button class="audio-toggle" type="button" aria-pressed="false" aria-label="Toggle ambient sound" title="Sound">
         <span class="audio-icon" aria-hidden="true"></span>
       </button>
+
+      <div class="open-prompt" role="dialog" aria-modal="true" aria-labelledby="open-prompt-title" hidden>
+        <div class="open-prompt-card">
+          <p class="open-prompt-kicker">Node selected</p>
+          <p class="open-prompt-title" id="open-prompt-title">
+            Open Cloud Consciousness?
+          </p>
+          <p class="open-prompt-meta">
+            <span class="open-prompt-node"></span> lives inside the map, with its
+            evidence, relations and contradictions.
+          </p>
+          <div class="open-prompt-actions">
+            <button class="open-prompt-cancel" type="button">Stay here</button>
+            <button class="open-prompt-confirm" type="button">Open</button>
+          </div>
+        </div>
+      </div>
 
       <canvas class="warp-field" aria-hidden="true"></canvas>
       <div class="departure-flare" aria-hidden="true"></div>
