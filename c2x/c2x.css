@@ -253,6 +253,7 @@ body.c2x-body {
   display: grid;
   align-content: safe center;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
