@@ -19,9 +19,9 @@
       --memory: #aab4ff;
       --belief: #9a7cff;
       --drive: #6f78ff;
-      --pattern: #62b6ff;
-      --tension: #bd78ff;
-      --influence: #58d4ff;
+      --pattern: #3157a8;
+      --tension: #7540a8;
+      --influence: #235f49;
       --question: #d9d6ff;
       --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
       --sans: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
@@ -303,13 +303,14 @@
       --memory: #766bff;
       --belief: #613cff;
       --drive: #294dff;
-      --pattern: #008fd4;
-      --tension: #d000ff;
-      --influence: #00a5bb;
+      --pattern: #3157a8;
+      --tension: #713a9f;
+      --influence: #1f6b4f;
       --question: #111111;
-      --glitch-pink: #ff2bd6;
-      --glitch-green: #12d982;
-      --glitch-cyan: #00cde8;
+      --signal-blue: #2447a8;
+      --signal-green: #277052;
+      --rail-size: 210px;
+      --detail-size: 360px;
       --mono: "Courier New", "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
     }
 
@@ -324,9 +325,10 @@
     * { scrollbar-color: var(--ink) transparent; scrollbar-width: thin; }
 
     .shell {
-      grid-template: 60px minmax(0, 1fr) 48px / 210px minmax(0, 1fr) 360px;
+      grid-template: 60px minmax(0, 1fr) 48px / var(--rail-size) minmax(0, 1fr) var(--detail-size);
       border-color: var(--ink);
       background: transparent;
+      transition: grid-template-columns .28s steps(6, end);
     }
 
     .topbar {
@@ -341,15 +343,15 @@
     .brand-star::after { height: 2px; }
     .brand-name, .view-tab, .meta-actions { font-weight: 700; }
     .view-tab { color: var(--dim); border-bottom-width: 3px; }
-    .view-tab.active { color: var(--ink); border-color: var(--glitch-pink); }
+    .view-tab.active { color: var(--ink); border-color: var(--signal-blue); }
     .meta-actions { border-color: var(--ink); }
     .live-mark::before {
-      width: 7px; height: 7px; border-radius: 0; background: var(--glitch-green);
-      box-shadow: 3px 0 0 var(--glitch-pink), -3px 0 0 var(--glitch-cyan);
+      width: 7px; height: 7px; border-radius: 0; background: var(--signal-green);
+      box-shadow: 3px 0 0 var(--signal-blue), -3px 0 0 var(--ink);
     }
     .toggle-track { height: 14px; border: 2px solid var(--ink); }
     .toggle-dot { width: 6px; height: 6px; top: 2px; left: 3px; background: var(--ink); }
-    body.private-mode .toggle-dot { background: var(--glitch-pink); }
+    body.private-mode .toggle-dot { background: var(--signal-blue); }
 
     .left-rail {
       border-color: var(--ink);
@@ -358,6 +360,8 @@
         linear-gradient(rgba(10,10,10,.045) 1px, transparent 1px),
         linear-gradient(90deg, rgba(10,10,10,.045) 1px, transparent 1px);
       background-size: 16px 16px;
+      min-width: 0;
+      transition: opacity .2s steps(4, end), visibility .2s, padding .28s steps(6, end);
     }
     .rail-kicker, .panel-kicker, .section-kicker { color: var(--dim); font-weight: 700; }
     .rail-title { font-family: var(--mono); font-size: 24px; line-height: .96; font-weight: 700; text-transform: uppercase; letter-spacing: -.07em; }
@@ -368,6 +372,42 @@
     .thread-link span { color: var(--muted); font-family: var(--mono); font-size: 11px; font-weight: 700; }
 
     .stage { background: var(--paper); }
+    .ui-dock {
+      position: absolute;
+      z-index: 24;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      gap: 3px;
+      padding: 3px;
+      border: 1px solid var(--ink);
+      background: rgba(239,238,232,.94);
+      box-shadow: 3px 3px 0 rgba(10,10,10,.14);
+    }
+    .ui-tool {
+      appearance: none;
+      min-width: 34px;
+      height: 30px;
+      padding: 0 7px;
+      border: 0;
+      border-right: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font: 700 8px/1 var(--mono);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .ui-tool:last-child { border-right: 0; }
+    .ui-tool:hover, .ui-tool:focus-visible { background: var(--paper-deep); }
+    .ui-tool[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: inset 3px 0 0 var(--signal-green), inset -3px 0 0 var(--signal-blue);
+    }
+    .ui-tool.depth-adjust { display: none; }
+    body.depth-mode .ui-tool.depth-adjust { display: inline-flex; align-items: center; justify-content: center; }
+    body:not(.view-map-active) .ui-tool.map-only { display: none; }
     .map-view {
       isolation: isolate;
       background-color: var(--paper);
@@ -389,10 +429,10 @@
       background:
         linear-gradient(90deg,
           var(--ink) 0 8%, transparent 8% 12%,
-          var(--glitch-pink) 12% 19%, transparent 19% 25%,
+          var(--signal-blue) 12% 19%, transparent 19% 25%,
           var(--ink) 25% 48%, transparent 48% 52%,
-          var(--glitch-green) 52% 61%, transparent 61% 66%,
-          var(--ink) 66% 82%, var(--glitch-cyan) 82% 88%, transparent 88%);
+          var(--signal-green) 52% 61%, transparent 61% 66%,
+          var(--ink) 66% 82%, var(--signal-blue) 82% 88%, transparent 88%);
       image-rendering: pixelated;
     }
     .map-head { top: 14px; left: 16px; }
@@ -402,7 +442,7 @@
       background: var(--ink);
       color: var(--paper);
       font: 700 15px/1 "Nirmala UI", "Noto Sans Devanagari", "Mangal", sans-serif;
-      box-shadow: 4px 0 0 var(--glitch-pink), -3px 3px 0 var(--glitch-green);
+      box-shadow: 4px 0 0 var(--signal-blue), -3px 3px 0 var(--signal-green);
     }
     .map-canvas {
       position: relative;
@@ -410,6 +450,38 @@
       touch-action: none;
       cursor: default;
       shape-rendering: geometricPrecision;
+    }
+    .boot-field {
+      position: absolute;
+      z-index: 20;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      animation: boot-field-clear 2.35s steps(12, end) forwards;
+    }
+    .boot-field:not(.running),
+    .boot-field:not(.running)::before,
+    .boot-field:not(.running) .boot-block { animation-play-state: paused; }
+    .boot-field::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--paper);
+      animation: boot-paper-clear 2.1s steps(10, end) forwards;
+    }
+    .boot-block {
+      position: absolute;
+      left: var(--sx);
+      top: var(--sy);
+      width: var(--bw);
+      height: var(--bh);
+      border: var(--block-border, 0);
+      background: var(--block-color);
+      box-shadow: var(--block-shadow, none);
+      transform: translate(-50%, -50%);
+      transform-origin: center;
+      image-rendering: pixelated;
+      animation: boot-block-collapse var(--duration) steps(14, end) var(--delay) forwards;
     }
     .signal-pixel {
       shape-rendering: crispEdges;
@@ -426,10 +498,15 @@
     .edge.hot {
       stroke: var(--ink);
       stroke-width: 1.4;
-      filter: drop-shadow(3px 0 0 var(--glitch-pink)) drop-shadow(-3px 0 0 var(--glitch-green));
+      filter: drop-shadow(3px 0 0 var(--signal-blue)) drop-shadow(-3px 0 0 var(--signal-green));
     }
     .edge-label { fill: var(--ink); font-weight: 700; paint-order: stroke; stroke: var(--paper); stroke-width: 3px; }
-    .node { cursor: pointer; }
+    .node {
+      cursor: grab;
+      will-change: transform, opacity;
+      transition: opacity .2s steps(4, end), transform .24s steps(6, end);
+    }
+    body.node-dragging .node { cursor: grabbing; transition: none; }
     .node .node-visual {
       transform-box: fill-box;
       transform-origin: center;
@@ -451,8 +528,8 @@
       shape-rendering: crispEdges;
       transition: opacity .12s steps(1, end), transform .12s steps(1, end);
     }
-    .node .ghost-a { --ghost-color: var(--glitch-pink); }
-    .node .ghost-b { --ghost-color: var(--glitch-green); }
+    .node .ghost-a { --ghost-color: var(--signal-blue); }
+    .node .ghost-b { --ghost-color: var(--signal-green); }
     .node .core {
       fill: var(--paper);
       stroke: var(--node-color);
@@ -484,6 +561,22 @@
     .node:hover .ghost-b, .node:focus-visible .ghost-b, .node.active .ghost-b { transform: translate(-4px, 3px); }
     .node.active .halo { stroke-opacity: 1; stroke-width: 2; }
     .node.dim { opacity: .06; }
+    .node.locked .core, .node.locked .point { fill: var(--ink); stroke: var(--ink); }
+    .node.locked .halo { stroke: var(--ink); stroke-dasharray: 2 3; }
+    .node.locked .ghost { opacity: .05; }
+    .node .redaction-bar {
+      fill: var(--ink);
+      stroke: var(--ink);
+      stroke-width: 2;
+      shape-rendering: crispEdges;
+    }
+    .node .redaction-scratch {
+      stroke: var(--paper);
+      stroke-width: 1;
+      opacity: .2;
+      shape-rendering: crispEdges;
+    }
+    body.depth-mode .node .halo { stroke-opacity: .44; }
 
     .editorial-view, .time-view, .voice-intro {
       background-color: var(--paper);
@@ -510,7 +603,7 @@
     .thread-row { grid-template-columns: 62px minmax(220px, .82fr) minmax(240px, 1.18fr) 70px; }
     .era h3 { font-family: var(--mono); font-weight: 700; text-transform: uppercase; letter-spacing: -.05em; }
     .thread-copy, .editorial-header p, .time-header p, .era p, .voice-intro p { color: var(--muted); }
-    .era::before { border-radius: 0; box-shadow: 3px 0 0 var(--glitch-pink), -3px 0 0 var(--glitch-green); }
+    .era::before { border-radius: 0; box-shadow: 3px 0 0 var(--signal-blue), -3px 0 0 var(--signal-green); }
     .era-tags span { border-color: var(--ink); color: var(--ink); font-weight: 700; background: var(--paper); }
 
     .voice-intro { padding: clamp(30px, 4vw, 56px); border-color: var(--ink); }
@@ -528,7 +621,7 @@
         linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
       background-size: 16px 16px;
     }
-    .ask-submit { color: var(--glitch-green); }
+    .ask-submit { color: var(--signal-green); }
 
     .detail-panel {
       color: var(--paper);
@@ -544,7 +637,7 @@
         linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
       background-size: 16px 16px;
     }
-    .detail-type::before { width: 8px; height: 8px; border-radius: 0; box-shadow: 3px 0 0 var(--glitch-pink), -3px 0 0 var(--glitch-green); }
+    .detail-type::before { width: 8px; height: 8px; border-radius: 0; box-shadow: 3px 0 0 var(--signal-blue), -3px 0 0 var(--signal-green); }
     .detail-head { position: relative; }
     .detail-head h2 { font-family: var(--mono); font-weight: 700; text-transform: uppercase; letter-spacing: -.055em; }
     .detail-summary { color: var(--muted); }
@@ -560,21 +653,21 @@
       --line-strong: rgba(239,238,232,.4);
       border: 2px solid var(--paper);
       background: #080808;
-      box-shadow: 7px 7px 0 var(--glitch-pink), -5px -5px 0 var(--glitch-green);
+      box-shadow: 7px 7px 0 var(--signal-blue), -5px -5px 0 var(--signal-green);
     }
     .private-dialog::backdrop { background: rgba(10,10,10,.82); backdrop-filter: blur(2px); }
-    .private-submit { color: var(--glitch-green); }
+    .private-submit { color: var(--signal-green); }
 
     .bottom-bar { border-color: var(--ink); background: rgba(239,238,232,.96); }
     .time-scrub { height: 48px; color: var(--dim); font-weight: 700; }
     .time-scrub::before, .time-scrub::after { top: 24px; }
     .time-scrub::before { background: var(--line-strong); }
-    .time-scrub::after { background: var(--accent); box-shadow: 3px 0 0 var(--glitch-pink), -3px 0 0 var(--glitch-green); }
+    .time-scrub::after { background: var(--accent); box-shadow: 3px 0 0 var(--signal-blue), -3px 0 0 var(--signal-green); }
     .time-scrub span::before { border-radius: 0; background: var(--ink); }
     .time-scrub .current { color: var(--ink); }
-    .time-scrub .current::before { background: var(--glitch-green); box-shadow: 3px 0 0 var(--glitch-pink); }
+    .time-scrub .current::before { background: var(--signal-green); box-shadow: 3px 0 0 var(--signal-blue); }
 
-    :focus-visible { outline: 2px solid var(--glitch-pink); outline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--signal-blue); outline-offset: 3px; }
     @keyframes signal-drift {
       0%, 100% { transform: translate(0, 0); }
       33% { transform: translate(1px, -1px); }
@@ -585,11 +678,52 @@
       73%, 78% { opacity: .04; }
       79%, 84% { opacity: .38; }
     }
+    @keyframes boot-block-collapse {
+      0%, 20% {
+        left: var(--sx);
+        top: var(--sy);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      52% {
+        opacity: .92;
+        transform: translate(-50%, -50%) scale(.78);
+      }
+      100% {
+        left: var(--tx);
+        top: var(--ty);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.06);
+      }
+    }
+    @keyframes boot-paper-clear {
+      0%, 30% { opacity: .97; }
+      72% { opacity: .72; }
+      100% { opacity: 0; }
+    }
+    @keyframes boot-field-clear {
+      0%, 88% { opacity: 1; visibility: visible; }
+      100% { opacity: 0; visibility: hidden; }
+    }
 
     @media (max-width: 1024px) {
-      .shell { grid-template-columns: 174px minmax(0, 1fr) 300px; }
+      :root { --rail-size: 174px; --detail-size: 300px; }
+      .shell { grid-template-columns: var(--rail-size) minmax(0, 1fr) var(--detail-size); }
       .topbar { grid-template-columns: 174px 1fr 300px; }
       .thread-row { grid-template-columns: 42px minmax(150px, .78fr) minmax(180px, 1.22fr) 60px; gap: 14px; }
+    }
+
+    @media (min-width: 769px) {
+      body.rail-collapsed { --rail-size: 0px; }
+      body.detail-collapsed { --detail-size: 0px; }
+      body.rail-collapsed .left-rail,
+      body.detail-collapsed .detail-panel {
+        padding-inline: 0;
+        border-inline: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
     }
 
     @media (max-width: 768px) {
@@ -633,6 +767,7 @@
         border-right: 0;
         border-bottom: 1px solid var(--ink);
         scrollbar-width: none;
+        transition: opacity .18s steps(4, end), visibility .18s, border-color .18s;
       }
       .left-rail::-webkit-scrollbar { display: none; }
       .rail-title, .rail-divider, .rail-kicker, .thread-list { display: none; }
@@ -647,9 +782,18 @@
       }
       .stage { grid-row: 3; grid-column: 1; min-height: 0; }
       .map-head { top: 10px; left: 10px; }
-      .map-head h1 { padding: 6px 8px 5px; font-size: 12px; box-shadow: 3px 0 0 var(--glitch-pink), -2px 2px 0 var(--glitch-green); }
+      .map-head h1 { padding: 6px 8px 5px; font-size: 12px; box-shadow: 3px 0 0 var(--signal-blue), -2px 2px 0 var(--signal-green); }
       .map-view::after { right: 3%; top: 3%; width: 74px; height: 8px; }
       .signal-pixel { animation: none; }
+      .ui-dock { top: 8px; right: 8px; gap: 2px; padding: 2px; }
+      .ui-tool { min-width: 31px; height: 28px; padding-inline: 5px; font-size: 7px; }
+      body.rail-collapsed .shell { grid-template-rows: 54px 0 minmax(0, 1fr) 44px; }
+      body.rail-collapsed .left-rail {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        border-bottom: 0;
+      }
 
       .detail-panel {
         position: fixed;
@@ -660,10 +804,24 @@
         max-height: min(64svh, 580px);
         border: 1px solid var(--paper);
         border-inline: 0;
-        transform: translateY(calc(100% - 84px));
-        transition: transform .2s steps(5, end);
+        transform: translateY(105%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform .2s steps(5, end), opacity .16s steps(4, end), visibility .2s;
       }
-      .detail-panel.open { transform: translateY(0); }
+      .detail-panel.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      body.detail-collapsed .detail-panel {
+        transform: translateY(105%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
       .detail-head { min-height: 84px; cursor: pointer; padding: 16px 18px 14px; }
       .detail-head::before {
         content: "";
@@ -673,8 +831,8 @@
         width: 44px;
         height: 3px;
         transform: translateX(-50%);
-        background: var(--glitch-green);
-        box-shadow: 6px 0 0 var(--glitch-pink);
+        background: var(--signal-green);
+        box-shadow: 6px 0 0 var(--signal-blue);
       }
       .detail-head h2 { margin-top: 9px; font-size: 22px; }
       .detail-body { padding: 18px; }
@@ -707,10 +865,11 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
+      .boot-field { display: none; }
     }
   </style>
 </head>
-<body>
+<body class="view-map-active">
   <main class="shell" aria-label="Consciousness, Chay's living cognitive map">
     <header class="topbar">
       <a class="brand" href="../" aria-label="beingchay home">
@@ -746,10 +905,19 @@
     </aside>
 
     <section class="stage">
+      <nav class="ui-dock" aria-label="Interface and spatial controls">
+        <button class="ui-tool" id="rail-toggle" type="button" aria-pressed="false" title="Toggle library">LIB</button>
+        <button class="ui-tool" id="detail-toggle" type="button" aria-pressed="false" title="Toggle node detail">INFO</button>
+        <button class="ui-tool map-only" id="depth-toggle" type="button" aria-pressed="false" title="Toggle depth">3D</button>
+        <button class="ui-tool map-only depth-adjust" id="depth-back" type="button" title="Move selected node away">Z−</button>
+        <button class="ui-tool map-only depth-adjust" id="depth-forward" type="button" title="Move selected node closer">Z+</button>
+        <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset node positions">RST</button>
+      </nav>
       <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
         <div class="map-head">
           <h1 lang="hi">चैतन्य</h1>
         </div>
+        <div class="boot-field" id="boot-field" aria-hidden="true"></div>
         <svg class="map-canvas" id="map-canvas" viewBox="0 0 1000 650" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive graph of memories, beliefs, drives, patterns and influences"></svg>
       </section>
 
@@ -803,7 +971,7 @@
           </article>
           <article class="era" style="--era-color:var(--tension)">
             <time class="era-year">2021—23</time><h3>Constraint and reinvention</h3>
-            <p>Jail, rupture, financial pressure and altered self-image. Suits and Harvey Specter become an intentional scaffold for composure and power.</p>
+            <p>Jail, rupture, financial pressure and altered self-image. Suits becomes an intentional scaffold for composure and power.</p>
             <div class="era-tags"><span>survival</span><span>identity scaffold</span><span>control</span></div>
           </article>
           <article class="era" style="--era-color:var(--influence)">
@@ -887,9 +1055,9 @@
       memory: { label: "Memory", color: "#766bff" },
       belief: { label: "Belief", color: "#613cff" },
       drive: { label: "Drive", color: "#294dff" },
-      pattern: { label: "Pattern", color: "#008fd4" },
-      tension: { label: "Tension", color: "#d000ff" },
-      influence: { label: "Influence", color: "#00a5bb" },
+      pattern: { label: "Pattern", color: "#3157a8" },
+      tension: { label: "Tension", color: "#713a9f" },
+      influence: { label: "Influence", color: "#1f6b4f" },
       question: { label: "Open question", color: "#111111" },
       locked: { label: "Private", color: "#77746e" }
     };
@@ -1039,12 +1207,12 @@
         sourceMeta:"Public cognitive dataset · Knowledge cluster",
         note:"The definition is explicit. Treating different explanatory registers as the same referent is Chay's synthesis, not established equivalence.",
         relations:[["hermetic-philosophy","extends"],["singularity","contains"],["aham-brahmasmi","experienced through"]] },
-      { id:"aham-brahmasmi", label:"AHAM BRAHMASMI", type:"belief", x:845, y:380, r:10, confidence:"73%", era:"2026—", status:"identity frame", privacy:"public",
-        summary:"The self is held as both a finite slice of reality and the whole experiencing itself through that slice. The ocean and the droplet are treated as simultaneously true descriptions, not competing ones.",
-        source:"“I am the universe. I am the Brahma. I am a slice of that entire ocean.”",
-        sourceMeta:"Public cognitive dataset · Knowledge cluster",
-        note:"The ocean-and-slice mapping is explicit. It is Chay's personal use of Aham Brahmasmi, not a claim to represent the full Advaita tradition.",
-        relations:[["hermetic-philosophy","names unity with"],["god-as-ethos","identifies with whole"]] },
+      { id:"aham-brahmasmi", label:"TATHĀGATAGARBHA", type:"belief", x:845, y:380, r:10, confidence:"64%", era:"2026—", status:"comparative frame", privacy:"public",
+        summary:"Buddha-nature becomes the primary frame: awakening is treated as latent rather than imported. Aham Brahmasmi sits beside it as Chay's non-dual comparison — the finite self as continuous with a larger whole — without collapsing two distinct traditions into one doctrine.",
+        source:"PARAPHRASED / Tathāgatagarbha is the primary lens; Aham Brahmasmi remains a parallel example inside the comparison.",
+        sourceMeta:"Comparative synthesis · paraphrased, not a verbatim Chay quote",
+        note:"The former Aham Brahmasmi node supplied the ocean-and-slice metaphor. This renamed node deliberately marks Tathāgatagarbha and Advaita as a personal comparison, not doctrinal equivalence.",
+        relations:[["hermetic-philosophy","compared through"],["god-as-ethos","set beside"]] },
       { id:"information-theory-of-life", label:"INFORMATION THEORY OF LIFE", type:"belief", x:620, y:420, r:10, confidence:"74%", era:"2026—", status:"thesis", privacy:"public",
         summary:"Life is interpreted as a system for collecting, preserving and transmitting information. Technology that extends memory or thought-storage becomes an amplification of life's existing function rather than a departure from it.",
         source:"“A universe that has learned to become conscious of itself.”",
@@ -1075,7 +1243,7 @@
         sourceMeta:"Manifestation arc · Fallout genesis",
         note:"The discovery and role inside Fallout are explicit. Its future scale in India remains Chay's forecast, not an established market claim.",
         relations:[["fallout","became sonic identity of"],["klangkuenstler","discovered through"]] },
-      { id:"harvey-specter", label:"HARVEY SPECTER / SUITS", type:"influence", x:710, y:270, r:10, confidence:"92%", era:"2021—", status:"identity scaffold", privacy:"public",
+      { id:"harvey-specter", label:"SUITS", type:"influence", x:710, y:270, r:10, confidence:"92%", era:"2021—", status:"identity scaffold", privacy:"public",
         summary:"A fictional template for calm, sharp adult competence adopted during a major personal transition. It is the clearest example in the archive of media becoming an identity scaffold rather than remaining entertainment.",
         source:"“The movies and the things that I see that really resonate with me shape me a lot. I sort of become the main character.”",
         sourceMeta:"Manifestation arc · identity adoption",
@@ -1087,7 +1255,7 @@
         sourceMeta:"Manifestation arc · April–July 2025",
         note:"The discovery-to-concert-to-Fallout sequence is explicit. The scale of its effect on the wider circle is self-reported.",
         relations:[["fallout","catalyzed"],["schranz","opened the door to"]] },
-      { id:"kanye", label:"KANYE WEST", type:"influence", x:600, y:620, r:10, confidence:"93%", era:"childhood—", status:"anchor", privacy:"public",
+      { id:"kanye", label:"GRADUATION", type:"influence", x:600, y:620, r:10, confidence:"93%", era:"childhood—", status:"anchor", privacy:"public",
         summary:"The contemporary proof-of-concept that conviction is a craft in itself, not separate from the work. Read for world-building across music, fashion and self-expression, held alongside his public collapses as a caution, not just a template.",
         source:"“I want to be the Kanye West of this generation. I want to make my own ‘Graduation.’”",
         sourceMeta:"Kanye / creative-influences session · self-stated ambition",
@@ -1123,10 +1291,10 @@
         sourceMeta:"Cognitive operating manual · self-observed split",
         note:"Both voices are held as genuinely his — this isn't framed as a true self versus a mask.",
         relations:[["preparation","destabilized by"],["adhd","expressed through"]] },
-      { id:"locked-a", label:"LOCKED", type:"locked", x:268, y:354, r:12, privacy:"locked" },
-      { id:"locked-b", label:"LOCKED", type:"locked", x:212, y:490, r:10, privacy:"locked" },
-      { id:"locked-c", label:"LOCKED", type:"locked", x:696, y:115, r:12, privacy:"locked" },
-      { id:"locked-d", label:"LOCKED", type:"locked", x:572, y:475, r:14, privacy:"locked" }
+      { id:"locked-a", label:"PRIVATE PERSON", type:"locked", x:268, y:354, r:9, redactionWidth:58, privacy:"locked" },
+      { id:"locked-b", label:"PRIVATE PERSON", type:"locked", x:212, y:490, r:7, redactionWidth:46, privacy:"locked" },
+      { id:"locked-c", label:"PRIVATE PERSON", type:"locked", x:696, y:115, r:9, redactionWidth:70, privacy:"locked" },
+      { id:"locked-d", label:"PRIVATE PERSON", type:"locked", x:572, y:475, r:8, redactionWidth:54, privacy:"locked" }
     ];
 
     const publicEdges = [
@@ -1176,6 +1344,21 @@
     let activeFilter = "all";
     let compactMap = window.matchMedia("(max-width: 768px)").matches;
     let resizeFrame = 0;
+    let pointById = new Map();
+    let nodePositions = new Map();
+    let dragState = null;
+    let suppressClickUntil = 0;
+    let depthMode = false;
+    const publicNodeIds = new Set(publicNodes.map(node => node.id));
+    const positionStorageKey = "consciousness-public-layout-v1";
+    const interfaceStorageKey = "consciousness-interface-v1";
+    let savedPublicPositions = {};
+
+    try {
+      savedPublicPositions = JSON.parse(localStorage.getItem(positionStorageKey) || "{}");
+    } catch {
+      savedPublicPositions = {};
+    }
 
     function el(name, attrs = {}) {
       const node = document.createElementNS(ns, name);
@@ -1203,6 +1386,40 @@
       };
     }
 
+    function clamp(value, minimum, maximum) {
+      return Math.min(maximum, Math.max(minimum, value));
+    }
+
+    function getNodePosition(node) {
+      if (nodePositions.has(node.id)) return nodePositions.get(node.id);
+      const saved = publicNodeIds.has(node.id) ? savedPublicPositions[node.id] : null;
+      const position = {
+        x:Number.isFinite(saved?.x) ? saved.x : node.x,
+        y:Number.isFinite(saved?.y) ? saved.y : node.y,
+        z:Number.isFinite(saved?.z) ? saved.z : ((hashString(node.id) % 241) - 120)
+      };
+      nodePositions.set(node.id, position);
+      return position;
+    }
+
+    function savePublicPositions() {
+      const serializable = {};
+      for (const node of publicNodes) {
+        const position = nodePositions.get(node.id);
+        if (!position) continue;
+        serializable[node.id] = {
+          x:Number(position.x.toFixed(2)),
+          y:Number(position.y.toFixed(2)),
+          z:Number(position.z.toFixed(2))
+        };
+      }
+      try {
+        localStorage.setItem(positionStorageKey, JSON.stringify(serializable));
+      } catch {
+        // The spatial layout is optional; the graph still works without storage.
+      }
+    }
+
     function graphLayout() {
       if (!compactMap) {
         return { width:1000, height:650, xScale:1, xOffset:0, yScale:1, yOffset:0, rightEdge:790 };
@@ -1222,14 +1439,30 @@
       };
     }
 
+    function projectNode(node, layout) {
+      const position = getNodePosition(node);
+      const baseX = layout.xOffset + position.x * layout.xScale;
+      const baseY = layout.yOffset + position.y * layout.yScale;
+      const z = depthMode ? clamp(position.z, -180, 180) : 0;
+      const scale = depthMode ? 900 / (900 - z) : 1;
+      const centerX = layout.width / 2;
+      const centerY = layout.height / 2;
+      return {
+        x:centerX + (baseX - centerX) * scale,
+        y:centerY + (baseY - centerY) * scale,
+        z,
+        scale
+      };
+    }
+
     function renderSignalField(layer, pointById) {
-      const palette = ["#0a0a0a", "#0a0a0a", "#0a0a0a", "#ff2bd6", "#12d982", "#00cde8"];
+      const palette = ["#0a0a0a", "#0a0a0a", "#0a0a0a", "#2447a8", "#277052"];
       for (const node of nodes) {
         const point = pointById.get(node.id);
         const random = randomFrom(hashString(node.id));
         const pixelCount = node.r >= 13 ? 7 : 4;
         for (let index = 0; index < pixelCount; index += 1) {
-          const size = [2, 3, 4, 6, 8][Math.floor(random() * 5)];
+          const size = [2, 3, 4, 6, 8][Math.floor(random() * 5)] * clamp(point.scale, .82, 1.18);
           const spread = compactMap ? 33 : 48;
           const x = point.x + (random() - .5) * spread * 2;
           const y = point.y + (random() - .5) * spread * 1.55;
@@ -1249,15 +1482,59 @@
       }
     }
 
+    function runBootSequence() {
+      const field = document.querySelector("#boot-field");
+      if (!field || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        field?.remove();
+        return;
+      }
+      const layout = graphLayout();
+      const targets = [...pointById.values()];
+      if (!targets.length) {
+        field.remove();
+        return;
+      }
+      const random = randomFrom(0xC0A5C10);
+      const colors = [
+        "#0a0a0a", "#0a0a0a", "#0a0a0a", "#0a0a0a", "#0a0a0a",
+        "#efeee8", "#efeee8", "#efeee8", "#efeee8",
+        "#2447a8", "#277052", "#613cff"
+      ];
+      const count = compactMap ? 190 : 320;
+      const fragment = document.createDocumentFragment();
+      for (let index = 0; index < count; index += 1) {
+        const block = document.createElement("i");
+        const target = targets[Math.floor(random() * targets.length)];
+        const color = colors[Math.floor(random() * colors.length)];
+        const width = random() > .84 ? 18 + Math.floor(random() * 44) : 3 + Math.floor(random() * 13);
+        const height = random() > .9 ? 2 + Math.floor(random() * 5) : 3 + Math.floor(random() * 14);
+        block.className = "boot-block";
+        block.style.setProperty("--sx", `${(-3 + random() * 106).toFixed(2)}%`);
+        block.style.setProperty("--sy", `${(-3 + random() * 106).toFixed(2)}%`);
+        block.style.setProperty("--tx", `${(target.x / layout.width * 100).toFixed(2)}%`);
+        block.style.setProperty("--ty", `${(target.y / layout.height * 100).toFixed(2)}%`);
+        block.style.setProperty("--bw", `${width}px`);
+        block.style.setProperty("--bh", `${height}px`);
+        block.style.setProperty("--block-color", color);
+        block.style.setProperty("--duration", `${(1.35 + random() * .65).toFixed(2)}s`);
+        block.style.setProperty("--delay", `${(random() * .34).toFixed(2)}s`);
+        if (color === "#efeee8") block.style.setProperty("--block-border", "1px solid #0a0a0a");
+        if (color !== "#0a0a0a" && color !== "#efeee8") {
+          block.style.setProperty("--block-shadow", "2px 0 0 #0a0a0a");
+        }
+        fragment.append(block);
+      }
+      field.append(fragment);
+      requestAnimationFrame(() => requestAnimationFrame(() => field.classList.add("running")));
+      window.setTimeout(() => field.remove(), 2700);
+    }
+
     function renderGraph() {
       svg.replaceChildren();
       nodeById = new Map(nodes.map(node => [node.id, node]));
       const layout = graphLayout();
       svg.setAttribute("viewBox", `0 0 ${layout.width} ${layout.height}`);
-      const pointById = new Map(nodes.map(node => [node.id, {
-        x:layout.xOffset + node.x * layout.xScale,
-        y:layout.yOffset + node.y * layout.yScale
-      }]));
+      pointById = new Map(nodes.map(node => [node.id, projectNode(node, layout)]));
       const signalLayer = el("g", { class:"signal-field", "aria-hidden":"true" });
       const edgeLayer = el("g", { class:"edges" });
       const nodeLayer = el("g", { class:"nodes" });
@@ -1282,8 +1559,11 @@
         const labelOnLeft = point.x > layout.rightEdge;
         const hitSize = Math.max(compactMap ? 76 : 54, node.r * 2 + 18);
         const group = el("g", {
-          class:`node${node.r >= 13 ? " major" : ""}`, transform:`translate(${point.x} ${point.y})`, tabindex:"0",
-          role:"button", "aria-label":`${node.label}, ${meta.label}`, "data-id":node.id, "data-type":node.type,
+          class:`node${node.r >= 13 ? " major" : ""}${node.privacy === "locked" ? " locked" : ""}`,
+          transform:`translate(${point.x} ${point.y}) scale(${point.scale.toFixed(3)})`,
+          tabindex:"0", role:"button",
+          "aria-label":node.privacy === "locked" ? "Private person node. Unlock to reveal." : `${node.label}, ${meta.label}`,
+          "data-id":node.id, "data-type":node.type,
           style:`--node-color:${meta.color};--delay:-${((index % 9) * .47).toFixed(2)}s;--drift:${(4.8 + (index % 7) * .43).toFixed(2)}s`
         });
         const hitArea = el("rect", { class:"hit-area", x:-hitSize/2, y:-hitSize/2, width:hitSize, height:hitSize });
@@ -1299,15 +1579,102 @@
         const text = el("text", { x:labelOnLeft ? -(node.r + 9) : node.r + 9, y:3, "text-anchor":labelOnLeft ? "end" : "start" });
         text.textContent = node.label;
         visual.append(halo, ghostA, ghostB, core, pointMark);
-        group.append(hitArea, visual, text);
-        group.addEventListener("click", () => selectNode(node.id, true));
+        group.append(hitArea, visual);
+        if (node.privacy === "locked") {
+          const direction = labelOnLeft ? -1 : 1;
+          const barWidth = node.redactionWidth || 54;
+          const barX = labelOnLeft ? -(node.r + 9) - barWidth : node.r + 9;
+          const redaction = el("rect", { class:"redaction-bar", x:barX, y:-5, width:barWidth, height:10 });
+          const scratch = el("line", {
+            class:"redaction-scratch",
+            x1:barX + 4 * direction,
+            y1:-1,
+            x2:barX + barWidth - 4 * direction,
+            y2:1
+          });
+          group.append(redaction, scratch);
+        } else {
+          group.append(text);
+        }
+        group.addEventListener("pointerdown", event => beginNodeDrag(event, node.id));
+        group.addEventListener("click", event => {
+          if (performance.now() < suppressClickUntil) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          selectNode(node.id, true);
+        });
         group.addEventListener("keydown", event => {
           if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNode(node.id, true); }
         });
         nodeLayer.append(group);
       });
       applyFilter();
-      selectNode(activeNodeId, false);
+      if (dragState) {
+        document.querySelectorAll(".node").forEach(item => item.classList.toggle("active", item.dataset.id === activeNodeId));
+        document.querySelectorAll(".edge").forEach(line => line.classList.toggle("hot", line.dataset.from === activeNodeId || line.dataset.to === activeNodeId));
+      } else {
+        selectNode(activeNodeId, false);
+      }
+    }
+
+    function clientPoint(event) {
+      const matrix = svg.getScreenCTM();
+      if (!matrix) return { x:0, y:0 };
+      return new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
+    }
+
+    function beginNodeDrag(event, id) {
+      if (event.button !== undefined && event.button !== 0) return;
+      const node = nodeById.get(id);
+      if (!node) return;
+      const position = getNodePosition(node);
+      dragState = {
+        id,
+        pointerId:event.pointerId,
+        mode:event.shiftKey ? "z" : "xy",
+        startClientX:event.clientX,
+        startClientY:event.clientY,
+        startPoint:clientPoint(event),
+        startPosition:{ ...position },
+        moved:false
+      };
+      activeNodeId = id;
+      document.body.classList.add("node-dragging");
+      svg.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+    }
+
+    function moveDraggedNode(event) {
+      if (!dragState || event.pointerId !== dragState.pointerId) return;
+      const node = nodeById.get(dragState.id);
+      if (!node) return;
+      const position = getNodePosition(node);
+      if (dragState.mode === "z") {
+        const nextZ = dragState.startPosition.z + (dragState.startClientY - event.clientY) * 1.15;
+        position.z = clamp(nextZ, -180, 180);
+      } else {
+        const layout = graphLayout();
+        const currentPoint = clientPoint(event);
+        const depthScale = depthMode ? 900 / (900 - clamp(dragState.startPosition.z, -180, 180)) : 1;
+        const dx = (currentPoint.x - dragState.startPoint.x) / depthScale;
+        const dy = (currentPoint.y - dragState.startPoint.y) / depthScale;
+        position.x = clamp(dragState.startPosition.x + dx / layout.xScale, -120, 1120);
+        position.y = clamp(dragState.startPosition.y + dy / layout.yScale, -120, 770);
+      }
+      dragState.moved = dragState.moved || Math.hypot(event.clientX - dragState.startClientX, event.clientY - dragState.startClientY) > 3;
+      renderGraph();
+    }
+
+    function finishNodeDrag(event) {
+      if (!dragState || event.pointerId !== dragState.pointerId) return;
+      if (dragState.moved) suppressClickUntil = performance.now() + 220;
+      savePublicPositions();
+      dragState = null;
+      document.body.classList.remove("node-dragging");
+      try { svg.releasePointerCapture?.(event.pointerId); } catch {}
+      renderGraph();
     }
 
     function selectNode(id, openMobile) {
@@ -1339,7 +1706,10 @@
         item.innerHTML = `<span>${target?.label || targetId.replaceAll("-"," ")}</span><em>${relationship}</em>`;
         list.append(item);
       }
-      if (openMobile && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
+      if (openMobile && window.innerWidth <= 768) {
+        setPanelCollapsed("detail", false);
+        document.querySelector("#detail-panel").classList.add("open");
+      }
     }
 
     function buildFilters() {
@@ -1368,6 +1738,53 @@
       document.querySelectorAll(".node").forEach(item => item.classList.toggle("dim", activeFilter !== "all" && item.dataset.type !== activeFilter));
     }
 
+    function readInterfaceState() {
+      try {
+        return JSON.parse(localStorage.getItem(interfaceStorageKey) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function writeInterfaceState() {
+      try {
+        localStorage.setItem(interfaceStorageKey, JSON.stringify({
+          rail:document.body.classList.contains("rail-collapsed"),
+          detail:document.body.classList.contains("detail-collapsed"),
+          depth:depthMode
+        }));
+      } catch {
+        // Interface preferences are non-essential.
+      }
+    }
+
+    function setPanelCollapsed(panel, collapsed, persist = true) {
+      const className = `${panel}-collapsed`;
+      document.body.classList.toggle(className, collapsed);
+      const toggle = document.querySelector(panel === "rail" ? "#rail-toggle" : "#detail-toggle");
+      toggle?.setAttribute("aria-pressed", String(collapsed));
+      if (panel === "detail" && collapsed) document.querySelector("#detail-panel")?.classList.remove("open");
+      if (persist) writeInterfaceState();
+    }
+
+    function setDepthMode(enabled, persist = true) {
+      depthMode = enabled;
+      document.body.classList.toggle("depth-mode", enabled);
+      document.querySelector("#depth-toggle").setAttribute("aria-pressed", String(enabled));
+      if (persist) writeInterfaceState();
+      renderGraph();
+    }
+
+    function adjustSelectedDepth(delta) {
+      const node = nodeById.get(activeNodeId);
+      if (!node || node.privacy === "locked") return;
+      if (!depthMode) setDepthMode(true);
+      const position = getNodePosition(node);
+      position.z = clamp(position.z + delta, -180, 180);
+      savePublicPositions();
+      renderGraph();
+    }
+
     const privateDialog = document.querySelector("#private-dialog");
     const privatePassword = document.querySelector("#private-password");
     const privateError = document.querySelector("#private-error");
@@ -1390,6 +1807,9 @@
     function lockPrivate() {
       nodes = publicNodes.map(node => ({ ...node, relations: node.relations ? [...node.relations] : [] }));
       edges = [...publicEdges];
+      for (const id of [...nodePositions.keys()]) {
+        if (!publicNodeIds.has(id)) nodePositions.delete(id);
+      }
       activeNodeId = "agency";
       activeFilter = "all";
       setPrivateState(false);
@@ -1448,6 +1868,7 @@
     document.querySelectorAll(".view-tab").forEach(button => button.addEventListener("click", () => {
       document.querySelectorAll(".view-tab").forEach(tab => tab.classList.toggle("active", tab === button));
       document.querySelectorAll(".view").forEach(view => view.classList.toggle("active", view.id === `view-${button.dataset.view}`));
+      document.body.classList.toggle("view-map-active", button.dataset.view === "map");
     }));
 
     document.querySelectorAll(".thread-link").forEach(button => button.addEventListener("click", () => {
@@ -1457,7 +1878,31 @@
     }));
 
     document.querySelector("#detail-head").addEventListener("click", () => {
-      if (window.innerWidth <= 768) document.querySelector("#detail-panel").classList.toggle("open");
+      if (window.innerWidth <= 768) setPanelCollapsed("detail", true);
+    });
+
+    svg.addEventListener("pointermove", moveDraggedNode);
+    svg.addEventListener("pointerup", finishNodeDrag);
+    svg.addEventListener("pointercancel", finishNodeDrag);
+
+    document.querySelector("#rail-toggle").addEventListener("click", () => {
+      setPanelCollapsed("rail", !document.body.classList.contains("rail-collapsed"));
+    });
+
+    document.querySelector("#detail-toggle").addEventListener("click", () => {
+      const willCollapse = !document.body.classList.contains("detail-collapsed");
+      setPanelCollapsed("detail", willCollapse);
+      if (!willCollapse && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
+    });
+
+    document.querySelector("#depth-toggle").addEventListener("click", () => setDepthMode(!depthMode));
+    document.querySelector("#depth-back").addEventListener("click", () => adjustSelectedDepth(-28));
+    document.querySelector("#depth-forward").addEventListener("click", () => adjustSelectedDepth(28));
+    document.querySelector("#layout-reset").addEventListener("click", () => {
+      nodePositions.clear();
+      savedPublicPositions = {};
+      try { localStorage.removeItem(positionStorageKey); } catch {}
+      renderGraph();
     });
 
     document.querySelector("#ask-form").addEventListener("submit", event => {
@@ -1496,8 +1941,16 @@
       });
     }, { passive:true });
 
+    const initialInterfaceState = readInterfaceState();
+    setPanelCollapsed("rail", initialInterfaceState.rail === true, false);
+    setPanelCollapsed("detail", initialInterfaceState.detail ?? compactMap, false);
+    depthMode = initialInterfaceState.depth === true;
+    document.body.classList.toggle("depth-mode", depthMode);
+    document.querySelector("#depth-toggle").setAttribute("aria-pressed", String(depthMode));
+
     buildFilters();
     renderGraph();
+    runBootSequence();
 
     try {
       const { prepare, layout } = await import("/consciousness/pretext.js");
