@@ -774,6 +774,19 @@ body.c2x-body {
   height: 30px;
 }
 
+.yc-batch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.yc-batch > span {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(246, 246, 244, 0.9);
+}
+
 .axis-marker {
   --marker-square: var(--accent);
   --marker-bracket: var(--ink);
@@ -1306,6 +1319,119 @@ body.c2x-body {
 
   .c2x-footer {
     align-items: flex-start;
+  }
+}
+
+/* Menu scroll clearance on height-constrained screens (laptops/phones) */
+@media (max-height: 760px) {
+  .menu-nav {
+    padding-bottom: 56px;
+  }
+}
+
+/* Phone: single narrow column, no centered spine/markers */
+@media (max-width: 600px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  .c2x-axis {
+    display: none;
+  }
+
+  .axis-marker {
+    display: none;
+  }
+
+  .work-row {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+    padding: 26px 0;
+  }
+
+  .work-logo,
+  .work-name,
+  .work-detail,
+  .work-meta {
+    grid-column: 1;
+    justify-self: start;
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .practice-list li {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+    padding: 26px 0;
+  }
+
+  .practice-copy,
+  .practice-stage {
+    grid-column: 1;
+  }
+
+  .through-line-map {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .through-line-map > span:first-child,
+  .through-line-map p,
+  .through-line-map > span:last-child {
+    grid-column: 1;
+  }
+
+  .hero-layer--reveal,
+  .contact-layer--reveal {
+    display: none;
+  }
+
+  .menu-nav strong {
+    font-size: clamp(22px, 7vw, 30px);
+  }
+
+  .hero-section h1 {
+    font-size: clamp(34px, 9.5vw, 44px);
+  }
+
+  .section-intro h2,
+  .contact-section h2,
+  .compact-intro h2 {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .work-name strong,
+  .practice-copy strong {
+    font-size: clamp(26px, 7.5vw, 34px);
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-section h1 {
+    font-size: clamp(30px, 9vw, 36px);
+  }
+
+  .section-intro h2,
+  .contact-section h2,
+  .compact-intro h2 {
+    font-size: clamp(25px, 8vw, 31px);
+  }
+
+  .work-name strong,
+  .practice-copy strong {
+    font-size: clamp(23px, 8vw, 29px);
+  }
+
+  .menu-nav strong {
+    font-size: clamp(20px, 7vw, 26px);
+  }
+}
+
+/* No hover (touch devices): show plain base layer, no reveal ribbon */
+@media (hover: none) {
+  .hero-layer--reveal,
+  .contact-layer--reveal {
+    display: none;
   }
 }
 
