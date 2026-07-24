@@ -1,207 +1,230 @@
-:root {
-  color-scheme: dark;
-  font-family: "Segoe UI Variable Display", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-  background: #000000;
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html,
 body {
-  width: 100%;
-  min-width: 320px;
-  height: 100%;
   margin: 0;
-  overflow: hidden;
-  overscroll-behavior: none;
+  min-height: 100%;
   background: #000000;
+  overscroll-behavior: none;
 }
 
 body {
-  -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
-}
-
-button,
-a {
-  font: inherit;
-}
-
-.constellation,
-.constellation-scene {
-  position: relative;
-  width: 100%;
-  height: 100svh;
-  min-height: 520px;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  color: #f4f1e8;
   overflow: hidden;
-  background: #000000;
 }
 
-.constellation-scene {
-  isolation: isolate;
-  transform: translate3d(0, 0, 0) scale(1);
-  transform-origin: 50% 50%;
-}
-
-.light-field {
-  position: absolute;
-  z-index: 0;
+.constellation {
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0;
-  transform: scale(0.985);
-  transition:
-    opacity 2200ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1400ms cubic-bezier(0.22, 1, 0.36, 1);
-  user-select: none;
-  pointer-events: none;
-  will-change: opacity, transform;
+  overflow: hidden;
+  /* Same dark backdrop as before, no paper, no tabs. */
+  background:
+    radial-gradient(120% 120% at 50% 46%, #17181c 0%, #0b0b0d 46%, #050506 100%);
 }
 
-body.is-ready .light-field {
-  opacity: 1;
-  transform: scale(1);
-}
-
-body.is-focused .light-field {
-  transform: scale(1.075);
-}
-
-.light-trigger {
+/* --- The central star: bright, borderless, realistic, barely-there cross rays --- */
+.star {
   position: absolute;
-  z-index: 3;
-  top: 50%;
   left: 50%;
-  width: 96px;
-  height: 96px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
+  top: 48%;
+  width: min(54vmin, 520px);
+  height: min(54vmin, 520px);
   transform: translate(-50%, -50%);
-  cursor: zoom-in;
-  touch-action: manipulation;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 253, 247, 0.98) 5%,
+      rgba(255, 246, 228, 0.62) 15%,
+      rgba(255, 238, 208, 0.26) 32%,
+      rgba(255, 232, 196, 0.08) 52%,
+      rgba(255, 232, 196, 0) 70%);
+  filter: blur(1.5px);
+  animation: star-pulse 6.5s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
-body.is-focused .light-trigger {
-  cursor: zoom-out;
+.star::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background:
+    linear-gradient(0deg, transparent 47.5%, rgba(255, 247, 230, 0.10) 50%, transparent 52.5%),
+    linear-gradient(90deg, transparent 47.5%, rgba(255, 247, 230, 0.10) 50%, transparent 52.5%);
+  filter: blur(7px);
+  opacity: 0.8;
 }
 
-.light-trigger:focus-visible {
-  outline: 1px solid rgba(255, 255, 255, 0.72);
-  outline-offset: 12px;
+.star::after {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0) 72%);
+  filter: blur(2px);
 }
 
+@keyframes star-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.95; }
+  50% { transform: translate(-50%, -50%) scale(1.035); opacity: 1; }
+}
+
+/* --- Node field: black voxel boxes with white borders (decorative, no links) --- */
+.node-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.node-box,
+.node-field i {
+  display: block;
+  background: #060606;
+  border: 1px solid rgba(244, 241, 232, 0.9);
+  /* hard offset = minecraft/voxel extrusion, no blur */
+  box-shadow:
+    2px 2px 0 rgba(244, 241, 232, 0.28),
+    4px 4px 0 rgba(244, 241, 232, 0.10);
+}
+
+.node-field i {
+  position: absolute;
+  width: var(--s, 14px);
+  height: var(--s, 14px);
+  left: var(--x);
+  top: var(--y);
+  opacity: var(--o, 0.85);
+  animation: node-drift var(--dur, 9s) ease-in-out var(--delay, 0s) infinite;
+  will-change: transform;
+}
+
+@keyframes node-drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(var(--dx, 6px), var(--dy, -8px)); }
+}
+
+/* --- The four real project nodes --- */
 .project-orbit {
   position: absolute;
-  z-index: 4;
   inset: 0;
-  pointer-events: none;
 }
 
 .project-link {
-  --reveal-delay: 1300ms;
   position: absolute;
-  display: block;
-  padding: 18px;
-  color: rgba(255, 255, 255, 0.54);
-  font-size: clamp(11px, 0.95vw, 15px);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0.08em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  opacity: 0;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(0.94);
-  transition:
-    top 1100ms cubic-bezier(0.22, 1, 0.36, 1),
-    left 1100ms cubic-bezier(0.22, 1, 0.36, 1),
-    color 360ms ease,
-    opacity 1100ms ease var(--reveal-delay),
-    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
-    text-shadow 360ms ease;
+  color: #f4f1e8;
+  transform: translate(-50%, -50%);
+  animation: node-drift var(--dur, 11s) ease-in-out var(--delay, 0s) infinite;
+  will-change: transform;
+}
+
+.project-link .node-box {
+  width: 22px;
+  height: 22px;
+  transition: box-shadow 0.24s ease, transform 0.24s ease, background 0.24s ease;
+}
+
+.project-link .node-label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.72);
+  transition: color 0.22s ease, text-shadow 0.22s ease;
   white-space: nowrap;
 }
 
-body.is-ready .project-link {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+.project-link:hover .node-box,
+.project-link:focus-visible .node-box {
+  background: #f4f1e8;
+  transform: scale(1.12);
+  box-shadow:
+    2px 2px 0 rgba(244, 241, 232, 0.4),
+    4px 4px 0 rgba(244, 241, 232, 0.18);
 }
 
-.project-link span {
-  display: block;
-  animation: quiet-drift 6s ease-in-out infinite;
-  animation-delay: calc(var(--reveal-delay) + 900ms);
-}
-
-.project-link-right {
-  --reveal-delay: 1450ms;
-  top: 50%;
-  left: 79%;
-}
-
-.project-link-top {
-  --reveal-delay: 1650ms;
-  top: 17%;
-  left: 50%;
-}
-
-.project-link-left {
-  --reveal-delay: 1850ms;
-  top: 50%;
-  left: 21%;
-}
-
-.project-link-bottom {
-  --reveal-delay: 2050ms;
-  top: 83%;
-  left: 50%;
-  font-family: "Nirmala UI", "Noto Sans Devanagari", "Mangal", var(--font-sans, sans-serif);
-  font-size: clamp(13px, 1.12vw, 18px);
-  letter-spacing: 0.02em;
-}
-
-body.is-focused .project-link {
-  color: rgba(255, 255, 255, 0.96);
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.12);
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
-  transition-delay: 0ms;
-}
-
-body.is-focused .project-link-right {
-  left: 69%;
-}
-
-body.is-focused .project-link-top {
-  top: 27%;
-}
-
-body.is-focused .project-link-left {
-  left: 31%;
-}
-
-body.is-focused .project-link-bottom {
-  top: 73%;
-}
-
-.project-link:hover,
-.project-link:focus-visible {
+.project-link:hover .node-label,
+.project-link:focus-visible .node-label {
   color: #ffffff;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.34);
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
 }
 
 .project-link:focus-visible {
   outline: 1px solid rgba(255, 255, 255, 0.48);
-  outline-offset: 5px;
+  outline-offset: 8px;
 }
 
+/* Outer three, spread around the star. */
+.project-link[data-node="fallout"] { left: 24%; top: 30%; }
+.project-link[data-node="anrxyst"] { left: 77%; top: 36%; }
+.project-link[data-node="c2x"] { left: 50%; top: 82%; }
+
+/* Consciousness lives at the heart of the light. */
+.core-link {
+  left: 50%;
+  top: 48%;
+  gap: 0;
+  animation: none;
+}
+
+.core-link .node-label {
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  color: rgba(20, 18, 14, 0.9);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
+  transition: letter-spacing 0.35s ease, color 0.24s ease;
+}
+
+.core-link:hover .node-label,
+.core-link:focus-visible .node-label {
+  color: #000000;
+  letter-spacing: 0.34em;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 1);
+}
+
+/* --- Ambient sound toggle --- */
+.audio-toggle {
+  position: fixed;
+  z-index: 12;
+  right: 22px;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(244, 241, 232, 0.55);
+  background: rgba(6, 6, 6, 0.6);
+  color: #f4f1e8;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.audio-icon {
+  width: 10px;
+  height: 10px;
+  border: 1px solid currentColor;
+  border-radius: 1px;
+}
+
+body.sound-on .audio-icon {
+  background: currentColor;
+}
+
+.audio-toggle:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+/* --- Departure: warp + whiteout (kept from before) --- */
 .warp-field {
   position: fixed;
   z-index: 15;
@@ -230,44 +253,19 @@ body.is-departing .warp-field {
   will-change: opacity;
 }
 
-body.is-departing .constellation-scene {
-  transition:
-    transform 1280ms cubic-bezier(0.72, 0.01, 0.22, 1),
-    filter 1000ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, filter;
-}
-
-body.is-traveling .constellation-scene {
-  transform: translate3d(var(--travel-x, 0), var(--travel-y, 0), 0) scale(var(--travel-scale, 5.2));
-  filter: brightness(2.35) blur(0.7px);
-}
-
 body.is-departing .project-orbit,
-body.is-departing .light-trigger {
+body.is-departing .audio-toggle {
   pointer-events: none;
-}
-
-body.is-departing .project-link {
-  transition:
-    color 220ms ease,
-    opacity 260ms ease,
-    text-shadow 220ms ease;
 }
 
 body.is-departing .project-link:not(.is-selected) {
   opacity: 0;
+  transition: opacity 260ms ease;
 }
 
-body.is-departing .project-link.is-selected {
+body.is-departing .project-link.is-selected .node-label {
   color: #ffffff;
-  opacity: 1;
   text-shadow: 0 0 24px rgba(255, 255, 255, 0.62);
-}
-
-body.is-traveling .project-link.is-selected {
-  opacity: 0;
-  transition-delay: 360ms;
-  transition-duration: 320ms;
 }
 
 body.is-traveling .departure-flare {
@@ -286,81 +284,18 @@ body.is-traveling .departure-flare {
   border: 0 !important;
 }
 
-@keyframes quiet-drift {
-  0%,
-  100% {
-    transform: translate3d(0, -2px, 0);
-  }
-  50% {
-    transform: translate3d(0, 3px, 0);
-  }
-}
-
-@media (max-width: 700px) {
-  .constellation,
-  .constellation-scene {
-    min-height: 100svh;
-  }
-
-  .project-link {
-    padding: 22px 12px;
-    font-size: 11px;
-    letter-spacing: 0.07em;
-  }
-
-  .project-link-right {
-    left: 82%;
-  }
-
-  .project-link-left {
-    left: 18%;
-  }
-
-  .project-link-top {
-    top: 20%;
-  }
-
-  .project-link-bottom {
-    top: 82%;
-    font-size: 14px;
-  }
-
-  body.is-focused .project-link-right {
-    left: 72%;
-  }
-
-  body.is-focused .project-link-left {
-    left: 28%;
-  }
-
-  body.is-focused .project-link-top {
-    top: 31%;
-  }
-
-  body.is-focused .project-link-bottom {
-    top: 70%;
-  }
-
-  .light-trigger {
-    width: 112px;
-    height: 112px;
-  }
+@media (max-width: 640px) {
+  .star { width: min(70vmin, 360px); height: min(70vmin, 360px); }
+  .project-link[data-node="fallout"] { left: 22%; top: 26%; }
+  .project-link[data-node="anrxyst"] { left: 78%; top: 32%; }
+  .project-link[data-node="c2x"] { left: 50%; top: 84%; }
+  .project-link .node-label { font-size: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .light-field,
+  .star,
+  .node-field i,
   .project-link {
-    transition-duration: 1ms !important;
-    transition-delay: 0ms !important;
-  }
-
-  .project-link span {
-    animation: none;
-  }
-
-  .constellation-scene,
-  .departure-flare {
-    transition-duration: 1ms !important;
-    transition-delay: 0ms !important;
+    animation: none !important;
   }
 }

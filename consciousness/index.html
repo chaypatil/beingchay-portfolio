@@ -55,10 +55,8 @@
 
     .brand, .view-tabs, .meta-actions { display: flex; align-items: center; }
     .brand { gap: 10px; padding: 0 18px; border-right: 1px solid var(--line); }
-    .brand-star { width: 18px; height: 18px; position: relative; flex: 0 0 auto; }
-    .brand-star::before, .brand-star::after { content: ""; position: absolute; background: var(--ink); }
-    .brand-star::before { width: 1px; height: 18px; left: 8px; top: 0; }
-    .brand-star::after { width: 18px; height: 1px; top: 8px; left: 0; }
+    .brand-back { font: 20px/1 var(--sans); color: var(--ink); display: block; transition: transform .18s ease; }
+    .brand:hover .brand-back, .brand:focus-visible .brand-back { transform: translateX(-3px); }
     .brand-name { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
 
     .view-tabs { gap: 2px; padding: 0 18px; }
@@ -875,9 +873,8 @@
 <body class="view-map-active">
   <main class="shell" aria-label="Consciousness, Chay's living cognitive map">
     <header class="topbar">
-      <a class="brand" href="../" aria-label="beingchay home">
-        <span class="brand-star" aria-hidden="true"></span>
-        <span class="brand-name">beingchay</span>
+      <a class="brand" href="../" aria-label="Back to beingchay">
+        <span class="brand-back" aria-hidden="true">&#8592;</span>
       </a>
       <nav class="view-tabs" aria-label="Consciousness views">
         <button class="view-tab active" data-view="map">Map</button>
@@ -914,7 +911,9 @@
         <button class="ui-tool map-only depth-adjust" id="depth-back" type="button" title="Push selected node deeper">Z−</button>
         <button class="ui-tool map-only depth-adjust" id="depth-forward" type="button" title="Pull selected node closer">Z+</button>
         <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset positions and view">RST</button>
+        <button class="ui-tool" id="sound-toggle" type="button" aria-pressed="false" title="Toggle ambient sound">SND</button>
       </nav>
+      <audio class="bg-music" id="bg-music" src="../assets/smoke-state-2.mp3" loop preload="none"></audio>
       <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
         <div class="map-head">
           <h1 lang="hi">चैतन्य</h1>
@@ -2003,6 +2002,34 @@
       setPanelCollapsed("detail", willCollapse);
       if (!willCollapse && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
     });
+
+    const bgMusic = document.querySelector("#bg-music");
+    const soundToggle = document.querySelector("#sound-toggle");
+    let soundWanted = true;
+
+    function tryPlayAmbient() {
+      if (!bgMusic || !soundWanted) return;
+      bgMusic.volume = .5;
+      bgMusic.play().then(() => {
+        document.body.classList.add("sound-on");
+        soundToggle?.setAttribute("aria-pressed", "true");
+      }).catch(() => {
+        // Browsers block playback until a real gesture; the toggle still works.
+      });
+    }
+
+    soundToggle?.addEventListener("click", () => {
+      soundWanted = !soundWanted;
+      if (soundWanted) {
+        tryPlayAmbient();
+      } else {
+        bgMusic?.pause();
+        document.body.classList.remove("sound-on");
+        soundToggle.setAttribute("aria-pressed", "false");
+      }
+    });
+
+    window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
 
     document.querySelector("#depth-back").addEventListener("click", () => adjustSelectedDepth(-28));
     document.querySelector("#depth-forward").addEventListener("click", () => adjustSelectedDepth(28));

@@ -5,60 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
     <title>beingchay</title>
-    <meta name="description" content="Four points of Chay: fallout, ANRXYST, C2X, and चैतन्य.">
-    <link rel="preload" as="image" href="assets/central-light-hero.png" fetchpriority="high">
+    <meta name="description" content="Four points of Chay: fallout, ANRXYST, C2X, and consciousness.">
     <link rel="stylesheet" href="home.css">
   </head>
   <body>
     <main class="constellation" aria-labelledby="home-title">
-      <h1 id="home-title" class="visually-hidden">beingchay projects</h1>
+      <h1 id="home-title" class="visually-hidden">beingchay</h1>
 
-      <section class="constellation-scene" aria-describedby="interaction-note">
-        <img
-          class="light-field"
-          src="assets/central-light-hero.png"
-          alt=""
-          width="1728"
-          height="960"
-          decoding="async"
-          fetchpriority="high"
-        >
+      <div class="star" aria-hidden="true"></div>
+      <div class="node-field" aria-hidden="true"></div>
 
-        <button
-          class="light-trigger"
-          type="button"
-          aria-label="Bring the projects closer"
-          aria-pressed="false"
-        ></button>
+      <nav class="project-orbit" aria-label="Projects">
+        <a class="project-link" data-node="fallout" href="https://fall0ut.in" rel="external">
+          <span class="node-box"></span><span class="node-label">fallØut</span>
+        </a>
+        <a class="project-link" data-node="anrxyst" href="https://www.instagram.com/anrxyst/" rel="external">
+          <span class="node-box"></span><span class="node-label">ANRXYST</span>
+        </a>
+        <a class="project-link" data-node="c2x" href="c2x/">
+          <span class="node-box"></span><span class="node-label">C2X</span>
+        </a>
+        <a class="project-link core-link" data-node="core" href="consciousness/">
+          <span class="node-label">consciousness</span>
+        </a>
+      </nav>
 
-        <nav class="project-orbit" aria-label="Projects">
-          <a class="project-link project-link-right" href="https://fall0ut.in" rel="external">
-            <span>fallØut</span>
-          </a>
-          <a class="project-link project-link-top" href="c2x/">
-            <span>C2X</span>
-          </a>
-          <a
-            class="project-link project-link-left"
-            href="https://www.instagram.com/anrxyst/"
-            rel="external"
-          >
-            <span>ANRXYST</span>
-          </a>
-          <a class="project-link project-link-bottom" href="consciousness/" lang="hi">
-            <span>चैतन्य</span>
-          </a>
-        </nav>
-
-        <p id="interaction-note" class="visually-hidden">
-          Scroll in either direction or activate the central light to bring the project links into focus.
-        </p>
-      </section>
+      <button class="audio-toggle" type="button" aria-pressed="false" aria-label="Play ambient sound" title="Sound">
+        <span class="audio-icon" aria-hidden="true"></span>
+      </button>
 
       <canvas class="warp-field" aria-hidden="true"></canvas>
       <div class="departure-flare" aria-hidden="true"></div>
     </main>
 
+    <audio class="bg-music" src="assets/smoke-state-1.mp3" loop preload="none"></audio>
     <script type="module" src="home.js"></script>
   </body>
 </html>

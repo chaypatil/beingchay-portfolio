@@ -1,69 +1,130 @@
 const body = document.body;
-const scene = document.querySelector(".constellation-scene");
-const lightField = document.querySelector(".light-field");
-const trigger = document.querySelector(".light-trigger");
+const scene = document.querySelector(".constellation");
+const nodeField = document.querySelector(".node-field");
 const projectLinks = document.querySelectorAll(".project-link");
+const music = document.querySelector(".bg-music");
+const audioToggle = document.querySelector(".audio-toggle");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let departureTimer = null;
 let isDeparting = false;
 
-function setFocused(isFocused) {
-  body.classList.toggle("is-focused", isFocused);
-  trigger?.setAttribute("aria-pressed", String(isFocused));
-  trigger?.setAttribute(
-    "aria-label",
-    isFocused ? "Move the projects away" : "Bring the projects closer",
-  );
+// --- Decorative voxel node field around the star ---
+function seedNodeField() {
+  if (!nodeField) return;
+  const count = window.innerWidth < 640 ? 14 : 22;
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < count; i += 1) {
+    // Keep a clear zone around the central star / consciousness label.
+    let x;
+    let y;
+    let tries = 0;
+    do {
+      x = Math.random() * 100;
+      y = Math.random() * 100;
+      tries += 1;
+    } while (Math.hypot(x - 50, y - 48) < 18 && tries < 12);
+
+    const size = 6 + Math.round(Math.random() * 18);
+    const box = document.createElement("i");
+    box.style.setProperty("--x", `${x.toFixed(2)}%`);
+    box.style.setProperty("--y", `${y.toFixed(2)}%`);
+    box.style.setProperty("--s", `${size}px`);
+    box.style.setProperty("--o", (0.4 + Math.random() * 0.5).toFixed(2));
+    box.style.setProperty("--dx", `${(Math.random() * 16 - 8).toFixed(1)}px`);
+    box.style.setProperty("--dy", `${(Math.random() * 16 - 8).toFixed(1)}px`);
+    box.style.setProperty("--dur", `${(7 + Math.random() * 8).toFixed(1)}s`);
+    box.style.setProperty("--delay", `-${(Math.random() * 8).toFixed(1)}s`);
+    fragment.append(box);
+  }
+  nodeField.append(fragment);
 }
 
-async function revealScene() {
-  try {
-    await lightField?.decode();
-  } catch {
-    // The image can still render if decode is unavailable or interrupted.
-  }
-
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => body.classList.add("is-ready"));
+function driftProjectLinks() {
+  projectLinks.forEach((link, index) => {
+    if (link.classList.contains("core-link")) return;
+    link.style.setProperty("--dx", `${(Math.random() * 12 - 6).toFixed(1)}px`);
+    link.style.setProperty("--dy", `${(Math.random() * 12 - 6).toFixed(1)}px`);
+    link.style.setProperty("--dur", `${(10 + index * 1.6).toFixed(1)}s`);
+    link.style.setProperty("--delay", `-${(index * 1.3).toFixed(1)}s`);
   });
 }
 
-revealScene();
+seedNodeField();
+driftProjectLinks();
 
-trigger?.addEventListener("click", () => {
-  setFocused(!body.classList.contains("is-focused"));
+// --- Ambient music (browsers block autoplay until a user gesture) ---
+let musicWanted = true;
+
+function tryPlayMusic() {
+  if (!music || !musicWanted) return;
+  music.volume = 0.55;
+  music.play().then(() => body.classList.add("sound-on")).catch(() => {});
+}
+
+audioToggle?.addEventListener("click", () => {
+  musicWanted = !musicWanted;
+  audioToggle.setAttribute("aria-pressed", String(musicWanted));
+  if (musicWanted) {
+    tryPlayMusic();
+  } else {
+    music?.pause();
+    body.classList.remove("sound-on");
+  }
 });
 
-scene?.addEventListener(
-  "wheel",
-  (event) => {
-    if (event.ctrlKey) return;
-    event.preventDefault();
-    setFocused(true);
-  },
-  { passive: false },
-);
+// First interaction anywhere unlocks and starts playback.
+window.addEventListener("pointerdown", tryPlayMusic, { once: true });
 
-for (const link of projectLinks) {
-  link.addEventListener("pointerenter", () => setFocused(true));
-  link.addEventListener("focus", () => setFocused(true));
-  link.addEventListener("click", (event) => {
-    if (
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
-      return;
-    }
+// --- Synthesized "interspace travel" whoosh on departure (no asset) ---
+function playWarpSound() {
+  if (reducedMotion.matches) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  try {
+    const ctx = new Ctx();
+    const now = ctx.currentTime;
+    const dur = 1.25;
 
-    event.preventDefault();
-    beginDeparture(link);
-  });
+    // Rising tone.
+    const osc = ctx.createOscillator();
+    const oscGain = ctx.createGain();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(70, now);
+    osc.frequency.exponentialRampToValueAtTime(880, now + dur);
+    oscGain.gain.setValueAtTime(0.0001, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.22, now + dur * 0.8);
+    oscGain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    osc.connect(oscGain).connect(ctx.destination);
+
+    // Airy noise sweep for the "space travel" texture.
+    const bufferSize = ctx.sampleRate * dur;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const channel = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i += 1) channel[i] = Math.random() * 2 - 1;
+    const noise = ctx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    const noiseFilter = ctx.createBiquadFilter();
+    noiseFilter.type = "bandpass";
+    noiseFilter.frequency.setValueAtTime(400, now);
+    noiseFilter.frequency.exponentialRampToValueAtTime(6000, now + dur);
+    noiseFilter.Q.value = 0.8;
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.0001, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.16, now + dur * 0.85);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    noise.connect(noiseFilter).connect(noiseGain).connect(ctx.destination);
+
+    osc.start(now);
+    noise.start(now);
+    osc.stop(now + dur);
+    noise.stop(now + dur);
+    window.setTimeout(() => ctx.close().catch(() => {}), (dur + 0.2) * 1000);
+  } catch {
+    // Sound is a nicety; never block navigation on it.
+  }
 }
 
-// --- Hyperspace warp field: stars streak toward the chosen star, then whiteout ---
+// --- Hyperspace warp field: stars streak toward the chosen node, then whiteout ---
 const warpCanvas = document.querySelector(".warp-field");
 const warpCtx = warpCanvas?.getContext("2d");
 let warpStars = [];
@@ -147,6 +208,17 @@ window.addEventListener("resize", () => {
   if (warpRaf) sizeWarp();
 });
 
+// --- Click a node -> warp toward it -> whiteout -> navigate ---
+for (const link of projectLinks) {
+  link.addEventListener("click", (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+    event.preventDefault();
+    beginDeparture(link);
+  });
+}
+
 function beginDeparture(selectedLink) {
   if (isDeparting) return;
   isDeparting = true;
@@ -154,36 +226,13 @@ function beginDeparture(selectedLink) {
   const destination = selectedLink.href;
   const viewportCenterX = window.innerWidth / 2;
   const viewportCenterY = window.innerHeight / 2;
-  const travelScale = window.innerWidth < 700 ? 4.8 : 5.2;
-  const frozenPositions = [];
-
-  for (const link of projectLinks) {
-    const rect = link.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    frozenPositions.push({ link, centerX, centerY });
-  }
-
-  const selectedPosition = frozenPositions.find(({ link }) => link === selectedLink);
-  if (!selectedPosition) {
-    window.location.assign(destination);
-    return;
-  }
-
-  for (const { link, centerX, centerY } of frozenPositions) {
-    link.style.left = `${centerX}px`;
-    link.style.top = `${centerY}px`;
-  }
-
-  const travelX = -(selectedPosition.centerX - viewportCenterX) * travelScale;
-  const travelY = -(selectedPosition.centerY - viewportCenterY) * travelScale;
+  const rect = selectedLink.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
 
   selectedLink.classList.add("is-selected");
-  body.style.setProperty("--travel-x", `${travelX.toFixed(2)}px`);
-  body.style.setProperty("--travel-y", `${travelY.toFixed(2)}px`);
-  body.style.setProperty("--travel-scale", travelScale.toFixed(2));
   body.classList.add("is-departing");
-  scene?.setAttribute("aria-busy", "true");
+  playWarpSound();
 
   if (reducedMotion.matches) {
     body.classList.add("is-traveling");
@@ -191,10 +240,7 @@ function beginDeparture(selectedLink) {
     return;
   }
 
-  startWarp(
-    selectedPosition.centerX - viewportCenterX,
-    selectedPosition.centerY - viewportCenterY,
-  );
+  startWarp(centerX - viewportCenterX, centerY - viewportCenterY);
 
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => body.classList.add("is-traveling"));
@@ -211,25 +257,8 @@ function resetDeparture() {
   isDeparting = false;
   stopWarp();
   body.classList.remove("is-departing", "is-traveling");
-  body.style.removeProperty("--travel-x");
-  body.style.removeProperty("--travel-y");
-  body.style.removeProperty("--travel-scale");
-  scene?.removeAttribute("aria-busy");
-
-  for (const link of projectLinks) {
-    link.classList.remove("is-selected");
-    link.style.removeProperty("left");
-    link.style.removeProperty("top");
-  }
+  for (const link of projectLinks) link.classList.remove("is-selected");
 }
-
-window.visualViewport?.addEventListener("resize", () => {
-  if (window.visualViewport.scale > 1.01) setFocused(true);
-});
-
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") setFocused(false);
-});
 
 window.addEventListener("pageshow", (event) => {
   if (event.persisted) resetDeparture();
