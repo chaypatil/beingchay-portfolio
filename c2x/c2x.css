@@ -115,7 +115,6 @@ body.c2x-body {
 .c2x-mark {
   position: relative;
   display: inline-block;
-  padding-right: 24px;
 }
 
 .c2x-name {
@@ -123,21 +122,6 @@ body.c2x-body {
   font-size: 25px;
   font-weight: 600;
   letter-spacing: 0;
-}
-
-.c2x-beta {
-  position: absolute;
-  top: -6px;
-  right: -2px;
-  color: #cf3037;
-  font-family: "Sacramento", cursive;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  transform: rotate(-6deg);
-  transform-origin: left bottom;
 }
 
 .c2x-expansion {
@@ -267,7 +251,9 @@ body.c2x-body {
 
 .menu-nav {
   display: grid;
-  align-content: center;
+  align-content: safe center;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .menu-nav a {
@@ -332,15 +318,15 @@ body.c2x-body {
 
 .c2x-axis {
   position: absolute;
-  top: calc(var(--axis-start-y) - var(--spine-lead, 40px));
+  top: var(--axis-start-y);
   bottom: 0;
   left: var(--axis-x);
   z-index: 1;
   width: 0.7px;
   pointer-events: none;
   transform: translateX(-50%);
-  clip-path: inset(var(--spine-top-inset, 40px) 0 var(--spine-bottom-inset, 100%) 0);
-  transition: clip-path var(--spine-draw-duration, 6s) cubic-bezier(0.16, 1, 0.3, 1),
+  clip-path: inset(0 0 var(--spine-bottom-inset, 100%) 0);
+  transition: clip-path var(--spine-draw-duration, 12s) cubic-bezier(0.16, 1, 0.3, 1),
     width var(--spine-thicken-duration, 1.5s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -382,8 +368,7 @@ body.c2x-body {
 .axis-detail em,
 .practice-stage,
 .hero-location,
-.c2x-footer,
-.footer-location {
+.c2x-footer {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 400;
@@ -400,8 +385,7 @@ body.c2x-body {
 }
 
 .hero-location,
-.c2x-footer,
-.footer-location {
+.c2x-footer {
   letter-spacing: 0.06em;
 }
 
@@ -975,9 +959,14 @@ body.c2x-body {
 .contact-section {
   position: relative;
   min-height: 78svh;
+  padding: 0;
   display: grid;
   align-items: center;
   overflow: hidden;
+}
+
+.contact-layer {
+  padding: 0 clamp(18px, 4vw, 56px);
 }
 
 .contact-layer--base {
@@ -1053,31 +1042,14 @@ body.c2x-body {
   min-height: 72px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
   padding: 18px clamp(18px, 4vw, 56px);
   border-top: 1px solid var(--faint);
   color: var(--muted);
   background: var(--cream);
 }
 
-.footer-left {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
 .c2x-footer p {
   margin: 0;
-}
-
-.c2x-footer nav {
-  display: flex;
-  gap: 18px;
-}
-
-.footer-location {
-  color: var(--ink-2);
 }
 
 @media (max-width: 1120px) {
@@ -1332,9 +1304,7 @@ body.c2x-body {
     font-size: 34px;
   }
 
-  .c2x-footer,
-  .footer-left {
-    flex-direction: column;
+  .c2x-footer {
     align-items: flex-start;
   }
 }

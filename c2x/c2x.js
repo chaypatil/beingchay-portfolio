@@ -14,10 +14,9 @@ const menuLinks = document.querySelectorAll(".menu-nav a");
 const timeNodes = document.querySelectorAll("[data-ist-time]");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const axisEl = document.querySelector(".c2x-axis");
-const SPINE_LEAD = 40;
-const SPINE_DRAW_SPEED = 750;
-const SPINE_DRAW_MIN_MS = 5000;
-const SPINE_DRAW_MAX_MS = 7000;
+const SPINE_DRAW_SPEED = 300;
+const SPINE_DRAW_MIN_MS = 3000;
+const SPINE_DRAW_MAX_MS = 20000;
 const SPINE_THICKEN_MS = 1500;
 const SPINE_TRIGGER_SCROLL_Y = 10;
 
@@ -92,7 +91,7 @@ function toggleMenu() {
 function rebuildAxisSegments(startY) {
   if (!axisEl) return;
   axisEl.innerHTML = "";
-  const boxTop = startY - SPINE_LEAD;
+  const boxTop = startY;
   const sections = document.querySelectorAll(".c2x-section");
   let maxBottom = boxTop;
   for (const section of sections) {
@@ -125,7 +124,6 @@ function setAxisFromAnchor() {
   body.style.setProperty("--axis-x", `${restX}px`);
   body.style.setProperty("--axis-local-x", `${Math.round(restX - innerLeft)}px`);
   body.style.setProperty("--axis-start-y", `${Math.max(0, Math.round(startY))}px`);
-  body.style.setProperty("--spine-lead", `${SPINE_LEAD}px`);
   rebuildAxisSegments(Math.max(0, startY));
   updateRevealClip();
 }
@@ -140,7 +138,6 @@ function triggerSpineDraw() {
   body.style.setProperty("--spine-draw-duration", `${Math.round(drawMs)}ms`);
   body.style.setProperty("--spine-thicken-duration", `${SPINE_THICKEN_MS}ms`);
   window.requestAnimationFrame(() => {
-    body.style.setProperty("--spine-top-inset", "0px");
     body.style.setProperty("--spine-bottom-inset", "0px");
     axisEl.classList.add("is-drawn");
   });
