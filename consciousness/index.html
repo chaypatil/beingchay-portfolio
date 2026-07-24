@@ -29,7 +29,7 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-width: 320px; min-height: 100%; background: var(--bg); color: var(--ink); }
+    html, body { margin: 0; min-width: 320px; min-height: 100%; background: var(--bg); color: var(--ink); overscroll-behavior: none; }
     body { font-family: var(--sans); overflow: hidden; }
     button, input { font: inherit; }
     button { color: inherit; }
@@ -911,7 +911,6 @@
       <nav class="ui-dock" aria-label="Interface and spatial controls">
         <button class="ui-tool" id="rail-toggle" type="button" aria-pressed="false" title="Toggle library">LIB</button>
         <button class="ui-tool" id="detail-toggle" type="button" aria-pressed="false" title="Toggle node detail">INFO</button>
-        <button class="ui-tool map-only" id="depth-toggle" type="button" aria-pressed="false" title="Toggle 3D — then drag empty space to orbit">3D</button>
         <button class="ui-tool map-only depth-adjust" id="depth-back" type="button" title="Push selected node deeper">Z−</button>
         <button class="ui-tool map-only depth-adjust" id="depth-forward" type="button" title="Pull selected node closer">Z+</button>
         <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset positions and view">RST</button>
@@ -1729,7 +1728,7 @@
       if (event.target.closest?.(".node")) return;
       canvasDrag = {
         pointerId:event.pointerId,
-        mode:depthMode ? "orbit" : "pan",
+        mode:event.shiftKey ? "pan" : "orbit",
         startClientX:event.clientX,
         startClientY:event.clientY,
         startPanX:camera.panX,
@@ -1866,7 +1865,7 @@
     function setDepthMode(enabled, persist = true) {
       depthMode = enabled;
       document.body.classList.toggle("depth-mode", enabled);
-      document.querySelector("#depth-toggle").setAttribute("aria-pressed", String(enabled));
+      document.querySelector("#depth-toggle")?.setAttribute("aria-pressed", String(enabled));
       if (enabled && camera.yaw === 0 && camera.pitch === 0) {
         camera.yaw = 0.6;
         camera.pitch = -0.32;
@@ -2001,7 +2000,6 @@
       if (!willCollapse && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
     });
 
-    document.querySelector("#depth-toggle").addEventListener("click", () => setDepthMode(!depthMode));
     document.querySelector("#depth-back").addEventListener("click", () => adjustSelectedDepth(-28));
     document.querySelector("#depth-forward").addEventListener("click", () => adjustSelectedDepth(28));
     document.querySelector("#layout-reset").addEventListener("click", () => {
@@ -2051,9 +2049,10 @@
     const initialInterfaceState = readInterfaceState();
     setPanelCollapsed("rail", initialInterfaceState.rail === true, false);
     setPanelCollapsed("detail", initialInterfaceState.detail ?? compactMap, false);
-    depthMode = initialInterfaceState.depth === true;
-    document.body.classList.toggle("depth-mode", depthMode);
-    document.querySelector("#depth-toggle").setAttribute("aria-pressed", String(depthMode));
+    depthMode = true;
+    document.body.classList.add("depth-mode");
+    camera.yaw = 0.6;
+    camera.pitch = -0.32;
 
     buildFilters();
     renderGraph();
