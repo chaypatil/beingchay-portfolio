@@ -980,7 +980,7 @@
     renderGraph();
 
     try {
-      const { prepare, layout } = await import("./pretext.js");
+      const { prepare, layout } = await import("/consciousness/pretext.js");
       await document.fonts.ready;
       const prepared = new Map();
       const elements = document.querySelectorAll("[data-pretext]");
