@@ -66,8 +66,9 @@
     body.space-mode .ui-dock,
     body.space-mode .map-head,
     body.space-mode .boot-field,
-    body.space-mode .signal-field,
-    body.space-mode .edges { display: none !important; }
+    body.space-mode .signal-field { display: none !important; }
+    body.space-mode .edges .edge { stroke: rgba(92, 56, 136, .43); stroke-width: .8; }
+    body.space-mode .edges .edge-label { display: none; }
     body.space-mode .stage { grid-row: 1 / -1; grid-column: 1 / -1; background: #050506; }
     body.space-mode .map-view { background: #050506; }
     body.space-mode .map-view::after { display: none; }
@@ -91,16 +92,16 @@
     body.space-mode .node .ghost {
       fill: var(--node-color);
       stroke: none;
-      opacity: .48;
+      opacity: .34;
     }
-    body.space-mode .node .ghost-a { transform: translate(4px, -3px); }
-    body.space-mode .node .ghost-b { transform: translate(-3px, 3px); opacity: .28; }
+    body.space-mode .node .ghost-a { transform: translate(5px, -4px) scale(.78); }
+    body.space-mode .node .ghost-b { transform: translate(-4px, 4px) scale(.72); opacity: .2; }
     body.space-mode .node:hover .ghost-a,
     body.space-mode .node:focus-visible .ghost-a,
-    body.space-mode .node.active .ghost-a { transform: translate(6px, -4px); opacity: .74; }
+    body.space-mode .node.active .ghost-a { transform: translate(7px, -5px) scale(.78); opacity: .62; }
     body.space-mode .node:hover .ghost-b,
     body.space-mode .node:focus-visible .ghost-b,
-    body.space-mode .node.active .ghost-b { transform: translate(-5px, 4px); opacity: .42; }
+    body.space-mode .node.active .ghost-b { transform: translate(-6px, 5px) scale(.72); opacity: .34; }
     body.space-mode .node .point { display: none; }
     body.space-mode .node .redaction-bar,
     body.space-mode .node .redaction-scratch { display: none; }
@@ -1089,8 +1090,6 @@
       <nav class="ui-dock" aria-label="Interface and spatial controls">
         <button class="ui-tool" id="rail-toggle" type="button" aria-pressed="false" title="Toggle library">LIB</button>
         <button class="ui-tool" id="detail-toggle" type="button" aria-pressed="false" title="Toggle node detail">INFO</button>
-        <button class="ui-tool map-only depth-adjust" id="depth-back" type="button" title="Push selected node deeper">Z−</button>
-        <button class="ui-tool map-only depth-adjust" id="depth-forward" type="button" title="Pull selected node closer">Z+</button>
         <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset positions and view">RST</button>
         <button class="ui-tool" id="sound-toggle" type="button" aria-pressed="false" title="Toggle ambient sound">SND</button>
       </nav>
@@ -1099,7 +1098,7 @@
           <span class="deep-track" aria-hidden="true"><span class="deep-knob"></span></span>
         </a>
       </div>
-      <audio class="bg-music" id="bg-music" src="../assets/smoke-state-2.mp3" loop preload="none"></audio>
+      <audio class="bg-music" id="bg-music" src="../assets/smoke-state-2.mp3" loop preload="auto"></audio>
       <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
         <div class="map-head">
           <h1 lang="hi">चैतन्य</h1>

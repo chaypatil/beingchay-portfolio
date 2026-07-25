@@ -18,7 +18,7 @@ let dragState = null;
 let canvasDrag = null;
 let suppressClickUntil = 0;
 let depthMode = false;
-let camera = { panX:0, panY:0, zoom:1, yaw:0, pitch:0 };
+let camera = { panX:0, panY:0, zoom:.82, yaw:0, pitch:0 };
 // Space mode is the beingchay landing: same map, connections and chrome hidden,
 // a star at the centre. Paper mode is the consciousness page proper.
 let spaceMode = document.body.classList.contains("space-mode");
@@ -141,7 +141,7 @@ function zoomAt(clientX, clientY, factor) {
 }
 
 function resetCamera() {
-  camera = { panX:0, panY:0, zoom:1, yaw:0, pitch:0 };
+  camera = { panX:0, panY:0, zoom:.82, yaw:0, pitch:0 };
   applyCamera();
 }
 
@@ -152,7 +152,7 @@ function projectNode(node, layout) {
   const centerX = layout.width / 2;
   const centerY = layout.height / 2;
   if (!depthMode) {
-    return { x:baseX, y:baseY, z:0, scale:1 };
+    return { x:baseX, y:baseY, z:0, scale:spaceMode ? .68 : 1 };
   }
   const px = baseX - centerX;
   const py = baseY - centerY;
@@ -169,7 +169,7 @@ function projectNode(node, layout) {
     x:centerX + rx * scale,
     y:centerY + ry * scale,
     z:rz,
-    scale
+    scale: spaceMode ? scale * .68 : scale
   };
 }
 
@@ -266,7 +266,7 @@ function renderGraph() {
     const fromPoint = pointById.get(fromId);
     const toPoint = pointById.get(toId);
     const line = el("line", { x1:fromPoint.x, y1:fromPoint.y, x2:toPoint.x, y2:toPoint.y, class:"edge", "data-from":fromId, "data-to":toId });
-    const text = el("text", { x:(fromPoint.x+toPoint.x)/2, y:(fromPoint.y+toPoint.y)/2 - 5, class:"edge-label", "text-anchor":"middle" });
+    const text = el("text", { x:(fromPoint.x+toPoint.x)/2, y:(fromPoint.y+toPoint.y)/2 - 5, class:"edge-label", "text-anchor":"middle", "data-from":fromId, "data-to":toId });
     text.textContent = label;
     edgeLayer.append(line, text);
   }
@@ -741,6 +741,8 @@ soundToggle?.addEventListener("click", () => {
 });
 
 window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
+window.addEventListener("keydown", tryPlayAmbient, { once:true });
+window.addEventListener("touchstart", tryPlayAmbient, { once:true, passive:true });
 
 // ---------------------------------------------------------------------------
 // Audio crossfade: track 1 (landing) → track 2 (consciousness).
@@ -867,8 +869,6 @@ function runSpaceTransit() {
   window.setTimeout(() => field.remove(), 2200);
 }
 
-document.querySelector("#depth-back").addEventListener("click", () => adjustSelectedDepth(-28));
-document.querySelector("#depth-forward").addEventListener("click", () => adjustSelectedDepth(28));
 document.querySelector("#layout-reset").addEventListener("click", () => {
   nodePositions.clear();
   savedPublicPositions = {};
@@ -1015,20 +1015,20 @@ function buildStar() {
     </filter>`;
   group.append(defs);
 
-  group.append(el("circle", { class:"star-halo", cx, cy, r:170, fill:"url(#star-halo)" }));
+  group.append(el("circle", { class:"star-halo", cx, cy, r:128, fill:"url(#star-halo)" }));
   group.append(el("circle", {
-    class:"star-bloom", cx, cy, r:72,
+    class:"star-bloom", cx, cy, r:58,
     fill:"url(#star-bloom)", filter:"url(#star-bloom-soft)"
   }));
   group.append(el("ellipse", {
-    class:"star-spike", cx, cy, rx:235, ry:1.05,
+    class:"star-spike", cx, cy, rx:320, ry:2.4,
     fill:"url(#star-spike-h)", filter:"url(#star-soft)"
   }));
   group.append(el("ellipse", {
-    class:"star-spike", cx, cy, rx:.9, ry:165,
+    class:"star-spike", cx, cy, rx:2.1, ry:230,
     fill:"url(#star-spike-v)", filter:"url(#star-soft-v)"
   }));
-  group.append(el("circle", { class:"star-core", cx, cy, r:38, fill:"url(#star-core)" }));
+  group.append(el("circle", { class:"star-core", cx, cy, r:27, fill:"url(#star-core)" }));
   return group;
 }
 
@@ -1056,6 +1056,13 @@ function tickOrbit(now) {
     if (!from || !to) continue;
     line.setAttribute("x1", from.x); line.setAttribute("y1", from.y);
     line.setAttribute("x2", to.x); line.setAttribute("y2", to.y);
+  }
+  for (const label of svg.querySelectorAll(".edge-label")) {
+    const from = pointById.get(label.dataset.from);
+    const to = pointById.get(label.dataset.to);
+    if (!from || !to) continue;
+    label.setAttribute("x", ((from.x + to.x) / 2).toFixed(2));
+    label.setAttribute("y", (((from.y + to.y) / 2) - 5).toFixed(2));
   }
 
   // Rotation changes what is in front of what. Re-sorting every frame would

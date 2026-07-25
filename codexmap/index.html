@@ -25,15 +25,15 @@
       --ink: #111214;
       --muted: #65686e;
       --faint: rgba(17, 18, 20, .11);
-      --mesh: rgba(17, 18, 20, .22);
-      --mesh-strong: rgba(49, 87, 168, .5);
+      --mesh: rgba(17, 18, 20, .2);
+      --mesh-strong: rgba(27, 105, 75, .42);
       --region-fill: rgba(49, 87, 168, .025);
       --panel: rgba(242, 242, 239, .91);
       --violet: #613cff;
       --blue: #3157a8;
       --green: #2f6b50;
-      --signal: #3157a8;
-      --selected: #613cff;
+      --signal: #1b694b;
+      --selected: #14613f;
       --line: rgba(17, 18, 20, .2);
       --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
       --mono: "IBM Plex Mono", "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
@@ -44,15 +44,15 @@
       --ink: #eceeea;
       --muted: #8d9198;
       --faint: rgba(236, 238, 234, .075);
-      --mesh: rgba(208, 216, 231, .12);
-      --mesh-strong: rgba(113, 145, 219, .55);
+      --mesh: rgba(208, 216, 231, .13);
+      --mesh-strong: rgba(82, 180, 132, .45);
       --region-fill: rgba(80, 101, 154, .028);
       --panel: rgba(7, 8, 9, .88);
       --violet: #846eff;
       --blue: #7191db;
       --green: #5f9978;
-      --signal: #7191db;
-      --selected: #846eff;
+      --signal: #59b784;
+      --selected: #7ddca8;
       --line: rgba(236, 238, 234, .18);
     }
 
@@ -196,10 +196,7 @@
       min-height: 0;
       overflow: hidden;
       isolation: isolate;
-      background:
-        linear-gradient(var(--faint) 1px, transparent 1px),
-        linear-gradient(90deg, var(--faint) 1px, transparent 1px);
-      background-size: 42px 42px;
+      background: var(--paper);
     }
 
     .brain-stage::before {
@@ -207,8 +204,8 @@
       position: absolute;
       inset: 0;
       z-index: -1;
-      background: radial-gradient(circle at 50% 48%, transparent 0 28%, var(--paper) 74%);
-      opacity: .78;
+      background: radial-gradient(ellipse at 50% 48%, transparent 0 31%, color-mix(in srgb, var(--paper) 82%, transparent) 76%);
+      opacity: .54;
       pointer-events: none;
     }
 
@@ -272,9 +269,9 @@
 
     .signal-line.is-live {
       stroke: var(--signal);
-      stroke-opacity: .42;
-      stroke-dasharray: 3 10 42 16;
-      animation: signal-travel 18s linear infinite;
+      stroke-opacity: .72;
+      stroke-dasharray: 4 12 58 18;
+      animation: signal-travel 10s linear infinite;
     }
 
     .brain-node {
@@ -390,7 +387,7 @@
 
     @keyframes signal-travel {
       to {
-        stroke-dashoffset: -142;
+        stroke-dashoffset: -190;
       }
     }
 
@@ -562,7 +559,7 @@
         ].join(" ");
         signals.append(svgElement("path", {
           d: path,
-          class: `signal-line${row % 4 === 1 ? " is-live" : ""}`
+          class: `signal-line${row % 3 === 1 ? " is-live" : ""}`
         }));
       }
 
@@ -570,16 +567,16 @@
         "clip-path": "url(#brain-silhouette)",
         "aria-hidden": "true"
       });
-      const columns = 18;
-      const rows = 12;
+      const columns = 34;
+      const rows = 22;
       const points = [];
       for (let row = 0; row < rows; row += 1) {
         const line = [];
         for (let column = 0; column < columns; column += 1) {
           const seed = stableHash(`${column}:${row}`);
           line.push({
-            x: 110 + column * 48 + (seed % 19) - 9,
-            y: 74 + row * 45 + ((seed >>> 8) % 17) - 8
+            x: 90 + column * 25 + (seed % 17) - 8,
+            y: 70 + row * 24 + ((seed >>> 8) % 17) - 8
           });
         }
         points.push(line);
