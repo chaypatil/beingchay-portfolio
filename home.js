@@ -20,6 +20,16 @@ const CENTER_X = SPACE_W / 2;
 const CENTER_Y = SPACE_H / 2;
 
 const camera = { yaw: 0.6, pitch: -0.28 };
+// The field turns on its own; dragging adds to this rather than replacing it.
+const AUTO_YAW_RATE = 0.055;
+let autoYaw = 0;
+
+// Map colours are tuned for white paper. On black they need lifting to stay legible.
+function lift(hex, amount = 0.42) {
+  const n = parseInt(hex.slice(1), 16);
+  const mix = (c) => Math.round(c + (255 - c) * amount);
+  return `rgb(${mix((n >> 16) & 255)}, ${mix((n >> 8) & 255)}, ${mix(n & 255)})`;
+}
 let canvasDrag = null;
 let isDeparting = false;
 let departureTimer = null;
@@ -44,10 +54,11 @@ const items = publicNodes.map((node) => {
   return {
     node,
     z: (seed % 241) - 120,
+    // Unsigned shifts: >> went negative for ~half the ids, freezing those nodes.
     driftPhase: (seed % 1000) / 1000 * Math.PI * 2,
-    driftRate: 0.12 + ((seed >> 5) % 60) / 400,
-    driftX: 4 + ((seed >> 9) % 9),
-    driftY: 3 + ((seed >> 13) % 8),
+    driftRate: 0.34 + ((seed >>> 5) % 60) / 220,
+    driftX: 16 + ((seed >>> 9) % 18),
+    driftY: 12 + ((seed >>> 13) % 14),
     el: null,
     scale: 1
   };
@@ -79,7 +90,7 @@ function buildNodes() {
     box.className = "sky-box";
     const size = Math.round(node.r * (isPillar ? 1.5 : 1.25));
     box.style.setProperty("--box", `${size}px`);
-    box.style.setProperty("--tone", locked ? "#0a0a0a" : meta.color);
+    box.style.setProperty("--tone", locked ? "#181818" : lift(meta.color));
 
     const label = document.createElement("span");
     label.className = "sky-label";
@@ -103,8 +114,9 @@ function project(item, time) {
   const py = node.y + dy - CENTER_Y;
   const pz = item.z;
 
-  const cosY = Math.cos(camera.yaw);
-  const sinY = Math.sin(camera.yaw);
+  const yaw = camera.yaw + autoYaw;
+  const cosY = Math.cos(yaw);
+  const sinY = Math.sin(yaw);
   const rx = px * cosY + pz * sinY;
   let rz = -px * sinY + pz * cosY;
 
@@ -126,6 +138,7 @@ function project(item, time) {
 
 function frame(now) {
   clock = now / 1000;
+  autoYaw = clock * AUTO_YAW_RATE;
   for (const item of items) {
     const p = project(item, clock);
     item.scale = p.scale;
@@ -134,14 +147,15 @@ function frame(now) {
     el.style.top = `${p.y.toFixed(3)}%`;
     el.style.transform = `translate(-50%, -50%) scale(${p.scale.toFixed(3)})`;
     // Depth cue: further back reads dimmer and sits behind the star glow.
-    el.style.opacity = clamp(0.32 + (p.scale - 0.85) * 1.6, 0.18, 1).toFixed(3);
+    el.style.opacity = clamp(0.62 + (p.scale - 0.85) * 1.1, 0.5, 1).toFixed(3);
     el.style.zIndex = String(Math.round(p.scale * 100));
   }
   // Lens flares slide against the rotation, which sells the star as a 3D object.
   if (star) {
-    star.style.setProperty("--flare-x", `${(Math.sin(camera.yaw) * 42).toFixed(1)}px`);
+    const yaw = camera.yaw + autoYaw;
+    star.style.setProperty("--flare-x", `${(Math.sin(yaw) * 42).toFixed(1)}px`);
     star.style.setProperty("--flare-y", `${(Math.sin(camera.pitch) * 30).toFixed(1)}px`);
-    star.style.setProperty("--flare-spin", `${(camera.yaw * 34).toFixed(2)}deg`);
+    star.style.setProperty("--flare-spin", `${(yaw * 34).toFixed(2)}deg`);
   }
   window.requestAnimationFrame(frame);
 }
