@@ -73,16 +73,57 @@
     body.space-mode .map-view::after { display: none; }
     body.space-mode .view { background: #050506; }
     body.space-mode .deep-rail { z-index: 40; }
-    /* Map colours are tuned for white paper; lift them for the dark field. */
-    body.space-mode .node { filter: brightness(1.5) saturate(1.05); }
-    body.space-mode .node .core { fill: #0b0b0d; stroke: var(--node-color); stroke-width: 2; }
-    body.space-mode .node .halo { stroke-opacity: .3; }
+    /* Landing nodes: black pixel-blobs. Their map colour escapes as an offset
+       shadow; it never becomes a neat diagram border on the dark field. */
+    body.space-mode .node { filter: none; }
+    body.space-mode .node .core,
+    body.space-mode .node:hover .core,
+    body.space-mode .node:focus-visible .core,
+    body.space-mode .node.active .core {
+      fill: #151518;
+      stroke: none;
+      filter: none;
+    }
+    body.space-mode .node .halo,
+    body.space-mode .node:hover .halo,
+    body.space-mode .node:focus-visible .halo,
+    body.space-mode .node.active .halo { stroke-opacity: 0; }
+    body.space-mode .node .ghost {
+      fill: var(--node-color);
+      stroke: none;
+      opacity: .48;
+    }
+    body.space-mode .node .ghost-a { transform: translate(4px, -3px); }
+    body.space-mode .node .ghost-b { transform: translate(-3px, 3px); opacity: .28; }
+    body.space-mode .node:hover .ghost-a,
+    body.space-mode .node:focus-visible .ghost-a,
+    body.space-mode .node.active .ghost-a { transform: translate(6px, -4px); opacity: .74; }
+    body.space-mode .node:hover .ghost-b,
+    body.space-mode .node:focus-visible .ghost-b,
+    body.space-mode .node.active .ghost-b { transform: translate(-5px, 4px); opacity: .42; }
+    body.space-mode .node .point { display: none; }
+    body.space-mode .node .redaction-bar,
+    body.space-mode .node .redaction-scratch { display: none; }
     body.space-mode .node text { display: none; }
     body.space-mode .node[data-id="fallout"] text,
     body.space-mode .node[data-id="anrxyst"] text,
     body.space-mode .node[data-id="c2x"] text {
-      display: block; fill: rgba(244,241,232,.9); font-size: 10px; letter-spacing: .2em;
+      display: block;
+      fill: #f4f1e8;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      paint-order: normal;
+      stroke: none;
+      filter: drop-shadow(0 1px 2px #050506);
     }
+    body.space-mode .star-group { pointer-events: none; }
+    body.space-mode .deep-track {
+      border-color: rgba(244,241,232,.58);
+      background: #0d0d0f;
+      box-shadow: 3px 3px 0 rgba(97,60,255,.36), -2px -2px 0 rgba(47,107,80,.32);
+    }
+    body.space-mode .deep-knob { background: #f4f1e8; }
     body.space-mode .star-core { animation: star-breathe 6.5s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
     @keyframes star-breathe { 0%,100% { opacity: .96; } 50% { opacity: 1; } }
     body.space-mode.dismantling .node { transition: opacity .5s ease; opacity: .15; }
@@ -697,6 +738,23 @@
     }
     .private-dialog::backdrop { background: rgba(10,10,10,.82); backdrop-filter: blur(2px); }
     .private-submit { color: var(--signal-green); }
+    .transit-dialog-body { display: grid; gap: 16px; padding: 20px; }
+    .transit-dialog-question { margin: 0; color: var(--paper); font: 12px/1.5 var(--mono); }
+    .transit-dialog-enter {
+      appearance: none;
+      width: 100%;
+      padding: 13px 18px;
+      border: 1px solid var(--paper);
+      background: transparent;
+      color: var(--paper);
+      cursor: pointer;
+      font: 700 9px/1 var(--mono);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0 var(--signal-blue), -2px -2px 0 var(--signal-green);
+    }
+    .transit-dialog-enter:hover,
+    .transit-dialog-enter:focus-visible { background: var(--paper); color: #080808; }
 
     .bottom-bar { border-color: var(--ink); background: rgba(239,238,232,.96); }
     .time-scrub { height: 48px; color: var(--dim); font-weight: 700; }
@@ -979,6 +1037,17 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
       .boot-field { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      body.space-mode .node[data-id="fallout"] text,
+      body.space-mode .node[data-id="anrxyst"] text,
+      body.space-mode .node[data-id="c2x"] text {
+        font-size: 22px;
+        letter-spacing: .08em;
+      }
+      body.space-mode .node[data-id="c2x"] text { transform: translateY(-34px); }
+      body.space-mode .node[data-id="fallout"] text { transform: translateY(34px); }
     }
   </style>
 </head>

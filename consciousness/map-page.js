@@ -21,7 +21,7 @@ let depthMode = false;
 let camera = { panX:0, panY:0, zoom:1, yaw:0, pitch:0 };
 // Space mode is the beingchay landing: same map, connections and chrome hidden,
 // a star at the centre. Paper mode is the consciousness page proper.
-const spaceMode = document.body.classList.contains("space-mode");
+let spaceMode = document.body.classList.contains("space-mode");
 // Everything drifts slowly around the centre on both layers. Just noticeable.
 const AUTO_YAW_RATE = 0.018;
 let autoYaw = 0;
@@ -325,7 +325,13 @@ function renderGraph() {
       selectNode(node.id, true);
     });
     group.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNode(node.id, true); }
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (spaceMode) {
+          group.dispatchEvent(new MouseEvent("click", { bubbles:true, cancelable:true }));
+        }
+        else selectNode(node.id, true);
+      }
     });
     depthOrdered.push({ group, z:point.z });
   });
@@ -375,9 +381,7 @@ function beginNodeDrag(event, id) {
     startPosition:{ ...position },
     moved:false
   };
-  activeNodeId = id;
   document.body.classList.add("node-dragging");
-  svg.setPointerCapture?.(event.pointerId);
   event.preventDefault();
 }
 
@@ -385,6 +389,11 @@ function moveDraggedNode(event) {
   if (!dragState || event.pointerId !== dragState.pointerId) return;
   const node = nodeById.get(dragState.id);
   if (!node) return;
+  const hasMoved = Math.hypot(event.clientX - dragState.startClientX, event.clientY - dragState.startClientY) > 3;
+  if (hasMoved && !dragState.moved) {
+    activeNodeId = dragState.id;
+    svg.setPointerCapture?.(event.pointerId);
+  }
   const position = getNodePosition(node);
   if (dragState.mode === "z") {
     const nextZ = dragState.startPosition.z + (dragState.startClientY - event.clientY) * 1.15;
@@ -398,18 +407,23 @@ function moveDraggedNode(event) {
     position.x = clamp(dragState.startPosition.x + dx / layout.xScale, -120, 1120);
     position.y = clamp(dragState.startPosition.y + dy / layout.yScale, -120, 770);
   }
-  dragState.moved = dragState.moved || Math.hypot(event.clientX - dragState.startClientX, event.clientY - dragState.startClientY) > 3;
+  dragState.moved = dragState.moved || hasMoved;
   renderGraph();
 }
 
 function finishNodeDrag(event) {
   if (!dragState || event.pointerId !== dragState.pointerId) return;
-  if (dragState.moved) suppressClickUntil = performance.now() + 220;
-  savePublicPositions();
+  const moved = dragState.moved;
+  if (moved) {
+    suppressClickUntil = performance.now() + 220;
+    savePublicPositions();
+  }
   dragState = null;
   document.body.classList.remove("node-dragging");
   try { svg.releasePointerCapture?.(event.pointerId); } catch {}
-  renderGraph();
+  // Replacing the SVG here used to remove a stationary click target before
+  // the browser emitted `click`. Only a real drag needs a final repaint.
+  if (moved) renderGraph();
 }
 
 function beginCanvasDrag(event) {
@@ -579,8 +593,10 @@ const privateDialog = document.querySelector("#private-dialog");
 const privatePassword = document.querySelector("#private-password");
 const privateError = document.querySelector("#private-error");
 const privateSubmit = document.querySelector("#private-submit");
+let privateIntent = "layer";
 
-function openPrivateDialog() {
+function openPrivateDialog(intent = "layer") {
+  privateIntent = intent;
   privateError.textContent = "";
   if (!privateDialog.open) privateDialog.showModal();
   requestAnimationFrame(() => privatePassword.focus());
@@ -609,7 +625,7 @@ function lockPrivate() {
 
 document.querySelector("#privacy-toggle").addEventListener("click", () => {
   if (document.body.classList.contains("private-mode")) lockPrivate();
-  else openPrivateDialog();
+  else openPrivateDialog("layer");
 });
 
 document.querySelector("#private-dialog-close").addEventListener("click", () => privateDialog.close());
@@ -621,6 +637,7 @@ privateDialog.addEventListener("close", () => {
 
 document.querySelector("#private-form").addEventListener("submit", async event => {
   event.preventDefault();
+  const intent = privateIntent;
   privateSubmit.disabled = true;
   privateError.textContent = "";
   try {
@@ -629,10 +646,16 @@ document.querySelector("#private-form").addEventListener("submit", async event =
       headers: { "Content-Type": "application/json" },
       credentials: "same-origin",
       cache: "no-store",
-      body: JSON.stringify({ password: privatePassword.value })
+      body: JSON.stringify({ password: privatePassword.value, intent })
     });
     if (!response.ok) throw new Error(response.status === 401 ? "Wrong password" : "Private layer unavailable");
     const payload = await response.json();
+    if (intent === "codexmap") {
+      if (payload?.ok !== true) throw new Error("Private layer unavailable");
+      privateDialog.close();
+      window.location.assign("/codexmap/");
+      return;
+    }
     if (!Array.isArray(payload.nodes) || !Array.isArray(payload.edges) || typeof payload.relationAdditions !== "object") {
       throw new Error("Private layer unavailable");
     }
@@ -934,8 +957,8 @@ try {
    Space mode: the star, the slow orbit, and the switch back to paper.
    --------------------------------------------------------------------------- */
 
-// Built to match the reference: a tiny blown-out core, four long thin tapering
-// spikes, and a soft halo. No disc edge, no lens ghosts, no colour cast.
+// A contained light source rather than a disc: the bloom reaches transparency
+// well before its geometry ends, and the four spikes taper inside the frame.
 function buildStar() {
   if (!spaceMode) return null;
   const layout = graphLayout();
@@ -946,50 +969,66 @@ function buildStar() {
   const defs = el("defs");
   defs.innerHTML = `
     <radialGradient id="star-halo">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
-      <stop offset="18%" stop-color="#ffffff" stop-opacity="0.10"/>
-      <stop offset="45%" stop-color="#dfe8ff" stop-opacity="0.035"/>
-      <stop offset="100%" stop-color="#dfe8ff" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="22%" stop-color="#ffffff" stop-opacity="0.075"/>
+      <stop offset="58%" stop-color="#ffffff" stop-opacity="0.012"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="star-bloom">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="24%" stop-color="#ffffff" stop-opacity="0.72"/>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="star-core">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-      <stop offset="42%" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="68%" stop-color="#fffaf0" stop-opacity="0.42"/>
-      <stop offset="100%" stop-color="#fff4e0" stop-opacity="0"/>
+      <stop offset="34%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="64%" stop-color="#ffffff" stop-opacity="0.52"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="star-spike-h" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="38%" stop-color="#ffffff" stop-opacity="0.30"/>
-      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="62%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="34%" stop-color="#ffffff" stop-opacity="0.035"/>
+      <stop offset="46%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.88"/>
+      <stop offset="54%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="66%" stop-color="#ffffff" stop-opacity="0.035"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="star-spike-v" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.26"/>
-      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.9"/>
-      <stop offset="60%" stop-color="#ffffff" stop-opacity="0.26"/>
+      <stop offset="34%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="46%" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="54%" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="66%" stop-color="#ffffff" stop-opacity="0.03"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
-    <filter id="star-soft" x="-60%" y="-400%" width="220%" height="900%">
-      <feGaussianBlur stdDeviation="2.4"/>
+    <filter id="star-bloom-soft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="8"/>
     </filter>
-    <filter id="star-soft-v" x="-400%" y="-60%" width="900%" height="220%">
-      <feGaussianBlur stdDeviation="2.4"/>
+    <filter id="star-soft" x="-60%" y="-500%" width="220%" height="1100%">
+      <feGaussianBlur stdDeviation="1.8"/>
+    </filter>
+    <filter id="star-soft-v" x="-500%" y="-60%" width="1100%" height="220%">
+      <feGaussianBlur stdDeviation="1.8"/>
     </filter>`;
   group.append(defs);
 
-  group.append(el("circle", { class:"star-halo", cx, cy, r:300, fill:"url(#star-halo)" }));
-  // Spikes are ellipses so they taper naturally toward each tip.
+  group.append(el("circle", { class:"star-halo", cx, cy, r:170, fill:"url(#star-halo)" }));
+  group.append(el("circle", {
+    class:"star-bloom", cx, cy, r:72,
+    fill:"url(#star-bloom)", filter:"url(#star-bloom-soft)"
+  }));
   group.append(el("ellipse", {
-    class:"star-spike", cx, cy, rx:520, ry:1.6,
+    class:"star-spike", cx, cy, rx:235, ry:1.05,
     fill:"url(#star-spike-h)", filter:"url(#star-soft)"
   }));
   group.append(el("ellipse", {
-    class:"star-spike", cx, cy, rx:1.3, ry:330,
+    class:"star-spike", cx, cy, rx:.9, ry:165,
     fill:"url(#star-spike-v)", filter:"url(#star-soft-v)"
   }));
-  group.append(el("circle", { class:"star-core", cx, cy, r:26, fill:"url(#star-core)" }));
+  group.append(el("circle", { class:"star-core", cx, cy, r:38, fill:"url(#star-core)" }));
   return group;
 }
 
@@ -1042,11 +1081,36 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   orbitFrame = window.requestAnimationFrame(tickOrbit);
 }
 
-// In space mode the top switch (and node/star clicks) dismantle the space
-// into the paper page. Because both are the same document it is a skin
-// change, not a reload. Audio crossfades, fragments break apart → white.
+// In space mode the top switch dismantles the space into the paper page.
+// Node clicks show a prompt; project nodes follow their public backlinks.
+// On the consciousness page, the codexmap toggle requires the private key.
 if (spaceMode) {
   let transitStarted = false;
+  let pendingNodeId = null;
+
+  // Build a prompt dialog reusing the private-dialog styling.
+  const transitDialog = document.createElement("dialog");
+  transitDialog.className = "private-dialog";
+  transitDialog.id = "transit-dialog";
+  transitDialog.setAttribute("aria-labelledby", "transit-dialog-title");
+  transitDialog.innerHTML = [
+    '<header class="private-dialog-head">',
+    '  <span class="private-dialog-title" id="transit-dialog-title">Cloud Consciousness</span>',
+    '  <button class="private-dialog-close" id="transit-dialog-close" type="button" aria-label="Close">\u00d7</button>',
+    '</header>',
+    '<div class="transit-dialog-body">',
+    '  <p class="transit-dialog-question">Open this node in Cloud Consciousness?</p>',
+    '  <button class="transit-dialog-enter" type="button" id="open-consciousness-btn">Open \u2192</button>',
+    '</div>'
+  ].join("\n");
+  document.body.append(transitDialog);
+
+  transitDialog.querySelector("#transit-dialog-close").addEventListener("click", () => transitDialog.close());
+
+  transitDialog.querySelector("#open-consciousness-btn").addEventListener("click", () => {
+    transitDialog.close();
+    beginSpaceTransit(pendingNodeId);
+  });
 
   function beginSpaceTransit(preSelectNodeId) {
     if (transitStarted) return;
@@ -1065,6 +1129,7 @@ if (spaceMode) {
     // 4. After the transit overlay has covered the background shift,
     //    strip space-mode so the paper skin takes over underneath.
     window.setTimeout(() => {
+      spaceMode = false;
       document.body.classList.remove("space-mode", "dismantling");
       window.history.pushState({}, "", "/consciousness/");
       if (preSelectNodeId) activeNodeId = preSelectNodeId;
@@ -1077,18 +1142,33 @@ if (spaceMode) {
   modeSwitch?.addEventListener("click", event => {
     event.preventDefault();
     event.stopImmediatePropagation();
+    if (!spaceMode) {
+      openPrivateDialog("codexmap");
+      return;
+    }
     beginSpaceTransit(null);
   }, true);
 
-  // Node / star clicks in space-mode also trigger the transition, with
-  // the clicked node pre-selected so it is active when paper appears.
+  // Nodes either follow a project backlink or open the map prompt.
   svg.addEventListener("click", event => {
     if (transitStarted) return;
     const nodeGroup = event.target.closest?.(".node");
-    const starGroup = event.target.closest?.(".star-group");
-    if (!nodeGroup && !starGroup) return;
-    event.stopPropagation();
-    const nodeId = nodeGroup?.dataset?.id || null;
-    beginSpaceTransit(nodeId);
+    if (!nodeGroup) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    pendingNodeId = nodeGroup.dataset.id || null;
+    const node = nodeById.get(pendingNodeId);
+    if (node?.backlink) {
+      window.location.assign(new URL(node.backlink, window.location.href).href);
+      return;
+    }
+    if (!transitDialog.open) transitDialog.showModal();
   }, true);
+} else {
+  // Consciousness page: codexmap toggle requires the private key.
+  const deepToggle = document.querySelector("#deep-toggle");
+  deepToggle?.addEventListener("click", event => {
+    event.preventDefault();
+    openPrivateDialog("codexmap");
+  });
 }
