@@ -693,6 +693,7 @@ document.querySelector("#detail-toggle").addEventListener("click", () => {
 const bgMusic = document.querySelector("#bg-music");
 const soundToggle = document.querySelector("#sound-toggle");
 let soundWanted = true;
+let spaceTransitDone = false;
 
 function tryPlayAmbient() {
   if (!bgMusic || !soundWanted) return;
@@ -717,6 +718,132 @@ soundToggle?.addEventListener("click", () => {
 });
 
 window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
+
+// ---------------------------------------------------------------------------
+// Audio crossfade: track 1 (landing) → track 2 (consciousness).
+// Both pages share one document, so we crossfade in-place. Track 2 plays
+// from a fresh Audio object so it starts immediately while track 1 fades.
+// ---------------------------------------------------------------------------
+function crossfadeToTrack2() {
+  if (!bgMusic || !soundWanted) return;
+  const track2 = new Audio("/assets/smoke-state-2.mp3");
+  track2.loop = true;
+  track2.volume = 0;
+  track2.play().catch(() => {});
+
+  const fadeDuration = 1200;
+  const startTime = performance.now();
+  const startVol = bgMusic.volume;
+  const targetVol = 0.5;
+
+  function tick(now) {
+    const elapsed = now - startTime;
+    const t = Math.min(1, elapsed / fadeDuration);
+    // Ease-in-out cubic
+    const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    bgMusic.volume = Math.max(0, startVol * (1 - ease));
+    track2.volume = targetVol * ease;
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      // Swap: make #bg-music play track 2 natively from here on.
+      bgMusic.pause();
+      bgMusic.src = "/assets/smoke-state-2.mp3";
+      bgMusic.currentTime = track2.currentTime;
+      bgMusic.volume = targetVol;
+      bgMusic.play().catch(() => {});
+      track2.pause();
+      track2.src = "";
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+// ---------------------------------------------------------------------------
+// Space transit: black fragments break apart → white emerges → colored
+// fragments converge to node positions. Replaces boot-sequence when
+// transitioning from the landing (space-mode) to the consciousness page.
+// ---------------------------------------------------------------------------
+function runSpaceTransit() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const layout = graphLayout();
+  const targets = [...pointById.values()];
+  if (!targets.length) return;
+
+  const field = document.createElement("div");
+  field.className = "space-transit-field";
+  field.setAttribute("aria-hidden", "true");
+  document.body.append(field);
+
+  const random = randomFrom(0xD4A5E10);
+  // Colors: mostly black (space), some paper-white, some node-type colors.
+  const darkColors = ["#050506", "#0a0a0a", "#0b0b0d", "#111111"];
+  const nodeColors = ["#766bff", "#613cff", "#294dff", "#3157a8", "#713a9f", "#1f6b4f"];
+  const paperColor = "#efeee8";
+
+  const count = compactMap ? 200 : 340;
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < count; i++) {
+    const block = document.createElement("i");
+    const target = targets[Math.floor(random() * targets.length)];
+    const width = random() > .84 ? 18 + Math.floor(random() * 48) : 3 + Math.floor(random() * 14);
+    const height = random() > .9 ? 2 + Math.floor(random() * 5) : 3 + Math.floor(random() * 14);
+
+    // Decide role: dark fragment (scatter away) or colored/some-dark (converge)
+    const isColoredConverge = i < count * 0.22;
+    const isDarkConverge = !isColoredConverge && i < count * 0.28;
+    const isScatter = !isColoredConverge && !isDarkConverge;
+
+    let color;
+    if (isColoredConverge) {
+      color = nodeColors[Math.floor(random() * nodeColors.length)];
+    } else if (isDarkConverge) {
+      color = random() > 0.5 ? "#0a0a0a" : paperColor;
+    } else {
+      color = darkColors[Math.floor(random() * darkColors.length)];
+    }
+
+    // Starting position: scattered across the full viewport
+    const sx = (-3 + random() * 106).toFixed(2);
+    const sy = (-3 + random() * 106).toFixed(2);
+
+    block.className = "space-transit-block " + (isScatter ? "scatter" : "converge");
+    block.style.setProperty("--sx", `${sx}%`);
+    block.style.setProperty("--sy", `${sy}%`);
+    block.style.setProperty("--bw", `${width}px`);
+    block.style.setProperty("--bh", `${height}px`);
+    block.style.setProperty("--block-color", color);
+
+    if (isScatter) {
+      // Exit point: fly toward a random edge
+      const edge = Math.floor(random() * 4);
+      const ex = edge === 0 ? -15 : edge === 1 ? 115 : (-10 + random() * 120);
+      const ey = edge === 2 ? -15 : edge === 3 ? 115 : (-10 + random() * 120);
+      block.style.setProperty("--ex", `${ex.toFixed(1)}%`);
+      block.style.setProperty("--ey", `${ey.toFixed(1)}%`);
+      block.style.setProperty("--duration", `${(0.9 + random() * 0.7).toFixed(2)}s`);
+      block.style.setProperty("--delay", `${(random() * 0.25).toFixed(2)}s`);
+    } else {
+      // Converge toward a real node position
+      block.style.setProperty("--tx", `${(target.x / layout.width * 100).toFixed(2)}%`);
+      block.style.setProperty("--ty", `${(target.y / layout.height * 100).toFixed(2)}%`);
+      block.style.setProperty("--duration", `${(1.1 + random() * 0.6).toFixed(2)}s`);
+      block.style.setProperty("--delay", `${(0.15 + random() * 0.35).toFixed(2)}s`);
+    }
+
+    if (color === paperColor) block.style.setProperty("--block-border", "1px solid #0a0a0a");
+    if (!darkColors.includes(color) && color !== paperColor) {
+      block.style.setProperty("--block-shadow", "2px 0 0 #0a0a0a");
+    }
+
+    fragment.append(block);
+  }
+
+  field.append(fragment);
+  // Remove the overlay after animations complete
+  window.setTimeout(() => field.remove(), 2200);
+}
 
 document.querySelector("#depth-back").addEventListener("click", () => adjustSelectedDepth(-28));
 document.querySelector("#depth-forward").addEventListener("click", () => adjustSelectedDepth(28));
@@ -774,7 +901,9 @@ camera.pitch = -0.32;
 
 buildFilters();
 renderGraph();
-runBootSequence();
+// Boot sequence runs on normal page load only — when transitioning from
+// space-mode the transit animation replaces it as one continuous motion.
+if (!spaceTransitDone) runBootSequence();
 
 try {
   const { prepare, layout } = await import("/consciousness/pretext.js");
@@ -914,18 +1043,53 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   orbitFrame = window.requestAnimationFrame(tickOrbit);
 }
 
-// In space mode the top switch dismantles the space into the paper page.
-// Because both are the same document, it is a skin change, not a reload.
+// In space mode the top switch (and node/star clicks) dismantle the space
+// into the paper page. Because both are the same document it is a skin
+// change, not a reload. Audio crossfades, fragments break apart → white.
 if (spaceMode) {
+  let transitStarted = false;
+
+  function beginSpaceTransit(preSelectNodeId) {
+    if (transitStarted) return;
+    transitStarted = true;
+    spaceTransitDone = true;
+
+    // 1. Audio: crossfade track 1 → track 2 immediately.
+    crossfadeToTrack2();
+
+    // 2. Visual: launch the black→white fragment transit overlay.
+    runSpaceTransit();
+
+    // 3. Existing dismantle: fade nodes and star.
+    document.body.classList.add("dismantling");
+
+    // 4. After the transit overlay has covered the background shift,
+    //    strip space-mode so the paper skin takes over underneath.
+    window.setTimeout(() => {
+      document.body.classList.remove("space-mode", "dismantling");
+      window.history.pushState({}, "", "/consciousness/");
+      if (preSelectNodeId) activeNodeId = preSelectNodeId;
+      renderGraph();
+      // No runBootSequence — the transit animation IS the boot equivalent.
+    }, 620);
+  }
+
   const modeSwitch = document.querySelector("#deep-toggle");
   modeSwitch?.addEventListener("click", event => {
     event.preventDefault();
     event.stopImmediatePropagation();
-    document.body.classList.add("dismantling");
-    window.setTimeout(() => {
-      document.body.classList.remove("space-mode", "dismantling");
-      window.history.pushState({}, "", "/consciousness/");
-      renderGraph();
-    }, 620);
+    beginSpaceTransit(null);
+  }, true);
+
+  // Node / star clicks in space-mode also trigger the transition, with
+  // the clicked node pre-selected so it is active when paper appears.
+  svg.addEventListener("click", event => {
+    if (transitStarted) return;
+    const nodeGroup = event.target.closest?.(".node");
+    const starGroup = event.target.closest?.(".star-group");
+    if (!nodeGroup && !starGroup) return;
+    event.stopPropagation();
+    const nodeId = nodeGroup?.dataset?.id || null;
+    beginSpaceTransit(nodeId);
   }, true);
 }

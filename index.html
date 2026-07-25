@@ -747,6 +747,79 @@
       100% { opacity: 0; visibility: hidden; }
     }
 
+    /* ---- Space-to-paper transit: black fragments break apart, white emerges ---- */
+    .space-transit-field {
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: #050506;
+      animation: space-bg-whiten 1.5s steps(14, end) forwards;
+    }
+    .space-transit-block {
+      position: absolute;
+      left: var(--sx);
+      top: var(--sy);
+      width: var(--bw);
+      height: var(--bh);
+      border: var(--block-border, 0);
+      background: var(--block-color);
+      box-shadow: var(--block-shadow, none);
+      transform: translate(-50%, -50%);
+      transform-origin: center;
+      image-rendering: pixelated;
+    }
+    .space-transit-block.scatter {
+      animation: space-scatter var(--duration) steps(14, end) var(--delay) forwards;
+    }
+    .space-transit-block.converge {
+      animation: space-converge var(--duration) steps(14, end) var(--delay) forwards;
+    }
+    @keyframes space-bg-whiten {
+      0%        { background: #050506; }
+      35%       { background: #1a1a1a; }
+      65%       { background: #8a8880; }
+      85%       { background: #d5d4ce; }
+      100%      { background: #efeee8; opacity: 0; }
+    }
+    @keyframes space-scatter {
+      0% {
+        left: var(--sx);
+        top: var(--sy);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      40% {
+        opacity: .7;
+        transform: translate(-50%, -50%) scale(1.15);
+      }
+      100% {
+        left: var(--ex);
+        top: var(--ey);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.02);
+      }
+    }
+    @keyframes space-converge {
+      0%, 15% {
+        left: var(--sx);
+        top: var(--sy);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        opacity: .88;
+        transform: translate(-50%, -50%) scale(.72);
+      }
+      100% {
+        left: var(--tx);
+        top: var(--ty);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.05);
+      }
+    }
+
     @media (max-width: 1024px) {
       :root { --rail-size: 174px; --detail-size: 300px; }
       .shell { grid-template-columns: var(--rail-size) minmax(0, 1fr) var(--detail-size); }
