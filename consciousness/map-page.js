@@ -690,7 +690,7 @@ document.querySelector("#detail-toggle").addEventListener("click", () => {
   if (!willCollapse && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
 });
 
-const bgMusic = document.querySelector("#bg-music");
+let bgMusic = document.querySelector("#bg-music");
 const soundToggle = document.querySelector("#sound-toggle");
 let soundWanted = true;
 let spaceTransitDone = false;
@@ -723,9 +723,11 @@ window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
 // Audio crossfade: track 1 (landing) → track 2 (consciousness).
 // Both pages share one document, so we crossfade in-place. Track 2 plays
 // from a fresh Audio object so it starts immediately while track 1 fades.
+// After the fade, track2 replaces bgMusic so the SND toggle keeps working.
 // ---------------------------------------------------------------------------
 function crossfadeToTrack2() {
   if (!bgMusic || !soundWanted) return;
+  const origMusic = bgMusic;
   const track2 = new Audio("/assets/smoke-state-2.mp3");
   track2.loop = true;
   track2.volume = 0;
@@ -733,7 +735,7 @@ function crossfadeToTrack2() {
 
   const fadeDuration = 1200;
   const startTime = performance.now();
-  const startVol = bgMusic.volume;
+  const startVol = origMusic.volume || 0.5;
   const targetVol = 0.5;
 
   function tick(now) {
@@ -741,19 +743,16 @@ function crossfadeToTrack2() {
     const t = Math.min(1, elapsed / fadeDuration);
     // Ease-in-out cubic
     const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    bgMusic.volume = Math.max(0, startVol * (1 - ease));
+    origMusic.volume = Math.max(0, startVol * (1 - ease));
     track2.volume = targetVol * ease;
     if (t < 1) {
       requestAnimationFrame(tick);
     } else {
-      // Swap: make #bg-music play track 2 natively from here on.
-      bgMusic.pause();
-      bgMusic.src = "/assets/smoke-state-2.mp3";
-      bgMusic.currentTime = track2.currentTime;
-      bgMusic.volume = targetVol;
-      bgMusic.play().catch(() => {});
-      track2.pause();
-      track2.src = "";
+      // Track 2 is now fully faded in. Retire track 1, promote track 2
+      // as the ambient player so the SND toggle keeps working.
+      origMusic.pause();
+      origMusic.src = "";
+      bgMusic = track2;
     }
   }
   requestAnimationFrame(tick);
