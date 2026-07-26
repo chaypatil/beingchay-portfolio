@@ -18,9 +18,12 @@ const rules = [
   // Space skin on from the first paint, so there is no flash of white paper.
   [/<body class="([^"]*)">/, '<body class="$1 space-mode">'],
   // Shared engine, absolute so it resolves from the site root.
-  [/src="\.\/map-page\.js"/, 'src="/consciousness/map-page.js"'],
+  [/src="\.\/map-page\.js\?v=phase1-2"/, 'src="/consciousness/map-page.js?v=phase1-2"'],
   // Chapter one plays behind the landing, chapter two behind the map.
   [/src="\.\.\/assets\/smoke-state-2\.mp3"/, 'src="/assets/smoke-state-1.mp3"'],
+  // On the landing this switch enters the map. Keep its no-JS fallback honest.
+  [/<a class="deep-toggle" id="deep-toggle" href="\.\.\/codexmap\/" role="switch" aria-checked="false" aria-label="Switch to the Codex Map beta">/,
+   '<a class="deep-toggle" id="deep-toggle" href="/consciousness/" role="switch" aria-checked="false" aria-label="Enter Cloud Consciousness">'],
   [/<title>[^<]*<\/title>/, "<title>beingchay</title>"],
   [/(<meta name="description" content=")[^"]*(")/,
    '$1The constellation behind Chay: fallout, ANRXYST, C2X, and the light at the centre.$2']

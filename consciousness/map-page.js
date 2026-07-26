@@ -16,6 +16,8 @@ let pointById = new Map();
 let nodePositions = new Map();
 let dragState = null;
 let canvasDrag = null;
+const touchPointers = new Map();
+let pinchState = null;
 let suppressClickUntil = 0;
 let depthMode = false;
 let camera = { panX:0, panY:0, zoom:.82, yaw:0, pitch:0 };
@@ -132,7 +134,7 @@ function clientToLayout(clientX, clientY) {
 
 function zoomAt(clientX, clientY, factor) {
   const before = clientToLayout(clientX, clientY);
-  camera.zoom = clamp(camera.zoom * factor, 0.45, 6);
+  camera.zoom = clamp(camera.zoom * factor, 0.28, 6);
   applyCamera();
   const after = clientToLayout(clientX, clientY);
   camera.panX += before.x - after.x;
@@ -368,6 +370,7 @@ function clientPoint(event) {
 
 function beginNodeDrag(event, id) {
   if (event.button !== undefined && event.button !== 0) return;
+  if (event.pointerType === "touch" && touchPointers.size > 1) return;
   const node = nodeById.get(id);
   if (!node) return;
   const position = getNodePosition(node);
@@ -429,6 +432,7 @@ function finishNodeDrag(event) {
 function beginCanvasDrag(event) {
   if (dragState || canvasDrag) return;
   if (event.button !== undefined && event.button !== 0) return;
+  if (event.pointerType === "touch" && touchPointers.size > 1) return;
   if (event.target.closest?.(".node")) return;
   canvasDrag = {
     pointerId:event.pointerId,
@@ -476,11 +480,41 @@ function onWheel(event) {
   zoomAt(event.clientX, event.clientY, factor);
 }
 
+function beginTouchGesture(event) {
+  if (event.pointerType !== "touch") return;
+  touchPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
+  if (touchPointers.size !== 2) return;
+  const [first, second] = [...touchPointers.values()];
+  pinchState = { distance:Math.max(1, Math.hypot(second.x - first.x, second.y - first.y)) };
+  dragState = null;
+  canvasDrag = null;
+  document.body.classList.remove("node-dragging", "canvas-dragging", "orbiting");
+  event.preventDefault();
+}
+
+function moveTouchGesture(event) {
+  if (!touchPointers.has(event.pointerId)) return;
+  touchPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
+  if (!pinchState || touchPointers.size < 2) return;
+  const [first, second] = [...touchPointers.values()];
+  const distance = Math.max(1, Math.hypot(second.x - first.x, second.y - first.y));
+  const centerX = (first.x + second.x) / 2;
+  const centerY = (first.y + second.y) / 2;
+  zoomAt(centerX, centerY, distance / pinchState.distance);
+  pinchState.distance = distance;
+  event.preventDefault();
+}
+
+function finishTouchGesture(event) {
+  touchPointers.delete(event.pointerId);
+  if (touchPointers.size < 2) pinchState = null;
+}
+
 function selectNode(id, openMobile) {
   const node = nodeById.get(id);
   if (!node) return;
   if (node.privacy === "locked") {
-    openPrivateDialog();
+    openPrivateNotice();
     return;
   }
   activeNodeId = id;
@@ -593,7 +627,32 @@ const privateDialog = document.querySelector("#private-dialog");
 const privatePassword = document.querySelector("#private-password");
 const privateError = document.querySelector("#private-error");
 const privateSubmit = document.querySelector("#private-submit");
+const privateNoticeDialog = document.querySelector("#private-notice-dialog");
 let privateIntent = "layer";
+
+function populateGlitchField(dialog) {
+  const field = dialog?.querySelector(".glitch-dialog-field");
+  if (!field) return;
+  field.replaceChildren();
+  const colors = ["#efeee8", "#0a0a0a", "#613cff", "#277052"];
+  for (let index = 0; index < 34; index += 1) {
+    const pixel = document.createElement("i");
+    const seed = hashString(`${dialog.id}-${index}`);
+    pixel.style.setProperty("--gx", `${seed % 96}%`);
+    pixel.style.setProperty("--gy", `${(seed >>> 7) % 94}%`);
+    pixel.style.setProperty("--gw", `${3 + ((seed >>> 12) % 22)}px`);
+    pixel.style.setProperty("--gh", `${2 + ((seed >>> 17) % 8)}px`);
+    pixel.style.setProperty("--gc", colors[(seed >>> 21) % colors.length]);
+    pixel.style.setProperty("--go", `${-24 + ((seed >>> 24) % 49)}px`);
+    pixel.style.setProperty("--gd", `${((seed % 11) * .018).toFixed(3)}s`);
+    field.append(pixel);
+  }
+}
+
+function openPrivateNotice() {
+  populateGlitchField(privateNoticeDialog);
+  if (!privateNoticeDialog.open) privateNoticeDialog.showModal();
+}
 
 function openPrivateDialog(intent = "layer") {
   privateIntent = intent;
@@ -608,6 +667,7 @@ function setPrivateState(unlocked) {
   toggle.setAttribute("aria-pressed", String(unlocked));
   toggle.setAttribute("aria-label", unlocked ? "Lock private layer" : "Unlock private layer");
   document.querySelector("#privacy-label").textContent = unlocked ? "private model" : "public layer";
+  setQuestionEngineMode(unlocked);
 }
 
 function lockPrivate() {
@@ -629,10 +689,13 @@ document.querySelector("#privacy-toggle").addEventListener("click", () => {
 });
 
 document.querySelector("#private-dialog-close").addEventListener("click", () => privateDialog.close());
+document.querySelector("#private-notice-close").addEventListener("click", () => privateNoticeDialog.close());
+document.querySelector("#private-notice-okay").addEventListener("click", () => privateNoticeDialog.close());
 
 privateDialog.addEventListener("close", () => {
   privatePassword.value = "";
   privateError.textContent = "";
+  document.querySelector("#deep-toggle")?.classList.remove("is-pending");
 });
 
 document.querySelector("#private-form").addEventListener("submit", async event => {
@@ -695,12 +758,16 @@ document.querySelector("#detail-head").addEventListener("click", () => {
 });
 
 svg.addEventListener("pointerdown", beginCanvasDrag);
+svg.addEventListener("pointerdown", beginTouchGesture, { capture:true });
 svg.addEventListener("pointermove", moveDraggedNode);
 svg.addEventListener("pointermove", moveCanvasDrag);
+svg.addEventListener("pointermove", moveTouchGesture, { capture:true });
 svg.addEventListener("pointerup", finishNodeDrag);
 svg.addEventListener("pointerup", finishCanvasDrag);
 svg.addEventListener("pointercancel", finishNodeDrag);
 svg.addEventListener("pointercancel", finishCanvasDrag);
+svg.addEventListener("pointerup", finishTouchGesture, { capture:true });
+svg.addEventListener("pointercancel", finishTouchGesture, { capture:true });
 svg.addEventListener("wheel", onWheel, { passive:false });
 
 document.querySelector("#rail-toggle").addEventListener("click", () => {
@@ -717,6 +784,13 @@ let bgMusic = document.querySelector("#bg-music");
 const soundToggle = document.querySelector("#sound-toggle");
 let soundWanted = true;
 let spaceTransitDone = false;
+const transitionMusic = spaceMode ? new Audio("/assets/smoke-state-2.mp3") : null;
+if (transitionMusic) {
+  transitionMusic.loop = true;
+  transitionMusic.preload = "auto";
+  transitionMusic.playsInline = true;
+  transitionMusic.load();
+}
 
 function tryPlayAmbient() {
   if (!bgMusic || !soundWanted) return;
@@ -750,13 +824,29 @@ window.addEventListener("touchstart", tryPlayAmbient, { once:true, passive:true 
 // from a fresh Audio object so it starts immediately while track 1 fades.
 // After the fade, track2 replaces bgMusic so the SND toggle keeps working.
 // ---------------------------------------------------------------------------
-function crossfadeToTrack2() {
+async function crossfadeToTrack2() {
   if (!bgMusic || !soundWanted) return;
   const origMusic = bgMusic;
-  const track2 = new Audio("/assets/smoke-state-2.mp3");
+  const track2 = transitionMusic || new Audio("/assets/smoke-state-2.mp3");
   track2.loop = true;
   track2.volume = 0;
-  track2.play().catch(() => {});
+  try {
+    await track2.play();
+  } catch {
+    origMusic.pause();
+    origMusic.src = "/assets/smoke-state-2.mp3";
+    origMusic.load();
+    try {
+      await origMusic.play();
+      origMusic.volume = .5;
+      bgMusic = origMusic;
+      document.body.classList.add("sound-on");
+      soundToggle?.setAttribute("aria-pressed", "true");
+    } catch {
+      window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
+    }
+    return;
+  }
 
   const fadeDuration = 1200;
   const startTime = performance.now();
@@ -776,7 +866,6 @@ function crossfadeToTrack2() {
       // Track 2 is now fully faded in. Retire track 1, promote track 2
       // as the ambient player so the SND toggle keeps working.
       origMusic.pause();
-      origMusic.src = "";
       bgMusic = track2;
     }
   }
@@ -877,12 +966,103 @@ document.querySelector("#layout-reset").addEventListener("click", () => {
   renderGraph();
 });
 
+const questionDraftKey = "consciousness-question-drafts-v1";
+const publicConversationMarkup = document.querySelector("#conversation").innerHTML;
+const probeQuestions = [
+  { id:"agency-counterexample", priority:100, nodes:["agency","preparation"], question:"When has acting fast cost you more than preparation would have?", unlocks:"A boundary condition for agency, plus a possible contradiction between action and preparation." },
+  { id:"belief-falsifier", priority:98, nodes:["hermetic-philosophy","predestination"], question:"What experience would make you seriously revise the belief that conviction can reshape reality?", unlocks:"A falsifiability boundary for manifestation, predestination and self-belief." },
+  { id:"slice-whole-lived", priority:96, nodes:["aham-brahmasmi","multidimensional-self"], question:"When have you felt the slice-and-whole idea as lived experience, rather than understood it intellectually?", unlocks:"Evidence separating metaphysical language from autobiographical experience." },
+  { id:"desire-difference", priority:94, nodes:["pothos","non-arrival"], question:"Which desire made you more yourself, and which one mainly made you perform a future identity?", unlocks:"A distinction between generative longing and compensatory longing." },
+  { id:"glory-private", priority:92, nodes:["glory","information-gap"], question:"If nobody could ever know you made it, which part of the work would still feel worth doing?", unlocks:"The boundary between influence, recognition, contribution and status." },
+  { id:"timeline-variant", priority:90, nodes:["multidimensional-self","predestination"], question:"Do choices literally select existing timelines for you, or is that now mainly a language for consequences and identity?", unlocks:"A dated historical variant instead of one flattened cosmology." },
+  { id:"system-dissolves", priority:88, nodes:["preparation","consciousness"], question:"What proof would tell you a system has finished serving you and should now dissolve?", unlocks:"A stopping rule for scaffolding, the vault and Cloud Consciousness itself." },
+  { id:"entropy-personal", priority:86, nodes:["emergence-entropy","massive-action"], question:"Where in your actual life do you see emergence fighting entropy, without using the universe as the explanation?", unlocks:"A sourced bridge, if one exists, between cosmology and personal behavior." },
+  { id:"voice-range", priority:84, nodes:["voices","consciousness"], question:"What does your voice sound like when you are gentle, uncertain or wrong, not sharp and performing certainty?", unlocks:"Range for the Mirror so wit does not become caricature." },
+  { id:"model-missing", priority:82, nodes:["self-model-gap","consciousness"], question:"What part of you is systematically absent from your notes because you only notice it while living, not while reflecting?", unlocks:"A blind spot in the archive and the next candidate evidence source." }
+];
+let questionEngineMode = false;
+let activeProbeQuestion = null;
+
+function readQuestionDrafts() {
+  try { return JSON.parse(localStorage.getItem(questionDraftKey) || "{}"); }
+  catch { return {}; }
+}
+
+function writeQuestionDraft(question, answer) {
+  const drafts = readQuestionDrafts();
+  drafts[question.id] = {
+    question:question.question,
+    answer,
+    nodeIds:question.nodes,
+    expression:"direct response / unreviewed",
+    privacy:"private local draft",
+    createdAt:new Date().toISOString()
+  };
+  localStorage.setItem(questionDraftKey, JSON.stringify(drafts));
+}
+
+function nextProbeQuestion() {
+  const drafts = readQuestionDrafts();
+  return probeQuestions
+    .filter(question => !drafts[question.id])
+    .map(question => ({ ...question, score:question.priority + (question.nodes.includes(activeNodeId) ? 120 : 0) }))
+    .sort((a, b) => b.score - a.score)[0] || null;
+}
+
+function appendConversation(className, text) {
+  const paragraph = document.createElement("p");
+  paragraph.className = className;
+  paragraph.textContent = text;
+  document.querySelector("#conversation").append(paragraph);
+  return paragraph;
+}
+
+function renderProbeQuestion(clear = false) {
+  const conversation = document.querySelector("#conversation");
+  if (clear) conversation.replaceChildren();
+  activeProbeQuestion = nextProbeQuestion();
+  if (!activeProbeQuestion) {
+    appendConversation("message mirror", "The first question pass is complete. Your answers remain private local drafts until reviewed.");
+    document.querySelector("#ask-input").disabled = true;
+    return;
+  }
+  appendConversation("message mirror", activeProbeQuestion.question);
+  appendConversation("evidence-line", `UNLOCKS / ${activeProbeQuestion.unlocks}\nNODES / ${activeProbeQuestion.nodes.join(" + ")}\nPRIVATE LOCAL DRAFT / NOT PUBLISHED`);
+  document.querySelector("#ask-input").disabled = false;
+  document.querySelector("#ask-input").placeholder = "Answer in your own words…";
+}
+
+function setQuestionEngineMode(enabled) {
+  questionEngineMode = enabled;
+  document.querySelector("#console-mode").textContent = enabled ? "private probe" : "public projection";
+  document.querySelector("#console-state").textContent = enabled ? "question engine / active" : "evidence mode / on";
+  const input = document.querySelector("#ask-input");
+  const conversation = document.querySelector("#conversation");
+  input.disabled = false;
+  if (enabled) {
+    renderProbeQuestion(true);
+  } else {
+    activeProbeQuestion = null;
+    conversation.innerHTML = publicConversationMarkup;
+    input.placeholder = "Ask what shaped a belief, pattern or desire…";
+  }
+}
+
 document.querySelector("#ask-form").addEventListener("submit", event => {
   event.preventDefault();
   const input = document.querySelector("#ask-input");
   const question = input.value.trim();
   if (!question) return;
   const conversation = document.querySelector("#conversation");
+  if (questionEngineMode && activeProbeQuestion) {
+    writeQuestionDraft(activeProbeQuestion, question);
+    appendConversation("message user", question);
+    appendConversation("evidence-line", "SAVED LOCALLY / UNREVIEWED / NO GRAPH CHANGE");
+    input.value = "";
+    renderProbeQuestion(false);
+    conversation.scrollTop = conversation.scrollHeight;
+    return;
+  }
   const user = document.createElement("p");
   user.className = "message user";
   user.textContent = question;
@@ -1105,14 +1285,19 @@ if (spaceMode) {
     '  <span class="private-dialog-title" id="transit-dialog-title">Cloud Consciousness</span>',
     '  <button class="private-dialog-close" id="transit-dialog-close" type="button" aria-label="Close">\u00d7</button>',
     '</header>',
+    '<div class="glitch-dialog-field" aria-hidden="true"></div>',
     '<div class="transit-dialog-body">',
-    '  <p class="transit-dialog-question">Open this node in Cloud Consciousness?</p>',
-    '  <button class="transit-dialog-enter" type="button" id="open-consciousness-btn">Open \u2192</button>',
+    '  <p class="transit-dialog-question">Chay wants to take you to his mind. Wanna go there?</p>',
+    '  <div class="transit-dialog-actions">',
+    '    <button class="transit-dialog-enter" type="button" id="open-consciousness-btn">Yes</button>',
+    '    <button class="transit-dialog-enter transit-dialog-decline" type="button" id="decline-consciousness-btn">I\'m not ready</button>',
+    '  </div>',
     '</div>'
   ].join("\n");
   document.body.append(transitDialog);
 
   transitDialog.querySelector("#transit-dialog-close").addEventListener("click", () => transitDialog.close());
+  transitDialog.querySelector("#decline-consciousness-btn").addEventListener("click", () => transitDialog.close());
 
   transitDialog.querySelector("#open-consciousness-btn").addEventListener("click", () => {
     transitDialog.close();
@@ -1123,6 +1308,7 @@ if (spaceMode) {
     if (transitStarted) return;
     transitStarted = true;
     spaceTransitDone = true;
+    document.querySelector("#deep-toggle")?.classList.add("is-pending");
 
     // 1. Audio: crossfade track 1 → track 2 immediately.
     crossfadeToTrack2();
@@ -1165,10 +1351,11 @@ if (spaceMode) {
     event.stopImmediatePropagation();
     pendingNodeId = nodeGroup.dataset.id || null;
     const node = nodeById.get(pendingNodeId);
-    if (node?.backlink) {
-      window.location.assign(new URL(node.backlink, window.location.href).href);
+    if (node?.privacy === "locked") {
+      openPrivateNotice();
       return;
     }
+    populateGlitchField(transitDialog);
     if (!transitDialog.open) transitDialog.showModal();
   }, true);
 } else {
@@ -1176,6 +1363,7 @@ if (spaceMode) {
   const deepToggle = document.querySelector("#deep-toggle");
   deepToggle?.addEventListener("click", event => {
     event.preventDefault();
+    deepToggle.classList.add("is-pending");
     openPrivateDialog("codexmap");
   });
 }

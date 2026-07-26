@@ -129,13 +129,15 @@
     @keyframes star-breathe { 0%,100% { opacity: .96; } 50% { opacity: 1; } }
     body.space-mode.dismantling .node { transition: opacity .5s ease; opacity: .15; }
     body.space-mode.dismantling .star-group { transition: opacity .5s ease; opacity: 0; }
-    .deep-rail { position: absolute; z-index: 7; top: 16px; left: 50%; transform: translateX(-50%); }
-    .deep-toggle { padding: 0; border: 0; background: none; cursor: pointer; }
+    .deep-rail { position: absolute; z-index: 25; top: 6px; left: 50%; transform: translateX(-50%); }
+    .deep-toggle { width: 48px; height: 48px; display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; }
     .deep-track { display: block; width: 46px; height: 26px; border-radius: 999px; border: 1px solid var(--ink); background: rgba(120,118,112,.22); position: relative; transition: background .24s ease; }
     .deep-knob { position: absolute; top: 50%; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #77746e; transform: translateY(-50%); transition: left .24s cubic-bezier(.32,0,.2,1), background .24s ease; }
     .deep-toggle[aria-checked="true"] .deep-track { background: var(--ink); }
     .deep-toggle[aria-checked="true"] .deep-knob { left: 25px; background: var(--paper); }
     .deep-toggle:focus-visible .deep-track { outline: 1px solid var(--ink); outline-offset: 3px; }
+    .deep-toggle.is-pending .deep-knob { left: 13px; animation: toggle-glitch .45s steps(4, end) infinite alternate; }
+    #depth-back, #depth-forward { display: none !important; }
     .brand-back { font: 20px/1 var(--sans); color: var(--ink); display: block; transition: transform .18s ease; }
     .brand:hover .brand-back, .brand:focus-visible .brand-back { transform: translateX(-3px); }
     .brand-name { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
@@ -756,6 +758,11 @@
     }
     .transit-dialog-enter:hover,
     .transit-dialog-enter:focus-visible { background: var(--paper); color: #080808; }
+    .transit-dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .transit-dialog-decline { box-shadow: none; color: var(--muted); border-color: var(--dim); }
+    .glitch-dialog-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; }
+    dialog[open] .glitch-dialog-field { animation: dialog-field-in .52s steps(6, end); }
+    .glitch-dialog-field i { position: absolute; width: var(--gw); height: var(--gh); left: var(--gx); top: var(--gy); background: var(--gc); animation: dialog-pixel .46s steps(5, end) both; animation-delay: var(--gd); }
 
     .bottom-bar { border-color: var(--ink); background: rgba(239,238,232,.96); }
     .time-scrub { height: 48px; color: var(--dim); font-weight: 700; }
@@ -772,6 +779,9 @@
       33% { transform: translate(1px, -1px); }
       66% { transform: translate(-1px, 1px); }
     }
+    @keyframes toggle-glitch { from { transform: translateY(-50%) translateX(-2px); } to { transform: translateY(-50%) translateX(2px); } }
+    @keyframes dialog-field-in { 0% { opacity: .9; } 100% { opacity: 0; } }
+    @keyframes dialog-pixel { 0% { transform: scaleX(1); } 60% { transform: translateX(var(--go)) scaleX(1.8); } 100% { transform: translateX(var(--go)) scaleX(0); } }
     @keyframes signal-flicker {
       0%, 72%, 100% { opacity: var(--pixel-opacity, .22); }
       73%, 78% { opacity: .04; }
@@ -1179,7 +1189,7 @@
           <p data-pretext>It answers from explicit evidence, tells you when it is inferring, and preserves contradictions instead of flattening them into a personality summary.</p>
         </div>
         <div class="voice-console">
-          <div class="console-meta"><span>public projection</span><span>evidence mode / on</span></div>
+          <div class="console-meta"><span id="console-mode">public projection</span><span id="console-state">evidence mode / on</span></div>
           <div class="conversation" id="conversation" aria-live="polite">
             <p class="message user">Why does Chay keep building systems before publishing?</p>
             <p class="message mirror">Because preparation does two jobs at once. It genuinely increases his leverage, and it postpones exposure. The system is useful. The safety it provides can become the trap.</p>
@@ -1236,6 +1246,18 @@
     </form>
   </dialog>
 
-  <script type="module" src="./map-page.js"></script>
+  <dialog class="private-dialog" id="private-notice-dialog" aria-labelledby="private-notice-title">
+    <div class="glitch-dialog-field" aria-hidden="true"></div>
+    <header class="private-dialog-head">
+      <span class="private-dialog-title" id="private-notice-title">Private Layer</span>
+      <button class="private-dialog-close" id="private-notice-close" type="button" aria-label="Close">×</button>
+    </header>
+    <div class="transit-dialog-body">
+      <p class="transit-dialog-question">Uh-Oh, That's off the limits for you. We'll not touch Chay's personal stuff, okay?</p>
+      <button class="transit-dialog-enter transit-dialog-decline" id="private-notice-okay" type="button">Okay</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="./map-page.js?v=phase1-2"></script>
 </body>
 </html>
