@@ -20,7 +20,7 @@ const touchPointers = new Map();
 let pinchState = null;
 let suppressClickUntil = 0;
 let depthMode = false;
-let camera = { panX:0, panY:0, zoom:compactMap ? .64 : .82, yaw:0, pitch:0 };
+let camera = { panX:0, panY:0, zoom:compactMap ? .72 : .82, yaw:0, pitch:0 };
 // Space mode is the beingchay landing: same map, connections and chrome hidden,
 // a star at the centre. Paper mode is the consciousness page proper.
 let spaceMode = document.body.classList.contains("space-mode");
@@ -145,7 +145,7 @@ function zoomAt(clientX, clientY, factor) {
 }
 
 function resetCamera() {
-  camera = { panX:0, panY:0, zoom:compactMap ? .64 : .82, yaw:0, pitch:0 };
+  camera = { panX:0, panY:0, zoom:compactMap ? .72 : .82, yaw:0, pitch:0 };
   applyCamera();
 }
 
@@ -155,7 +155,7 @@ function applyMobileLabelDepth(group, point) {
     group.style.removeProperty("--label-blur");
     return;
   }
-  const proximity = clamp((point.scale - .82) / .3, 0, 1);
+  const proximity = clamp((point.scale - .88) / .3, 0, 1);
   group.style.setProperty("--label-opacity", (proximity * proximity).toFixed(2));
   group.style.setProperty("--label-blur", `${((1 - proximity) * 4).toFixed(2)}px`);
 }
@@ -1151,7 +1151,7 @@ window.addEventListener("resize", () => {
     if (nextCompactMap !== compactMap || nextCompactMap) {
       const breakpointChanged = nextCompactMap !== compactMap;
       compactMap = nextCompactMap;
-      if (breakpointChanged) camera.zoom = compactMap ? .64 : .82;
+      if (breakpointChanged) camera.zoom = compactMap ? .72 : .82;
       renderGraph();
     }
   });

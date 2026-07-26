@@ -18,7 +18,7 @@ const rules = [
   // Space skin on from the first paint, so there is no flash of white paper.
   [/<body class="([^"]*)">/, '<body class="$1 space-mode">'],
   // Shared engine, absolute so it resolves from the site root.
-  [/src="\.\/map-page\.js\?v=phase1-3"/, 'src="/consciousness/map-page.js?v=phase1-3"'],
+  [/src="\.\/map-page\.js\?v=phase1-4"/, 'src="/consciousness/map-page.js?v=phase1-4"'],
   // Chapter one plays behind the landing, chapter two behind the map.
   [/src="\.\.\/assets\/smoke-state-2\.mp3"/, 'src="/assets/smoke-state-1.mp3"'],
   // On the landing this switch enters the map. Keep its no-JS fallback honest.
