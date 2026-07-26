@@ -20,7 +20,7 @@ const touchPointers = new Map();
 let pinchState = null;
 let suppressClickUntil = 0;
 let depthMode = false;
-let camera = { panX:0, panY:0, zoom:.82, yaw:0, pitch:0 };
+let camera = { panX:0, panY:0, zoom:compactMap ? .64 : .82, yaw:0, pitch:0 };
 // Space mode is the beingchay landing: same map, connections and chrome hidden,
 // a star at the centre. Paper mode is the consciousness page proper.
 let spaceMode = document.body.classList.contains("space-mode");
@@ -123,7 +123,9 @@ function applyCamera(layout) {
   const vh = base.height / camera.zoom;
   camera.panX = clamp(camera.panX, -base.width, base.width);
   camera.panY = clamp(camera.panY, -base.height, base.height);
-  svg.setAttribute("viewBox", `${camera.panX.toFixed(2)} ${camera.panY.toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}`);
+  const centeredX = compactMap ? (base.width - vw) / 2 : 0;
+  const centeredY = compactMap ? (base.height - vh) / 2 : 0;
+  svg.setAttribute("viewBox", `${(camera.panX + centeredX).toFixed(2)} ${(camera.panY + centeredY).toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}`);
 }
 
 function clientToLayout(clientX, clientY) {
@@ -143,8 +145,19 @@ function zoomAt(clientX, clientY, factor) {
 }
 
 function resetCamera() {
-  camera = { panX:0, panY:0, zoom:.82, yaw:0, pitch:0 };
+  camera = { panX:0, panY:0, zoom:compactMap ? .64 : .82, yaw:0, pitch:0 };
   applyCamera();
+}
+
+function applyMobileLabelDepth(group, point) {
+  if (!compactMap || spaceMode) {
+    group.style.removeProperty("--label-opacity");
+    group.style.removeProperty("--label-blur");
+    return;
+  }
+  const proximity = clamp((point.scale - .82) / .3, 0, 1);
+  group.style.setProperty("--label-opacity", (proximity * proximity).toFixed(2));
+  group.style.setProperty("--label-blur", `${((1 - proximity) * 4).toFixed(2)}px`);
 }
 
 function projectNode(node, layout) {
@@ -287,6 +300,7 @@ function renderGraph() {
       "data-id":node.id, "data-type":node.type,
       style:`--node-color:${meta.color};--delay:-${((index % 9) * .47).toFixed(2)}s;--drift:${(4.8 + (index % 7) * .43).toFixed(2)}s`
     });
+    applyMobileLabelDepth(group, point);
     const hitArea = el("rect", { class:"hit-area", x:-hitSize/2, y:-hitSize/2, width:hitSize, height:hitSize });
     const visual = el("g", { class:"node-visual", "aria-hidden":"true" });
     const haloSize = (node.r + 9) * 2;
@@ -757,6 +771,64 @@ document.querySelector("#detail-head").addEventListener("click", () => {
   if (window.innerWidth <= 768) setPanelCollapsed("detail", true);
 });
 
+function bindMobileVerticalSwipe(element, { shouldStart, onMove, onUp, onDown, capturePointer = true }) {
+  let gesture = null;
+  element.addEventListener("pointerdown", event => {
+    if (!compactMap || event.pointerType !== "touch" || !shouldStart(event)) return;
+    gesture = { id:event.pointerId, x:event.clientX, y:event.clientY };
+    if (capturePointer) element.setPointerCapture?.(event.pointerId);
+  });
+  element.addEventListener("pointermove", event => {
+    if (!gesture || event.pointerId !== gesture.id) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+      event.preventDefault();
+      onMove?.(dy);
+    }
+  });
+  const finish = event => {
+    if (!gesture || event.pointerId !== gesture.id) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    gesture = null;
+    onMove?.(0);
+    if (Math.abs(dy) < 52 || Math.abs(dy) < Math.abs(dx) * 1.15) return;
+    if (dy < 0) onUp?.();
+    else onDown?.();
+  };
+  element.addEventListener("pointerup", finish);
+  element.addEventListener("pointercancel", () => {
+    gesture = null;
+    onMove?.(0);
+  });
+}
+
+const detailPanel = document.querySelector("#detail-panel");
+bindMobileVerticalSwipe(detailPanel, {
+  shouldStart:event => Boolean(event.target.closest("#detail-head")),
+  onMove:dy => detailPanel.style.setProperty("--sheet-drag", `${Math.max(0, Math.min(160, dy))}px`),
+  onDown:() => setPanelCollapsed("detail", true)
+});
+
+const libraryRail = document.querySelector(".left-rail");
+bindMobileVerticalSwipe(libraryRail, {
+  shouldStart:() => !document.body.classList.contains("rail-collapsed"),
+  onUp:() => setPanelCollapsed("rail", true)
+});
+
+const mapStage = document.querySelector(".stage");
+bindMobileVerticalSwipe(mapStage, {
+  shouldStart:event => {
+    const bounds = mapStage.getBoundingClientRect();
+    return document.body.classList.contains("rail-collapsed")
+      && event.clientY - bounds.top < 110
+      && !detailPanel.classList.contains("open");
+  },
+  onDown:() => setPanelCollapsed("rail", false),
+  capturePointer:false
+});
+
 svg.addEventListener("pointerdown", beginCanvasDrag);
 svg.addEventListener("pointerdown", beginTouchGesture, { capture:true });
 svg.addEventListener("pointermove", moveDraggedNode);
@@ -820,54 +892,44 @@ window.addEventListener("touchstart", tryPlayAmbient, { once:true, passive:true 
 
 // ---------------------------------------------------------------------------
 // Audio crossfade: track 1 (landing) → track 2 (consciousness).
-// Both pages share one document, so we crossfade in-place. Track 2 plays
-// from a fresh Audio object so it starts immediately while track 1 fades.
-// After the fade, track2 replaces bgMusic so the SND toggle keeps working.
+// Both layers share one document. Reusing the already-authorized page audio
+// element avoids a detached Audio.play() promise getting stuck on mobile.
 // ---------------------------------------------------------------------------
 async function crossfadeToTrack2() {
   if (!bgMusic || !soundWanted) return;
-  const origMusic = bgMusic;
-  const track2 = transitionMusic || new Audio("/assets/smoke-state-2.mp3");
-  track2.loop = true;
-  track2.volume = 0;
+  const player = bgMusic;
+  player.pause();
+  player.src = "/assets/smoke-state-2.mp3";
+  player.currentTime = 0;
+  player.loop = true;
+  player.volume = 0;
+  player.load();
   try {
-    await track2.play();
+    await player.play();
   } catch {
-    origMusic.pause();
-    origMusic.src = "/assets/smoke-state-2.mp3";
-    origMusic.load();
-    try {
-      await origMusic.play();
-      origMusic.volume = .5;
-      bgMusic = origMusic;
-      document.body.classList.add("sound-on");
-      soundToggle?.setAttribute("aria-pressed", "true");
-    } catch {
-      window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
-    }
+    const resumeTrack2 = () => {
+      player.play().then(() => {
+        player.volume = .5;
+        bgMusic = player;
+        document.body.classList.add("sound-on");
+        soundToggle?.setAttribute("aria-pressed", "true");
+      }).catch(() => {});
+    };
+    window.addEventListener("pointerdown", resumeTrack2, { once:true });
+    window.addEventListener("keydown", resumeTrack2, { once:true });
     return;
   }
 
-  const fadeDuration = 1200;
+  bgMusic = player;
+  document.body.classList.add("sound-on");
+  soundToggle?.setAttribute("aria-pressed", "true");
+  const fadeDuration = 900;
   const startTime = performance.now();
-  const startVol = origMusic.volume || 0.5;
-  const targetVol = 0.5;
-
   function tick(now) {
-    const elapsed = now - startTime;
-    const t = Math.min(1, elapsed / fadeDuration);
-    // Ease-in-out cubic
-    const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    origMusic.volume = Math.max(0, startVol * (1 - ease));
-    track2.volume = targetVol * ease;
-    if (t < 1) {
-      requestAnimationFrame(tick);
-    } else {
-      // Track 2 is now fully faded in. Retire track 1, promote track 2
-      // as the ambient player so the SND toggle keeps working.
-      origMusic.pause();
-      bgMusic = track2;
-    }
+    const t = Math.min(1, (now - startTime) / fadeDuration);
+    const ease = 1 - Math.pow(1 - t, 3);
+    player.volume = .5 * ease;
+    if (t < 1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 }
@@ -1087,7 +1149,9 @@ window.addEventListener("resize", () => {
   resizeFrame = requestAnimationFrame(() => {
     const nextCompactMap = window.matchMedia("(max-width: 768px)").matches;
     if (nextCompactMap !== compactMap || nextCompactMap) {
+      const breakpointChanged = nextCompactMap !== compactMap;
       compactMap = nextCompactMap;
+      if (breakpointChanged) camera.zoom = compactMap ? .64 : .82;
       renderGraph();
     }
   });
@@ -1229,6 +1293,7 @@ function tickOrbit(now) {
     const point = pointById.get(group.dataset.id);
     if (!point) continue;
     group.setAttribute("transform", `translate(${point.x} ${point.y}) scale(${point.scale.toFixed(3)})`);
+    applyMobileLabelDepth(group, point);
   }
   for (const line of svg.querySelectorAll(".edge")) {
     const from = pointById.get(line.dataset.from);

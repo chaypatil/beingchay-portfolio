@@ -949,6 +949,7 @@
         border-right: 0;
         border-bottom: 1px solid var(--ink);
         scrollbar-width: none;
+        touch-action: pan-x;
         transition: opacity .18s steps(4, end), visibility .18s, border-color .18s;
       }
       .left-rail::-webkit-scrollbar { display: none; }
@@ -993,7 +994,7 @@
         transition: transform .2s steps(5, end), opacity .16s steps(4, end), visibility .2s;
       }
       .detail-panel.open {
-        transform: translateY(0);
+        transform: translateY(var(--sheet-drag, 0px));
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -1004,7 +1005,7 @@
         visibility: hidden;
         pointer-events: none;
       }
-      .detail-head { min-height: 84px; cursor: pointer; padding: 16px 18px 14px; }
+      .detail-head { min-height: 84px; cursor: pointer; padding: 16px 18px 14px; touch-action: pan-x; }
       .detail-head::before {
         content: "";
         position: absolute;
@@ -1040,8 +1041,16 @@
     }
 
     @media (max-width: 768px) {
-      .node text { display: none; }
-      .node.active text { display: block; }
+      body:not(.space-mode) .node text {
+        display: block;
+        opacity: var(--label-opacity, 0);
+        filter: blur(var(--label-blur, 4px));
+        transition: opacity .18s linear, filter .18s linear;
+      }
+      body:not(.space-mode) .node.active text {
+        opacity: 1;
+        filter: blur(0);
+      }
       .node .core { stroke-width: 3; }
     }
 
@@ -1258,6 +1267,6 @@
     </div>
   </dialog>
 
-  <script type="module" src="./map-page.js?v=phase1-2"></script>
+  <script type="module" src="./map-page.js?v=phase1-3"></script>
 </body>
 </html>
