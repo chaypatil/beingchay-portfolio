@@ -14,6 +14,11 @@ let compactMap = window.matchMedia("(max-width: 768px)").matches;
 let resizeFrame = 0;
 let pointById = new Map();
 let nodePositions = new Map();
+let spatialNodes = [];
+let spatialEdges = [];
+let spatialLabels = [];
+let spatialNodeLayer = null;
+let spatialUpdateFrame = 0;
 let dragState = null;
 let canvasDrag = null;
 const touchPointers = new Map();
@@ -30,6 +35,10 @@ let autoYaw = 0;
 const publicNodeIds = new Set(publicNodes.map(node => node.id));
 const positionStorageKey = "consciousness-public-layout-v1";
 const interfaceStorageKey = "consciousness-interface-v1";
+const PROJECT_DESTINATIONS = Object.freeze({
+  fallout:"https://fall0ut.in",
+  c2x:"/c2x/"
+});
 let savedPublicPositions = {};
 
 try {
@@ -193,7 +202,7 @@ function renderSignalField(layer, pointById) {
   for (const node of nodes) {
     const point = pointById.get(node.id);
     const random = randomFrom(hashString(node.id));
-    const pixelCount = node.r >= 13 ? 7 : 4;
+    const pixelCount = compactMap ? (node.r >= 13 ? 4 : 2) : (node.r >= 13 ? 7 : 4);
     for (let index = 0; index < pixelCount; index += 1) {
       const size = [2, 3, 4, 6, 8][Math.floor(random() * 5)] * clamp(point.scale, .82, 1.18);
       const spread = compactMap ? 33 : 48;
@@ -264,6 +273,9 @@ function runBootSequence() {
 
 function renderGraph() {
   svg.replaceChildren();
+  spatialNodes = [];
+  spatialEdges = [];
+  spatialLabels = [];
   nodeById = new Map(nodes.map(node => [node.id, node]));
   const layout = graphLayout();
   applyCamera(layout);
@@ -271,6 +283,7 @@ function renderGraph() {
   const signalLayer = el("g", { class:"signal-field", "aria-hidden":"true" });
   const edgeLayer = el("g", { class:"edges" });
   const nodeLayer = el("g", { class:"nodes" });
+  spatialNodeLayer = nodeLayer;
   svg.append(signalLayer, edgeLayer, nodeLayer);
   renderSignalField(signalLayer, pointById);
 
@@ -284,6 +297,8 @@ function renderGraph() {
     const text = el("text", { x:(fromPoint.x+toPoint.x)/2, y:(fromPoint.y+toPoint.y)/2 - 5, class:"edge-label", "text-anchor":"middle", "data-from":fromId, "data-to":toId });
     text.textContent = label;
     edgeLayer.append(line, text);
+    spatialEdges.push({ line, fromId, toId });
+    spatialLabels.push({ label:text, fromId, toId });
   }
 
   const depthOrdered = [];
@@ -349,6 +364,7 @@ function renderGraph() {
         else selectNode(node.id, true);
       }
     });
+    spatialNodes.push({ group, id:node.id });
     depthOrdered.push({ group, z:point.z });
   });
   // Paint far nodes first so near ones overlap them, and so the star can be
@@ -374,6 +390,60 @@ function renderGraph() {
   } else {
     selectNode(activeNodeId, false);
   }
+}
+
+function restackSpatialNodes() {
+  const layer = spatialNodeLayer;
+  if (!layer) return;
+  const star = layer.querySelector(".star-group");
+  const ordered = spatialNodes
+    .map(entry => ({ ...entry, z:pointById.get(entry.id)?.z ?? 0 }))
+    .sort((a, b) => a.z - b.z);
+  let placed = false;
+  for (const entry of ordered) {
+    if (star && !placed && entry.z >= 0) {
+      layer.append(star);
+      placed = true;
+    }
+    layer.append(entry.group);
+  }
+  if (star && !placed) layer.append(star);
+}
+
+function updateSpatialFrame({ restack = false } = {}) {
+  const layout = graphLayout();
+  pointById = new Map(nodes.map(node => [node.id, projectNode(node, layout)]));
+  for (const { group, id } of spatialNodes) {
+    const point = pointById.get(id);
+    if (!point) continue;
+    group.setAttribute("transform", `translate(${point.x} ${point.y}) scale(${point.scale.toFixed(3)})`);
+    applyMobileLabelDepth(group, point);
+  }
+  for (const { line, fromId, toId } of spatialEdges) {
+    const from = pointById.get(fromId);
+    const to = pointById.get(toId);
+    if (!from || !to) continue;
+    line.setAttribute("x1", from.x);
+    line.setAttribute("y1", from.y);
+    line.setAttribute("x2", to.x);
+    line.setAttribute("y2", to.y);
+  }
+  for (const { label, fromId, toId } of spatialLabels) {
+    const from = pointById.get(fromId);
+    const to = pointById.get(toId);
+    if (!from || !to) continue;
+    label.setAttribute("x", ((from.x + to.x) / 2).toFixed(2));
+    label.setAttribute("y", (((from.y + to.y) / 2) - 5).toFixed(2));
+  }
+  if (restack) restackSpatialNodes();
+}
+
+function scheduleSpatialUpdate() {
+  if (spatialUpdateFrame) return;
+  spatialUpdateFrame = window.requestAnimationFrame(() => {
+    spatialUpdateFrame = 0;
+    updateSpatialFrame();
+  });
 }
 
 function clientPoint(event) {
@@ -425,7 +495,7 @@ function moveDraggedNode(event) {
     position.y = clamp(dragState.startPosition.y + dy / layout.yScale, -120, 770);
   }
   dragState.moved = dragState.moved || hasMoved;
-  renderGraph();
+  scheduleSpatialUpdate();
 }
 
 function finishNodeDrag(event) {
@@ -469,7 +539,7 @@ function moveCanvasDrag(event) {
   if (canvasDrag.mode === "orbit") {
     camera.yaw = canvasDrag.startYaw + (event.clientX - canvasDrag.startClientX) * 0.006;
     camera.pitch = clamp(canvasDrag.startPitch + (event.clientY - canvasDrag.startClientY) * 0.006, -1.05, 1.05);
-    renderGraph();
+    scheduleSpatialUpdate();
   } else {
     const base = graphLayout();
     const rect = svg.getBoundingClientRect();
@@ -804,6 +874,39 @@ function bindMobileVerticalSwipe(element, { shouldStart, onMove, onUp, onDown, c
   });
 }
 
+function bindMobileHorizontalSwipe(element, { shouldStart, onMove, onLeft, onRight, capturePointer = true }) {
+  let gesture = null;
+  element.addEventListener("pointerdown", event => {
+    if (!compactMap || event.pointerType !== "touch" || !shouldStart(event)) return;
+    gesture = { id:event.pointerId, x:event.clientX, y:event.clientY };
+    if (capturePointer) element.setPointerCapture?.(event.pointerId);
+  });
+  element.addEventListener("pointermove", event => {
+    if (!gesture || event.pointerId !== gesture.id) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      event.preventDefault();
+      onMove?.(dx);
+    }
+  });
+  const finish = event => {
+    if (!gesture || event.pointerId !== gesture.id) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    gesture = null;
+    onMove?.(0);
+    if (Math.abs(dx) < 52 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+    if (dx < 0) onLeft?.();
+    else onRight?.();
+  };
+  element.addEventListener("pointerup", finish);
+  element.addEventListener("pointercancel", () => {
+    gesture = null;
+    onMove?.(0);
+  });
+}
+
 const detailPanel = document.querySelector("#detail-panel");
 bindMobileVerticalSwipe(detailPanel, {
   shouldStart:event => Boolean(event.target.closest("#detail-head")),
@@ -812,20 +915,21 @@ bindMobileVerticalSwipe(detailPanel, {
 });
 
 const libraryRail = document.querySelector(".left-rail");
-bindMobileVerticalSwipe(libraryRail, {
+bindMobileHorizontalSwipe(libraryRail, {
   shouldStart:() => !document.body.classList.contains("rail-collapsed"),
-  onUp:() => setPanelCollapsed("rail", true)
+  onMove:dx => libraryRail.style.setProperty("--rail-drag", `${Math.min(0, Math.max(-180, dx))}px`),
+  onLeft:() => setPanelCollapsed("rail", true)
 });
 
 const mapStage = document.querySelector(".stage");
-bindMobileVerticalSwipe(mapStage, {
+bindMobileHorizontalSwipe(mapStage, {
   shouldStart:event => {
     const bounds = mapStage.getBoundingClientRect();
     return document.body.classList.contains("rail-collapsed")
-      && event.clientY - bounds.top < 110
+      && event.clientX - bounds.left < 42
       && !detailPanel.classList.contains("open");
   },
-  onDown:() => setPanelCollapsed("rail", false),
+  onRight:() => setPanelCollapsed("rail", false),
   capturePointer:false
 });
 
@@ -1276,62 +1380,42 @@ function buildStar() {
   return group;
 }
 
-// Light per-frame update: only transforms and line endpoints move, so the
-// signal field and the DOM structure are left alone.
+// Update only cached spatial elements. Mobile is capped at 20 fps and desktop
+// at 30 fps; the orbit is intentionally slow, so higher rates only waste work.
 let orbitFrame = 0;
-let resortTick = 0;
+let lastOrbitPaint = 0;
+let lastRestack = 0;
 function tickOrbit(now) {
   orbitFrame = window.requestAnimationFrame(tickOrbit);
-  if (dragState || canvasDrag) return;
+  if (document.hidden || dragState || canvasDrag || !document.body.classList.contains("view-map-active")) return;
+  const frameInterval = compactMap ? 50 : 33;
+  if (now - lastOrbitPaint < frameInterval) return;
+  lastOrbitPaint = now;
   autoYaw = (now / 1000) * AUTO_YAW_RATE;
   if (!depthMode) return;
-
-  const layout = graphLayout();
-  pointById = new Map(nodes.map(node => [node.id, projectNode(node, layout)]));
-
-  for (const group of svg.querySelectorAll(".node")) {
-    const point = pointById.get(group.dataset.id);
-    if (!point) continue;
-    group.setAttribute("transform", `translate(${point.x} ${point.y}) scale(${point.scale.toFixed(3)})`);
-    applyMobileLabelDepth(group, point);
-  }
-  for (const line of svg.querySelectorAll(".edge")) {
-    const from = pointById.get(line.dataset.from);
-    const to = pointById.get(line.dataset.to);
-    if (!from || !to) continue;
-    line.setAttribute("x1", from.x); line.setAttribute("y1", from.y);
-    line.setAttribute("x2", to.x); line.setAttribute("y2", to.y);
-  }
-  for (const label of svg.querySelectorAll(".edge-label")) {
-    const from = pointById.get(label.dataset.from);
-    const to = pointById.get(label.dataset.to);
-    if (!from || !to) continue;
-    label.setAttribute("x", ((from.x + to.x) / 2).toFixed(2));
-    label.setAttribute("y", (((from.y + to.y) / 2) - 5).toFixed(2));
-  }
-
-  // Rotation changes what is in front of what. Re-sorting every frame would
-  // thrash the DOM, so restack a few times a second instead: slow orbit, no
-  // visible popping, and the star keeps occluding whatever is behind it.
-  resortTick += 1;
-  if (resortTick % 20 !== 0) return;
-  const layer = svg.querySelector(".nodes");
-  if (!layer) return;
-  const star = layer.querySelector(".star-group");
-  const ordered = [...layer.querySelectorAll(".node")]
-    .map(group => ({ group, z:pointById.get(group.dataset.id)?.z ?? 0 }))
-    .sort((a, b) => a.z - b.z);
-  let placed = false;
-  for (const entry of ordered) {
-    if (star && !placed && entry.z >= 0) { layer.append(star); placed = true; }
-    layer.append(entry.group);
-  }
-  if (star && !placed) layer.append(star);
+  const shouldRestack = now - lastRestack >= 900;
+  updateSpatialFrame({ restack:shouldRestack });
+  if (shouldRestack) lastRestack = now;
 }
 
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   orbitFrame = window.requestAnimationFrame(tickOrbit);
 }
+
+function routeMatchesShell() {
+  const normalizedPath = location.pathname.replace(/\/+$/, "") || "/";
+  const routeIsLanding = normalizedPath === "/";
+  return routeIsLanding === document.body.classList.contains("space-mode");
+}
+
+function repairRestoredRoute() {
+  if (!routeMatchesShell()) location.reload();
+}
+
+window.addEventListener("popstate", repairRestoredRoute);
+window.addEventListener("pageshow", event => {
+  if (event.persisted) repairRestoredRoute();
+});
 
 // In space mode the top switch dismantles the space into the paper page.
 // Node clicks show a prompt; project nodes follow their public backlinks.
@@ -1389,7 +1473,7 @@ if (spaceMode) {
     window.setTimeout(() => {
       spaceMode = false;
       document.body.classList.remove("space-mode", "dismantling");
-      window.history.pushState({}, "", "/consciousness/");
+      window.history.replaceState({}, "", "/consciousness/");
       if (preSelectNodeId) activeNodeId = preSelectNodeId;
       renderGraph();
       // No runBootSequence — the transit animation IS the boot equivalent.
@@ -1416,6 +1500,11 @@ if (spaceMode) {
     event.stopImmediatePropagation();
     pendingNodeId = nodeGroup.dataset.id || null;
     const node = nodeById.get(pendingNodeId);
+    const projectDestination = PROJECT_DESTINATIONS[pendingNodeId];
+    if (projectDestination) {
+      window.location.assign(projectDestination);
+      return;
+    }
     if (node?.privacy === "locked") {
       openPrivateNotice();
       return;
