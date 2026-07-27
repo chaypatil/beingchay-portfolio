@@ -1,4 +1,6 @@
 import { publicNodes, publicEdges, typeMeta } from "./graph-data.js";
+import { NODE_REGION } from "./brain/brain-mapping.js";
+import { mountBrainNet } from "../codexmap/brain-net.js";
 
 
 
@@ -29,6 +31,11 @@ let camera = { panX:0, panY:0, zoom:compactMap ? .72 : .82, yaw:0, pitch:0 };
 // Space mode is the beingchay landing: same map, connections and chrome hidden,
 // a star at the centre. Paper mode is the consciousness page proper.
 let spaceMode = document.body.classList.contains("space-mode");
+let brainMode = !spaceMode && new URLSearchParams(location.search).get("mode") === "brain";
+let brainMorph = brainMode ? 1 : 0;
+let brainMorphFrame = 0;
+let brainRenderer = null;
+const brainCanvas = document.querySelector("#brain-backdrop");
 // Everything drifts slowly around the centre on both layers. Just noticeable.
 const AUTO_YAW_RATE = 0.018;
 let autoYaw = 0;
@@ -38,6 +45,18 @@ const interfaceStorageKey = "consciousness-interface-v1";
 const PROJECT_DESTINATIONS = Object.freeze({
   fallout:"https://fall0ut.in",
   c2x:"/c2x/"
+});
+const BRAIN_REGION_TARGETS = Object.freeze({
+  prefrontal:[250, 292],
+  motor:[405, 205],
+  parietal:[580, 190],
+  occipital:[760, 282],
+  temporal:[620, 414],
+  insula:[438, 340],
+  limbic:[515, 320],
+  cerebellum:[742, 438],
+  brainstem:[565, 474],
+  default:[500, 325]
 });
 let savedPublicPositions = {};
 
@@ -160,31 +179,121 @@ function applyMobileLabelDepth(group, point) {
   group.style.setProperty("--label-blur", `${((1 - proximity) * 4).toFixed(2)}px`);
 }
 
+function brainTargetForNode(node) {
+  const region = NODE_REGION[node.id]?.region;
+  const target = BRAIN_REGION_TARGETS[region] || BRAIN_REGION_TARGETS.default;
+  const seed = hashString(node.id);
+  const angle = ((seed % 360) / 180) * Math.PI;
+  const distance = 18 + ((seed >>> 9) % 58);
+  return {
+    x:target[0] + Math.cos(angle) * distance,
+    y:target[1] + Math.sin(angle) * distance * .62,
+    z:((seed >>> 16) % 81) - 40,
+    scale:.62 + ((seed >>> 24) % 12) / 100
+  };
+}
+
+function ensureBrainRenderer() {
+  if (brainRenderer || !brainCanvas) return;
+  try {
+    brainRenderer = mountBrainNet(brainCanvas, {
+      nodes:[],
+      markerLayer:null,
+      transparent:true,
+      interactive:false,
+      autoRotate:false
+    });
+  } catch (error) {
+    console.info("The head-index backdrop is unavailable; node placement remains usable.", error);
+  }
+}
+
+function easeInOutCubic(value) {
+  return value < .5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2;
+}
+
+function setBrainMode(enabled, { updateUrl = true, animate = true } = {}) {
+  if (spaceMode) return;
+  brainMode = Boolean(enabled);
+  if (brainMode) ensureBrainRenderer();
+  document.body.classList.toggle("brain-mode", brainMode);
+  const toggle = document.querySelector("#deep-toggle");
+  toggle?.classList.remove("is-pending");
+  toggle?.setAttribute("aria-checked", String(brainMode));
+  toggle?.setAttribute("aria-label", brainMode ? "Show the relationship map" : "Show the head index");
+
+  if (updateUrl) {
+    const url = new URL(location.href);
+    if (brainMode) url.searchParams.set("mode", "brain");
+    else url.searchParams.delete("mode");
+    history.replaceState({ surface:"consciousness", mode:brainMode ? "brain" : "map" }, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  cancelAnimationFrame(brainMorphFrame);
+  const start = brainMorph;
+  const target = brainMode ? 1 : 0;
+  if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    brainMorph = target;
+    updateSpatialFrame({ restack:true });
+    brainRenderer?.redraw();
+    return;
+  }
+  const started = performance.now();
+  const step = now => {
+    const progress = clamp((now - started) / 900, 0, 1);
+    brainMorph = start + (target - start) * easeInOutCubic(progress);
+    updateSpatialFrame({ restack:progress === 1 });
+    if (progress < 1) brainMorphFrame = requestAnimationFrame(step);
+  };
+  brainMorphFrame = requestAnimationFrame(step);
+}
+
+function setMapTheme(theme, { persist = true } = {}) {
+  const next = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = next;
+  const toggle = document.querySelector("#map-theme-toggle");
+  toggle?.setAttribute("aria-label", `Switch to ${next === "dark" ? "light" : "dark"} mode`);
+  if (persist) {
+    try { localStorage.setItem("consciousness-map-theme", next); } catch {}
+  }
+  brainRenderer?.redraw();
+}
+
 function projectNode(node, layout) {
   const position = getNodePosition(node);
   const baseX = layout.xOffset + position.x * layout.xScale;
   const baseY = layout.yOffset + position.y * layout.yScale;
   const centerX = layout.width / 2;
   const centerY = layout.height / 2;
+  let relationshipPoint;
   if (!depthMode) {
-    return { x:baseX, y:baseY, z:0, scale:spaceMode ? .68 : 1 };
+    relationshipPoint = { x:baseX, y:baseY, z:0, scale:spaceMode ? .68 : 1 };
+  } else {
+    const px = baseX - centerX;
+    const py = baseY - centerY;
+    const pz = clamp(position.z, -180, 180);
+    const yaw = camera.yaw + autoYaw;
+    const cosY = Math.cos(yaw), sinY = Math.sin(yaw);
+    const rx = px * cosY + pz * sinY;
+    let rz = -px * sinY + pz * cosY;
+    const cosX = Math.cos(camera.pitch), sinX = Math.sin(camera.pitch);
+    const ry = py * cosX - rz * sinX;
+    rz = py * sinX + rz * cosX;
+    const scale = 900 / (900 - rz);
+    relationshipPoint = {
+      x:centerX + rx * scale,
+      y:centerY + ry * scale,
+      z:rz,
+      scale:spaceMode ? scale * .68 : scale
+    };
   }
-  const px = baseX - centerX;
-  const py = baseY - centerY;
-  const pz = clamp(position.z, -180, 180);
-  const yaw = camera.yaw + autoYaw;
-  const cosY = Math.cos(yaw), sinY = Math.sin(yaw);
-  const rx = px * cosY + pz * sinY;
-  let rz = -px * sinY + pz * cosY;
-  const cosX = Math.cos(camera.pitch), sinX = Math.sin(camera.pitch);
-  const ry = py * cosX - rz * sinX;
-  rz = py * sinX + rz * cosX;
-  const scale = 900 / (900 - rz);
+  if (brainMorph <= 0) return relationshipPoint;
+  const target = brainTargetForNode(node);
   return {
-    x:centerX + rx * scale,
-    y:centerY + ry * scale,
-    z:rz,
-    scale: spaceMode ? scale * .68 : scale
+    x:relationshipPoint.x + (target.x - relationshipPoint.x) * brainMorph,
+    y:relationshipPoint.y + (target.y - relationshipPoint.y) * brainMorph,
+    z:relationshipPoint.z + (target.z - relationshipPoint.z) * brainMorph,
+    scale:relationshipPoint.scale + (target.scale - relationshipPoint.scale) * brainMorph
   };
 }
 
@@ -444,6 +553,7 @@ function clientPoint(event) {
 }
 
 function beginNodeDrag(event, id) {
+  if (brainMode) return;
   if (event.button !== undefined && event.button !== 0) return;
   if (event.pointerType === "touch" && touchPointers.size > 1) return;
   const node = nodeById.get(id);
@@ -788,12 +898,6 @@ document.querySelector("#private-form").addEventListener("submit", async event =
     });
     if (!response.ok) throw new Error(response.status === 401 ? "Wrong password" : "Private layer unavailable");
     const payload = await response.json();
-    if (intent === "codexmap") {
-      if (payload?.ok !== true) throw new Error("Private layer unavailable");
-      privateDialog.close();
-      window.location.assign("/codexmap/");
-      return;
-    }
     if (!Array.isArray(payload.nodes) || !Array.isArray(payload.edges) || typeof payload.relationAdditions !== "object") {
       throw new Error("Private layer unavailable");
     }
@@ -1299,6 +1403,12 @@ camera.pitch = -0.32;
 
 buildFilters();
 renderGraph();
+try {
+  setMapTheme(localStorage.getItem("consciousness-map-theme") || "light", { persist:false });
+} catch {
+  setMapTheme("light", { persist:false });
+}
+if (brainMode) setBrainMode(true, { updateUrl:false, animate:false });
 // Boot sequence runs on normal page load only — when transitioning from
 // space-mode the transit animation replaces it as one continuous motion.
 if (!spaceTransitDone) runBootSequence();
@@ -1447,7 +1557,8 @@ window.addEventListener("pageshow", event => {
 
 // In space mode the top switch dismantles the space into the paper page.
 // Node clicks show a prompt; project nodes follow their public backlinks.
-// On the consciousness page, the codexmap toggle requires the private key.
+// On the consciousness page the same switch smoothly reindexes the existing
+// nodes over an artistic head-shaped mesh. It is a view change, not a claim.
 if (spaceMode) {
   let transitStarted = false;
   let pendingNodeId = null;
@@ -1502,6 +1613,7 @@ if (spaceMode) {
       spaceMode = false;
       document.body.classList.remove("space-mode", "dismantling");
       window.history.pushState({ surface:"consciousness" }, "", "/consciousness/");
+      setMapTheme("light", { persist:false });
       if (preSelectNodeId) activeNodeId = preSelectNodeId;
       renderGraph();
       // No runBootSequence — the transit animation IS the boot equivalent.
@@ -1513,7 +1625,7 @@ if (spaceMode) {
     event.preventDefault();
     event.stopImmediatePropagation();
     if (!spaceMode) {
-      openPrivateDialog("codexmap");
+      setBrainMode(!brainMode);
       return;
     }
     beginSpaceTransit(null);
@@ -1541,11 +1653,14 @@ if (spaceMode) {
     if (!transitDialog.open) transitDialog.showModal();
   }, true);
 } else {
-  // Consciousness page: codexmap toggle requires the private key.
+  // Relationship map and head index are two arrangements of the same nodes.
   const deepToggle = document.querySelector("#deep-toggle");
   deepToggle?.addEventListener("click", event => {
     event.preventDefault();
-    deepToggle.classList.add("is-pending");
-    openPrivateDialog("codexmap");
+    setBrainMode(!brainMode);
   });
 }
+
+document.querySelector("#map-theme-toggle")?.addEventListener("click", () => {
+  setMapTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+});

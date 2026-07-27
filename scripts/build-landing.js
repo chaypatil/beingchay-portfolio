@@ -22,7 +22,7 @@ const rules = [
   // Chapter one plays behind the landing, chapter two behind the map.
   [/src="\.\.\/assets\/smoke-state-2\.mp3"/, 'src="/assets/smoke-state-1.mp3"'],
   // On the landing this switch enters the map. Keep its no-JS fallback honest.
-  [/<a class="deep-toggle" id="deep-toggle" href="\.\.\/codexmap\/" role="switch" aria-checked="false" aria-label="Switch to the Codex Map beta">/,
+  [/<a class="deep-toggle" id="deep-toggle" href="\?mode=brain" role="switch" aria-checked="false" aria-label="Show the head index">/,
    '<a class="deep-toggle" id="deep-toggle" href="/consciousness/" role="switch" aria-checked="false" aria-label="Enter Cloud Consciousness">'],
   [/<title>[^<]*<\/title>/, "<title>beingchay</title>"],
   [/(<meta name="description" content=")[^"]*(")/,

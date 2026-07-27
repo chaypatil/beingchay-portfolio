@@ -130,7 +130,7 @@
     @keyframes star-breathe { 0%,100% { opacity: .96; } 50% { opacity: 1; } }
     body.space-mode.dismantling .node { transition: opacity .5s ease; opacity: .15; }
     body.space-mode.dismantling .star-group { transition: opacity .5s ease; opacity: 0; }
-    .deep-rail { position: absolute; z-index: 25; top: 6px; left: 50%; transform: translateX(-50%); }
+    .deep-rail { position: absolute; z-index: 25; top: 6px; left: 50%; display: flex; align-items: center; gap: 3px; transform: translateX(-50%); }
     .deep-toggle { width: 48px; height: 48px; display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; }
     .deep-track { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ink); background: transparent; position: relative; transition: transform .2s ease, border-color .2s ease; }
     .deep-track::after { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--ink); opacity: .18; transition: opacity .2s ease, transform .2s ease; }
@@ -139,6 +139,33 @@
     .deep-toggle[aria-checked="true"] .deep-track::after { opacity: .9; transform: scale(2); }
     .deep-toggle:focus-visible .deep-track { outline: 1px solid var(--ink); outline-offset: 3px; }
     .deep-toggle.is-pending .deep-track { animation: toggle-glitch .45s steps(4, end) infinite alternate; }
+    .map-theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 12px;
+      z-index: 26;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .map-theme-toggle::before {
+      content: "";
+      display: block;
+      width: 19px;
+      height: 19px;
+      margin: auto;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: linear-gradient(90deg, var(--ink) 50%, transparent 50%);
+      transition: transform .22s ease, background .22s ease, border-color .22s ease;
+    }
+    .map-theme-toggle:hover::before,
+    .map-theme-toggle:focus-visible::before { transform: rotate(180deg) scale(1.08); }
+    body.space-mode .map-theme-toggle { display: none; }
     #depth-back, #depth-forward { display: none !important; }
     .brand-back { font: 20px/1 var(--sans); color: var(--ink); display: block; transition: transform .18s ease; }
     .brand:hover .brand-back, .brand:focus-visible .brand-back { transform: translateX(-3px); }
@@ -537,6 +564,32 @@
     body.canvas-dragging .map-canvas { cursor: grabbing; }
     body.canvas-dragging .node { transition: none; }
     body.orbiting .map-canvas { cursor: move; }
+    .brain-backdrop {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .7s ease;
+    }
+    body.brain-mode .brain-backdrop { opacity: .82; }
+    body.brain-mode .edge,
+    body.brain-mode .edge-label,
+    body.brain-mode .signal-field {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+    body.brain-mode .node {
+      --node-color: #22a65d !important;
+      --ghost-color: #22a65d !important;
+    }
+    body.brain-mode .node .halo { stroke: #22a65d; stroke-opacity: .24; }
+    body.brain-mode .node .ghost { fill: #22a65d; opacity: .14; }
+    body.brain-mode .node .core { stroke: #22a65d; }
+    body.brain-mode .node .point { fill: #22a65d; }
+    body.brain-mode .node.active .halo { filter: drop-shadow(0 0 8px rgba(34,166,93,.66)); }
     .boot-field {
       position: absolute;
       z-index: 20;
@@ -888,6 +941,35 @@
       }
     }
 
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #080909;
+      --paper-deep: #111313;
+      --bg: #080909;
+      --ink: #eceeea;
+      --muted: #a4a7a2;
+      --dim: #696e69;
+      --line: rgba(236,238,234,.11);
+      --line-strong: rgba(236,238,234,.28);
+    }
+    html[data-theme="dark"] body {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    }
+    html[data-theme="dark"] .topbar,
+    html[data-theme="dark"] .bottom-bar { background: rgba(8,9,9,.94); }
+    html[data-theme="dark"] .map-view {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    }
+    html[data-theme="dark"] .map-theme-toggle::before {
+      background: linear-gradient(90deg, transparent 50%, var(--ink) 50%);
+    }
+    html[data-theme="dark"] .edge { stroke: rgba(236,238,234,.18); }
+    html[data-theme="dark"] .node .core { filter: drop-shadow(2px 2px 0 rgba(255,255,255,.08)); }
+
     @media (max-width: 1024px) {
       :root { --rail-size: 174px; --detail-size: 300px; }
       .shell { grid-template-columns: var(--rail-size) minmax(0, 1fr) var(--detail-size); }
@@ -937,6 +1019,8 @@
       .privacy-toggle { width: 44px; min-height: 44px; justify-content: center; padding: 0; }
       .toggle-track { width: 26px; }
       body.private-mode .toggle-dot { transform: translateX(12px); }
+      .deep-rail { top: 4px; }
+      .map-theme-toggle { top: 7px; right: 48px; width: 38px; height: 38px; }
 
       .left-rail {
         display: block;
@@ -1119,6 +1203,7 @@
         <a class="deep-toggle" id="deep-toggle" href="/consciousness/" role="switch" aria-checked="false" aria-label="Enter Cloud Consciousness">
           <span class="deep-track" aria-hidden="true"><span class="deep-knob"></span></span>
         </a>
+        <button class="map-theme-toggle" id="map-theme-toggle" type="button" aria-label="Switch to dark mode"></button>
       </div>
       <audio class="bg-music" id="bg-music" src="/assets/smoke-state-1.mp3" loop preload="auto"></audio>
       <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
@@ -1126,6 +1211,7 @@
           <h1 lang="hi">चैतन्य</h1>
         </div>
         <div class="boot-field" id="boot-field" aria-hidden="true"></div>
+        <canvas class="brain-backdrop" id="brain-backdrop" aria-hidden="true"></canvas>
         <svg class="map-canvas" id="map-canvas" viewBox="0 0 1000 650" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive graph of memories, beliefs, drives, patterns and influences"></svg>
       </section>
 

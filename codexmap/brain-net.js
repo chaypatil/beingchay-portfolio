@@ -155,13 +155,16 @@ function chooseNodeVertex(node, index) {
 }
 
 export function mountBrainNet(canvas, {
-  nodes,
+  nodes = [],
   markerLayer,
   onSelect = () => {},
-  isPrivate = node => node.privacy !== "public"
+  isPrivate = node => node.privacy !== "public",
+  transparent = false,
+  interactive = true,
+  autoRotate = true
 }) {
   const gl = canvas.getContext("webgl", {
-    alpha:false,
+    alpha:transparent,
     antialias:false,
     depth:false,
     powerPreference:"high-performance",
@@ -194,7 +197,7 @@ export function mountBrainNet(canvas, {
   const signalPositionBuffer = createBuffer(gl, signalGeometry.positions);
   const signalPhaseBuffer = createBuffer(gl, signalGeometry.phases);
 
-  const markerEntries = nodes.map((node, index) => {
+  const markerEntries = markerLayer ? nodes.map((node, index) => {
     const button = document.createElement("button");
     const privateNode = isPrivate(node);
     button.className = `brain-marker${privateNode ? " is-private" : ""}`;
@@ -210,7 +213,7 @@ export function mountBrainNet(canvas, {
       node,
       point:BRAIN_MESH.vertices[chooseNodeVertex(node, index)]
     };
-  });
+  }) : [];
 
   let width = 1;
   let height = 1;
@@ -281,7 +284,9 @@ export function mountBrainNet(canvas, {
   function draw(now = 0) {
     resize();
     const dark = document.documentElement.dataset.theme !== "light";
-    const background = dark ? [0.022, .025, .028, 1] : [.95, .95, .935, 1];
+    const background = transparent
+      ? [0, 0, 0, 0]
+      : dark ? [0.022, .025, .028, 1] : [.95, .95, .935, 1];
     const meshColor = dark ? [.43, .47, .53, .25] : [.12, .13, .14, .22];
     const axonColor = dark ? [.34, .39, .45, .13] : [.17, .18, .19, .12];
     gl.clearColor(...background);
@@ -323,31 +328,33 @@ export function mountBrainNet(canvas, {
     requestAnimationFrame(animate);
     if (document.hidden || now - lastPaint < frameInterval) return;
     lastPaint = now;
-    if (!pointer && !reducedMotion) yaw += .00045;
+    if (!pointer && !reducedMotion && autoRotate) yaw += .00045;
     draw(now);
   }
 
-  canvas.addEventListener("pointerdown", event => {
-    if (event.button !== undefined && event.button !== 0) return;
-    pointer = { id:event.pointerId, x:event.clientX, y:event.clientY, yaw, pitch };
-    canvas.setPointerCapture?.(event.pointerId);
-  });
-  canvas.addEventListener("pointermove", event => {
-    if (!pointer || pointer.id !== event.pointerId) return;
-    yaw = pointer.yaw + (event.clientX - pointer.x) * .006;
-    pitch = Math.max(-.8, Math.min(.8, pointer.pitch + (event.clientY - pointer.y) * .005));
-  });
-  const release = event => {
-    if (!pointer || pointer.id !== event.pointerId) return;
-    pointer = null;
-    try { canvas.releasePointerCapture?.(event.pointerId); } catch {}
-  };
-  canvas.addEventListener("pointerup", release);
-  canvas.addEventListener("pointercancel", release);
-  canvas.addEventListener("wheel", event => {
-    event.preventDefault();
-    zoom = Math.max(.72, Math.min(1.65, zoom * Math.exp(-event.deltaY * .001)));
-  }, { passive:false });
+  if (interactive) {
+    canvas.addEventListener("pointerdown", event => {
+      if (event.button !== undefined && event.button !== 0) return;
+      pointer = { id:event.pointerId, x:event.clientX, y:event.clientY, yaw, pitch };
+      canvas.setPointerCapture?.(event.pointerId);
+    });
+    canvas.addEventListener("pointermove", event => {
+      if (!pointer || pointer.id !== event.pointerId) return;
+      yaw = pointer.yaw + (event.clientX - pointer.x) * .006;
+      pitch = Math.max(-.8, Math.min(.8, pointer.pitch + (event.clientY - pointer.y) * .005));
+    });
+    const release = event => {
+      if (!pointer || pointer.id !== event.pointerId) return;
+      pointer = null;
+      try { canvas.releasePointerCapture?.(event.pointerId); } catch {}
+    };
+    canvas.addEventListener("pointerup", release);
+    canvas.addEventListener("pointercancel", release);
+    canvas.addEventListener("wheel", event => {
+      event.preventDefault();
+      zoom = Math.max(.72, Math.min(1.65, zoom * Math.exp(-event.deltaY * .001)));
+    }, { passive:false });
+  }
   addEventListener("resize", resize, { passive:true });
 
   if (reducedMotion) draw(0);
