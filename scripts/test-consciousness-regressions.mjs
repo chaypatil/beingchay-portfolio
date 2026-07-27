@@ -4,15 +4,15 @@ import { readFile } from "node:fs/promises";
 const source = await readFile(new URL("../consciousness/map-page.js", import.meta.url), "utf8");
 const shell = await readFile(new URL("../consciousness/index.html", import.meta.url), "utf8");
 
-assert.doesNotMatch(
-  source,
-  /history\.pushState\([^)]*["']\/consciousness\//,
-  "The landing transition must not create a back-stack entry with an in-place DOM."
-);
 assert.match(
   source,
+  /history\.pushState\([^)]*["']\/consciousness\//,
+  "The landing must remain in history so mobile Back returns to it."
+);
+assert.doesNotMatch(
+  source,
   /history\.replaceState\([^)]*["']\/consciousness\//,
-  "The landing transition should replace the landing history entry."
+  "Entering the map must not erase the landing from browser history."
 );
 assert.match(
   source,
@@ -21,8 +21,18 @@ assert.match(
 );
 assert.match(
   source,
-  /bindMobileHorizontalSwipe\(libraryRail[\s\S]*onLeft:[\s\S]*setPanelCollapsed\("rail", true\)/,
-  "The mobile library must collapse with a left swipe."
+  /bindNativeTouchSwipe\(libraryRail[\s\S]*direction:"left"[\s\S]*setPanelCollapsed\("rail", true\)/,
+  "The mobile library must observe native touch swipes instead of fighting browser scrolling."
+);
+assert.match(
+  source,
+  /bindNativeTouchSwipe\(detailPanel[\s\S]*direction:"down"[\s\S]*setPanelCollapsed\("detail", true\)/,
+  "The mobile detail sheet must close with a native downward swipe."
+);
+assert.match(
+  source,
+  /if \(!compactMap\)[\s\S]*width:1000[\s\S]*return \{ width:1000, height:650/,
+  "Mobile must retain the desktop map geometry instead of stretching it vertically."
 );
 assert.doesNotMatch(
   shell,

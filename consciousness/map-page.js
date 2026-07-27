@@ -111,19 +111,10 @@ function graphLayout() {
   if (!compactMap) {
     return { width:1000, height:650, xScale:1, xOffset:0, yScale:1, yOffset:0, rightEdge:790 };
   }
-  const width = 640;
-  const ratio = Math.max(1, svg.clientHeight) / Math.max(320, svg.clientWidth);
-  const height = Math.max(650, Math.round(width * ratio));
-  const verticalPadding = 96;
-  return {
-    width,
-    height,
-    xScale:.61,
-    xOffset:12,
-    yScale:(height - verticalPadding) / 650,
-    yOffset:verticalPadding / 2,
-    rightEdge:480
-  };
+  // A phone is a smaller window onto the same map, not a portrait rewrite of
+  // its geometry. preserveAspectRatio handles the letterboxing; keeping the
+  // 1000x650 plane prevents the old "laptop turned sideways" distortion.
+  return { width:1000, height:650, xScale:1, xOffset:0, yScale:1, yOffset:0, rightEdge:790 };
 }
 
 function applyCamera(layout) {
@@ -907,11 +898,43 @@ function bindMobileHorizontalSwipe(element, { shouldStart, onMove, onLeft, onRig
   });
 }
 
+function bindNativeTouchSwipe(element, { shouldStart, direction, onCommit }) {
+  let gesture = null;
+  element.addEventListener("touchstart", event => {
+    if (!compactMap || event.touches.length !== 1 || !shouldStart(event)) return;
+    const touch = event.touches[0];
+    gesture = { x:touch.clientX, y:touch.clientY };
+  }, { passive:true });
+  element.addEventListener("touchend", event => {
+    if (!gesture || event.changedTouches.length !== 1) return;
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - gesture.x;
+    const dy = touch.clientY - gesture.y;
+    gesture = null;
+    const horizontal = Math.abs(dx) > Math.abs(dy) * 1.12;
+    const vertical = Math.abs(dy) > Math.abs(dx) * 1.12;
+    const committed = direction === "left"
+      ? horizontal && dx < -44
+      : direction === "right"
+        ? horizontal && dx > 44
+        : direction === "down"
+          ? vertical && dy > 44
+          : vertical && dy < -44;
+    if (committed) onCommit();
+  }, { passive:true });
+  element.addEventListener("touchcancel", () => { gesture = null; }, { passive:true });
+}
+
 const detailPanel = document.querySelector("#detail-panel");
 bindMobileVerticalSwipe(detailPanel, {
   shouldStart:event => Boolean(event.target.closest("#detail-head")),
   onMove:dy => detailPanel.style.setProperty("--sheet-drag", `${Math.max(0, Math.min(160, dy))}px`),
   onDown:() => setPanelCollapsed("detail", true)
+});
+bindNativeTouchSwipe(detailPanel, {
+  shouldStart:event => Boolean(event.target.closest("#detail-head")),
+  direction:"down",
+  onCommit:() => setPanelCollapsed("detail", true)
 });
 
 const libraryRail = document.querySelector(".left-rail");
@@ -919,6 +942,11 @@ bindMobileHorizontalSwipe(libraryRail, {
   shouldStart:() => !document.body.classList.contains("rail-collapsed"),
   onMove:dx => libraryRail.style.setProperty("--rail-drag", `${Math.min(0, Math.max(-180, dx))}px`),
   onLeft:() => setPanelCollapsed("rail", true)
+});
+bindNativeTouchSwipe(libraryRail, {
+  shouldStart:() => !document.body.classList.contains("rail-collapsed"),
+  direction:"left",
+  onCommit:() => setPanelCollapsed("rail", true)
 });
 
 const mapStage = document.querySelector(".stage");
@@ -1473,7 +1501,7 @@ if (spaceMode) {
     window.setTimeout(() => {
       spaceMode = false;
       document.body.classList.remove("space-mode", "dismantling");
-      window.history.replaceState({}, "", "/consciousness/");
+      window.history.pushState({ surface:"consciousness" }, "", "/consciousness/");
       if (preSelectNodeId) activeNodeId = preSelectNodeId;
       renderGraph();
       // No runBootSequence — the transit animation IS the boot equivalent.
