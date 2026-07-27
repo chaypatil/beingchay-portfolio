@@ -42,7 +42,14 @@ module.exports = async function handler(req, res) {
   if (req.method === "GET") {
     const accepted = tokensMatch(readCookie(req, "codexmap_access"), codexmapToken(configuredHash));
     if (!accepted) return deny(res, 401, "Access denied");
-    return res.status(200).json({ ok: true });
+    const encodedPayload = process.env.CONSCIOUSNESS_PRIVATE_DATA_B64;
+    if (!encodedPayload) return deny(res, 503, "Private layer unavailable");
+    try {
+      const payload = JSON.parse(Buffer.from(encodedPayload, "base64").toString("utf8"));
+      return res.status(200).json({ ok:true, payload });
+    } catch {
+      return deny(res, 503, "Private layer unavailable");
+    }
   }
 
   if (req.method !== "POST") {

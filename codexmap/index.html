@@ -1,696 +1,319 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-auth-pending>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark light">
   <title>चैतन्य / Codex Map Beta</title>
   <script>
-    document.documentElement.dataset.authPending = "";
-    fetch("/api/consciousness-private", {
-      credentials: "same-origin",
-      cache: "no-store"
-    }).then(response => {
-      if (!response.ok) {
-        window.location.replace("/consciousness/");
-        return;
-      }
-      delete document.documentElement.dataset.authPending;
-    }).catch(() => window.location.replace("/consciousness/"));
+    const localPreview = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+    window.__codexPrivatePromise = localPreview
+      ? Promise.resolve({ ok:true, payload:null })
+      : fetch("/api/consciousness-private", {
+          credentials:"same-origin",
+          cache:"no-store"
+        }).then(async response => {
+          if (!response.ok) {
+            location.replace("/consciousness/");
+            throw new Error("Private layer unavailable");
+          }
+          return response.json();
+        }).catch(error => {
+          if (!location.pathname.startsWith("/consciousness")) location.replace("/consciousness/");
+          throw error;
+        });
   </script>
   <style>
-    html[data-auth-pending] body { visibility: hidden; }
     :root {
-      --paper: #f2f2ef;
-      --ink: #111214;
-      --muted: #65686e;
-      --faint: rgba(17, 18, 20, .11);
-      --mesh: rgba(17, 18, 20, .2);
-      --mesh-strong: rgba(27, 105, 75, .42);
-      --region-fill: rgba(49, 87, 168, .025);
-      --panel: rgba(242, 242, 239, .91);
-      --violet: #613cff;
-      --blue: #3157a8;
-      --green: #2f6b50;
-      --signal: #1b694b;
-      --selected: #14613f;
-      --line: rgba(17, 18, 20, .2);
-      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      --mono: "IBM Plex Mono", "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+      --paper:#f1f1ed;
+      --ink:#111315;
+      --muted:#666b6c;
+      --hair:rgba(17,19,21,.16);
+      --panel:rgba(241,241,237,.82);
+      --signal:#22b86a;
+      --signal-hot:#8cffb7;
+      --mono:"IBM Plex Mono","Cascadia Mono","SFMono-Regular",Consolas,monospace;
+      --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
     }
-
     :root[data-theme="dark"] {
-      --paper: #070809;
-      --ink: #eceeea;
-      --muted: #8d9198;
-      --faint: rgba(236, 238, 234, .075);
-      --mesh: rgba(208, 216, 231, .13);
-      --mesh-strong: rgba(82, 180, 132, .45);
-      --region-fill: rgba(80, 101, 154, .028);
-      --panel: rgba(7, 8, 9, .88);
-      --violet: #846eff;
-      --blue: #7191db;
-      --green: #5f9978;
-      --signal: #59b784;
-      --selected: #7ddca8;
-      --line: rgba(236, 238, 234, .18);
+      --paper:#060708;
+      --ink:#eef0eb;
+      --muted:#858c8d;
+      --hair:rgba(238,240,235,.14);
+      --panel:rgba(6,7,8,.78);
+      --signal:#36df80;
+      --signal-hot:#a3ffc3;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
+    * { box-sizing:border-box; }
+    html,body { width:100%; height:100%; margin:0; overflow:hidden; }
+    html[data-auth-pending] body { visibility:hidden; }
     body {
-      width: 100%;
-      min-height: 100%;
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
+      background:var(--paper);
+      color:var(--ink);
+      font-family:var(--sans);
+      transition:background-color .24s ease,color .24s ease;
     }
-
-    body {
-      min-height: 100svh;
-      overflow: hidden;
-      font-family: var(--sans);
-      transition: background-color .25s ease, color .25s ease;
+    button,a { color:inherit; font:inherit; }
+    .brain-shell { position:relative; width:100%; height:100svh; isolation:isolate; overflow:hidden; }
+    .brain-header {
+      position:absolute;
+      z-index:100;
+      top:0;
+      left:0;
+      right:0;
+      height:62px;
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      padding:0 clamp(18px,3vw,48px);
+      pointer-events:none;
     }
-
-    button {
-      color: inherit;
-      font: inherit;
+    .brain-brand {
+      margin:0;
+      font:500 11px/1 var(--mono);
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      pointer-events:auto;
     }
-
-    .preview-shell {
-      height: 100svh;
-      display: grid;
-      grid-template-rows: 58px minmax(0, 1fr);
+    .mode-link,.theme-toggle {
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      padding:0;
+      border:0;
+      background:none;
+      cursor:pointer;
+      pointer-events:auto;
+      text-decoration:none;
     }
-
-    .preview-header {
-      position: relative;
-      z-index: 10;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      padding: 0 clamp(18px, 3.2vw, 48px);
-      border-bottom: 1px solid var(--faint);
-      background: color-mix(in srgb, var(--paper) 88%, transparent);
-      backdrop-filter: blur(14px);
+    .mode-link { justify-self:center; }
+    .mode-link::before,.theme-toggle::before {
+      content:"";
+      width:20px;
+      height:20px;
+      border:2px solid var(--ink);
+      border-radius:50%;
+      transition:transform .18s ease,background-color .2s ease,box-shadow .2s ease;
     }
-
-    .preview-brand {
-      margin: 0;
-      font: 500 12px/1 var(--mono);
-      letter-spacing: .17em;
-      text-transform: uppercase;
-    }
-
-    .preview-meta {
-      margin: 0;
-      color: var(--muted);
-      font: 400 10px/1 var(--mono);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .mode-toggle {
-      display: grid;
-      place-items: center;
-      width: 46px;
-      height: 44px;
-      text-decoration: none;
-    }
-
-    .mode-track {
-      position: relative;
-      width: 46px;
-      height: 26px;
-      border: 1px solid var(--ink);
-      border-radius: 999px;
-      background: var(--ink);
-    }
-
-    .mode-track::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: 3px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--paper);
-      transform: translateY(-50%);
-      transition: background-color .2s ease;
-    }
-
-    .mode-toggle:hover .mode-track::after,
-    .mode-toggle:focus-visible .mode-track::after {
-      background: var(--violet);
-    }
-
-    .mode-toggle:focus-visible {
-      outline: 1px solid var(--signal);
-      outline-offset: 3px;
-    }
-
-    .theme-toggle {
-      justify-self: end;
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .theme-toggle::before {
-      content: "";
-      width: 19px;
-      height: 19px;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: transparent;
-      transition: background-color .2s ease, transform .2s ease;
-    }
-
+    .mode-link::before { box-shadow:inset 0 0 0 5px var(--paper); background:var(--ink); }
+    .theme-toggle { justify-self:end; }
     :root[data-theme="dark"] .theme-toggle::before {
-      background: var(--ink);
-      box-shadow: inset 7px 0 0 var(--paper);
+      background:var(--ink);
+      box-shadow:inset 7px 0 0 var(--paper);
     }
-
-    .theme-toggle:hover::before,
-    .theme-toggle:focus-visible::before {
-      transform: scale(1.15);
+    .mode-link:hover::before,.theme-toggle:hover::before,
+    .mode-link:focus-visible::before,.theme-toggle:focus-visible::before { transform:scale(1.14); }
+    .mode-link:focus-visible,.theme-toggle:focus-visible { outline:1px solid var(--signal); outline-offset:-3px; }
+    .brain-stage { position:absolute; inset:0; overflow:hidden; background:var(--paper); }
+    .brain-stage::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:3;
+      pointer-events:none;
+      background:radial-gradient(ellipse at 50% 49%,transparent 12%,color-mix(in srgb,var(--paper) 5%,transparent) 60%,color-mix(in srgb,var(--paper) 30%,transparent));
     }
-
-    .theme-toggle:focus-visible {
-      outline: 1px solid var(--signal);
-      outline-offset: -4px;
-    }
-
-    .brain-stage {
-      position: relative;
-      min-height: 0;
-      overflow: hidden;
-      isolation: isolate;
-      background: var(--paper);
-    }
-
-    .brain-stage::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(ellipse at 50% 48%, transparent 0 31%, color-mix(in srgb, var(--paper) 82%, transparent) 76%);
-      opacity: .54;
-      pointer-events: none;
-    }
-
     .brain-canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 0;
-      overflow: visible;
-      transform-origin: 50% 50%;
-      transform:
-        perspective(1100px)
-        rotateX(var(--tilt-x, 0deg))
-        rotateY(var(--tilt-y, 0deg))
-        scale(1.055);
-      transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+      position:absolute;
+      z-index:1;
+      inset:0;
+      display:block;
+      width:100%;
+      height:100%;
+      touch-action:none;
+      cursor:grab;
     }
-
-    .brain-region {
-      fill: var(--region-fill);
-      stroke: var(--mesh-strong);
-      stroke-width: 1.1;
-      vector-effect: non-scaling-stroke;
-      transition: fill .2s ease, stroke .2s ease, opacity .2s ease;
+    .brain-canvas:active { cursor:grabbing; }
+    .marker-layer { position:absolute; z-index:4; inset:0; pointer-events:none; }
+    .brain-marker {
+      position:absolute;
+      left:0;
+      top:0;
+      width:12px;
+      height:12px;
+      margin:-6px 0 0 -6px;
+      padding:0;
+      border:0;
+      background:none;
+      pointer-events:auto;
+      cursor:pointer;
+      transform-origin:center;
+      transition:opacity .12s linear;
     }
-
-    .brain-region[data-region="limbic"],
-    .brain-region[data-region="insula"] {
-      stroke: var(--violet);
-      stroke-opacity: .58;
+    .brain-marker i {
+      position:absolute;
+      inset:3px;
+      display:block;
+      border:1px solid color-mix(in srgb,var(--ink) 56%,transparent);
+      background:var(--paper);
+      transform:rotate(45deg);
+      transition:transform .16s ease,background-color .16s ease,box-shadow .16s ease;
     }
-
-    .brain-region[data-region="brainstem"],
-    .brain-region[data-region="cerebellum"] {
-      stroke: var(--green);
-      stroke-opacity: .62;
+    .brain-marker span {
+      position:absolute;
+      left:13px;
+      top:50%;
+      width:max-content;
+      max-width:150px;
+      overflow:hidden;
+      color:var(--muted);
+      font:500 8px/1 var(--mono);
+      letter-spacing:.09em;
+      text-overflow:ellipsis;
+      text-transform:uppercase;
+      white-space:nowrap;
+      opacity:.18;
+      transform:translateY(-50%);
+      transition:opacity .16s ease,color .16s ease;
     }
-
-    .mesh-line {
-      fill: none;
-      stroke: var(--mesh);
-      stroke-width: .75;
-      vector-effect: non-scaling-stroke;
+    .brain-marker:hover i,.brain-marker:focus-visible i,.brain-marker.is-active i {
+      background:var(--ink);
+      transform:rotate(45deg) scale(1.55);
     }
-
-    .mesh-link {
-      fill: none;
-      stroke: var(--mesh-strong);
-      stroke-width: .65;
-      stroke-opacity: .36;
-      vector-effect: non-scaling-stroke;
+    .brain-marker:hover span,.brain-marker:focus-visible span,.brain-marker.is-active span { opacity:1; color:var(--ink); }
+    .brain-marker:focus-visible { outline:0; }
+    .brain-marker.is-private i {
+      border-color:var(--signal-hot);
+      background:var(--signal);
+      box-shadow:0 0 8px var(--signal),0 0 22px color-mix(in srgb,var(--signal) 72%,transparent),0 0 42px color-mix(in srgb,var(--signal) 36%,transparent);
     }
-
-    .signal-line {
-      fill: none;
-      stroke: var(--mesh);
-      stroke-width: .7;
-      stroke-opacity: .38;
-      vector-effect: non-scaling-stroke;
+    .brain-marker.is-private span { color:var(--signal-hot); opacity:.72; text-shadow:0 0 12px var(--signal); }
+    .brain-detail {
+      position:absolute;
+      z-index:8;
+      left:clamp(18px,3vw,48px);
+      bottom:clamp(18px,3vw,42px);
+      width:min(410px,calc(100vw - 36px));
+      padding:14px 16px 16px;
+      border-top:1px solid var(--hair);
+      background:linear-gradient(90deg,var(--panel),transparent);
+      backdrop-filter:blur(10px);
+      pointer-events:none;
     }
-
-    .signal-line.is-live {
-      stroke: var(--signal);
-      stroke-opacity: .72;
-      stroke-dasharray: 4 12 58 18;
-      animation: signal-travel 10s linear infinite;
+    .detail-meta,.detail-summary,.brain-mark { font-family:var(--mono); }
+    .detail-meta { margin:0 0 8px; color:var(--signal); font-size:8px; letter-spacing:.14em; text-transform:uppercase; }
+    .detail-title { margin:0 0 8px; font:500 clamp(22px,3vw,38px)/.95 var(--mono); letter-spacing:-.06em; text-transform:uppercase; }
+    .detail-summary { margin:0; max-width:58ch; color:var(--muted); font-size:10px; line-height:1.55; }
+    .brain-mark {
+      position:absolute;
+      z-index:8;
+      right:clamp(18px,3vw,48px);
+      bottom:clamp(18px,3vw,42px);
+      margin:0;
+      color:var(--muted);
+      font-size:8px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      writing-mode:vertical-rl;
     }
-
-    .brain-node {
-      fill: var(--paper);
-      stroke: var(--signal);
-      stroke-width: 1.6;
-      vector-effect: non-scaling-stroke;
-      cursor: pointer;
-      transition:
-        fill .15s ease,
-        stroke .15s ease,
-        opacity .15s ease,
-        filter .15s ease;
+    .brain-fallback {
+      position:absolute;
+      z-index:20;
+      inset:0;
+      display:none;
+      place-items:center;
+      padding:30px;
+      color:var(--muted);
+      font:10px/1.6 var(--mono);
+      text-align:center;
     }
-
-    .brain-node[data-region="limbic"],
-    .brain-node[data-region="insula"] {
-      stroke: var(--violet);
+    .brain-fallback.visible { display:grid; }
+    @media (max-width:760px) {
+      .brain-header { height:54px; padding-inline:14px; }
+      .brain-brand { font-size:8px; }
+      .brain-detail { left:12px; right:12px; bottom:12px; width:auto; padding:11px 12px 13px; }
+      .detail-title { font-size:22px; }
+      .detail-summary { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+      .brain-mark { display:none; }
+      .brain-marker span { max-width:92px; font-size:7px; opacity:.1; }
+      .brain-marker.is-private span { opacity:.66; }
     }
-
-    .brain-node[data-region="brainstem"],
-    .brain-node[data-region="cerebellum"] {
-      stroke: var(--green);
-    }
-
-    .brain-node:hover,
-    .brain-node:focus-visible,
-    .brain-node.is-active {
-      fill: var(--ink);
-      stroke: var(--selected);
-      stroke-width: 2.8;
-      filter: drop-shadow(0 0 7px color-mix(in srgb, var(--selected) 76%, transparent));
-      outline: none;
-    }
-
-    .brain-label {
-      fill: var(--muted);
-      font: 500 9px/1 var(--mono);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      paint-order: stroke;
-      stroke: var(--paper);
-      stroke-width: 5px;
-      stroke-linejoin: bevel;
-      pointer-events: none;
-      transition: fill .2s ease, stroke .2s ease;
-    }
-
-    .node-detail {
-      position: absolute;
-      z-index: 8;
-      left: clamp(18px, 3.2vw, 48px);
-      bottom: clamp(18px, 3.2vw, 42px);
-      width: min(420px, calc(100vw - 36px));
-      padding: 18px 20px 20px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      backdrop-filter: blur(16px);
-      transition: background-color .2s ease, border-color .2s ease;
-    }
-
-    .detail-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 12px;
-      color: var(--muted);
-      font: 500 9px/1 var(--mono);
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .detail-meta span + span::before {
-      content: "/";
-      margin-right: 8px;
-      color: var(--line);
-    }
-
-    .detail-title {
-      margin: 0 0 10px;
-      font: 500 clamp(24px, 3vw, 38px)/.95 var(--mono);
-      letter-spacing: -.075em;
-      text-transform: uppercase;
-    }
-
-    .detail-summary {
-      max-width: 54ch;
-      margin: 0;
-      color: var(--muted);
-      font: 400 12px/1.55 var(--mono);
-    }
-
-    .detail-why {
-      margin: 16px 0 0;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      color: var(--ink);
-      font: 500 10px/1.5 var(--mono);
-    }
-
-    .preview-mark {
-      position: absolute;
-      z-index: 5;
-      right: clamp(18px, 3.2vw, 48px);
-      bottom: clamp(18px, 3.2vw, 42px);
-      margin: 0;
-      color: var(--muted);
-      font: 500 9px/1 var(--mono);
-      letter-spacing: .11em;
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-    }
-
-    @keyframes signal-travel {
-      to {
-        stroke-dashoffset: -190;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .preview-header {
-        grid-template-columns: 1fr auto;
-        padding-inline: 14px;
-      }
-
-      .preview-meta {
-        display: none;
-      }
-
-      .brain-canvas {
-        transform:
-          perspective(900px)
-          rotateX(var(--tilt-x, 0deg))
-          rotateY(var(--tilt-y, 0deg))
-          scale(1.22);
-      }
-
-      .brain-label {
-        font-size: 7px;
-      }
-
-      .node-detail {
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-        width: auto;
-        padding: 14px 15px 16px;
-      }
-
-      .detail-title {
-        font-size: 24px;
-      }
-
-      .detail-summary {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-      }
-
-      .detail-why {
-        margin-top: 11px;
-        padding-top: 9px;
-      }
-
-      .preview-mark {
-        display: none;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition-duration: .01ms !important;
-      }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation:none!important; transition-duration:.01ms!important; }
     }
   </style>
 </head>
 <body>
-  <main class="preview-shell">
-    <header class="preview-header">
-      <p class="preview-brand"><span lang="hi">चैतन्य</span> / Codex Map <sup>β</sup></p>
-      <a class="mode-toggle" href="../consciousness/" role="switch" aria-checked="true" aria-label="Switch to the primary consciousness map">
-        <span class="mode-track" aria-hidden="true"></span>
-      </a>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"></button>
+  <main class="brain-shell">
+    <header class="brain-header">
+      <p class="brain-brand"><span lang="hi">चैतन्य</span> / Codex Map <sup>β</sup></p>
+      <a class="mode-link" href="../consciousness/" aria-label="Return to Cloud Consciousness"></a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode"></button>
     </header>
-
-    <section class="brain-stage" id="brain-stage" aria-label="Interactive artistic brain association preview">
-      <svg class="brain-canvas" id="brain-canvas" viewBox="0 0 1000 650" preserveAspectRatio="xMidYMid meet"></svg>
-
-      <aside class="node-detail" aria-live="polite">
-        <p class="detail-meta">
-          <span id="detail-type">Belief</span>
-          <span id="detail-region">Prefrontal drawer</span>
-        </p>
+    <section class="brain-stage" id="brain-stage" aria-label="Interactive artistic brain association">
+      <canvas class="brain-canvas" id="brain-canvas"></canvas>
+      <div class="marker-layer" id="marker-layer"></div>
+      <aside class="brain-detail" aria-live="polite">
+        <p class="detail-meta" id="detail-meta">Belief / associative drawer</p>
         <h1 class="detail-title" id="detail-title">Agency</h1>
         <p class="detail-summary" id="detail-summary"></p>
-        <p class="detail-why" id="detail-why"></p>
       </aside>
-
-      <p class="preview-mark">Artistic association / v1</p>
+      <p class="brain-mark">Associative layer / not anatomy</p>
+      <p class="brain-fallback" id="brain-fallback">This layer needs WebGL.</p>
     </section>
   </main>
-
   <script type="module">
     import { publicNodes, typeMeta } from "../consciousness/graph-data.js";
-    import { prepare, layout } from "../consciousness/pretext.js";
-    import { REGIONS } from "../consciousness/brain/brain-regions.js";
     import { NODE_REGION } from "../consciousness/brain/brain-mapping.js";
-    import { renderBrain } from "../consciousness/brain/brain-view.js";
+    import { REGIONS } from "../consciousness/brain/brain-regions.js";
+    import { mountBrainNet } from "./brain-net.js";
 
-    const svg = document.querySelector("#brain-canvas");
-    const stage = document.querySelector("#brain-stage");
+    const auth = await window.__codexPrivatePromise;
+    delete document.documentElement.dataset.authPending;
+    const privatePayload = auth?.payload;
+    const privateNodes = Array.isArray(privatePayload?.nodes) ? privatePayload.nodes : [];
+    const nodes = [
+      ...publicNodes.filter(node => !node.id.startsWith("locked-")),
+      ...privateNodes
+    ];
+    const nodeById = new Map(nodes.map(node => [node.id, node]));
+    const regionById = new Map(REGIONS.map(region => [region.id, region]));
     const themeToggle = document.querySelector("#theme-toggle");
-    const detailType = document.querySelector("#detail-type");
-    const detailRegion = document.querySelector("#detail-region");
+    const detailMeta = document.querySelector("#detail-meta");
     const detailTitle = document.querySelector("#detail-title");
     const detailSummary = document.querySelector("#detail-summary");
-    const detailWhy = document.querySelector("#detail-why");
-    const publicOnly = publicNodes.filter(node => !node.id.startsWith("locked-"));
-    const nodeById = new Map(publicOnly.map(node => [node.id, node]));
-    const regionById = new Map(REGIONS.map(region => [region.id, region]));
-    const outerRegionIds = new Set(["prefrontal", "motor", "parietal", "occipital", "temporal", "cerebellum", "brainstem"]);
-    const labelFixes = new Map([
-      ["fallout", "FALLØUT"],
-      ["aham-brahmasmi", "AHAM BRAHMASMI"],
-      ["klangkuenstler", "KLANGKÜNSTLER"]
-    ]);
-    let detailHandle = null;
 
-    function cleanText(value = "") {
-      return String(value)
-        .replaceAll("â€”", "—")
-        .replaceAll("â€“", "–")
-        .replaceAll("â€œ", "“")
-        .replaceAll("â€", "”")
-        .replaceAll("â€˜", "‘")
-        .replaceAll("â€™", "’")
-        .replaceAll("â‰ ", "≠")
-        .replaceAll("â†’", "→")
-        .replaceAll("Â·", "·")
-        .replaceAll("Ã˜", "Ø")
-        .replaceAll("Ãœ", "Ü")
-        .replaceAll("TATHÄ€GATAGARBHA", "TATHĀGATAGARBHA")
-        .replaceAll("TathÄgatagarbha", "Tathāgatagarbha");
-    }
-
-    function stableHash(value) {
-      let hash = 2166136261;
-      for (let index = 0; index < value.length; index += 1) {
-        hash ^= value.charCodeAt(index);
-        hash = Math.imul(hash, 16777619);
-      }
-      return hash >>> 0;
-    }
-
-    function svgElement(name, attributes = {}) {
-      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
-      for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, value);
-      return element;
-    }
-
-    function buildSignalField() {
-      const defs = svgElement("defs");
-      const clipPath = svgElement("clipPath", { id: "brain-silhouette" });
-      REGIONS
-        .filter(region => outerRegionIds.has(region.id))
-        .forEach(region => clipPath.append(svgElement("path", { d: region.path })));
-      defs.append(clipPath);
-
-      const signals = svgElement("g", { "aria-hidden": "true" });
-      for (let row = 0; row < 14; row += 1) {
-        const y = 72 + row * 39;
-        const bend = (stableHash(`signal-${row}`) % 38) - 19;
-        const path = [
-          `M -80 ${y}`,
-          `L 125 ${y + bend * .25}`,
-          `L 310 ${y - bend * .55}`,
-          `L 505 ${y + bend}`,
-          `L 720 ${y - bend * .35}`,
-          `L 1080 ${y + bend * .2}`
-        ].join(" ");
-        signals.append(svgElement("path", {
-          d: path,
-          class: `signal-line${row % 3 === 1 ? " is-live" : ""}`
-        }));
-      }
-
-      const mesh = svgElement("g", {
-        "clip-path": "url(#brain-silhouette)",
-        "aria-hidden": "true"
-      });
-      const columns = 34;
-      const rows = 22;
-      const points = [];
-      for (let row = 0; row < rows; row += 1) {
-        const line = [];
-        for (let column = 0; column < columns; column += 1) {
-          const seed = stableHash(`${column}:${row}`);
-          line.push({
-            x: 90 + column * 25 + (seed % 17) - 8,
-            y: 70 + row * 24 + ((seed >>> 8) % 17) - 8
-          });
-        }
-        points.push(line);
-      }
-
-      for (let row = 0; row < rows; row += 1) {
-        for (let column = 0; column < columns; column += 1) {
-          const point = points[row][column];
-          const targets = [
-            points[row]?.[column + 1],
-            points[row + 1]?.[column],
-            (row + column) % 2 === 0 ? points[row + 1]?.[column + 1] : points[row + 1]?.[column - 1]
-          ].filter(Boolean);
-          for (const target of targets) {
-            mesh.append(svgElement("path", {
-              d: `M ${point.x} ${point.y} L ${target.x} ${target.y}`,
-              class: "mesh-line"
-            }));
-          }
-        }
-      }
-
-      const nodeConnections = svgElement("g", { "aria-hidden": "true" });
-      const circles = [...svg.querySelectorAll(".brain-node")];
-      circles.forEach((circle, index) => {
-        const fromX = Number(circle.getAttribute("cx"));
-        const fromY = Number(circle.getAttribute("cy"));
-        const target = circles[(index + 7) % circles.length];
-        const toX = Number(target.getAttribute("cx"));
-        const toY = Number(target.getAttribute("cy"));
-        const controlX = (fromX + toX) / 2 + ((stableHash(circle.dataset.nodeId) % 41) - 20);
-        const controlY = (fromY + toY) / 2 - 18;
-        nodeConnections.append(svgElement("path", {
-          d: `M ${fromX} ${fromY} Q ${controlX} ${controlY} ${toX} ${toY}`,
-          class: "mesh-link"
-        }));
-      });
-
-      svg.prepend(defs, signals);
-      const firstNode = svg.querySelector(".brain-node");
-      svg.insertBefore(mesh, firstNode);
-      svg.insertBefore(nodeConnections, firstNode);
-    }
-
-    function relayoutDetail() {
-      if (!detailHandle || detailSummary.clientWidth < 1) return;
-      const styles = getComputedStyle(detailSummary);
-      const lineHeight = Number.parseFloat(styles.lineHeight);
-      const result = layout(detailHandle, detailSummary.clientWidth, lineHeight);
-      detailSummary.style.minHeight = `${Math.ceil(result.height)}px`;
+    function setTheme(theme) {
+      const next = theme === "light" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      themeToggle.setAttribute("aria-label", `Switch to ${next === "dark" ? "light" : "dark"} mode`);
+      try { localStorage.setItem("consciousness-brain-theme", next); } catch {}
+      renderer?.redraw();
     }
 
     function selectNode(nodeId) {
       const node = nodeById.get(nodeId);
+      if (!node) return;
+      document.querySelectorAll(".brain-marker").forEach(marker => {
+        marker.classList.toggle("is-active", marker.dataset.nodeId === nodeId);
+      });
       const mapping = NODE_REGION[nodeId];
       const region = regionById.get(mapping?.region);
-      if (!node || !mapping || !region) return;
-
-      svg.querySelectorAll(".brain-node").forEach(element => {
-        element.classList.toggle("is-active", element.dataset.nodeId === nodeId);
-      });
-
-      detailType.textContent = typeMeta[node.type]?.label || node.type;
-      detailRegion.textContent = `${region.label} drawer`;
-      detailTitle.textContent = labelFixes.get(node.id) || cleanText(node.label);
-      detailSummary.textContent = cleanText(node.summary);
-      detailWhy.textContent = mapping.why;
-      detailHandle = prepare(detailSummary.textContent, getComputedStyle(detailSummary).font);
-      relayoutDetail();
-    }
-
-    function setTheme(theme) {
-      const nextTheme = theme === "light" ? "light" : "dark";
-      document.documentElement.dataset.theme = nextTheme;
-      themeToggle.setAttribute("aria-pressed", String(nextTheme === "dark"));
-      themeToggle.setAttribute("aria-label", `Switch to ${nextTheme === "dark" ? "light" : "dark"} mode`);
-      try {
-        localStorage.setItem("consciousness-brain-preview-theme", nextTheme);
-      } catch {
-        // Theme persistence is optional.
-      }
+      detailMeta.textContent = `${typeMeta[node.type]?.label || node.type} / ${region?.label || "unfiled"} drawer`;
+      detailTitle.textContent = node.label;
+      detailSummary.textContent = node.summary || "";
     }
 
     let savedTheme = "dark";
-    try {
-      savedTheme = localStorage.getItem("consciousness-brain-preview-theme") || "dark";
-    } catch {
-      savedTheme = "dark";
-    }
+    try { savedTheme = localStorage.getItem("consciousness-brain-theme") || "dark"; } catch {}
+    let renderer = null;
     setTheme(savedTheme);
-
     themeToggle.addEventListener("click", () => {
       setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
     });
 
-    renderBrain(svg, { nodes: publicOnly, onSelect: selectNode });
-    buildSignalField();
-
-    await document.fonts.ready;
-    selectNode("agency");
-    new ResizeObserver(relayoutDetail).observe(detailSummary);
-
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      stage.addEventListener("pointermove", event => {
-        const bounds = stage.getBoundingClientRect();
-        const x = (event.clientX - bounds.left) / bounds.width - .5;
-        const y = (event.clientY - bounds.top) / bounds.height - .5;
-        svg.style.setProperty("--tilt-x", `${(-y * 3.2).toFixed(2)}deg`);
-        svg.style.setProperty("--tilt-y", `${(x * 4.8).toFixed(2)}deg`);
+    try {
+      renderer = mountBrainNet(document.querySelector("#brain-canvas"), {
+        nodes,
+        markerLayer:document.querySelector("#marker-layer"),
+        onSelect:selectNode,
+        isPrivate:node => node.privacy !== "public"
       });
-      stage.addEventListener("pointerleave", () => {
-        svg.style.setProperty("--tilt-x", "0deg");
-        svg.style.setProperty("--tilt-y", "0deg");
-      });
+      selectNode(nodes.find(node => node.id === "agency")?.id || nodes[0]?.id);
+    } catch (error) {
+      console.error(error);
+      document.querySelector("#brain-fallback").classList.add("visible");
     }
   </script>
 </body>
