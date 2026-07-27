@@ -39,5 +39,25 @@ assert.doesNotMatch(
   /id=["']depth-(?:back|forward)["']/,
   "Retired Z controls must not be present in the current shell."
 );
+assert.match(
+  source,
+  /setBrainMode\(!brainMode\)/,
+  "The central switch must rearrange the current map in place."
+);
+assert.doesNotMatch(
+  source,
+  /openPrivateDialog\(["']codexmap["']\)/,
+  "The artistic head index must not be behind the private password."
+);
+assert.doesNotMatch(
+  source,
+  /public model does not have enough evidence/i,
+  "The public mirror must not answer every ordinary message with the old canned refusal."
+);
+assert.match(
+  source,
+  /you found the part that talks/,
+  "The public mirror needs a conversational greeting path."
+);
 
 console.log("consciousness regression checks passed");

@@ -1097,7 +1097,15 @@ if (transitionMusic) {
   transitionMusic.loop = true;
   transitionMusic.preload = "auto";
   transitionMusic.playsInline = true;
+  transitionMusic.volume = 0;
   transitionMusic.load();
+}
+
+function primeTransitionMusic() {
+  if (!transitionMusic || !soundWanted || !transitionMusic.paused) return;
+  transitionMusic.play().catch(() => {
+    // The actual transition click gets a second user-activation attempt.
+  });
 }
 
 function tryPlayAmbient() {
@@ -1125,6 +1133,9 @@ soundToggle?.addEventListener("click", () => {
 window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
 window.addEventListener("keydown", tryPlayAmbient, { once:true });
 window.addEventListener("touchstart", tryPlayAmbient, { once:true, passive:true });
+window.addEventListener("pointerdown", primeTransitionMusic, { once:true });
+window.addEventListener("keydown", primeTransitionMusic, { once:true });
+window.addEventListener("touchstart", primeTransitionMusic, { once:true, passive:true });
 
 // ---------------------------------------------------------------------------
 // Audio crossfade: track 1 (landing) → track 2 (consciousness).
@@ -1133,6 +1144,27 @@ window.addEventListener("touchstart", tryPlayAmbient, { once:true, passive:true 
 // ---------------------------------------------------------------------------
 async function crossfadeToTrack2() {
   if (!bgMusic || !soundWanted) return;
+  if (transitionMusic) {
+    try {
+      if (transitionMusic.paused) await transitionMusic.play();
+      const outgoing = bgMusic;
+      bgMusic = transitionMusic;
+      document.body.classList.add("sound-on");
+      soundToggle?.setAttribute("aria-pressed", "true");
+      const started = performance.now();
+      const fade = now => {
+        const progress = Math.min(1, (now - started) / 900);
+        bgMusic.volume = progress * .5;
+        outgoing.volume = (1 - progress) * .5;
+        if (progress < 1) requestAnimationFrame(fade);
+        else outgoing.pause();
+      };
+      requestAnimationFrame(fade);
+      return;
+    } catch {
+      // Fall through to reusing the current, already-authorized audio element.
+    }
+  }
   const player = bgMusic;
   player.pause();
   player.src = "/assets/smoke-state-2.mp3";
@@ -1280,6 +1312,103 @@ const probeQuestions = [
 ];
 let questionEngineMode = false;
 let activeProbeQuestion = null;
+let publicMirrorTurns = 0;
+let mirrorReplyPending = false;
+
+const MIRROR_STOP_WORDS = new Set([
+  "a","about","am","an","and","are","as","at","be","because","but","can","chay",
+  "did","do","does","for","from","had","has","have","he","his","how","i","if",
+  "in","is","it","like","me","of","on","or","so","that","the","this","to","was",
+  "what","when","where","which","who","why","with","would","you","your"
+]);
+
+function mirrorTerms(value) {
+  return value.toLowerCase()
+    .normalize("NFKD")
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+    .split(/\s+/)
+    .filter(term => term.length > 2 && !MIRROR_STOP_WORDS.has(term));
+}
+
+function rankMirrorNodes(question) {
+  const lower = question.toLowerCase();
+  const terms = mirrorTerms(question);
+  return publicNodes
+    .filter(node => node.privacy !== "locked")
+    .map(node => {
+      const label = node.label.toLowerCase();
+      const haystack = `${node.label} ${node.type} ${node.summary} ${node.status}`.toLowerCase();
+      let score = lower.includes(label) && label.length > 3 ? 18 : 0;
+      for (const term of terms) {
+        if (label.includes(term)) score += 8;
+        else if (haystack.includes(term)) score += 2;
+      }
+      return { node, score };
+    })
+    .filter(entry => entry.score > 0)
+    .sort((a, b) => b.score - a.score || b.node.r - a.node.r)
+    .slice(0, 3);
+}
+
+function lowerFirst(value) {
+  return value ? value.charAt(0).toLowerCase() + value.slice(1) : value;
+}
+
+function conciseSummary(value, limit = 240) {
+  const clean = value.replace(/\s+/g, " ").trim();
+  if (clean.length <= limit) return clean;
+  const clipped = clean.slice(0, limit);
+  return `${clipped.slice(0, clipped.lastIndexOf(" "))}…`;
+}
+
+function buildMirrorReply(question) {
+  const lower = question.toLowerCase().trim();
+  if (/^(hi|hey|hello|yo|sup|hola|namaste|wassup|what'?s up)[.!?\s]*$/.test(lower)) {
+    return { text:"yeah, hi. you found the part that talks. ask something with teeth.", nodes:[] };
+  }
+  if (/\bhow are you\b|\byou good\b/.test(lower)) {
+    return { text:"made of rectangles and unresolved arguments. thriving, obviously.", nodes:[] };
+  }
+  if (/\bwho are you\b|\bwhat are you\b/.test(lower)) {
+    return { text:"a public cut of chay’s map. not his soul, not a therapist, and definitely not customer support.", nodes:["consciousness"] };
+  }
+  if (/\bthank(s| you)\b/.test(lower)) {
+    return { text:"terrifying amount of manners for a conversation with a graph, but sure.", nodes:[] };
+  }
+  if (/\b(wtf|what the fuck|fuck you)\b/.test(lower)) {
+    return { text:"fair. try an actual question and i’ll try an actual answer.", nodes:[] };
+  }
+
+  const ranked = rankMirrorNodes(question);
+  if (!ranked.length) {
+    return {
+      text:"that’s fog, not a thread i can grab. try ambition, control, love, god, work, music—or why he keeps building mirrors.",
+      nodes:[]
+    };
+  }
+
+  const primary = ranked[0].node;
+  const secondary = ranked[1]?.node;
+  let text;
+  if (lower.startsWith("why") || /\bwhy\b/.test(lower)) {
+    text = `because ${lowerFirst(conciseSummary(primary.summary))}`;
+  } else if (/\bdo you think\b|\bdoes chay think\b|\bbelieve\b|\bview\b/.test(lower)) {
+    text = `he keeps circling this: ${lowerFirst(conciseSummary(primary.summary))}`;
+  } else {
+    text = `${primary.label}? ${conciseSummary(primary.summary)}`;
+  }
+  if (secondary && secondary.id !== primary.id) {
+    text += ` the annoying complication is ${lowerFirst(conciseSummary(secondary.summary, 150))}`;
+  }
+  return { text, nodes:ranked.slice(0, 2).map(entry => entry.node.id) };
+}
+
+function endMirrorSession() {
+  const sleep = document.querySelector("#mirror-sleep");
+  if (!sleep) return;
+  sleep.hidden = false;
+  document.querySelector("#ask-input").disabled = true;
+}
 
 function readQuestionDrafts() {
   try { return JSON.parse(localStorage.getItem(questionDraftKey) || "{}"); }
@@ -1343,14 +1472,17 @@ function setQuestionEngineMode(enabled) {
     activeProbeQuestion = null;
     conversation.innerHTML = publicConversationMarkup;
     input.placeholder = "Ask what shaped a belief, pattern or desire…";
+    publicMirrorTurns = 0;
+    const sleep = document.querySelector("#mirror-sleep");
+    if (sleep) sleep.hidden = true;
   }
 }
 
-document.querySelector("#ask-form").addEventListener("submit", event => {
+document.querySelector("#ask-form").addEventListener("submit", async event => {
   event.preventDefault();
   const input = document.querySelector("#ask-input");
   const question = input.value.trim();
-  if (!question) return;
+  if (!question || mirrorReplyPending) return;
   const conversation = document.querySelector("#conversation");
   if (questionEngineMode && activeProbeQuestion) {
     writeQuestionDraft(activeProbeQuestion, question);
@@ -1361,23 +1493,28 @@ document.querySelector("#ask-form").addEventListener("submit", event => {
     conversation.scrollTop = conversation.scrollHeight;
     return;
   }
-  const user = document.createElement("p");
-  user.className = "message user";
-  user.textContent = question;
-  const mirror = document.createElement("p");
-  mirror.className = "message mirror";
-  const lower = question.toLowerCase();
-  mirror.textContent = lower.includes("love") || lower.includes("desire")
-    ? "The current model sees desire as more than attraction. Distance creates an image of who he might become, then he pursues both the person and that possible self. This is a synthesis, not a settled fact."
-    : lower.includes("afraid") || lower.includes("fear")
-      ? "The strongest recurring fear is not simple failure. It is the possibility that failure invalidates the identity built around it. Evidence is mixed because Fallout records decisive action under risk."
-      : "The public model does not have enough evidence to answer that cleanly yet. It can show related threads, but the honest response is an open question rather than a personality verdict.";
-  const evidence = document.createElement("p");
-  evidence.className = "evidence-line";
-  evidence.textContent = "Public synthesis · evidence boundary preserved · private sources withheld";
-  conversation.append(user, mirror, evidence);
+  mirrorReplyPending = true;
+  const submit = event.currentTarget.querySelector("button");
+  submit.disabled = true;
+  appendConversation("message user", question);
+  const mirror = appendConversation("message mirror typing", "thinking");
   input.value = "";
   conversation.scrollTop = conversation.scrollHeight;
+  const reply = buildMirrorReply(question);
+  const delay = Math.min(1050, 260 + reply.text.length * 4);
+  await new Promise(resolve => setTimeout(resolve, delay));
+  mirror.className = "message mirror";
+  mirror.textContent = reply.text;
+  const related = reply.nodes
+    .map(id => nodeById.get(id)?.label || publicNodes.find(node => node.id === id)?.label)
+    .filter(Boolean);
+  appendConversation("evidence-line", related.length ? `related threads / ${related.join(" + ")}` : "public voice / no private inference");
+  publicMirrorTurns += 1;
+  mirrorReplyPending = false;
+  submit.disabled = false;
+  input.focus();
+  conversation.scrollTop = conversation.scrollHeight;
+  if (publicMirrorTurns >= 12) window.setTimeout(endMirrorSession, 900);
 });
 
 window.addEventListener("resize", () => {
