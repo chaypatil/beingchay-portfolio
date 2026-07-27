@@ -1,4 +1,4 @@
-const { createHmac, scryptSync, timingSafeEqual } = require("node:crypto");
+const { scryptSync, timingSafeEqual } = require("node:crypto");
 
 const ALLOWED_ORIGINS = new Set([
   "https://beingchay.com",
@@ -10,27 +10,6 @@ function deny(res, status, message) {
   res.status(status).json({ error: message });
 }
 
-function codexmapToken(configuredHash) {
-  return createHmac("sha256", configuredHash)
-    .update("beingchay-codexmap-access-v1")
-    .digest("base64url");
-}
-
-function readCookie(req, name) {
-  const source = req.headers.cookie || "";
-  for (const part of source.split(";")) {
-    const [key, ...value] = part.trim().split("=");
-    if (key === name) return value.join("=");
-  }
-  return "";
-}
-
-function tokensMatch(actual, expected) {
-  const actualBuffer = Buffer.from(actual);
-  const expectedBuffer = Buffer.from(expected);
-  return actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer);
-}
-
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "private, no-store, max-age=0");
   res.setHeader("Pragma", "no-cache");
@@ -39,21 +18,8 @@ module.exports = async function handler(req, res) {
   const configuredHash = process.env.CONSCIOUSNESS_PRIVATE_PASSWORD_HASH;
   if (!configuredHash) return deny(res, 503, "Private layer unavailable");
 
-  if (req.method === "GET") {
-    const accepted = tokensMatch(readCookie(req, "codexmap_access"), codexmapToken(configuredHash));
-    if (!accepted) return deny(res, 401, "Access denied");
-    const encodedPayload = process.env.CONSCIOUSNESS_PRIVATE_DATA_B64;
-    if (!encodedPayload) return deny(res, 503, "Private layer unavailable");
-    try {
-      const payload = JSON.parse(Buffer.from(encodedPayload, "base64").toString("utf8"));
-      return res.status(200).json({ ok:true, payload });
-    } catch {
-      return deny(res, 503, "Private layer unavailable");
-    }
-  }
-
   if (req.method !== "POST") {
-    res.setHeader("Allow", "GET, POST");
+    res.setHeader("Allow", "POST");
     return deny(res, 405, "Method not allowed");
   }
 
@@ -91,15 +57,6 @@ module.exports = async function handler(req, res) {
     await new Promise(resolve => setTimeout(resolve, 650));
     res.setHeader("Retry-After", "1");
     return deny(res, 401, "Access denied");
-  }
-
-  if (body.intent === "codexmap") {
-    const token = codexmapToken(configuredHash);
-    res.setHeader(
-      "Set-Cookie",
-      `codexmap_access=${token}; Path=/; Max-Age=28800; HttpOnly; Secure; SameSite=Strict`
-    );
-    return res.status(200).json({ ok: true });
   }
 
   try {
