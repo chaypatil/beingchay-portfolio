@@ -161,7 +161,9 @@ export function mountBrainNet(canvas, {
   isPrivate = node => node.privacy !== "public",
   transparent = false,
   interactive = true,
-  autoRotate = true
+  autoRotate = true,
+  interactionTarget = canvas,
+  active = true
 }) {
   const gl = canvas.getContext("webgl", {
     alpha:transparent,
@@ -222,6 +224,8 @@ export function mountBrainNet(canvas, {
   let zoom = 1;
   let pointer = null;
   let lastPaint = 0;
+  let animationFrame = 0;
+  let running = active;
   const compact = matchMedia("(max-width: 760px)").matches;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const frameInterval = compact ? 50 : 33;
@@ -287,8 +291,8 @@ export function mountBrainNet(canvas, {
     const background = transparent
       ? [0, 0, 0, 0]
       : dark ? [0.022, .025, .028, 1] : [.95, .95, .935, 1];
-    const meshColor = dark ? [.43, .47, .53, .25] : [.12, .13, .14, .22];
-    const axonColor = dark ? [.34, .39, .45, .13] : [.17, .18, .19, .12];
+    const meshColor = dark ? [.28, .72, .43, .3] : [.035, .24, .12, .48];
+    const axonColor = dark ? [.18, .56, .31, .18] : [.025, .19, .09, .28];
     gl.clearColor(...background);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);
@@ -296,7 +300,7 @@ export function mountBrainNet(canvas, {
     gl.uniform2f(uniforms.rotation, yaw, pitch);
     gl.uniform1f(uniforms.zoom, zoom);
     gl.uniform1f(uniforms.time, now / 1000);
-    gl.uniform3f(uniforms.pulseColor, .24, 1, .53);
+    gl.uniform3f(uniforms.pulseColor, dark ? .24 : .03, dark ? 1 : .48, dark ? .53 : .2);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
@@ -311,7 +315,7 @@ export function mountBrainNet(canvas, {
     gl.uniform1f(uniforms.signal, 0);
     gl.drawArrays(gl.LINES, 0, signalGeometry.phases.length);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-    gl.uniform4f(uniforms.color, .08, .25, .14, dark ? .08 : .06);
+    gl.uniform4f(uniforms.color, dark ? .08 : .02, dark ? .25 : .18, dark ? .14 : .08, dark ? .08 : .16);
     gl.uniform1f(uniforms.signal, 1);
     gl.drawArrays(gl.LINES, 0, signalGeometry.phases.length);
 
@@ -325,7 +329,8 @@ export function mountBrainNet(canvas, {
   }
 
   function animate(now) {
-    requestAnimationFrame(animate);
+    if (!running) return;
+    animationFrame = requestAnimationFrame(animate);
     if (document.hidden || now - lastPaint < frameInterval) return;
     lastPaint = now;
     if (!pointer && !reducedMotion && autoRotate) yaw += .00045;
@@ -333,12 +338,13 @@ export function mountBrainNet(canvas, {
   }
 
   if (interactive) {
-    canvas.addEventListener("pointerdown", event => {
+    interactionTarget.addEventListener("pointerdown", event => {
+      if (!running || event.target.closest?.(".node")) return;
       if (event.button !== undefined && event.button !== 0) return;
       pointer = { id:event.pointerId, x:event.clientX, y:event.clientY, yaw, pitch };
-      canvas.setPointerCapture?.(event.pointerId);
+      interactionTarget.setPointerCapture?.(event.pointerId);
     });
-    canvas.addEventListener("pointermove", event => {
+    interactionTarget.addEventListener("pointermove", event => {
       if (!pointer || pointer.id !== event.pointerId) return;
       yaw = pointer.yaw + (event.clientX - pointer.x) * .006;
       pitch = Math.max(-.8, Math.min(.8, pointer.pitch + (event.clientY - pointer.y) * .005));
@@ -346,18 +352,36 @@ export function mountBrainNet(canvas, {
     const release = event => {
       if (!pointer || pointer.id !== event.pointerId) return;
       pointer = null;
-      try { canvas.releasePointerCapture?.(event.pointerId); } catch {}
+      try { interactionTarget.releasePointerCapture?.(event.pointerId); } catch {}
     };
-    canvas.addEventListener("pointerup", release);
-    canvas.addEventListener("pointercancel", release);
-    canvas.addEventListener("wheel", event => {
+    interactionTarget.addEventListener("pointerup", release);
+    interactionTarget.addEventListener("pointercancel", release);
+    interactionTarget.addEventListener("wheel", event => {
+      if (!running) return;
       event.preventDefault();
       zoom = Math.max(.72, Math.min(1.65, zoom * Math.exp(-event.deltaY * .001)));
     }, { passive:false });
   }
   addEventListener("resize", resize, { passive:true });
 
-  if (reducedMotion) draw(0);
-  else requestAnimationFrame(animate);
-  return { redraw:() => draw(performance.now()) };
+  if (reducedMotion) {
+    if (running) draw(0);
+  } else if (running) {
+    animationFrame = requestAnimationFrame(animate);
+  }
+  return {
+    redraw:() => draw(performance.now()),
+    setActive(nextActive) {
+      const next = Boolean(nextActive);
+      if (running === next) return;
+      running = next;
+      pointer = null;
+      if (!running) {
+        cancelAnimationFrame(animationFrame);
+        return;
+      }
+      if (reducedMotion) draw(performance.now());
+      else animationFrame = requestAnimationFrame(animate);
+    }
+  };
 }

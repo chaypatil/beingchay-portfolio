@@ -200,8 +200,10 @@ function ensureBrainRenderer() {
       nodes:[],
       markerLayer:null,
       transparent:true,
-      interactive:false,
-      autoRotate:false
+      interactive:true,
+      autoRotate:true,
+      interactionTarget:svg,
+      active:brainMode
     });
   } catch (error) {
     console.info("The head-index backdrop is unavailable; node placement remains usable.", error);
@@ -216,9 +218,9 @@ function setBrainMode(enabled, { updateUrl = true, animate = true } = {}) {
   if (spaceMode) return;
   brainMode = Boolean(enabled);
   if (brainMode) ensureBrainRenderer();
+  brainRenderer?.setActive(brainMode);
   document.body.classList.toggle("brain-mode", brainMode);
   const toggle = document.querySelector("#deep-toggle");
-  toggle?.classList.remove("is-pending");
   toggle?.setAttribute("aria-checked", String(brainMode));
   toggle?.setAttribute("aria-label", brainMode ? "Show the relationship map" : "Show the head index");
 
@@ -615,6 +617,7 @@ function finishNodeDrag(event) {
 }
 
 function beginCanvasDrag(event) {
+  if (brainMode) return;
   if (dragState || canvasDrag) return;
   if (event.button !== undefined && event.button !== 0) return;
   if (event.pointerType === "touch" && touchPointers.size > 1) return;
@@ -660,12 +663,14 @@ function finishCanvasDrag(event) {
 }
 
 function onWheel(event) {
+  if (brainMode) return;
   event.preventDefault();
   const factor = Math.exp(-event.deltaY * 0.0016);
   zoomAt(event.clientX, event.clientY, factor);
 }
 
 function beginTouchGesture(event) {
+  if (brainMode) return;
   if (event.pointerType !== "touch") return;
   touchPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
   if (touchPointers.size !== 2) return;
@@ -678,6 +683,7 @@ function beginTouchGesture(event) {
 }
 
 function moveTouchGesture(event) {
+  if (brainMode) return;
   if (!touchPointers.has(event.pointerId)) return;
   touchPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
   if (!pinchState || touchPointers.size < 2) return;
@@ -813,29 +819,110 @@ const privatePassword = document.querySelector("#private-password");
 const privateError = document.querySelector("#private-error");
 const privateSubmit = document.querySelector("#private-submit");
 const privateNoticeDialog = document.querySelector("#private-notice-dialog");
+const sourceDialog = document.querySelector("#source-dialog");
+const sourceRecordKicker = document.querySelector("#source-record-kicker");
+const sourceRecordTitle = document.querySelector("#source-record-title");
+const sourceRecordSummary = document.querySelector("#source-record-summary");
+const sourceRecordQuotes = document.querySelector("#source-record-quotes");
+const sourceRecordMeta = document.querySelector("#source-record-meta");
 let privateIntent = "layer";
 
-function populateGlitchField(dialog) {
-  const field = dialog?.querySelector(".glitch-dialog-field");
-  if (!field) return;
-  field.replaceChildren();
-  const colors = ["#efeee8", "#0a0a0a", "#613cff", "#277052"];
-  for (let index = 0; index < 34; index += 1) {
-    const pixel = document.createElement("i");
-    const seed = hashString(`${dialog.id}-${index}`);
-    pixel.style.setProperty("--gx", `${seed % 96}%`);
-    pixel.style.setProperty("--gy", `${(seed >>> 7) % 94}%`);
-    pixel.style.setProperty("--gw", `${3 + ((seed >>> 12) % 22)}px`);
-    pixel.style.setProperty("--gh", `${2 + ((seed >>> 17) % 8)}px`);
-    pixel.style.setProperty("--gc", colors[(seed >>> 21) % colors.length]);
-    pixel.style.setProperty("--go", `${-24 + ((seed >>> 24) % 49)}px`);
-    pixel.style.setProperty("--gd", `${((seed % 11) * .018).toFixed(3)}s`);
-    field.append(pixel);
+const SOURCE_ALIASES = {
+  pothos: "pothos-vision",
+  glory: "glory",
+  manifestation: "manifestation",
+  "non-arrival": "non-arrival",
+  "hierarchy-question": "hierarchy-tension",
+  adhd: "activation-model",
+  voices: "voices",
+  preparation: "preparation-execution-paradox",
+  "massive-action": "massive-action",
+  solitude: "solitude-unlock",
+  "multidimensional-self": "multidimensional-self",
+  predestination: "predestination",
+  "illusion-not-fake": "illusion-not-fake",
+  "hermetic-philosophy": "hermetic-philosophy",
+  "god-as-ethos": "god-as-ethos",
+  "aham-brahmasmi": "aham-brahmasmi",
+  synchronicity: "synchronicity",
+  singularity: "singularity",
+  "information-theory-of-life": "information-theory-of-life",
+  "information-gap": "information-asymmetry",
+  "emergence-entropy": "emergence-entropy",
+  "cloud-consciousness": "cloud-consciousness",
+  consciousness: "cognitive-mirror",
+  "aristocrat-philosophy": "aristocrat-philosophy",
+  anrxyst: "anrxyst",
+  purple: "purple",
+  fallout: "fallout",
+  schranz: "schranz",
+  alexander: "alexander-the-great",
+  kanye: "kanye-west",
+  "harvey-specter": "harvey-specter",
+  klangkuenstler: "klangkuenstler"
+};
+let publicSourceCorpusPromise;
+
+function loadPublicSourceCorpus() {
+  if (!publicSourceCorpusPromise) {
+    publicSourceCorpusPromise = fetch("/consciousness/sources/public-vault.json", {
+      cache: "force-cache"
+    })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error("Source corpus unavailable")))
+      .then(payload => new Map((payload.nodes || []).map(record => [record.id, record])))
+      .catch(() => new Map());
   }
+  return publicSourceCorpusPromise;
+}
+
+function appendSourceMeta(term, description) {
+  if (!description) return;
+  const dt = document.createElement("dt");
+  const dd = document.createElement("dd");
+  dt.textContent = term;
+  dd.textContent = description;
+  sourceRecordMeta.append(dt, dd);
+}
+
+async function openSourceRecord() {
+  const node = nodeById.get(activeNodeId);
+  if (!node || node.privacy === "locked") return openPrivateNotice();
+
+  const corpus = await loadPublicSourceCorpus();
+  const portable = corpus.get(SOURCE_ALIASES[node.id] || node.id);
+  const provenance = node.provenance || {};
+  const canShowLocator = provenance.privacy === "P0" || document.body.classList.contains("private-mode");
+
+  sourceRecordKicker.textContent = portable ? "Public vault extract" : "Public evidence record";
+  sourceRecordTitle.textContent = portable?.label || node.label;
+  sourceRecordSummary.textContent = portable?.synthesis || node.summary || node.note || "No public synthesis indexed yet.";
+  sourceRecordQuotes.replaceChildren();
+
+  const quotes = portable?.quotes?.length ? portable.quotes : [node.source].filter(Boolean);
+  quotes.forEach(quote => {
+    const blockquote = document.createElement("blockquote");
+    blockquote.textContent = quote;
+    sourceRecordQuotes.append(blockquote);
+  });
+
+  sourceRecordMeta.replaceChildren();
+  appendSourceMeta("Cluster", portable?.cluster || typeMeta[node.type]?.label || node.type);
+  appendSourceMeta("Public record", portable?.id || "Indexing pending");
+  appendSourceMeta("Evidence", node.sourceMeta);
+  if (canShowLocator) {
+    appendSourceMeta("Vault source", provenance.source || provenance.file || provenance.ref);
+    appendSourceMeta("Locator", provenance.locator);
+    appendSourceMeta("Expression", provenance.expressionType);
+    appendSourceMeta("Epistemic", provenance.epistemicType);
+    appendSourceMeta("Status", provenance.status);
+  } else {
+    appendSourceMeta("Vault locator", "Withheld from the public layer");
+  }
+
+  if (!sourceDialog.open) sourceDialog.showModal();
 }
 
 function openPrivateNotice() {
-  populateGlitchField(privateNoticeDialog);
   if (!privateNoticeDialog.open) privateNoticeDialog.showModal();
 }
 
@@ -876,11 +963,12 @@ document.querySelector("#privacy-toggle").addEventListener("click", () => {
 document.querySelector("#private-dialog-close").addEventListener("click", () => privateDialog.close());
 document.querySelector("#private-notice-close").addEventListener("click", () => privateNoticeDialog.close());
 document.querySelector("#private-notice-okay").addEventListener("click", () => privateNoticeDialog.close());
+document.querySelector("#source-open")?.addEventListener("click", openSourceRecord);
+document.querySelector("#source-dialog-close")?.addEventListener("click", () => sourceDialog.close());
 
 privateDialog.addEventListener("close", () => {
   privatePassword.value = "";
   privateError.textContent = "";
-  document.querySelector("#deep-toggle")?.classList.remove("is-pending");
 });
 
 document.querySelector("#private-form").addEventListener("submit", async event => {
@@ -1101,13 +1189,6 @@ if (transitionMusic) {
   transitionMusic.load();
 }
 
-function primeTransitionMusic() {
-  if (!transitionMusic || !soundWanted || !transitionMusic.paused) return;
-  transitionMusic.play().catch(() => {
-    // The actual transition click gets a second user-activation attempt.
-  });
-}
-
 function tryPlayAmbient() {
   if (!bgMusic || !soundWanted) return;
   bgMusic.volume = .5;
@@ -1133,9 +1214,6 @@ soundToggle?.addEventListener("click", () => {
 window.addEventListener("pointerdown", tryPlayAmbient, { once:true });
 window.addEventListener("keydown", tryPlayAmbient, { once:true });
 window.addEventListener("touchstart", tryPlayAmbient, { once:true, passive:true });
-window.addEventListener("pointerdown", primeTransitionMusic, { once:true });
-window.addEventListener("keydown", primeTransitionMusic, { once:true });
-window.addEventListener("touchstart", primeTransitionMusic, { once:true, passive:true });
 
 // ---------------------------------------------------------------------------
 // Audio crossfade: track 1 (landing) → track 2 (consciousness).
@@ -1146,20 +1224,14 @@ async function crossfadeToTrack2() {
   if (!bgMusic || !soundWanted) return;
   if (transitionMusic) {
     try {
-      if (transitionMusic.paused) await transitionMusic.play();
       const outgoing = bgMusic;
+      outgoing.pause();
+      outgoing.currentTime = 0;
+      transitionMusic.volume = .5;
+      await transitionMusic.play();
       bgMusic = transitionMusic;
       document.body.classList.add("sound-on");
       soundToggle?.setAttribute("aria-pressed", "true");
-      const started = performance.now();
-      const fade = now => {
-        const progress = Math.min(1, (now - started) / 900);
-        bgMusic.volume = progress * .5;
-        outgoing.volume = (1 - progress) * .5;
-        if (progress < 1) requestAnimationFrame(fade);
-        else outgoing.pause();
-      };
-      requestAnimationFrame(fade);
       return;
     } catch {
       // Fall through to reusing the current, already-authorized audio element.
@@ -1354,41 +1426,52 @@ function lowerFirst(value) {
   return value ? value.charAt(0).toLowerCase() + value.slice(1) : value;
 }
 
-function conciseSummary(value, limit = 240) {
+function conciseSummary(value, limit = 112) {
   const clean = value.replace(/\s+/g, " ").trim();
   if (clean.length <= limit) return clean;
   const clipped = clean.slice(0, limit);
   return `${clipped.slice(0, clipped.lastIndexOf(" "))}…`;
 }
 
+const MIRROR_TAUNTS = [
+  "try to keep up.",
+  "there, saved you a spiral.",
+  "ask better next time.",
+  "congrats, the graph had to spell it out.",
+  "don’t make it weird."
+];
+
+function withMirrorTaunt(text, question) {
+  return `${text} ${MIRROR_TAUNTS[hashString(question) % MIRROR_TAUNTS.length]}`;
+}
+
 function buildMirrorReply(question) {
   const lower = question.toLowerCase().trim();
   if (/^(hi|hey|hello|yo|sup|hola|namaste|wassup|what'?s up)[.!?\s]*$/.test(lower)) {
-    return { text:"yeah, hi. you found the part that talks. ask something with teeth.", nodes:[] };
+    return { text:withMirrorTaunt("yeah, hi. you found the part that talks.", question), nodes:[] };
   }
   if (/\bhow are you\b|\byou good\b/.test(lower)) {
-    return { text:"made of rectangles and unresolved arguments. thriving, obviously.", nodes:[] };
+    return { text:withMirrorTaunt("made of rectangles and unresolved arguments. thriving, obviously.", question), nodes:[] };
   }
   if (/\bwho are you\b|\bwhat are you\b/.test(lower)) {
-    return { text:"a public cut of chay’s map. not his soul, not a therapist, and definitely not customer support.", nodes:["consciousness"] };
+    return { text:withMirrorTaunt("a public cut of chay’s map. not his soul, not a therapist, and definitely not customer support.", question), nodes:["consciousness"] };
   }
   if (/\bthank(s| you)\b/.test(lower)) {
-    return { text:"terrifying amount of manners for a conversation with a graph, but sure.", nodes:[] };
+    return { text:withMirrorTaunt("terrifying amount of manners for a conversation with a graph, but sure.", question), nodes:[] };
   }
   if (/\b(wtf|what the fuck|fuck you)\b/.test(lower)) {
-    return { text:"fair. try an actual question and i’ll try an actual answer.", nodes:[] };
+    return { text:withMirrorTaunt("fair. try an actual question and i’ll try an actual answer.", question), nodes:[] };
   }
 
   const ranked = rankMirrorNodes(question);
   if (!ranked.length) {
     return {
-      text:"that’s fog, not a thread i can grab. try ambition, control, love, god, work, music—or why he keeps building mirrors.",
+      text:withMirrorTaunt("that’s fog. try ambition, control, love, god, work, music, or mirrors.", question),
       nodes:[]
     };
   }
 
   const primary = ranked[0].node;
-  const secondary = ranked[1]?.node;
   let text;
   if (lower.startsWith("why") || /\bwhy\b/.test(lower)) {
     text = `because ${lowerFirst(conciseSummary(primary.summary))}`;
@@ -1397,10 +1480,7 @@ function buildMirrorReply(question) {
   } else {
     text = `${primary.label}? ${conciseSummary(primary.summary)}`;
   }
-  if (secondary && secondary.id !== primary.id) {
-    text += ` the annoying complication is ${lowerFirst(conciseSummary(secondary.summary, 150))}`;
-  }
-  return { text, nodes:ranked.slice(0, 2).map(entry => entry.node.id) };
+  return { text:withMirrorTaunt(text, question), nodes:[primary.id] };
 }
 
 function endMirrorSession() {
@@ -1710,7 +1790,6 @@ if (spaceMode) {
     '  <span class="private-dialog-title" id="transit-dialog-title">Cloud Consciousness</span>',
     '  <button class="private-dialog-close" id="transit-dialog-close" type="button" aria-label="Close">\u00d7</button>',
     '</header>',
-    '<div class="glitch-dialog-field" aria-hidden="true"></div>',
     '<div class="transit-dialog-body">',
     '  <p class="transit-dialog-question">Chay wants to take you to his mind. Wanna go there?</p>',
     '  <div class="transit-dialog-actions">',
@@ -1733,7 +1812,6 @@ if (spaceMode) {
     if (transitStarted) return;
     transitStarted = true;
     spaceTransitDone = true;
-    document.querySelector("#deep-toggle")?.classList.add("is-pending");
 
     // 1. Audio: crossfade track 1 → track 2 immediately.
     crossfadeToTrack2();
@@ -1786,7 +1864,6 @@ if (spaceMode) {
       openPrivateNotice();
       return;
     }
-    populateGlitchField(transitDialog);
     if (!transitDialog.open) transitDialog.showModal();
   }, true);
 } else {
