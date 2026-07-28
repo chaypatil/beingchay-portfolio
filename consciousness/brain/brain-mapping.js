@@ -2,6 +2,31 @@
 // `weight` is visual emphasis for that metaphor, not evidence or a claim about the body.
 
 export const NODE_REGION = {
+  "cluster-self": {
+    region: "insula",
+    weight: 0.9,
+    why: "It is the archive drawer for inner state, identity and self-observation."
+  },
+  "cluster-work": {
+    region: "prefrontal",
+    weight: 0.86,
+    why: "It groups execution, planning, money and professional decisions."
+  },
+  "cluster-creative": {
+    region: "temporal",
+    weight: 0.84,
+    why: "It gathers music, art, taste, expression and cultural memory."
+  },
+  "cluster-knowledge": {
+    region: "parietal",
+    weight: 0.9,
+    why: "It groups external frameworks, metaphysics and system-level theories."
+  },
+  "cluster-systems": {
+    region: "prefrontal",
+    weight: 0.92,
+    why: "It contains the tools and workflows used to operate the wider archive."
+  },
   "agency": {
     region: "prefrontal",
     weight: 0.95,
@@ -16,6 +41,11 @@ export const NODE_REGION = {
     region: "motor",
     weight: 0.96,
     why: "It leaves circular thought through forceful, visible action."
+  },
+  love: {
+    region: "limbic",
+    weight: 0.9,
+    why: "It gathers attachment, longing, memory, freedom and protection into one mother node."
   },
   "pothos": {
     region: "limbic",
@@ -130,7 +160,27 @@ export const NODE_REGION = {
   "aham-brahmasmi": {
     region: "insula",
     weight: 0.8,
-    why: "It turns inward to identity, latent awakening, and a felt relation to the whole."
+    why: "It gathers four self-and-reality declarations around Chay's slice-and-whole idea."
+  },
+  "mahavakya-prajnanam": {
+    region: "insula",
+    weight: 0.72,
+    why: "It frames consciousness itself as the ground of reality."
+  },
+  "mahavakya-aham": {
+    region: "insula",
+    weight: 0.82,
+    why: "It is the declaration Chay directly connects to his own identity model."
+  },
+  "mahavakya-tat-tvam": {
+    region: "insula",
+    weight: 0.68,
+    why: "It turns the relation between self and ultimate reality into an address."
+  },
+  "mahavakya-ayam-atma": {
+    region: "insula",
+    weight: 0.7,
+    why: "It identifies the experienced self with the larger reality."
   },
   "information-theory-of-life": {
     region: "parietal",

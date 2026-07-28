@@ -158,6 +158,7 @@ export function mountBrainNet(canvas, {
   nodes = [],
   markerLayer,
   onSelect = () => {},
+  onProjectionFrame = () => {},
   isPrivate = node => node.privacy !== "public",
   transparent = false,
   interactive = true,
@@ -199,23 +200,33 @@ export function mountBrainNet(canvas, {
   const signalPositionBuffer = createBuffer(gl, signalGeometry.positions);
   const signalPhaseBuffer = createBuffer(gl, signalGeometry.phases);
 
-  const markerEntries = markerLayer ? nodes.map((node, index) => {
-    const button = document.createElement("button");
-    const privateNode = isPrivate(node);
-    button.className = `brain-marker${privateNode ? " is-private" : ""}`;
-    button.type = "button";
-    button.dataset.nodeId = node.id;
-    button.setAttribute("aria-label", node.label);
-    button.innerHTML = `<i aria-hidden="true"></i><span></span>`;
-    button.querySelector("span").textContent = node.label;
-    button.addEventListener("click", () => onSelect(node.id));
-    markerLayer.append(button);
-    return {
-      button,
+  let projectionEntries = [];
+  let markerEntries = [];
+
+  function setProjectionNodes(nextNodes) {
+    projectionEntries = nextNodes.map((node, index) => ({
       node,
       point:BRAIN_MESH.vertices[chooseNodeVertex(node, index)]
-    };
-  }) : [];
+    }));
+    if (!markerLayer) return;
+    markerLayer.replaceChildren();
+    markerEntries = projectionEntries.map(entry => {
+      const { node } = entry;
+      const button = document.createElement("button");
+      const privateNode = isPrivate(node);
+      button.className = `brain-marker${privateNode ? " is-private" : ""}`;
+      button.type = "button";
+      button.dataset.nodeId = node.id;
+      button.setAttribute("aria-label", node.label);
+      button.innerHTML = `<i aria-hidden="true"></i><span></span>`;
+      button.querySelector("span").textContent = node.label;
+      button.addEventListener("click", () => onSelect(node.id));
+      markerLayer.append(button);
+      return { button, node, point:entry.point };
+    });
+  }
+
+  setProjectionNodes(nodes);
 
   let width = 1;
   let height = 1;
@@ -326,6 +337,10 @@ export function mountBrainNet(canvas, {
       entry.button.style.opacity = depthOpacity.toFixed(2);
       entry.button.style.zIndex = String(50 + Math.round(point.z * 3));
     });
+    onProjectionFrame(projectionEntries.map(entry => ({
+      id:entry.node.id,
+      ...project(entry.point)
+    })));
   }
 
   function animate(now) {
@@ -371,6 +386,10 @@ export function mountBrainNet(canvas, {
   }
   return {
     redraw:() => draw(performance.now()),
+    setNodes(nextNodes) {
+      setProjectionNodes(nextNodes);
+      if (running) draw(performance.now());
+    },
     setActive(nextActive) {
       const next = Boolean(nextActive);
       if (running === next) return;

@@ -345,6 +345,8 @@
       text-transform: uppercase;
     }
     .source-open:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .source-vault-link { display: inline-block; margin-top: 16px; padding: 10px 12px; border: 1px solid currentColor; color: var(--paper); text-decoration: none; font: 9px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .source-vault-link:hover { color: var(--signal-green); }
     .source { margin: 0; padding-left: 12px; border-left: 1px solid var(--node-color, var(--belief)); color: var(--ink); font: 15px/1.42 var(--serif); }
     .source-meta { display: block; margin-top: 9px; color: var(--dim); font: 8px/1.4 var(--mono); text-transform: uppercase; }
     .relation-list { display: grid; }
@@ -1342,8 +1344,8 @@
           <div class="console-meta"><span id="console-mode">public projection</span><span id="console-state">evidence mode / on</span></div>
           <div class="conversation" id="conversation" aria-live="polite">
             <p class="message user">Why does Chay keep building systems before publishing?</p>
-            <p class="message mirror">Because preparation does two jobs at once. It genuinely increases his leverage, and it postpones exposure. The system is useful. The safety it provides can become the trap.</p>
-            <p class="evidence-line">Synthesis from 7 notes · confidence 86%<br>Contradicted by: 2025 Fallout execution record</p>
+            <p class="message mirror">The vault says preparation creates leverage and postpones exposure. Useful shield, terrible religion. Keep up.</p>
+            <p class="evidence-line">vault-backed public extract / contradiction preserved</p>
           </div>
           <form class="ask-form" id="ask-form">
             <label class="sr-only" for="ask-input">Ask the mirror</label>
@@ -1372,7 +1374,7 @@
         <section class="detail-section">
           <div class="detail-section-head">
             <h3>Primary evidence</h3>
-            <button class="source-open" id="source-open" type="button">Source text ↗</button>
+            <button class="source-open" id="source-open" type="button">Open vault ↗</button>
           </div>
           <blockquote class="source" id="detail-source">“The fastest way to lose his respect: lack of agency — complaining without acting, learned helplessness.”<span class="source-meta">Cognitive operating manual · explicit self-model</span></blockquote>
         </section>
@@ -1424,6 +1426,7 @@
       <p class="source-record-summary" id="source-record-summary"></p>
       <div class="source-record-quotes" id="source-record-quotes"></div>
       <dl class="source-record-meta" id="source-record-meta"></dl>
+      <a class="source-vault-link" id="source-vault-link" href="/consciousness/vault/">Open its Brain Vault shelf ↗</a>
       <p class="source-boundary">Raw P1–P3 notes stay in Chay OS. This view serves only approved public extracts or unlocked private-node evidence.</p>
     </article>
   </dialog>

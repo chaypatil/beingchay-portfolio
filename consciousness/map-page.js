@@ -35,6 +35,7 @@ let brainMode = !spaceMode && new URLSearchParams(location.search).get("mode") =
 let brainMorph = brainMode ? 1 : 0;
 let brainMorphFrame = 0;
 let brainRenderer = null;
+let brainProjectionById = new Map();
 const brainCanvas = document.querySelector("#brain-backdrop");
 // Everything drifts slowly around the centre on both layers. Just noticeable.
 const AUTO_YAW_RATE = 0.018;
@@ -180,6 +181,8 @@ function applyMobileLabelDepth(group, point) {
 }
 
 function brainTargetForNode(node) {
+  const projected = brainProjectionById.get(node.id);
+  if (projected) return projected;
   const region = NODE_REGION[node.id]?.region;
   const target = BRAIN_REGION_TARGETS[region] || BRAIN_REGION_TARGETS.default;
   const seed = hashString(node.id);
@@ -197,13 +200,33 @@ function ensureBrainRenderer() {
   if (brainRenderer || !brainCanvas) return;
   try {
     brainRenderer = mountBrainNet(brainCanvas, {
-      nodes:[],
+      nodes,
       markerLayer:null,
       transparent:true,
       interactive:true,
       autoRotate:true,
       interactionTarget:svg,
-      active:brainMode
+      active:brainMode,
+      onProjectionFrame(projectedNodes) {
+        if (!brainMode) return;
+        const bounds = brainCanvas.getBoundingClientRect();
+        const matrix = svg.getScreenCTM();
+        if (!matrix || !bounds.width || !bounds.height) return;
+        const inverse = matrix.inverse();
+        brainProjectionById = new Map(projectedNodes.map(point => {
+          const layoutPoint = new DOMPoint(
+            bounds.left + point.x,
+            bounds.top + point.y
+          ).matrixTransform(inverse);
+          return [point.id, {
+            x:layoutPoint.x,
+            y:layoutPoint.y,
+            z:point.z,
+            scale:clamp(point.perspective * .72, .5, .92)
+          }];
+        }));
+        scheduleSpatialUpdate();
+      }
     });
   } catch (error) {
     console.info("The head-index backdrop is unavailable; node placement remains usable.", error);
@@ -379,6 +402,7 @@ function renderGraph() {
   spatialEdges = [];
   spatialLabels = [];
   nodeById = new Map(nodes.map(node => [node.id, node]));
+  brainRenderer?.setNodes(nodes);
   const layout = graphLayout();
   applyCamera(layout);
   pointById = new Map(nodes.map(node => [node.id, projectNode(node, layout)]));
@@ -825,6 +849,7 @@ const sourceRecordTitle = document.querySelector("#source-record-title");
 const sourceRecordSummary = document.querySelector("#source-record-summary");
 const sourceRecordQuotes = document.querySelector("#source-record-quotes");
 const sourceRecordMeta = document.querySelector("#source-record-meta");
+const sourceVaultLink = document.querySelector("#source-vault-link");
 let privateIntent = "layer";
 
 const SOURCE_ALIASES = {
@@ -920,6 +945,7 @@ async function openSourceRecord() {
   }
 
   if (!sourceDialog.open) sourceDialog.showModal();
+  sourceVaultLink.href = `/consciousness/vault/?node=${encodeURIComponent(node.id)}`;
 }
 
 function openPrivateNotice() {
@@ -1393,6 +1419,19 @@ const MIRROR_STOP_WORDS = new Set([
   "in","is","it","like","me","of","on","or","so","that","the","this","to","was",
   "what","when","where","which","who","why","with","would","you","your"
 ]);
+let publicBrainVaultPromise;
+
+function loadPublicBrainVault() {
+  if (!publicBrainVaultPromise) {
+    publicBrainVaultPromise = fetch("/consciousness/vault/public-vault-index.json", {
+      cache:"force-cache"
+    })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error("Vault unavailable")))
+      .then(payload => payload.records || [])
+      .catch(() => []);
+  }
+  return publicBrainVaultPromise;
+}
 
 function mirrorTerms(value) {
   return value.toLowerCase()
@@ -1422,6 +1461,40 @@ function rankMirrorNodes(question) {
     .slice(0, 3);
 }
 
+function rankVaultRecords(question, records) {
+  const terms = mirrorTerms(question);
+  if (!terms.length) return [];
+  return records
+    .filter(record => record.privacy !== "redacted")
+    .map(record => {
+      const title = normalizeMirrorText(`${record.title} ${record.path}`);
+      const content = normalizeMirrorText(record.content);
+      let score = 0;
+      for (const term of terms) {
+        if (title.includes(term)) score += 12;
+        if (record.nodeIds.some(id => id.includes(term))) score += 8;
+        if (content.includes(term)) score += 2;
+      }
+      return { record, score };
+    })
+    .filter(entry => entry.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+}
+
+function normalizeMirrorText(value) {
+  return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function vaultExcerpt(record, question) {
+  const terms = mirrorTerms(question);
+  const lines = record.content
+    .split(/\r?\n/)
+    .map(line => line.replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1").replace(/^[-#>*\s]+/, "").trim())
+    .filter(line => line.length >= 42 && line.length <= 360 && !line.includes("████") && !line.startsWith("title:"));
+  return lines.find(line => terms.some(term => normalizeMirrorText(line).includes(term))) || lines[0] || "";
+}
+
 function lowerFirst(value) {
   return value ? value.charAt(0).toLowerCase() + value.slice(1) : value;
 }
@@ -1445,7 +1518,7 @@ function withMirrorTaunt(text, question) {
   return `${text} ${MIRROR_TAUNTS[hashString(question) % MIRROR_TAUNTS.length]}`;
 }
 
-function buildMirrorReply(question) {
+async function buildMirrorReply(question) {
   const lower = question.toLowerCase().trim();
   if (/^(hi|hey|hello|yo|sup|hola|namaste|wassup|what'?s up)[.!?\s]*$/.test(lower)) {
     return { text:withMirrorTaunt("yeah, hi. you found the part that talks.", question), nodes:[] };
@@ -1463,7 +1536,16 @@ function buildMirrorReply(question) {
     return { text:withMirrorTaunt("fair. try an actual question and i’ll try an actual answer.", question), nodes:[] };
   }
 
-  const ranked = rankMirrorNodes(question);
+  const [ranked, vaultRecords] = [rankMirrorNodes(question), await loadPublicBrainVault()];
+  const vaultMatch = rankVaultRecords(question, vaultRecords)[0]?.record;
+  const directExcerpt = vaultMatch ? vaultExcerpt(vaultMatch, question) : "";
+  if (directExcerpt) {
+    return {
+      text:withMirrorTaunt(`the vault actually says: “${conciseSummary(directExcerpt)}”`, question),
+      nodes:vaultMatch.nodeIds.slice(0, 2),
+      vaultPath:vaultMatch.path
+    };
+  }
   if (!ranked.length) {
     return {
       text:withMirrorTaunt("that’s fog. try ambition, control, love, god, work, music, or mirrors.", question),
@@ -1580,7 +1662,7 @@ document.querySelector("#ask-form").addEventListener("submit", async event => {
   const mirror = appendConversation("message mirror typing", "thinking");
   input.value = "";
   conversation.scrollTop = conversation.scrollHeight;
-  const reply = buildMirrorReply(question);
+  const reply = await buildMirrorReply(question);
   const delay = Math.min(1050, 260 + reply.text.length * 4);
   await new Promise(resolve => setTimeout(resolve, delay));
   mirror.className = "message mirror";
@@ -1588,7 +1670,12 @@ document.querySelector("#ask-form").addEventListener("submit", async event => {
   const related = reply.nodes
     .map(id => nodeById.get(id)?.label || publicNodes.find(node => node.id === id)?.label)
     .filter(Boolean);
-  appendConversation("evidence-line", related.length ? `related threads / ${related.join(" + ")}` : "public voice / no private inference");
+  const evidence = reply.vaultPath
+    ? `vault source / ${reply.vaultPath}`
+    : related.length
+      ? `related threads / ${related.join(" + ")}`
+      : "public voice / no private inference";
+  appendConversation("evidence-line", evidence);
   publicMirrorTurns += 1;
   mirrorReplyPending = false;
   submit.disabled = false;

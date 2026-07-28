@@ -4,11 +4,14 @@ import { readFile } from "node:fs/promises";
 const page = await readFile(new URL("../consciousness/index.html", import.meta.url), "utf8");
 const controller = await readFile(new URL("../consciousness/map-page.js", import.meta.url), "utf8");
 const brain = await readFile(new URL("../codexmap/brain-net.js", import.meta.url), "utf8");
+const graphData = await readFile(new URL("../consciousness/graph-data.js", import.meta.url), "utf8");
 
 // Regression: the embedded brain became a passive wallpaper.
 assert.doesNotMatch(controller, /interactive:false/, "Brain mode must accept drag and wheel input.");
 assert.doesNotMatch(controller, /autoRotate:false/, "Brain mode should retain subtle autonomous depth.");
 assert.match(brain, /interactionTarget/, "The brain renderer needs an external interaction surface above its canvas.");
+assert.match(brain, /onProjectionFrame/, "Brain nodes must receive the renderer's live camera projection.");
+assert.match(controller, /brainProjectionById/, "Map nodes must follow the rotating brain instead of remaining fixed.");
 
 // Regression: old transition ornament made the map/brain control visibly shake.
 assert.doesNotMatch(page, /toggle-glitch/, "The map/brain control must not carry the retired glitch wiggle.");
@@ -27,5 +30,9 @@ assert.doesNotMatch(controller, /const secondary = ranked\[1\]/, "The mirror mus
 
 // Every selected node needs an explicit provenance affordance.
 assert.match(page, /id="source-open"/, "The detail panel needs a source-text button.");
+assert.match(page, /id="source-vault-link"/, "Each node source needs a route into its Brain Vault shelf.");
+assert.match(controller, /public-vault-index\.json/, "The Mirror must consult the redacted Brain Vault corpus.");
+assert.match(graphData, /THE FOUR MAHĀVĀKYAS/, "The Upanishadic mother node must keep its corrected title.");
+assert.match(graphData, /id:"love".*status:"mother node"/s, "Love must exist as a mother node rather than a flat summary.");
 
 console.log("consciousness interaction regression checks passed");

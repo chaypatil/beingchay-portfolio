@@ -3,7 +3,7 @@
     "title": "Consciousness — Chay's Brain Vault (public distillation)",
     "description": "A graph of the philosophy, drives, and creative architecture behind Chay Patil's work. Distilled from a private cognitive vault (session notes, entity pages, operating profile) into a public dataset for beingchay.com/consciousness. Every node here is public-safe: no named private individuals, no clinical diagnostic detail, no employer information. A separate, unredacted private reference is kept off-site.",
     "source_note": "Distilled 2026-07-23 from ~50 vault source files (sessions, entity pages, memory/profile files). See consciousness-private-vault.md (kept outside this repo) for full unredacted source material and private-tier content, so nothing from the original vault is lost, only filtered for public use.",
-    "generated_at": "2026-07-28T11:58:29.986Z"
+    "generated_at": "2026-07-28T20:41:57.253Z"
   },
   "nodes": [
     {
@@ -250,16 +250,20 @@
     },
     {
       "id": "aham-brahmasmi",
-      "label": "Aham Brahmasmi — the Slice and the Whole",
+      "label": "The Four Mahāvākyas",
       "cluster": "Knowledge",
-      "one_line": "\"I am the universe, and I am also the slice of it experiencing itself as a slice.\"",
-      "synthesis": "A Sanskrit frame (\"I am Brahman\") mapped directly onto the ocean-and-droplet model: he is simultaneously the third-dimensional slice of a multi-dimensional being and that multi-dimensional being experiencing itself as the slice. Both readings held at once, not sequentially.",
+      "one_line": "Four Upanishadic declarations about Brahman, consciousness and the self.",
+      "synthesis": "Prajñānam Brahma — consciousness is Brahman. Aham Brahmāsmi — I am Brahman. Tat Tvam Asi — you are That. Ayam Ātmā Brahma — this Self is Brahman. Chay's canonical note explicitly invokes only Aham Brahmāsmi for his slice-and-whole model; the other three are contextual parallels rather than retroactive claims about what he wrote.",
       "quotes": [
         "I am the universe. I am the Brahma. I am a slice of that entire ocean."
       ],
       "connections": [
         "hermetic-philosophy",
-        "god-as-ethos"
+        "god-as-ethos",
+        "mahavakya-prajnanam",
+        "mahavakya-aham",
+        "mahavakya-tat-tvam",
+        "mahavakya-ayam-atma"
       ]
     },
     {
@@ -507,6 +511,58 @@
       "connections": [
         "fallout",
         "schranz"
+      ]
+    },
+    {
+      "id": "mahavakya-prajnanam",
+      "label": "Prajñānam Brahma",
+      "cluster": "Knowledge",
+      "one_line": "Consciousness is Brahman.",
+      "synthesis": "Consciousness is Brahman. One of the four Mahāvākyas used here as Upanishadic context. Source frame: Aitareya Upanishad.",
+      "quotes": [
+        "Consciousness is Brahman."
+      ],
+      "connections": [
+        "aham-brahmasmi"
+      ]
+    },
+    {
+      "id": "mahavakya-aham",
+      "label": "Aham Brahmāsmi",
+      "cluster": "Knowledge",
+      "one_line": "I am Brahman.",
+      "synthesis": "I am Brahman. One of the four Mahāvākyas used here as Upanishadic context. Source frame: Bṛhadāraṇyaka Upanishad.",
+      "quotes": [
+        "I am Brahman."
+      ],
+      "connections": [
+        "aham-brahmasmi"
+      ]
+    },
+    {
+      "id": "mahavakya-tat-tvam",
+      "label": "Tat Tvam Asi",
+      "cluster": "Knowledge",
+      "one_line": "You are That.",
+      "synthesis": "You are That. One of the four Mahāvākyas used here as Upanishadic context. Source frame: Chāndogya Upanishad.",
+      "quotes": [
+        "You are That."
+      ],
+      "connections": [
+        "aham-brahmasmi"
+      ]
+    },
+    {
+      "id": "mahavakya-ayam-atma",
+      "label": "Ayam Ātmā Brahma",
+      "cluster": "Knowledge",
+      "one_line": "This Self is Brahman.",
+      "synthesis": "This Self is Brahman. One of the four Mahāvākyas used here as Upanishadic context. Source frame: Māṇḍūkya Upanishad.",
+      "quotes": [
+        "This Self is Brahman."
+      ],
+      "connections": [
+        "aham-brahmasmi"
       ]
     }
   ]
