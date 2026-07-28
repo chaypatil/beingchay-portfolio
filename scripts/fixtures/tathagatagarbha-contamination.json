@@ -1,0 +1,20 @@
+{
+  "previous": "proposed",
+  "next": "approved",
+  "claim": {
+    "id": "claim-unsupported-tathagatagarbha",
+    "text": "Tathāgatagarbha is Chay's canonical belief.",
+    "expressionType": "inference",
+    "epistemicType": "belief",
+    "status": "unknown",
+    "privacy": "P0",
+    "evidenceSpanIds": [],
+    "externalContextIds": [],
+    "approvalState": "proposed"
+  },
+  "event": {
+    "actor": "agent",
+    "evidence": "An editorial prompt introduced the term."
+  },
+  "evidenceSpans": []
+}

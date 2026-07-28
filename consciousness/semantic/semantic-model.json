@@ -1,0 +1,5037 @@
+{
+  "meta": {
+    "schemaVersion": "1.0.0",
+    "generatedBy": "scripts/build-semantic-integrity.mjs",
+    "generatedOn": "2026-07-29",
+    "canonicalEvidenceRoot": "Chay OS/vault",
+    "publicSafety": "P0-only; private locators and excerpts remain outside this repository"
+  },
+  "definitions": {
+    "vaultRecord": "One canonical Markdown artifact in Chay OS/vault. The current inventory contains 111.",
+    "graphRecord": "One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 57.",
+    "node": "A public graph record that indexes one or more claims or external-context records; it is never evidence.",
+    "motherNode": "A graph index with children. Five archive mothers index vault clusters; Love is thematic; Four Mahāvākyas currently mixes a personal claim and external collection pending split.",
+    "childNode": "A graph node subordinated to a mother for navigation or context. It does not inherit approval or evidence automatically.",
+    "placeholder": "A privacy-preserving UI position with no public claim. Eight placeholders are not one-to-one aliases for private people or vault records.",
+    "distillation": "A reviewable transformation from evidence and atomic claims into display copy, labeled by expression type and approval state.",
+    "sourceRecord": "A public-safe projection of a SourceArtifact. It may expose a safe excerpt or hash but never upgrades private source material to P0."
+  },
+  "sourceArtifacts": [
+    {
+      "id": "src-clusters",
+      "kind": "meta",
+      "privacy": "P0",
+      "safeLocator": "_meta/clusters.md",
+      "canonical": true
+    },
+    {
+      "id": "src-private-operating-profile",
+      "kind": "profile",
+      "privacy": "P2",
+      "safeLocator": "private profile artifact; exact path retained in private audit",
+      "canonical": true
+    },
+    {
+      "id": "src-private-preparation-profile",
+      "kind": "profile",
+      "privacy": "P2",
+      "safeLocator": "private preparation artifact; exact path retained in private audit",
+      "canonical": true
+    },
+    {
+      "id": "src-massive-action",
+      "kind": "memory",
+      "privacy": "P1",
+      "safeLocator": "cognitive-mirror/inbox/2026-05-24-massive-action-and-bias-towards-success.md",
+      "canonical": true
+    },
+    {
+      "id": "src-pothos",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Pothos.md",
+      "canonical": true
+    },
+    {
+      "id": "src-private-love",
+      "kind": "session",
+      "privacy": "P2",
+      "safeLocator": "private relationship session; exact path retained in private audit",
+      "canonical": true
+    },
+    {
+      "id": "src-glory",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Glory.md",
+      "canonical": true
+    },
+    {
+      "id": "src-private-adhd",
+      "kind": "session",
+      "privacy": "P2",
+      "safeLocator": "private self-report session; exact path retained in private audit",
+      "canonical": true
+    },
+    {
+      "id": "src-manifestation",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Manifestation.md",
+      "canonical": true
+    },
+    {
+      "id": "src-synchronicity",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Synchronicity.md",
+      "canonical": true
+    },
+    {
+      "id": "src-public-c2x",
+      "kind": "public_page",
+      "privacy": "P0",
+      "safeLocator": "beingchay.com/c2x; no canonical Chay OS source located",
+      "canonical": false
+    },
+    {
+      "id": "src-anrxyst",
+      "kind": "session",
+      "privacy": "P1",
+      "safeLocator": "sessions/2026-05-09-00-content-engine-substance-format-voice.md",
+      "canonical": true
+    },
+    {
+      "id": "src-fallout",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Fallout.md",
+      "canonical": true
+    },
+    {
+      "id": "src-sound-map",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "multiple artist/topic records; no sufficient sound thesis source located",
+      "canonical": true
+    },
+    {
+      "id": "src-information-gap",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Information Asymmetry.md",
+      "canonical": true
+    },
+    {
+      "id": "src-mirror-vision",
+      "kind": "session",
+      "privacy": "P1",
+      "safeLocator": "sessions/2026-05-03-01-cognitive-mirror-vision.md",
+      "canonical": true
+    },
+    {
+      "id": "src-system-gap",
+      "kind": "system_observation",
+      "privacy": "P0",
+      "safeLocator": "Phase 1.5 archive-coverage observation",
+      "canonical": false
+    },
+    {
+      "id": "src-cloud",
+      "kind": "memory",
+      "privacy": "P1",
+      "safeLocator": "cognitive-mirror/memory/project_cloud_consciousness.md",
+      "canonical": true
+    },
+    {
+      "id": "src-manifestation-session",
+      "kind": "session",
+      "privacy": "P2",
+      "safeLocator": "sessions/2026-05-08-00-manifestation-arc-cloud-consciousness.md",
+      "canonical": true
+    },
+    {
+      "id": "src-external-mahavakyas",
+      "kind": "external_source",
+      "privacy": "P0",
+      "safeLocator": "external Upanishadic context; primary citations not yet verified",
+      "canonical": false
+    },
+    {
+      "id": "src-aristocrat",
+      "kind": "session",
+      "privacy": "P1",
+      "safeLocator": "sessions/2026-05-03-01-cognitive-mirror-vision.md",
+      "canonical": true
+    },
+    {
+      "id": "src-purple",
+      "kind": "session",
+      "privacy": "P1",
+      "safeLocator": "sessions/2026-05-03-04-kanye-creative-influences-purple.md",
+      "canonical": true
+    },
+    {
+      "id": "src-schranz",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/topics/Schranz.md",
+      "canonical": true
+    },
+    {
+      "id": "src-private-suits",
+      "kind": "session",
+      "privacy": "P2",
+      "safeLocator": "private transition session; exact path retained in private audit",
+      "canonical": true
+    },
+    {
+      "id": "src-klangkuenstler",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/people/Klangkuenstler.md",
+      "canonical": true
+    },
+    {
+      "id": "src-kanye",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/people/Kanye West.md",
+      "canonical": true
+    },
+    {
+      "id": "src-alexander",
+      "kind": "entity",
+      "privacy": "P0",
+      "safeLocator": "entities/people/Alexander the Great.md",
+      "canonical": true
+    },
+    {
+      "id": "src-non-arrival",
+      "kind": "session",
+      "privacy": "P1",
+      "safeLocator": "sessions/2026-06-18-00-goa-purva-conviction-dream-life.md",
+      "canonical": true
+    },
+    {
+      "id": "src-hierarchy",
+      "kind": "session",
+      "privacy": "P1",
+      "safeLocator": "inbox/2026-05-09.md and sessions/2026-05-03-04-kanye-creative-influences-purple.md",
+      "canonical": true
+    },
+    {
+      "id": "src-private-solitude",
+      "kind": "session",
+      "privacy": "P2",
+      "safeLocator": "private self-report session; exact path retained in private audit",
+      "canonical": true
+    },
+    {
+      "id": "src-private-voices",
+      "kind": "profile",
+      "privacy": "P2",
+      "safeLocator": "private cognitive profile; exact path retained in private audit",
+      "canonical": true
+    }
+  ],
+  "evidenceSpans": [
+    {
+      "id": "evidence-cluster-self",
+      "sourceArtifactId": "src-clusters",
+      "locator": "lines 14-15",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Identity, ADHD patterns, emotional processing, philosophy of self, mental loops, spiraling, energy management."
+    },
+    {
+      "id": "evidence-cluster-work",
+      "sourceArtifactId": "src-clusters",
+      "locator": "lines 17-18",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Career, money, execution, professional output and survival logistics."
+    },
+    {
+      "id": "evidence-cluster-creative",
+      "sourceArtifactId": "src-clusters",
+      "locator": "lines 20-21",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Music, art, content, content strategy, taste."
+    },
+    {
+      "id": "evidence-cluster-knowledge",
+      "sourceArtifactId": "src-clusters",
+      "locator": "lines 23-24",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Things that aren't directly mine but inform my thinking."
+    },
+    {
+      "id": "evidence-cluster-systems",
+      "sourceArtifactId": "src-clusters",
+      "locator": "lines 26-27",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Tools, automations, the cognitive mirror itself, workflows, infrastructure, prompts."
+    },
+    {
+      "id": "evidence-agency",
+      "sourceArtifactId": "src-private-operating-profile",
+      "locator": "agency heading",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Lack of agency — complaining without acting, learned helplessness."
+    },
+    {
+      "id": "evidence-preparation",
+      "sourceArtifactId": "src-private-preparation-profile",
+      "locator": "preparation risk heading",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Am I building toward something real, or am I just getting really good at preparing to build?"
+    },
+    {
+      "id": "evidence-massive-action",
+      "sourceArtifactId": "src-massive-action",
+      "locator": "lines 15-19",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Blind reiterations of vague sense of solutions will always lead you out of this turmoil."
+    },
+    {
+      "id": "evidence-pothos",
+      "sourceArtifactId": "src-pothos",
+      "locator": "line 13",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Vision is the destiny. Pothos is the fuel."
+    },
+    {
+      "id": "evidence-love",
+      "sourceArtifactId": "src-private-love",
+      "locator": "private session thesis",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Pothos is not only his drive toward truth, it is the structure of how he loves."
+    },
+    {
+      "id": "evidence-glory",
+      "sourceArtifactId": "src-glory",
+      "locator": "lines 14-22",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Glory is the only thing that gives immortality to a mortal man."
+    },
+    {
+      "id": "evidence-adhd",
+      "sourceArtifactId": "src-private-adhd",
+      "locator": "self-report line 25",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "My desired stimulation is only there if there's novelty in there or urgency."
+    },
+    {
+      "id": "evidence-spiral",
+      "sourceArtifactId": "src-private-operating-profile",
+      "locator": "spiral pattern heading",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Real thinking produces options; the spiral only produces verdicts."
+    },
+    {
+      "id": "evidence-movement",
+      "sourceArtifactId": "src-private-operating-profile",
+      "locator": "spiral breaker heading",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Spiral breaker: Physical movement."
+    },
+    {
+      "id": "evidence-manifestation",
+      "sourceArtifactId": "src-manifestation",
+      "locator": "line 23",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "I have chosen a story, I have chosen a timeline that resonates with me so much that it becomes true."
+    },
+    {
+      "id": "evidence-synchronicity",
+      "sourceArtifactId": "src-synchronicity",
+      "locator": "lines 25-38",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "We are merely the radio signals through which the ethos comes into reality."
+    },
+    {
+      "id": "evidence-c2x",
+      "sourceArtifactId": "src-public-c2x",
+      "locator": "public page",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Buying the best AI model isn't enough. It needs to know how your business works."
+    },
+    {
+      "id": "evidence-anrxyst",
+      "sourceArtifactId": "src-anrxyst",
+      "locator": "lines 15-18",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Most AI content engines collapse all three and produce slop."
+    },
+    {
+      "id": "evidence-fallout",
+      "sourceArtifactId": "src-fallout",
+      "locator": "lines 14-38",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Fallout is Chay's rave and hard-techno platform."
+    },
+    {
+      "id": "evidence-sound",
+      "sourceArtifactId": "src-sound-map",
+      "locator": "distributed artist references",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Schranz, hard techno, dekbass and artist references."
+    },
+    {
+      "id": "evidence-information-gap",
+      "sourceArtifactId": "src-information-gap",
+      "locator": "lines 20-34",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Even the truth I speak needs to be put in a catchy format where people would listen."
+    },
+    {
+      "id": "evidence-consciousness",
+      "sourceArtifactId": "src-mirror-vision",
+      "locator": "lines 18-23",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Fill gaps in my philosophy, my work patterns, my thinking."
+    },
+    {
+      "id": "evidence-self-model-gap",
+      "sourceArtifactId": "src-system-gap",
+      "locator": "coverage observation",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Some parts of a life are absent because they were never captured or cannot fit the current model."
+    },
+    {
+      "id": "evidence-cloud-consciousness",
+      "sourceArtifactId": "src-cloud",
+      "locator": "lines 9-18",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "The Brain vault is v0 of the Cloud Consciousness project."
+    },
+    {
+      "id": "evidence-hermetic-philosophy",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§27 / line 323",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "the universe is mental or at least that's what I've heard"
+    },
+    {
+      "id": "evidence-singularity",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§31 / lines 359-365",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Singularity is basically when the entirety of the universe is conscious."
+    },
+    {
+      "id": "evidence-self-belief-scaling",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§27 / lines 309-323",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "if I can convince one unit of consciousness ... I can again put this at scale"
+    },
+    {
+      "id": "evidence-multidimensional-self",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§26 and §42 / lines 301-305, 476-504",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Whenever I make a decision ... these are portals into those timelines."
+    },
+    {
+      "id": "evidence-predestination",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§28 / line 331",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "when you believe in something, that's when you're destined to be whatever it is that you believe in"
+    },
+    {
+      "id": "evidence-illusion-not-fake",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§41 / line 474",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "illusion does not mean that it's obsolete ... everything to you is real"
+    },
+    {
+      "id": "evidence-god-as-ethos",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§25-26 and §30 / lines 293-305, 343-345",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "It's the totality of all of the possibilities ... all at once."
+    },
+    {
+      "id": "evidence-aham-brahmasmi",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§45 / lines 510-516",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "aham brahmasmi ... I am a slice of that entire ocean"
+    },
+    {
+      "id": "evidence-mahavakya-prajnanam",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "locator": "external locator unverified",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Consciousness is Brahman."
+    },
+    {
+      "id": "evidence-mahavakya-aham",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§45 / lines 510-516",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "I am the universe. I am the Brahma. I am a slice of that entire ocean."
+    },
+    {
+      "id": "evidence-mahavakya-tat-tvam",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "locator": "external locator unverified",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "You are That."
+    },
+    {
+      "id": "evidence-mahavakya-ayam-atma",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "locator": "external locator unverified",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "This Self is Brahman."
+    },
+    {
+      "id": "evidence-information-theory-of-life",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§31-32 / lines 359-371",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "collecting, preserving, and sustaining information"
+    },
+    {
+      "id": "evidence-emergence-entropy",
+      "sourceArtifactId": "src-manifestation-session",
+      "locator": "§31 / line 363",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "emergent properties ... battling with forces of entropy"
+    },
+    {
+      "id": "evidence-aristocrat-philosophy",
+      "sourceArtifactId": "src-aristocrat",
+      "locator": "lines 21 and 89",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "I believe the best philosophy arises when all of the survival, safety, physiological, and romantic needs are met."
+    },
+    {
+      "id": "evidence-purple",
+      "sourceArtifactId": "src-purple",
+      "locator": "line 213",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "It should glow like a star core."
+    },
+    {
+      "id": "evidence-schranz",
+      "sourceArtifactId": "src-schranz",
+      "locator": "lines 12-30",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Schranz was this chance for me to shape the alternate culture that was coming into India."
+    },
+    {
+      "id": "evidence-harvey-specter",
+      "sourceArtifactId": "src-private-suits",
+      "locator": "line 153",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "The movies and the things that I see that really resonate with me shape me a lot."
+    },
+    {
+      "id": "evidence-klangkuenstler",
+      "sourceArtifactId": "src-klangkuenstler",
+      "locator": "lines 12-33; origin session lines 261-275",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "that one song has completely reshaped not just mine but everybody around me's life"
+    },
+    {
+      "id": "evidence-kanye",
+      "sourceArtifactId": "src-kanye",
+      "locator": "lines 16-84; creative session line 80",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "I want to make my own Graduation."
+    },
+    {
+      "id": "evidence-alexander",
+      "sourceArtifactId": "src-alexander",
+      "locator": "lines 27-57",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "If I were not Alexander, I would be Diogenes."
+    },
+    {
+      "id": "evidence-non-arrival",
+      "sourceArtifactId": "src-non-arrival",
+      "locator": "line 37",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Never happy, only content is the structural cost of the drive, not a failure at being happy."
+    },
+    {
+      "id": "evidence-hierarchy-question",
+      "sourceArtifactId": "src-hierarchy",
+      "locator": "inbox line 50; creative session lines 242-254",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "For 100 to be a hundred, it needs a hundred ones."
+    },
+    {
+      "id": "evidence-solitude",
+      "sourceArtifactId": "src-private-solitude",
+      "locator": "self-report line 55",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "I'm my best version when I'm like 90% in solitude."
+    },
+    {
+      "id": "evidence-voices",
+      "sourceArtifactId": "src-private-voices",
+      "locator": "voice-pattern synthesis",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Capture Voice 2's energy but translate it into concrete small commitments, don't dampen it."
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-cluster-self",
+      "text": "Archive index for identity, emotion, activation and inner loops.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-cluster-self"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current taxonomy"
+    },
+    {
+      "id": "claim-cluster-work",
+      "text": "Archive index for work; private employer detail remains withheld.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-cluster-work"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current taxonomy"
+    },
+    {
+      "id": "claim-cluster-creative",
+      "text": "Archive index for creative media, projects and influences.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-cluster-creative"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current taxonomy"
+    },
+    {
+      "id": "claim-cluster-knowledge",
+      "text": "Archive index separating external knowledge from personal claims.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-cluster-knowledge"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current taxonomy"
+    },
+    {
+      "id": "claim-cluster-systems",
+      "text": "Archive index for the machinery that operates the other drawers.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-cluster-systems"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current taxonomy"
+    },
+    {
+      "id": "claim-agency",
+      "text": "A recurring preference for action over learned helplessness.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-agency"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current profile"
+    },
+    {
+      "id": "claim-preparation",
+      "text": "Systems are useful only when they serve shipped work.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "supported",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-preparation"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current profile estimate"
+    },
+    {
+      "id": "claim-massive-action",
+      "text": "Choose a workable move that generates evidence instead of strategizing in circles.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-massive-action"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "2026-05 operating note"
+    },
+    {
+      "id": "claim-pothos",
+      "text": "Pothos is the fuel; Vision is its destination.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-pothos"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active framework since 2026-05"
+    },
+    {
+      "id": "claim-love",
+      "text": "Love connects attachment, distance, devotion and freedom while preserving the correction against instrumental reduction.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "disputed",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-love"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "historical pattern with later correction"
+    },
+    {
+      "id": "claim-glory",
+      "text": "Glory is continuity through influence on thought, not fame or literal survival.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-glory"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active definition since 2026-05"
+    },
+    {
+      "id": "claim-adhd",
+      "text": "A self-observed interest-based activation pattern; not a diagnostic or universal claim.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "self-report in 2026-05"
+    },
+    {
+      "id": "claim-spiral",
+      "text": "The spiral produces verdicts; useful analysis produces options.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-spiral"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current operating model"
+    },
+    {
+      "id": "claim-movement",
+      "text": "Physical motion is a practical state-change intervention, not a universal treatment claim.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "preference",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-movement"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current intervention"
+    },
+    {
+      "id": "claim-manifestation",
+      "text": "Conviction selects a story and changes attention and action; stronger causal claims remain hypothesis.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-manifestation"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "evolving belief"
+    },
+    {
+      "id": "claim-synchronicity",
+      "text": "Synchronicity is Chay's attentional interpretation, not settled supernatural causation or verified Jung scholarship.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-synchronicity"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current interpretation"
+    },
+    {
+      "id": "claim-c2x",
+      "text": "C2X is a public project index pending canonical vault capture.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "plan",
+      "status": "unknown",
+      "confidence": 0,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current project"
+    },
+    {
+      "id": "claim-anrxyst",
+      "text": "A creative platform whose production method keeps substance, format and voice distinct.",
+      "expressionType": "synthesis",
+      "epistemicType": "plan",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-anrxyst"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active project"
+    },
+    {
+      "id": "claim-fallout",
+      "text": "An India-focused hard-techno and rave platform built from lived scene experience.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "plan",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-fallout"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active project"
+    },
+    {
+      "id": "claim-sound",
+      "text": "Music is a major influence; the broader psychological thesis requires listening-history evidence.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "unknown",
+      "confidence": 0,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "incomplete archive coverage"
+    },
+    {
+      "id": "claim-information-gap",
+      "text": "A civilizational and content-level concern about transferring what is in one mind to another.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-information-gap"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active thesis"
+    },
+    {
+      "id": "claim-consciousness",
+      "text": "An inspectable computational self-model whose archive remains distinct from the person.",
+      "expressionType": "synthesis",
+      "epistemicType": "plan",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-consciousness"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active project"
+    },
+    {
+      "id": "claim-self-model-gap",
+      "text": "A standing question that makes missing evidence visible.",
+      "expressionType": "inference",
+      "epistemicType": "interpretation",
+      "status": "supported",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-self-model-gap"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "continuous"
+    },
+    {
+      "id": "claim-cloud-consciousness",
+      "text": "The vault is v0 of Cloud Consciousness; future BCI-like capability remains aspirational.",
+      "expressionType": "synthesis",
+      "epistemicType": "plan",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-cloud-consciousness"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "childhood origin, active project"
+    },
+    {
+      "id": "claim-hermetic-philosophy",
+      "text": "A received Hermetic frame: individual minds as expressions of shared consciousness.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-hermetic-philosophy"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "belief stated 2026-05"
+    },
+    {
+      "id": "claim-singularity",
+      "text": "A personal hypothesis in which all matter becomes conscious.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-singularity"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "hypothesis stated 2026-05"
+    },
+    {
+      "id": "claim-self-belief-scaling",
+      "text": "Self-conviction may scale through behavior and influence; this is theory, not proof.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-self-belief-scaling"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "hypothesis stated 2026-05"
+    },
+    {
+      "id": "claim-multidimensional-self",
+      "text": "Choices are described as portals; a later variant reframes them as consequence chains.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-multidimensional-self"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "evolving belief in one session"
+    },
+    {
+      "id": "claim-predestination",
+      "text": "Destiny is the echo of repeated beliefs and actions, not a guaranteed external script.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-predestination"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "interpretation stated 2026-05"
+    },
+    {
+      "id": "claim-illusion-not-fake",
+      "text": "Illusion does not mean fake; consequences remain real within lived experience.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-illusion-not-fake"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "belief stated 2026-05"
+    },
+    {
+      "id": "claim-god-as-ethos",
+      "text": "A personal definition of God as totality; cross-register equivalence is not established science.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-god-as-ethos"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "belief stated 2026-05"
+    },
+    {
+      "id": "claim-aham-brahmasmi",
+      "text": "Keep the personal slice/ocean claim separate from the external Four Mahāvākyas collection.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-aham-brahmasmi"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "personal claim stated 2026-05; external context added later"
+    },
+    {
+      "id": "claim-mahavakya-prajnanam",
+      "text": "External context: Prajñānam Brahma; primary citation verification pending.",
+      "expressionType": "direct_quote",
+      "epistemicType": "external_factual_claim",
+      "status": "unknown",
+      "confidence": 0,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-mahavakya-prajnanam"
+      ],
+      "externalContextIds": [
+        "context-mahavakya-prajnanam"
+      ],
+      "approvalState": "proposed",
+      "temporalScope": "historical external text"
+    },
+    {
+      "id": "claim-mahavakya-aham",
+      "text": "Aham Brahmāsmi is documented as Chay's chosen contextual parallel.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-mahavakya-aham"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "invoked 2026-05"
+    },
+    {
+      "id": "claim-mahavakya-tat-tvam",
+      "text": "External context: Tat Tvam Asi; primary citation verification pending.",
+      "expressionType": "direct_quote",
+      "epistemicType": "external_factual_claim",
+      "status": "unknown",
+      "confidence": 0,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-mahavakya-tat-tvam"
+      ],
+      "externalContextIds": [
+        "context-mahavakya-tat-tvam"
+      ],
+      "approvalState": "proposed",
+      "temporalScope": "historical external text"
+    },
+    {
+      "id": "claim-mahavakya-ayam-atma",
+      "text": "External context: Ayam Ātmā Brahma; primary citation verification pending.",
+      "expressionType": "direct_quote",
+      "epistemicType": "external_factual_claim",
+      "status": "unknown",
+      "confidence": 0,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-mahavakya-ayam-atma"
+      ],
+      "externalContextIds": [
+        "context-mahavakya-ayam-atma"
+      ],
+      "approvalState": "proposed",
+      "temporalScope": "historical external text"
+    },
+    {
+      "id": "claim-information-theory-of-life",
+      "text": "A personal philosophy of life as information preservation, not a neutral biological definition.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-information-theory-of-life"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "hypothesis stated 2026-05"
+    },
+    {
+      "id": "claim-emergence-entropy",
+      "text": "A personal cosmological hypothesis about complexity and entropy.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-emergence-entropy"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "hypothesis stated 2026-05"
+    },
+    {
+      "id": "claim-aristocrat-philosophy",
+      "text": "Automate repetitive necessity to manufacture time for philosophy and original thought.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-aristocrat-philosophy"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active operating principle"
+    },
+    {
+      "id": "claim-purple",
+      "text": "Purple is a recurring visual signature; specific associations should remain labeled synthesis.",
+      "expressionType": "synthesis",
+      "epistemicType": "preference",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-purple"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current aesthetic preference"
+    },
+    {
+      "id": "claim-schranz",
+      "text": "Schranz is a sonic identity and forecast, not an established market fact.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-schranz"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active influence"
+    },
+    {
+      "id": "claim-harvey-specter",
+      "text": "Suits is evidence of media being used as an identity scaffold; the triggering event stays private.",
+      "expressionType": "synthesis",
+      "epistemicType": "memory",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-harvey-specter"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "historical influence"
+    },
+    {
+      "id": "claim-klangkuenstler",
+      "text": "A musical discovery became a scene and then a platform; wider impact is self-reported.",
+      "expressionType": "synthesis",
+      "epistemicType": "memory",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-klangkuenstler"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "2025 origin memory"
+    },
+    {
+      "id": "claim-kanye",
+      "text": "Graduation is an influence and ambition reference, not evidence of achieved equivalence.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-kanye"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active influence"
+    },
+    {
+      "id": "claim-alexander",
+      "text": "Alexander is an influence and cautionary anchor, not identity equivalence.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-alexander"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "active historical comparison"
+    },
+    {
+      "id": "claim-non-arrival",
+      "text": "Non-arrival is a reported cost of Pothos, not a universal law of desire.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-non-arrival"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "reported 2026-06"
+    },
+    {
+      "id": "claim-hierarchy-question",
+      "text": "Preserve the tension between non-hierarchical value and ranked ambition as an open question.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "disputed",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-hierarchy-question"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "unresolved"
+    },
+    {
+      "id": "claim-solitude",
+      "text": "Solitude is self-reported infrastructure; the 90/10 ratio is personal, not prescriptive.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "preference",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-solitude"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "self-report in 2026-05"
+    },
+    {
+      "id": "claim-voices",
+      "text": "Two recurring modes are useful as a working synthesis, not literal separate selves.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "confidence": 0.45,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-voices"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "current profile model"
+    },
+    {
+      "id": "claim-multidimensional-self-historical-variant",
+      "text": "The later account treats portals as an image for action and consequence rather than proof of timeline travel.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-multidimensional-self"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "evolving belief in one session"
+    },
+    {
+      "id": "claim-love-historical-variant",
+      "text": "Relationships can shape identity while remaining authentic and not merely instrumental.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-love"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "historical pattern with later correction"
+    },
+    {
+      "id": "claim-hierarchy-question-historical-variant",
+      "text": "The vision is also stated through a ranked ambition to become exceptionally influential.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-hierarchy-question"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "unresolved"
+    },
+    {
+      "id": "claim-manifestation-historical-variant",
+      "text": "Some source passages use stronger metaphysical language about timelines and reality responding to conviction.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-manifestation"
+      ],
+      "externalContextIds": [],
+      "approvalState": "proposed",
+      "temporalScope": "evolving belief"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cluster-self",
+      "graphRole": "archive_mother",
+      "claimIds": [
+        "claim-cluster-self"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "12d3cdc9a5cde23b934abbdc17ea7f62a3c310eff94be378cfef06e421069e9f"
+    },
+    {
+      "id": "cluster-work",
+      "graphRole": "archive_mother",
+      "claimIds": [
+        "claim-cluster-work"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "511337ecda7a8e3e858f3bb39fc91e825f0ca68da8a6df26aa56188a21d91c27"
+    },
+    {
+      "id": "cluster-creative",
+      "graphRole": "archive_mother",
+      "claimIds": [
+        "claim-cluster-creative"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "cb999ea6551c8e6869448cc1597c29b3c1c66cbe239a5b5d4041b952fb637fdf"
+    },
+    {
+      "id": "cluster-knowledge",
+      "graphRole": "archive_mother",
+      "claimIds": [
+        "claim-cluster-knowledge"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "cb1b000d82dc9c744111d1998287cbcddf8af4c5056cedadccabfe56de66407d"
+    },
+    {
+      "id": "cluster-systems",
+      "graphRole": "archive_mother",
+      "claimIds": [
+        "claim-cluster-systems"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "532f7a27e4e1ccbfe2ea138a2c1e2df454f7004b8ca81314c0d6634623165edb"
+    },
+    {
+      "id": "agency",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-agency"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "c6055d36b35eebb54800c81756238addd91c0fca8f965bc099fe794f27bf403f"
+    },
+    {
+      "id": "preparation",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-preparation"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "28b7c19308e45a7b68fda65f22bf9e67797122e255607502b19e16043d12f0f5"
+    },
+    {
+      "id": "massive-action",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-massive-action"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "7499fb0370bf8d00001eb7525523840355bdce00e9df6adbdfbf969cde1e2714"
+    },
+    {
+      "id": "pothos",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-pothos"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "81eed2ea429031b4b6dfad262a4e8761e57050fb403e36ee714e70d95580587b"
+    },
+    {
+      "id": "love",
+      "graphRole": "thematic_mother",
+      "claimIds": [
+        "claim-love",
+        "claim-love-historical-variant"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "a531940d1eb6218ce513abf66a59df73feccac637cbd52bed23155c582e753f5"
+    },
+    {
+      "id": "glory",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-glory"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "0feb8b47ab6079dc4cf9a1b99a3c272138418089cd11a049ee3a55508717b9e3"
+    },
+    {
+      "id": "adhd",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-adhd"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "d8f558e3e116cbe38866fb45292c02ad875195581146dae563f1c73fcfd441a5"
+    },
+    {
+      "id": "spiral",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-spiral"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "5b40dcaf3f2c2ce90a662f7a31e813f2f4e62ce216bdc10097927b9507de2b6d"
+    },
+    {
+      "id": "movement",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-movement"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "70617be93ed1b5a39faa172f67c5ea4ac76feb98a3241b6e6c725cf95eaf32e5"
+    },
+    {
+      "id": "manifestation",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-manifestation",
+        "claim-manifestation-historical-variant"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "3762c4e17093e7f9aa59e9c2b7ea0218b815680deafd22eb425963986d7e6c75"
+    },
+    {
+      "id": "synchronicity",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-synchronicity"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "db7b02a6ba37d1a2ad68cfb9d7202689731794001e83e50823f746d2602ded08"
+    },
+    {
+      "id": "c2x",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-c2x"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "69b043aea4fb0e4cc6924431f81fbee0d2e1e67951840951409c79652c718ab8"
+    },
+    {
+      "id": "anrxyst",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-anrxyst"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "7f8205648c280fa1a7a36891a8cd4edb0a579d4c4f1bb645621de23a020111c4"
+    },
+    {
+      "id": "fallout",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-fallout"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "0bafb54df04dd84f488ffae8417a5e9eaed1c51c0b07d895a1ad5e98a529cc79"
+    },
+    {
+      "id": "sound",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-sound"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "69a8736dcb608f1c5f59db9a1e7ee846560efcdfbc2651b8c269a46473710e16"
+    },
+    {
+      "id": "information-gap",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-information-gap"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "225b515b4f9f4119ecd1fddb0ce5836401e2d525ff57895227dfb98f42b00434"
+    },
+    {
+      "id": "consciousness",
+      "graphRole": "question",
+      "claimIds": [
+        "claim-consciousness"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "41a4f5d8b2ca438a5344212a43e9db98a8024e715281ce13ed3b738ca74c90cf"
+    },
+    {
+      "id": "self-model-gap",
+      "graphRole": "question",
+      "claimIds": [
+        "claim-self-model-gap"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "d0318860092a85841584e42c7a9d55c9e1c116c1e3d14d664a6f133609df77da"
+    },
+    {
+      "id": "cloud-consciousness",
+      "graphRole": "question",
+      "claimIds": [
+        "claim-cloud-consciousness"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "1385b31ead9a3b77aff9a81bea95dc472f5fd893dba4f4bbd1659051cfa49755"
+    },
+    {
+      "id": "hermetic-philosophy",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-hermetic-philosophy"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "6fc451f7f6764f80ad9f56c33627d11a2b03ef7ab1f2992f226c53426c7460b6"
+    },
+    {
+      "id": "singularity",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-singularity"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "c9ff262d1e98c1f6e56d60a6cc2a94a28464519de8578e86a12b179826d46dd7"
+    },
+    {
+      "id": "self-belief-scaling",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-self-belief-scaling"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "a313dd3fad796750584fe0b5b871d5aba20ec6f57da0abea44d4cf7eae5c1b17"
+    },
+    {
+      "id": "multidimensional-self",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-multidimensional-self",
+        "claim-multidimensional-self-historical-variant"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "31c325da46721b6ed740a8928c2226a2101c118712518b5a2c526a28855e2c3e"
+    },
+    {
+      "id": "predestination",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-predestination"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "e16ee8ef7d834e840fc9d4360127f5bf7a1d850685f11e5ece133cb315cca6bb"
+    },
+    {
+      "id": "illusion-not-fake",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-illusion-not-fake"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "013b49e0a646a7095787d9a10ca8ff4d41bc070aa047b70162563cf767758e0e"
+    },
+    {
+      "id": "god-as-ethos",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-god-as-ethos"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "953ae688b49b7b62286c6e61c842e34fecacf4b08814ac2dfab2989c3f0bbcc3"
+    },
+    {
+      "id": "aham-brahmasmi",
+      "graphRole": "thematic_mother",
+      "claimIds": [
+        "claim-aham-brahmasmi"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "d52ea562deab74d02b32aa0a4c42919b6d523774d20500124ff92a16bc24f582"
+    },
+    {
+      "id": "mahavakya-prajnanam",
+      "graphRole": "external_context_child",
+      "claimIds": [],
+      "externalContextIds": [
+        "context-mahavakya-prajnanam"
+      ],
+      "currentCopyHash": "574aed0920f81fb5517413e0155e5df219d7850c3ffae7e201e5a2581a2d0578"
+    },
+    {
+      "id": "mahavakya-aham",
+      "graphRole": "external_context_child",
+      "claimIds": [
+        "claim-mahavakya-aham"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "29f5f6fa91ff67a36bcb787d234ad7306932b6dcb1bbb824c26f382d80b0e68a"
+    },
+    {
+      "id": "mahavakya-tat-tvam",
+      "graphRole": "external_context_child",
+      "claimIds": [],
+      "externalContextIds": [
+        "context-mahavakya-tat-tvam"
+      ],
+      "currentCopyHash": "9dd40cb670c5b9fd00b2922a33938c741f4f3ee5d3978dac80bf5e528cd660f9"
+    },
+    {
+      "id": "mahavakya-ayam-atma",
+      "graphRole": "external_context_child",
+      "claimIds": [],
+      "externalContextIds": [
+        "context-mahavakya-ayam-atma"
+      ],
+      "currentCopyHash": "79b29e141dccdb87901917bafd1615af15b40b03241b198a6214bdf747d3011e"
+    },
+    {
+      "id": "information-theory-of-life",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-information-theory-of-life"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "dd3e4b47517c07d9184aaa6eaa421a428bd42d1cd5f7c85674c4b5117aacfb37"
+    },
+    {
+      "id": "emergence-entropy",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-emergence-entropy"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "c4f6c44f2af3f1d064cd00ba834f5009c6df1b6e9202f6b1c0b90c10a2ce24ff"
+    },
+    {
+      "id": "aristocrat-philosophy",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-aristocrat-philosophy"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "996fa446b5c7e5cc3ba63e63b0cefa56c38676433338518ac62e78e89b99c7ca"
+    },
+    {
+      "id": "purple",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-purple"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "99478fe5751c45db2941da3cc1627d3e6d015f052b06a9804f4a8d841c4a4ff0"
+    },
+    {
+      "id": "schranz",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-schranz"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "04ac8f86de9f6f70694a3f2577fbdb26a2e0c1d05265748c1e252e4f4bb1ce11"
+    },
+    {
+      "id": "harvey-specter",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-harvey-specter"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "12981682e019a0b0bc7fee8dfc7352ecd1021b9caf324c80c9fdf0a14083ca1d"
+    },
+    {
+      "id": "klangkuenstler",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-klangkuenstler"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "0a3ffbf7ea56b1cc95dc913f5a9f902bb101281095f9c1844b8d341a40c64eb0"
+    },
+    {
+      "id": "kanye",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-kanye"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "dd18c07f7e8b668a69248548027f018c39da0758f0de3a007d7e63b5f743bd26"
+    },
+    {
+      "id": "alexander",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-alexander"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "0a87f8cabf4cd8914f675e51a720fa4b80b261d3561c99ba01bac8fae87ad971"
+    },
+    {
+      "id": "non-arrival",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-non-arrival"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "e7400d2968dfd7adb0138bb4e99fc069ac3967c27549d61a483dceb3e2090cc0"
+    },
+    {
+      "id": "hierarchy-question",
+      "graphRole": "question",
+      "claimIds": [
+        "claim-hierarchy-question",
+        "claim-hierarchy-question-historical-variant"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "912456007fd64f94d5d4b6842462beb15d818fa9348d014d8ca8df5ec4a7f662"
+    },
+    {
+      "id": "solitude",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-solitude"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "5565bb6ec29f73d183df99b315348e36d34e0abef86fdfb7845ad5e933b61d84"
+    },
+    {
+      "id": "voices",
+      "graphRole": "display_node",
+      "claimIds": [
+        "claim-voices"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "91ef033f57a9964f89c8d177469a4a2ba72a12ee2d21f11189434e5c7a63f9bc"
+    }
+  ],
+  "relations": [
+    {
+      "id": "relation-legacy-001",
+      "fromId": "consciousness",
+      "toId": "cluster-self",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-002",
+      "fromId": "consciousness",
+      "toId": "cluster-work",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-003",
+      "fromId": "consciousness",
+      "toId": "cluster-creative",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-004",
+      "fromId": "consciousness",
+      "toId": "cluster-knowledge",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-005",
+      "fromId": "consciousness",
+      "toId": "cluster-systems",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-006",
+      "fromId": "cluster-self",
+      "toId": "agency",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-007",
+      "fromId": "cluster-self",
+      "toId": "adhd",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-008",
+      "fromId": "cluster-self",
+      "toId": "love",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-009",
+      "fromId": "cluster-self",
+      "toId": "voices",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-010",
+      "fromId": "cluster-work",
+      "toId": "c2x",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-011",
+      "fromId": "cluster-work",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-012",
+      "fromId": "cluster-work",
+      "toId": "massive-action",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-013",
+      "fromId": "cluster-creative",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-014",
+      "fromId": "cluster-creative",
+      "toId": "fallout",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-015",
+      "fromId": "cluster-creative",
+      "toId": "sound",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-016",
+      "fromId": "cluster-creative",
+      "toId": "purple",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-017",
+      "fromId": "cluster-knowledge",
+      "toId": "aham-brahmasmi",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-018",
+      "fromId": "cluster-knowledge",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-019",
+      "fromId": "cluster-knowledge",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-020",
+      "fromId": "cluster-systems",
+      "toId": "consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-021",
+      "fromId": "cluster-systems",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-022",
+      "fromId": "c2x",
+      "toId": "agency",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-023",
+      "fromId": "c2x",
+      "toId": "information-gap",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-024",
+      "fromId": "c2x",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-025",
+      "fromId": "c2x",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-026",
+      "fromId": "agency",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-027",
+      "fromId": "agency",
+      "toId": "pothos",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-028",
+      "fromId": "agency",
+      "toId": "glory",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-029",
+      "fromId": "preparation",
+      "toId": "adhd",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-030",
+      "fromId": "preparation",
+      "toId": "consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-031",
+      "fromId": "pothos",
+      "toId": "manifestation",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-032",
+      "fromId": "pothos",
+      "toId": "glory",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-033",
+      "fromId": "love",
+      "toId": "pothos",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-034",
+      "fromId": "love",
+      "toId": "non-arrival",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-035",
+      "fromId": "love",
+      "toId": "solitude",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-036",
+      "fromId": "manifestation",
+      "toId": "synchronicity",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-037",
+      "fromId": "spiral",
+      "toId": "movement",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-038",
+      "fromId": "agency",
+      "toId": "fallout",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-039",
+      "fromId": "agency",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-040",
+      "fromId": "fallout",
+      "toId": "sound",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-041",
+      "fromId": "anrxyst",
+      "toId": "information-gap",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-042",
+      "fromId": "information-gap",
+      "toId": "consciousness",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-043",
+      "fromId": "consciousness",
+      "toId": "self-model-gap",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-044",
+      "fromId": "consciousness",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-045",
+      "fromId": "cloud-consciousness",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-046",
+      "fromId": "cloud-consciousness",
+      "toId": "information-gap",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-047",
+      "fromId": "hermetic-philosophy",
+      "toId": "manifestation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-048",
+      "fromId": "hermetic-philosophy",
+      "toId": "synchronicity",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-049",
+      "fromId": "hermetic-philosophy",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-050",
+      "fromId": "self-belief-scaling",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-051",
+      "fromId": "self-belief-scaling",
+      "toId": "kanye",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-052",
+      "fromId": "kanye",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-053",
+      "fromId": "kanye",
+      "toId": "alexander",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-054",
+      "fromId": "alexander",
+      "toId": "pothos",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-055",
+      "fromId": "pothos",
+      "toId": "non-arrival",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-056",
+      "fromId": "non-arrival",
+      "toId": "agency",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-057",
+      "fromId": "glory",
+      "toId": "hierarchy-question",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-058",
+      "fromId": "agency",
+      "toId": "hierarchy-question",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-059",
+      "fromId": "adhd",
+      "toId": "solitude",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-060",
+      "fromId": "solitude",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-061",
+      "fromId": "adhd",
+      "toId": "voices",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-062",
+      "fromId": "voices",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-063",
+      "fromId": "massive-action",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-064",
+      "fromId": "massive-action",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-065",
+      "fromId": "multidimensional-self",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-066",
+      "fromId": "multidimensional-self",
+      "toId": "manifestation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-067",
+      "fromId": "multidimensional-self",
+      "toId": "predestination",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-068",
+      "fromId": "multidimensional-self",
+      "toId": "illusion-not-fake",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-069",
+      "fromId": "predestination",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-070",
+      "fromId": "illusion-not-fake",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-071",
+      "fromId": "god-as-ethos",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-072",
+      "fromId": "god-as-ethos",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-073",
+      "fromId": "aham-brahmasmi",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-074",
+      "fromId": "aham-brahmasmi",
+      "toId": "god-as-ethos",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-075",
+      "fromId": "aham-brahmasmi",
+      "toId": "mahavakya-prajnanam",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-076",
+      "fromId": "aham-brahmasmi",
+      "toId": "mahavakya-aham",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-077",
+      "fromId": "aham-brahmasmi",
+      "toId": "mahavakya-tat-tvam",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-078",
+      "fromId": "aham-brahmasmi",
+      "toId": "mahavakya-ayam-atma",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-079",
+      "fromId": "information-theory-of-life",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-080",
+      "fromId": "information-theory-of-life",
+      "toId": "information-gap",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-081",
+      "fromId": "information-theory-of-life",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-082",
+      "fromId": "information-theory-of-life",
+      "toId": "emergence-entropy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-083",
+      "fromId": "emergence-entropy",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-084",
+      "fromId": "aristocrat-philosophy",
+      "toId": "consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-085",
+      "fromId": "purple",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-086",
+      "fromId": "purple",
+      "toId": "kanye",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-087",
+      "fromId": "fallout",
+      "toId": "schranz",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-088",
+      "fromId": "schranz",
+      "toId": "klangkuenstler",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-089",
+      "fromId": "klangkuenstler",
+      "toId": "fallout",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-090",
+      "fromId": "harvey-specter",
+      "toId": "manifestation",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-091",
+      "fromId": "harvey-specter",
+      "toId": "kanye",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-092",
+      "fromId": "pothos",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-093",
+      "fromId": "pothos",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-094",
+      "fromId": "pothos",
+      "toId": "fallout",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-095",
+      "fromId": "pothos",
+      "toId": "kanye",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-096",
+      "fromId": "glory",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-097",
+      "fromId": "manifestation",
+      "toId": "cloud-consciousness",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-098",
+      "fromId": "anrxyst",
+      "toId": "fallout",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-aham-contextualized-by-mahavakyas",
+      "fromId": "claim-aham-brahmasmi",
+      "toId": "context-mahavakya-prajnanam",
+      "type": "contextualized_by",
+      "status": "tentative",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-aham-resonates-with-direct-invocation",
+      "fromId": "claim-aham-brahmasmi",
+      "toId": "claim-mahavakya-aham",
+      "type": "resonates_with",
+      "status": "documented",
+      "approvalState": "proposed",
+      "evidenceSpanIds": [
+        "evidence-aham-brahmasmi"
+      ]
+    }
+  ],
+  "contradictionSets": [
+    {
+      "id": "contradiction-multidimensional-registers",
+      "claimIds": [
+        "claim-multidimensional-self",
+        "claim-multidimensional-self-historical-variant"
+      ],
+      "resolution": "preserve",
+      "note": "Literal cosmological language and the later behavioral clarification are distinct historical variants."
+    },
+    {
+      "id": "contradiction-love-distance-authenticity",
+      "claimIds": [
+        "claim-love",
+        "claim-love-historical-variant"
+      ],
+      "resolution": "preserve",
+      "note": "The later correction limits the earlier Pothos-as-love-engine synthesis."
+    },
+    {
+      "id": "contradiction-hierarchy-influence",
+      "claimIds": [
+        "claim-hierarchy-question",
+        "claim-hierarchy-question-historical-variant"
+      ],
+      "resolution": "unknown",
+      "note": "Do not resolve an explicitly open tension for neatness."
+    },
+    {
+      "id": "contradiction-manifestation-registers",
+      "claimIds": [
+        "claim-manifestation",
+        "claim-manifestation-historical-variant"
+      ],
+      "resolution": "preserve",
+      "note": "Behavioral mechanism and metaphysical belief must not be silently collapsed."
+    }
+  ],
+  "revisions": [
+    {
+      "id": "revision-cluster-self-current",
+      "nodeId": "cluster-self",
+      "createdOn": "2026-07-29",
+      "contentHash": "12d3cdc9a5cde23b934abbdc17ea7f62a3c310eff94be378cfef06e421069e9f",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-cluster-work-current",
+      "nodeId": "cluster-work",
+      "createdOn": "2026-07-29",
+      "contentHash": "511337ecda7a8e3e858f3bb39fc91e825f0ca68da8a6df26aa56188a21d91c27",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-cluster-creative-current",
+      "nodeId": "cluster-creative",
+      "createdOn": "2026-07-29",
+      "contentHash": "cb999ea6551c8e6869448cc1597c29b3c1c66cbe239a5b5d4041b952fb637fdf",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-cluster-knowledge-current",
+      "nodeId": "cluster-knowledge",
+      "createdOn": "2026-07-29",
+      "contentHash": "cb1b000d82dc9c744111d1998287cbcddf8af4c5056cedadccabfe56de66407d",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-cluster-systems-current",
+      "nodeId": "cluster-systems",
+      "createdOn": "2026-07-29",
+      "contentHash": "532f7a27e4e1ccbfe2ea138a2c1e2df454f7004b8ca81314c0d6634623165edb",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-agency-current",
+      "nodeId": "agency",
+      "createdOn": "2026-07-29",
+      "contentHash": "c6055d36b35eebb54800c81756238addd91c0fca8f965bc099fe794f27bf403f",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-preparation-current",
+      "nodeId": "preparation",
+      "createdOn": "2026-07-29",
+      "contentHash": "28b7c19308e45a7b68fda65f22bf9e67797122e255607502b19e16043d12f0f5",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-massive-action-current",
+      "nodeId": "massive-action",
+      "createdOn": "2026-07-29",
+      "contentHash": "7499fb0370bf8d00001eb7525523840355bdce00e9df6adbdfbf969cde1e2714",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-pothos-current",
+      "nodeId": "pothos",
+      "createdOn": "2026-07-29",
+      "contentHash": "81eed2ea429031b4b6dfad262a4e8761e57050fb403e36ee714e70d95580587b",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-love-current",
+      "nodeId": "love",
+      "createdOn": "2026-07-29",
+      "contentHash": "a531940d1eb6218ce513abf66a59df73feccac637cbd52bed23155c582e753f5",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-glory-current",
+      "nodeId": "glory",
+      "createdOn": "2026-07-29",
+      "contentHash": "0feb8b47ab6079dc4cf9a1b99a3c272138418089cd11a049ee3a55508717b9e3",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-current",
+      "nodeId": "adhd",
+      "createdOn": "2026-07-29",
+      "contentHash": "d8f558e3e116cbe38866fb45292c02ad875195581146dae563f1c73fcfd441a5",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-spiral-current",
+      "nodeId": "spiral",
+      "createdOn": "2026-07-29",
+      "contentHash": "5b40dcaf3f2c2ce90a662f7a31e813f2f4e62ce216bdc10097927b9507de2b6d",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-movement-current",
+      "nodeId": "movement",
+      "createdOn": "2026-07-29",
+      "contentHash": "70617be93ed1b5a39faa172f67c5ea4ac76feb98a3241b6e6c725cf95eaf32e5",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-manifestation-current",
+      "nodeId": "manifestation",
+      "createdOn": "2026-07-29",
+      "contentHash": "3762c4e17093e7f9aa59e9c2b7ea0218b815680deafd22eb425963986d7e6c75",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-synchronicity-current",
+      "nodeId": "synchronicity",
+      "createdOn": "2026-07-29",
+      "contentHash": "db7b02a6ba37d1a2ad68cfb9d7202689731794001e83e50823f746d2602ded08",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-c2x-current",
+      "nodeId": "c2x",
+      "createdOn": "2026-07-29",
+      "contentHash": "69b043aea4fb0e4cc6924431f81fbee0d2e1e67951840951409c79652c718ab8",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-anrxyst-current",
+      "nodeId": "anrxyst",
+      "createdOn": "2026-07-29",
+      "contentHash": "7f8205648c280fa1a7a36891a8cd4edb0a579d4c4f1bb645621de23a020111c4",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-fallout-current",
+      "nodeId": "fallout",
+      "createdOn": "2026-07-29",
+      "contentHash": "0bafb54df04dd84f488ffae8417a5e9eaed1c51c0b07d895a1ad5e98a529cc79",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-sound-current",
+      "nodeId": "sound",
+      "createdOn": "2026-07-29",
+      "contentHash": "69a8736dcb608f1c5f59db9a1e7ee846560efcdfbc2651b8c269a46473710e16",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-information-gap-current",
+      "nodeId": "information-gap",
+      "createdOn": "2026-07-29",
+      "contentHash": "225b515b4f9f4119ecd1fddb0ce5836401e2d525ff57895227dfb98f42b00434",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-consciousness-current",
+      "nodeId": "consciousness",
+      "createdOn": "2026-07-29",
+      "contentHash": "41a4f5d8b2ca438a5344212a43e9db98a8024e715281ce13ed3b738ca74c90cf",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-self-model-gap-current",
+      "nodeId": "self-model-gap",
+      "createdOn": "2026-07-29",
+      "contentHash": "d0318860092a85841584e42c7a9d55c9e1c116c1e3d14d664a6f133609df77da",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-cloud-consciousness-current",
+      "nodeId": "cloud-consciousness",
+      "createdOn": "2026-07-29",
+      "contentHash": "1385b31ead9a3b77aff9a81bea95dc472f5fd893dba4f4bbd1659051cfa49755",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-hermetic-philosophy-current",
+      "nodeId": "hermetic-philosophy",
+      "createdOn": "2026-07-26",
+      "contentHash": "6fc451f7f6764f80ad9f56c33627d11a2b03ef7ab1f2992f226c53426c7460b6",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-singularity-current",
+      "nodeId": "singularity",
+      "createdOn": "2026-07-26",
+      "contentHash": "c9ff262d1e98c1f6e56d60a6cc2a94a28464519de8578e86a12b179826d46dd7",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-self-belief-scaling-current",
+      "nodeId": "self-belief-scaling",
+      "createdOn": "2026-07-26",
+      "contentHash": "a313dd3fad796750584fe0b5b871d5aba20ec6f57da0abea44d4cf7eae5c1b17",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-multidimensional-self-current",
+      "nodeId": "multidimensional-self",
+      "createdOn": "2026-07-26",
+      "contentHash": "31c325da46721b6ed740a8928c2226a2101c118712518b5a2c526a28855e2c3e",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-predestination-current",
+      "nodeId": "predestination",
+      "createdOn": "2026-07-26",
+      "contentHash": "e16ee8ef7d834e840fc9d4360127f5bf7a1d850685f11e5ece133cb315cca6bb",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-illusion-not-fake-current",
+      "nodeId": "illusion-not-fake",
+      "createdOn": "2026-07-26",
+      "contentHash": "013b49e0a646a7095787d9a10ca8ff4d41bc070aa047b70162563cf767758e0e",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-god-as-ethos-current",
+      "nodeId": "god-as-ethos",
+      "createdOn": "2026-07-26",
+      "contentHash": "953ae688b49b7b62286c6e61c842e34fecacf4b08814ac2dfab2989c3f0bbcc3",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-aham-brahmasmi-current",
+      "nodeId": "aham-brahmasmi",
+      "createdOn": "2026-07-26",
+      "contentHash": "d52ea562deab74d02b32aa0a4c42919b6d523774d20500124ff92a16bc24f582",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-mahavakya-prajnanam-current",
+      "nodeId": "mahavakya-prajnanam",
+      "createdOn": "2026-07-29",
+      "contentHash": "574aed0920f81fb5517413e0155e5df219d7850c3ffae7e201e5a2581a2d0578",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-mahavakya-aham-current",
+      "nodeId": "mahavakya-aham",
+      "createdOn": "2026-07-29",
+      "contentHash": "29f5f6fa91ff67a36bcb787d234ad7306932b6dcb1bbb824c26f382d80b0e68a",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-mahavakya-tat-tvam-current",
+      "nodeId": "mahavakya-tat-tvam",
+      "createdOn": "2026-07-29",
+      "contentHash": "9dd40cb670c5b9fd00b2922a33938c741f4f3ee5d3978dac80bf5e528cd660f9",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-mahavakya-ayam-atma-current",
+      "nodeId": "mahavakya-ayam-atma",
+      "createdOn": "2026-07-29",
+      "contentHash": "79b29e141dccdb87901917bafd1615af15b40b03241b198a6214bdf747d3011e",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-information-theory-of-life-current",
+      "nodeId": "information-theory-of-life",
+      "createdOn": "2026-07-26",
+      "contentHash": "dd3e4b47517c07d9184aaa6eaa421a428bd42d1cd5f7c85674c4b5117aacfb37",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-emergence-entropy-current",
+      "nodeId": "emergence-entropy",
+      "createdOn": "2026-07-26",
+      "contentHash": "c4f6c44f2af3f1d064cd00ba834f5009c6df1b6e9202f6b1c0b90c10a2ce24ff",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
+      "immutable": true
+    },
+    {
+      "id": "revision-aristocrat-philosophy-current",
+      "nodeId": "aristocrat-philosophy",
+      "createdOn": "2026-07-29",
+      "contentHash": "996fa446b5c7e5cc3ba63e63b0cefa56c38676433338518ac62e78e89b99c7ca",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-purple-current",
+      "nodeId": "purple",
+      "createdOn": "2026-07-29",
+      "contentHash": "99478fe5751c45db2941da3cc1627d3e6d015f052b06a9804f4a8d841c4a4ff0",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-schranz-current",
+      "nodeId": "schranz",
+      "createdOn": "2026-07-29",
+      "contentHash": "04ac8f86de9f6f70694a3f2577fbdb26a2e0c1d05265748c1e252e4f4bb1ce11",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-harvey-specter-current",
+      "nodeId": "harvey-specter",
+      "createdOn": "2026-07-29",
+      "contentHash": "12981682e019a0b0bc7fee8dfc7352ecd1021b9caf324c80c9fdf0a14083ca1d",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-klangkuenstler-current",
+      "nodeId": "klangkuenstler",
+      "createdOn": "2026-07-29",
+      "contentHash": "0a3ffbf7ea56b1cc95dc913f5a9f902bb101281095f9c1844b8d341a40c64eb0",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-kanye-current",
+      "nodeId": "kanye",
+      "createdOn": "2026-07-29",
+      "contentHash": "dd18c07f7e8b668a69248548027f018c39da0758f0de3a007d7e63b5f743bd26",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-alexander-current",
+      "nodeId": "alexander",
+      "createdOn": "2026-07-29",
+      "contentHash": "0a87f8cabf4cd8914f675e51a720fa4b80b261d3561c99ba01bac8fae87ad971",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-non-arrival-current",
+      "nodeId": "non-arrival",
+      "createdOn": "2026-07-29",
+      "contentHash": "e7400d2968dfd7adb0138bb4e99fc069ac3967c27549d61a483dceb3e2090cc0",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-hierarchy-question-current",
+      "nodeId": "hierarchy-question",
+      "createdOn": "2026-07-29",
+      "contentHash": "912456007fd64f94d5d4b6842462beb15d818fa9348d014d8ca8df5ec4a7f662",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-solitude-current",
+      "nodeId": "solitude",
+      "createdOn": "2026-07-29",
+      "contentHash": "5565bb6ec29f73d183df99b315348e36d34e0abef86fdfb7845ad5e933b61d84",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-voices-current",
+      "nodeId": "voices",
+      "createdOn": "2026-07-29",
+      "contentHash": "91ef033f57a9964f89c8d177469a4a2ba72a12ee2d21f11189434e5c7a63f9bc",
+      "previousRevisionId": null,
+      "approvalState": "proposed",
+      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "immutable": true
+    },
+    {
+      "id": "revision-aham-brahmasmi-split-proposal",
+      "nodeId": "aham-brahmasmi",
+      "createdOn": "2026-07-29",
+      "contentHash": "c3920d0bd79e67555a7540853986044a33823e80aab05a665db8f3ea94c8680d",
+      "previousRevisionId": "revision-aham-brahmasmi-current",
+      "approvalState": "proposed",
+      "reason": "Split the personal Aham Brahmāsmi slice/ocean claim from a Four Mahāvākyas external-context collection while retaining the current public title until approval.",
+      "immutable": true
+    }
+  ],
+  "externalContexts": [
+    {
+      "id": "context-mahavakya-prajnanam",
+      "label": "Prajñānam Brahma",
+      "claim": "Consciousness is Brahman.",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "approvalState": "proposed"
+    },
+    {
+      "id": "context-mahavakya-tat-tvam",
+      "label": "Tat Tvam Asi",
+      "claim": "You are That.",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "approvalState": "proposed"
+    },
+    {
+      "id": "context-mahavakya-ayam-atma",
+      "label": "Ayam Ātmā Brahma",
+      "claim": "This Self is Brahman.",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "approvalState": "proposed"
+    }
+  ],
+  "approvalEvents": [
+    {
+      "id": "approval-cluster-self-current",
+      "subjectId": "claim-cluster-self",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-cluster-work-current",
+      "subjectId": "claim-cluster-work",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-cluster-creative-current",
+      "subjectId": "claim-cluster-creative",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-cluster-knowledge-current",
+      "subjectId": "claim-cluster-knowledge",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-cluster-systems-current",
+      "subjectId": "claim-cluster-systems",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-agency-current",
+      "subjectId": "claim-agency",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-preparation-current",
+      "subjectId": "claim-preparation",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-massive-action-current",
+      "subjectId": "claim-massive-action",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-pothos-current",
+      "subjectId": "claim-pothos",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-love-current",
+      "subjectId": "claim-love",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-glory-current",
+      "subjectId": "claim-glory",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-adhd-current",
+      "subjectId": "claim-adhd",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-spiral-current",
+      "subjectId": "claim-spiral",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-movement-current",
+      "subjectId": "claim-movement",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-manifestation-current",
+      "subjectId": "claim-manifestation",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-synchronicity-current",
+      "subjectId": "claim-synchronicity",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-c2x-current",
+      "subjectId": "claim-c2x",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-anrxyst-current",
+      "subjectId": "claim-anrxyst",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-fallout-current",
+      "subjectId": "claim-fallout",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-sound-current",
+      "subjectId": "claim-sound",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-information-gap-current",
+      "subjectId": "claim-information-gap",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-consciousness-current",
+      "subjectId": "claim-consciousness",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-self-model-gap-current",
+      "subjectId": "claim-self-model-gap",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-cloud-consciousness-current",
+      "subjectId": "claim-cloud-consciousness",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-hermetic-philosophy-current",
+      "subjectId": "claim-hermetic-philosophy",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-singularity-current",
+      "subjectId": "claim-singularity",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-self-belief-scaling-current",
+      "subjectId": "claim-self-belief-scaling",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-multidimensional-self-current",
+      "subjectId": "claim-multidimensional-self",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-predestination-current",
+      "subjectId": "claim-predestination",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-illusion-not-fake-current",
+      "subjectId": "claim-illusion-not-fake",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-god-as-ethos-current",
+      "subjectId": "claim-god-as-ethos",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-aham-brahmasmi-current",
+      "subjectId": "claim-aham-brahmasmi",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-mahavakya-prajnanam-current",
+      "subjectId": "claim-mahavakya-prajnanam",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-mahavakya-aham-current",
+      "subjectId": "claim-mahavakya-aham",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-mahavakya-tat-tvam-current",
+      "subjectId": "claim-mahavakya-tat-tvam",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-mahavakya-ayam-atma-current",
+      "subjectId": "claim-mahavakya-ayam-atma",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-information-theory-of-life-current",
+      "subjectId": "claim-information-theory-of-life",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-emergence-entropy-current",
+      "subjectId": "claim-emergence-entropy",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-26",
+      "evidence": "Chay explicitly authorized the completed ten-node correction pass."
+    },
+    {
+      "id": "approval-aristocrat-philosophy-current",
+      "subjectId": "claim-aristocrat-philosophy",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-purple-current",
+      "subjectId": "claim-purple",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-schranz-current",
+      "subjectId": "claim-schranz",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-harvey-specter-current",
+      "subjectId": "claim-harvey-specter",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-klangkuenstler-current",
+      "subjectId": "claim-klangkuenstler",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-kanye-current",
+      "subjectId": "claim-kanye",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-alexander-current",
+      "subjectId": "claim-alexander",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-non-arrival-current",
+      "subjectId": "claim-non-arrival",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-hierarchy-question-current",
+      "subjectId": "claim-hierarchy-question",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-solitude-current",
+      "subjectId": "claim-solitude",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    },
+    {
+      "id": "approval-voices-current",
+      "subjectId": "claim-voices",
+      "state": "proposed",
+      "actor": "agent",
+      "date": "2026-07-29",
+      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+    }
+  ],
+  "auditLedger": [
+    {
+      "nodeId": "cluster-self",
+      "sourceArtifactId": "src-clusters",
+      "evidenceSpanId": "evidence-cluster-self",
+      "actualSourceClaim": "Self is the vault's primary home for the inner world.",
+      "proposedDistillation": "Archive index for identity, emotion, activation and inner loops.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current taxonomy",
+      "supportedRelationships": [
+        "adhd",
+        "spiral",
+        "movement",
+        "love"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "cluster-work",
+      "sourceArtifactId": "src-clusters",
+      "evidenceSpanId": "evidence-cluster-work",
+      "actualSourceClaim": "Work is the structural home for career, money, execution and survival logistics.",
+      "proposedDistillation": "Archive index for work; private employer detail remains withheld.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current taxonomy",
+      "supportedRelationships": [
+        "preparation",
+        "massive-action",
+        "c2x"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "cluster-creative",
+      "sourceArtifactId": "src-clusters",
+      "evidenceSpanId": "evidence-cluster-creative",
+      "actualSourceClaim": "Creative is the structural home for music, art, content and taste.",
+      "proposedDistillation": "Archive index for creative media, projects and influences.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current taxonomy",
+      "supportedRelationships": [
+        "anrxyst",
+        "fallout",
+        "sound",
+        "purple"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "cluster-knowledge",
+      "sourceArtifactId": "src-clusters",
+      "evidenceSpanId": "evidence-cluster-knowledge",
+      "actualSourceClaim": "Knowledge holds research and others' philosophy without making it Chay's belief.",
+      "proposedDistillation": "Archive index separating external knowledge from personal claims.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current taxonomy",
+      "supportedRelationships": [
+        "hermetic-philosophy",
+        "singularity",
+        "information-gap"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "cluster-systems",
+      "sourceArtifactId": "src-clusters",
+      "evidenceSpanId": "evidence-cluster-systems",
+      "actualSourceClaim": "Systems is the structural home for the vault, workflows and capture infrastructure.",
+      "proposedDistillation": "Archive index for the machinery that operates the other drawers.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current taxonomy",
+      "supportedRelationships": [
+        "consciousness",
+        "self-model-gap",
+        "cloud-consciousness"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "agency",
+      "sourceArtifactId": "src-private-operating-profile",
+      "evidenceSpanId": "evidence-agency",
+      "actualSourceClaim": "Agency is an explicit value and evaluative standard.",
+      "proposedDistillation": "A recurring preference for action over learned helplessness.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current profile",
+      "supportedRelationships": [
+        "massive-action",
+        "preparation"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "preparation",
+      "sourceArtifactId": "src-private-preparation-profile",
+      "evidenceSpanId": "evidence-preparation",
+      "actualSourceClaim": "Preparation creates leverage but can replace execution; 85/15 is a self-estimate.",
+      "proposedDistillation": "Systems are useful only when they serve shipped work.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "supported",
+      "privacy": "P0",
+      "temporalScope": "current profile estimate",
+      "supportedRelationships": [
+        "massive-action",
+        "consciousness"
+      ],
+      "contradictionsOrVariants": [
+        "The infrastructure is valuable and can also become avoidance."
+      ],
+      "verdict": "tighten",
+      "failureReasons": [
+        "estimated ratio can read as measurement"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "massive-action",
+      "sourceArtifactId": "src-massive-action",
+      "evidenceSpanId": "evidence-massive-action",
+      "actualSourceClaim": "Action is preferred to circular strategizing when uncertainty blocks progress.",
+      "proposedDistillation": "Choose a workable move that generates evidence instead of strategizing in circles.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "2026-05 operating note",
+      "supportedRelationships": [
+        "agency",
+        "preparation"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "pothos",
+      "sourceArtifactId": "src-pothos",
+      "evidenceSpanId": "evidence-pothos",
+      "actualSourceClaim": "Pothos names the longing that powers Chay's pursuit of Vision.",
+      "proposedDistillation": "Pothos is the fuel; Vision is its destination.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active framework since 2026-05",
+      "supportedRelationships": [
+        "glory",
+        "alexander",
+        "non-arrival",
+        "love"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "love",
+      "sourceArtifactId": "src-private-love",
+      "evidenceSpanId": "evidence-love",
+      "actualSourceClaim": "Distance may intensify desire, but later correction rejects reducing relationships to utility or self-image.",
+      "proposedDistillation": "Love connects attachment, distance, devotion and freedom while preserving the correction against instrumental reduction.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "disputed",
+      "privacy": "P0",
+      "temporalScope": "historical pattern with later correction",
+      "supportedRelationships": [
+        "pothos",
+        "non-arrival",
+        "solitude"
+      ],
+      "contradictionsOrVariants": [
+        "Distance can intensify desire.",
+        "Relationships can shape identity without being fake or merely instrumental."
+      ],
+      "verdict": "tighten",
+      "failureReasons": [
+        "agent synthesis risks flattening distinct relationships",
+        "privacy-sensitive relationship structure needs a separate review"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "glory",
+      "sourceArtifactId": "src-glory",
+      "evidenceSpanId": "evidence-glory",
+      "actualSourceClaim": "Glory means lasting influence on how humans think, not literal immortality or status.",
+      "proposedDistillation": "Glory is continuity through influence on thought, not fame or literal survival.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active definition since 2026-05",
+      "supportedRelationships": [
+        "pothos",
+        "cloud-consciousness",
+        "alexander"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "adhd",
+      "sourceArtifactId": "src-private-adhd",
+      "evidenceSpanId": "evidence-adhd",
+      "actualSourceClaim": "Chay reports novelty- and urgency-linked activation, bursts and shutdown under forced effort.",
+      "proposedDistillation": "A self-observed interest-based activation pattern; not a diagnostic or universal claim.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "self-report in 2026-05",
+      "supportedRelationships": [
+        "spiral",
+        "movement",
+        "solitude"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "tighten",
+      "failureReasons": [
+        "clinical label can overstate what the evidence span establishes"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "spiral",
+      "sourceArtifactId": "src-private-operating-profile",
+      "evidenceSpanId": "evidence-spiral",
+      "actualSourceClaim": "A recurring future-catastrophizing pattern is distinguished from analysis by whether options appear.",
+      "proposedDistillation": "The spiral produces verdicts; useful analysis produces options.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current operating model",
+      "supportedRelationships": [
+        "movement",
+        "adhd"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "movement",
+      "sourceArtifactId": "src-private-operating-profile",
+      "evidenceSpanId": "evidence-movement",
+      "actualSourceClaim": "Movement is a self-reported intervention for shifting cognitive state.",
+      "proposedDistillation": "Physical motion is a practical state-change intervention, not a universal treatment claim.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "preference",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current intervention",
+      "supportedRelationships": [
+        "spiral"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "manifestation",
+      "sourceArtifactId": "src-manifestation",
+      "evidenceSpanId": "evidence-manifestation",
+      "actualSourceClaim": "Chay links conviction, identity adoption and aligned action; causal metaphysics remains personal belief.",
+      "proposedDistillation": "Conviction selects a story and changes attention and action; stronger causal claims remain hypothesis.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "evolving belief",
+      "supportedRelationships": [
+        "synchronicity",
+        "self-belief-scaling",
+        "predestination"
+      ],
+      "contradictionsOrVariants": [
+        "Literal timeline alignment and behavioral selection coexist in the record."
+      ],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "synchronicity",
+      "sourceArtifactId": "src-synchronicity",
+      "evidenceSpanId": "evidence-synchronicity",
+      "actualSourceClaim": "Chay interprets selected recurrences through attention and alignment; Jung similarity is secondhand.",
+      "proposedDistillation": "Synchronicity is Chay's attentional interpretation, not settled supernatural causation or verified Jung scholarship.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current interpretation",
+      "supportedRelationships": [
+        "manifestation",
+        "hermetic-philosophy"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "c2x",
+      "sourceArtifactId": "src-public-c2x",
+      "evidenceSpanId": "evidence-c2x",
+      "actualSourceClaim": "The public page states a context-to-execution practice, but no canonical Chay OS evidence was located.",
+      "proposedDistillation": "C2X is a public project index pending canonical vault capture.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "plan",
+      "status": "unknown",
+      "privacy": "P0",
+      "temporalScope": "current project",
+      "supportedRelationships": [
+        "cluster-work"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "insufficient_source",
+      "failureReasons": [
+        "public page substituted for canonical evidence"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "blocked",
+      "blocker": "Create or identify a canonical Chay OS project record.",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "anrxyst",
+      "sourceArtifactId": "src-anrxyst",
+      "evidenceSpanId": "evidence-anrxyst",
+      "actualSourceClaim": "Anrxyst separates substance, format and voice in a multi-domain creative system.",
+      "proposedDistillation": "A creative platform whose production method keeps substance, format and voice distinct.",
+      "expressionType": "synthesis",
+      "epistemicType": "plan",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active project",
+      "supportedRelationships": [
+        "information-gap",
+        "purple",
+        "sound"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "fallout",
+      "sourceArtifactId": "src-fallout",
+      "evidenceSpanId": "evidence-fallout",
+      "actualSourceClaim": "Fallout is a public creative platform shaped by live music, scene-building and cultural influence.",
+      "proposedDistillation": "An India-focused hard-techno and rave platform built from lived scene experience.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "plan",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active project",
+      "supportedRelationships": [
+        "schranz",
+        "klangkuenstler",
+        "sound"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "sound",
+      "sourceArtifactId": "src-sound-map",
+      "evidenceSpanId": "evidence-sound",
+      "actualSourceClaim": "The vault documents several musical influences, but not the full memory-indexing and regulation thesis in one sufficient source.",
+      "proposedDistillation": "Music is a major influence; the broader psychological thesis requires listening-history evidence.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "unknown",
+      "privacy": "P0",
+      "temporalScope": "incomplete archive coverage",
+      "supportedRelationships": [
+        "schranz",
+        "klangkuenstler",
+        "fallout"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "insufficient_source",
+      "failureReasons": [
+        "distributed references were promoted into a broad thesis"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "blocked",
+      "blocker": "Add a canonical sound/listening-history record or narrow the display copy.",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "information-gap",
+      "sourceArtifactId": "src-information-gap",
+      "evidenceSpanId": "evidence-information-gap",
+      "actualSourceClaim": "Information can be lost through death or failed translation; communicators must bridge the decoding gap.",
+      "proposedDistillation": "A civilizational and content-level concern about transferring what is in one mind to another.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active thesis",
+      "supportedRelationships": [
+        "cloud-consciousness",
+        "anrxyst"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "consciousness",
+      "sourceArtifactId": "src-mirror-vision",
+      "evidenceSpanId": "evidence-consciousness",
+      "actualSourceClaim": "The mirror is meant to preserve evidence, expose gaps and eventually support execution without claiming personhood.",
+      "proposedDistillation": "An inspectable computational self-model whose archive remains distinct from the person.",
+      "expressionType": "synthesis",
+      "epistemicType": "plan",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active project",
+      "supportedRelationships": [
+        "self-model-gap",
+        "cloud-consciousness"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "self-model-gap",
+      "sourceArtifactId": "src-system-gap",
+      "evidenceSpanId": "evidence-self-model-gap",
+      "actualSourceClaim": "Archive incompleteness is a system observation, not a belief attributed to Chay.",
+      "proposedDistillation": "A standing question that makes missing evidence visible.",
+      "expressionType": "inference",
+      "epistemicType": "interpretation",
+      "status": "supported",
+      "privacy": "P0",
+      "temporalScope": "continuous",
+      "supportedRelationships": [
+        "consciousness"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "system_observation",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "cloud-consciousness",
+      "sourceArtifactId": "src-cloud",
+      "evidenceSpanId": "evidence-cloud-consciousness",
+      "actualSourceClaim": "The current vault is a prototype of a long-horizon persistence project rooted in Chay's childhood thought experiment.",
+      "proposedDistillation": "The vault is v0 of Cloud Consciousness; future BCI-like capability remains aspirational.",
+      "expressionType": "synthesis",
+      "epistemicType": "plan",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "childhood origin, active project",
+      "supportedRelationships": [
+        "consciousness",
+        "information-gap",
+        "glory"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "hermetic-philosophy",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-hermetic-philosophy",
+      "actualSourceClaim": "Chay adopts a secondhand Hermetic frame and links it to shared consciousness.",
+      "proposedDistillation": "A received Hermetic frame: individual minds as expressions of shared consciousness.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "belief stated 2026-05",
+      "supportedRelationships": [
+        "manifestation",
+        "synchronicity",
+        "god-as-ethos",
+        "aham-brahmasmi",
+        "multidimensional-self"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "rewrite",
+      "historicalVerdict": "rewrite",
+      "failureReasons": [
+        "theory laundering in pre-audit copy",
+        "causal claim exceeded source"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "singularity",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-singularity",
+      "actualSourceClaim": "Chay uses singularity for a personal cosmological endpoint, not AI takeoff alone.",
+      "proposedDistillation": "A personal hypothesis in which all matter becomes conscious.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "hypothesis stated 2026-05",
+      "supportedRelationships": [
+        "information-theory-of-life",
+        "emergence-entropy",
+        "cloud-consciousness"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "tighten",
+      "historicalVerdict": "tighten",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "self-belief-scaling",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-self-belief-scaling",
+      "actualSourceClaim": "Chay hypothesizes that extreme self-conviction changes action, presentation and social influence.",
+      "proposedDistillation": "Self-conviction may scale through behavior and influence; this is theory, not proof.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "hypothesis stated 2026-05",
+      "supportedRelationships": [
+        "manifestation",
+        "hermetic-philosophy"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "rewrite",
+      "historicalVerdict": "rewrite",
+      "failureReasons": [
+        "causal certainty exceeded source",
+        "source itself says nuances are skipped"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "multidimensional-self",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-multidimensional-self",
+      "actualSourceClaim": "Chay uses a timeline image, then later explains it through actions and consequences.",
+      "proposedDistillation": "Choices are described as portals; a later variant reframes them as consequence chains.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "evolving belief in one session",
+      "supportedRelationships": [
+        "predestination",
+        "manifestation"
+      ],
+      "contradictionsOrVariants": [
+        "Literal timeline language and later action-consequence clarification must both remain."
+      ],
+      "verdict": "tighten",
+      "historicalVerdict": "tighten",
+      "failureReasons": [
+        "earlier copy flattened historical variants"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "predestination",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-predestination",
+      "actualSourceClaim": "Chay reframes destiny as the consequences of repeated belief and action.",
+      "proposedDistillation": "Destiny is the echo of repeated beliefs and actions, not a guaranteed external script.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "interpretation stated 2026-05",
+      "supportedRelationships": [
+        "manifestation",
+        "multidimensional-self"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "historicalVerdict": "keep",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "illusion-not-fake",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-illusion-not-fake",
+      "actualSourceClaim": "Chay rejects the idea that calling reality illusory removes its consequences.",
+      "proposedDistillation": "Illusion does not mean fake; consequences remain real within lived experience.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "belief stated 2026-05",
+      "supportedRelationships": [
+        "god-as-ethos",
+        "multidimensional-self"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "historicalVerdict": "keep",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "god-as-ethos",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-god-as-ethos",
+      "actualSourceClaim": "Chay defines God/ethos as total existence across possibilities and experiments across religious/scientific registers.",
+      "proposedDistillation": "A personal definition of God as totality; cross-register equivalence is not established science.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "belief stated 2026-05",
+      "supportedRelationships": [
+        "hermetic-philosophy",
+        "illusion-not-fake"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "rewrite",
+      "historicalVerdict": "rewrite",
+      "failureReasons": [
+        "religious and scientific registers were presented as settled equivalence"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "aham-brahmasmi",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-aham-brahmasmi",
+      "actualSourceClaim": "Chay explicitly invokes Aham Brahmāsmi for a slice-and-whole belief; the other Mahāvākyas are later external context.",
+      "proposedDistillation": "Keep the personal slice/ocean claim separate from the external Four Mahāvākyas collection.",
+      "expressionType": "synthesis",
+      "epistemicType": "belief",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "personal claim stated 2026-05; external context added later",
+      "supportedRelationships": [
+        "mahavakya-aham",
+        "hermetic-philosophy"
+      ],
+      "contradictionsOrVariants": [
+        "Current title is an approved display choice; semantic separation is still required."
+      ],
+      "verdict": "split",
+      "historicalVerdict": "rewrite",
+      "failureReasons": [
+        "Tathāgatagarbha was unsupported prompt contamination",
+        "current display joins personal belief and external collection"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "mahavakya-prajnanam",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "evidenceSpanId": "evidence-mahavakya-prajnanam",
+      "actualSourceClaim": "This is external philosophical context, not a documented personal claim.",
+      "proposedDistillation": "External context: Prajñānam Brahma; primary citation verification pending.",
+      "expressionType": "direct_quote",
+      "epistemicType": "external_factual_claim",
+      "status": "unknown",
+      "privacy": "P0",
+      "temporalScope": "historical external text",
+      "supportedRelationships": [
+        "aham-brahmasmi"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "insufficient_source",
+      "failureReasons": [
+        "external phrase added without a verified primary citation"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "external_context_only",
+      "blocker": "Verify a primary Upanishadic citation before approval.",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "mahavakya-aham",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-mahavakya-aham",
+      "actualSourceClaim": "Aham Brahmāsmi is the one Mahāvākya Chay explicitly invokes and interprets through the ocean metaphor.",
+      "proposedDistillation": "Aham Brahmāsmi is documented as Chay's chosen contextual parallel.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "invoked 2026-05",
+      "supportedRelationships": [
+        "aham-brahmasmi"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "mahavakya-tat-tvam",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "evidenceSpanId": "evidence-mahavakya-tat-tvam",
+      "actualSourceClaim": "This is external philosophical context, not a documented personal claim.",
+      "proposedDistillation": "External context: Tat Tvam Asi; primary citation verification pending.",
+      "expressionType": "direct_quote",
+      "epistemicType": "external_factual_claim",
+      "status": "unknown",
+      "privacy": "P0",
+      "temporalScope": "historical external text",
+      "supportedRelationships": [
+        "aham-brahmasmi"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "insufficient_source",
+      "failureReasons": [
+        "external phrase added without a verified primary citation"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "external_context_only",
+      "blocker": "Verify a primary Upanishadic citation before approval.",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "mahavakya-ayam-atma",
+      "sourceArtifactId": "src-external-mahavakyas",
+      "evidenceSpanId": "evidence-mahavakya-ayam-atma",
+      "actualSourceClaim": "This is external philosophical context, not a documented personal claim.",
+      "proposedDistillation": "External context: Ayam Ātmā Brahma; primary citation verification pending.",
+      "expressionType": "direct_quote",
+      "epistemicType": "external_factual_claim",
+      "status": "unknown",
+      "privacy": "P0",
+      "temporalScope": "historical external text",
+      "supportedRelationships": [
+        "aham-brahmasmi"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "insufficient_source",
+      "failureReasons": [
+        "external phrase added without a verified primary citation"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "external_context_only",
+      "blocker": "Verify a primary Upanishadic citation before approval.",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "information-theory-of-life",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-information-theory-of-life",
+      "actualSourceClaim": "Chay hypothesizes that life preserves/transmits information and technology may extend that process.",
+      "proposedDistillation": "A personal philosophy of life as information preservation, not a neutral biological definition.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "hypothesis stated 2026-05",
+      "supportedRelationships": [
+        "singularity",
+        "cloud-consciousness"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "rewrite",
+      "historicalVerdict": "rewrite",
+      "failureReasons": [
+        "personal theory was presented as neutral fact"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "emergence-entropy",
+      "sourceArtifactId": "src-manifestation-session",
+      "evidenceSpanId": "evidence-emergence-entropy",
+      "actualSourceClaim": "Chay frames emergence and entropy as a cosmological tension.",
+      "proposedDistillation": "A personal cosmological hypothesis about complexity and entropy.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "hypothesis",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "hypothesis stated 2026-05",
+      "supportedRelationships": [
+        "singularity",
+        "information-theory-of-life"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "rewrite",
+      "historicalVerdict": "rewrite",
+      "failureReasons": [
+        "unsupported personal-ambition analogy existed in pre-audit copy"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "completed-ten-node-audit-reconciled"
+    },
+    {
+      "nodeId": "aristocrat-philosophy",
+      "sourceArtifactId": "src-aristocrat",
+      "evidenceSpanId": "evidence-aristocrat-philosophy",
+      "actualSourceClaim": "Automation should handle repetitive survival work so time can return to depth and thought.",
+      "proposedDistillation": "Automate repetitive necessity to manufacture time for philosophy and original thought.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "value",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active operating principle",
+      "supportedRelationships": [
+        "consciousness",
+        "preparation"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "purple",
+      "sourceArtifactId": "src-purple",
+      "evidenceSpanId": "evidence-purple",
+      "actualSourceClaim": "Purple is an explicit visual preference and cross-project signature; broader associations are synthesis.",
+      "proposedDistillation": "Purple is a recurring visual signature; specific associations should remain labeled synthesis.",
+      "expressionType": "synthesis",
+      "epistemicType": "preference",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current aesthetic preference",
+      "supportedRelationships": [
+        "anrxyst",
+        "pothos"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "schranz",
+      "sourceArtifactId": "src-schranz",
+      "evidenceSpanId": "evidence-schranz",
+      "actualSourceClaim": "Schranz is Fallout's sonic identity and a forecasted cultural opportunity.",
+      "proposedDistillation": "Schranz is a sonic identity and forecast, not an established market fact.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active influence",
+      "supportedRelationships": [
+        "fallout",
+        "sound",
+        "klangkuenstler"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "harvey-specter",
+      "sourceArtifactId": "src-private-suits",
+      "evidenceSpanId": "evidence-harvey-specter",
+      "actualSourceClaim": "Suits supplied a fictional identity scaffold during a private transition.",
+      "proposedDistillation": "Suits is evidence of media being used as an identity scaffold; the triggering event stays private.",
+      "expressionType": "synthesis",
+      "epistemicType": "memory",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "historical influence",
+      "supportedRelationships": [
+        "kanye"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "klangkuenstler",
+      "sourceArtifactId": "src-klangkuenstler",
+      "evidenceSpanId": "evidence-klangkuenstler",
+      "actualSourceClaim": "A track and later live set catalyzed Chay's route into heartbreak techno and Fallout.",
+      "proposedDistillation": "A musical discovery became a scene and then a platform; wider impact is self-reported.",
+      "expressionType": "synthesis",
+      "epistemicType": "memory",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "2025 origin memory",
+      "supportedRelationships": [
+        "schranz",
+        "fallout",
+        "sound"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "kanye",
+      "sourceArtifactId": "src-kanye",
+      "evidenceSpanId": "evidence-kanye",
+      "actualSourceClaim": "Graduation is a creative proof-of-concept for conviction and cross-domain world-building, held with caution.",
+      "proposedDistillation": "Graduation is an influence and ambition reference, not evidence of achieved equivalence.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active influence",
+      "supportedRelationships": [
+        "purple",
+        "anrxyst"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "alexander",
+      "sourceArtifactId": "src-alexander",
+      "evidenceSpanId": "evidence-alexander",
+      "actualSourceClaim": "Alexander is Chay's historical anchor for Pothos, preserved with failure/cost counter-evidence.",
+      "proposedDistillation": "Alexander is an influence and cautionary anchor, not identity equivalence.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "active historical comparison",
+      "supportedRelationships": [
+        "pothos",
+        "glory"
+      ],
+      "contradictionsOrVariants": [
+        "Boundary-pushing influence coexists with early death and a short-lived empire."
+      ],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "non-arrival",
+      "sourceArtifactId": "src-non-arrival",
+      "evidenceSpanId": "evidence-non-arrival",
+      "actualSourceClaim": "Chay describes desire as fueled by distance and arrival as quieting the engine.",
+      "proposedDistillation": "Non-arrival is a reported cost of Pothos, not a universal law of desire.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "reported 2026-06",
+      "supportedRelationships": [
+        "pothos",
+        "love"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "hierarchy-question",
+      "sourceArtifactId": "src-hierarchy",
+      "evidenceSpanId": "evidence-hierarchy-question",
+      "actualSourceClaim": "Chay rejects hierarchy as intrinsic value while also pursuing ranked influence; the conflict is unresolved.",
+      "proposedDistillation": "Preserve the tension between non-hierarchical value and ranked ambition as an open question.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "disputed",
+      "privacy": "P0",
+      "temporalScope": "unresolved",
+      "supportedRelationships": [
+        "glory",
+        "cloud-consciousness"
+      ],
+      "contradictionsOrVariants": [
+        "Every unit is constitutive and influence is still described through rank."
+      ],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "exact",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "solitude",
+      "sourceArtifactId": "src-private-solitude",
+      "evidenceSpanId": "evidence-solitude",
+      "actualSourceClaim": "Chay reports that high-solitude conditions improve consistency and focus.",
+      "proposedDistillation": "Solitude is self-reported infrastructure; the 90/10 ratio is personal, not prescriptive.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "preference",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "self-report in 2026-05",
+      "supportedRelationships": [
+        "adhd",
+        "movement"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    },
+    {
+      "nodeId": "voices",
+      "sourceArtifactId": "src-private-voices",
+      "evidenceSpanId": "evidence-voices",
+      "actualSourceClaim": "The private profile models two recurring communication/activation modes; this is an editorial synthesis.",
+      "proposedDistillation": "Two recurring modes are useful as a working synthesis, not literal separate selves.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "privacy": "P0",
+      "temporalScope": "current profile model",
+      "supportedRelationships": [
+        "adhd",
+        "spiral"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "tighten",
+      "failureReasons": [
+        "agent-authored profile synthesis can be mistaken for self-description"
+      ],
+      "approvalState": "proposed",
+      "provenanceStatus": "private_hash",
+      "auditOrigin": "phase-1.5"
+    }
+  ],
+  "reviewQueue": [
+    {
+      "id": "review-aham-semantic-split",
+      "subjectIds": [
+        "aham-brahmasmi",
+        "mahavakya-prajnanam",
+        "mahavakya-aham",
+        "mahavakya-tat-tvam",
+        "mahavakya-ayam-atma"
+      ],
+      "decision": "Approve the semantic split between Chay's Aham Brahmāsmi belief and the external Four Mahāvākyas collection; keep the current public title pending that decision.",
+      "material": true,
+      "status": "awaiting_chay"
+    },
+    {
+      "id": "review-insufficient-sources",
+      "subjectIds": [
+        "c2x",
+        "sound",
+        "mahavakya-prajnanam",
+        "mahavakya-tat-tvam",
+        "mahavakya-ayam-atma"
+      ],
+      "decision": "Provide or approve canonical sources; until then these records remain insufficient_source and cannot become approved personal claims.",
+      "material": true,
+      "status": "awaiting_chay"
+    },
+    {
+      "id": "review-privacy-structure",
+      "subjectIds": [
+        "privacy-structure"
+      ],
+      "decision": "Generalize four privacy-sensitive graph relations and decide whether session dates and structural counts should remain visible.",
+      "material": true,
+      "status": "awaiting_chay"
+    },
+    {
+      "id": "review-remaining-semantic-proposals",
+      "subjectIds": [
+        "cluster-self",
+        "cluster-work",
+        "cluster-creative",
+        "cluster-knowledge",
+        "cluster-systems",
+        "agency",
+        "preparation",
+        "massive-action",
+        "pothos",
+        "love",
+        "glory",
+        "adhd",
+        "spiral",
+        "movement",
+        "manifestation",
+        "synchronicity",
+        "c2x",
+        "anrxyst",
+        "fallout",
+        "sound",
+        "information-gap",
+        "consciousness",
+        "self-model-gap",
+        "cloud-consciousness",
+        "mahavakya-prajnanam",
+        "mahavakya-aham",
+        "mahavakya-tat-tvam",
+        "mahavakya-ayam-atma",
+        "aristocrat-philosophy",
+        "purple",
+        "schranz",
+        "harvey-specter",
+        "klangkuenstler",
+        "kanye",
+        "alexander",
+        "non-arrival",
+        "hierarchy-question",
+        "solitude",
+        "voices"
+      ],
+      "decision": "Review the Phase 1.5 classifications and proposed tightenings as one queue; deployment alone does not approve them.",
+      "material": true,
+      "status": "awaiting_chay"
+    }
+  ]
+}

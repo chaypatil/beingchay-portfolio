@@ -3,8 +3,8 @@
     "title": "Chay's Brain Vault — public redacted index",
     "canonical": "Documents/Chay OS/vault",
     "records": 111,
-    "public": 25,
-    "redacted": 86,
+    "public": 17,
+    "redacted": 94,
     "rule": "Every markdown record is represented. Restricted records remain visible as redacted structure; raw private content never enters the repository."
   },
   "records": [
@@ -15,6 +15,8 @@
       "type": "meta",
       "cluster": "Systems",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 2,
       "nodeIds": [
         "cluster-systems"
@@ -28,6 +30,8 @@
       "type": "meta",
       "cluster": "Systems",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -35,12 +39,14 @@
       "content": "---\ntitle: How to use this vault\ndate: 2026-05-03\ncluster: Systems\ntags: [meta, vault-usage, frontmatter, wikilinks]\n---\n\n# How to use this vault\n\n## Adding a new session note\n\nFilename: `sessions/YYYY-MM-DD-NN-short-name.md`\n\n- `YYYY-MM-DD` = date\n- `NN` = two-digit slot if multiple sessions in one day (00, 01, 02)\n- `short-name` = 2-4 word descriptor, lowercase, hyphenated\n\nFrontmatter at the top:\n\n```yaml\n---\ntitle: Full descriptive title\ndate: 2026-05-03\ncluster: Systems\ntags: [tag1, tag2, tag3]\nstatus: raw\n---\n```\n\n- `cluster`: one of [Self, Work, Creative, Knowledge, Systems]\n- `tags`: free-form list, lowercase, hyphenated\n- `status`: `raw` for an untouched session, `synthesized` once content has been rolled up into thematic notes or entity pages\n\n## Wikilinks\n\nAnywhere in note body: `[[2026-05-02-something]]` or `[[████████]]` or `[[Pebble]]`. Obsidian auto-creates entity pages when you link to a name that doesn't exist yet, then those pages collect all backlinks automatically.\n\nThis is how cross-cluster connections become visible in the graph.\n\n## Updating existing notes\n\nSession notes in `sessions/` are immutable. Never edit after creation, only append. If a session reveals a pattern, create a new synthesis note in `entities/topics/` or update a thematic note in `cognitive-mirror/thematic-notes/`.\n\n## Adding voice notes (Wispr Flow)\n\nWhen the new phone arrives with Wispr Flow:\n1. Voice-capture into a Claude Code session while pacing\n2. End the session\n3. Claude saves the session as a dated note in `sessions/`\n\nThe throughput unlock is real. Capture 5-10x more raw material per week.\n\n## Running Claude Code on the vault\n\nFrom the Brain folder root: `claude` to start a session. Tell it to do whatever (process new exports, generate insight reports, find patterns across clusters, build a sub-agent). The vault is the canonical context.\n"
     },
     {
-      "id": "vault-003-claude-commands-cm-dump-md",
-      "path": ".claude/commands/cm-dump.md",
+      "id": "vault-003-restricted-source-redacted-a4f4a98b-md",
+      "path": "restricted/source/redacted-a4f4a98b.md",
       "title": "████████",
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -48,12 +54,14 @@
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
-      "id": "vault-004-chatgpt-export-readme-md",
-      "path": "chatgpt-export/README.md",
+      "id": "vault-004-restricted-source-redacted-b2cc4647-md",
+      "path": "restricted/source/redacted-b2cc4647.md",
       "title": "████████",
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -61,12 +69,14 @@
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
-      "id": "vault-005-claude-export-readme-md",
-      "path": "claude-export/README.md",
+      "id": "vault-005-restricted-source-redacted-131026ae-md",
+      "path": "restricted/source/redacted-131026ae.md",
       "title": "████████",
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -80,6 +90,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -93,6 +105,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -100,12 +114,14 @@
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
-      "id": "vault-008-nitive-mirror-profile-redacted-2caf4227-md",
-      "path": "cognitive-mirror/profile/redacted-2caf4227.md",
+      "id": "vault-008-restricted-source-redacted-2caf4227-md",
+      "path": "restricted/source/redacted-2caf4227.md",
       "title": "████████",
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -119,6 +135,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -132,6 +150,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -145,6 +165,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -158,6 +180,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -171,6 +195,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -184,6 +210,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -197,6 +225,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -210,6 +240,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -223,6 +255,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -236,6 +270,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -249,6 +285,8 @@
       "type": "note",
       "cluster": "Creative",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-creative"
@@ -262,6 +300,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -275,6 +315,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -288,6 +330,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -301,6 +345,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -314,6 +360,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -327,6 +375,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -340,6 +390,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -353,6 +405,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -366,6 +420,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -379,6 +435,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -392,6 +450,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -405,6 +465,8 @@
       "type": "note",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -418,6 +480,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -431,6 +495,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -444,6 +510,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -457,6 +525,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -470,6 +540,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -483,6 +555,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -496,6 +570,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -509,6 +585,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -522,6 +600,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -535,6 +615,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -548,6 +630,8 @@
       "type": "thematic",
       "cluster": "Work",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-work"
@@ -561,6 +645,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -574,6 +660,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -587,6 +675,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -600,6 +690,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -613,6 +705,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -626,6 +720,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -639,6 +735,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -652,6 +750,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -665,6 +765,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -678,6 +780,8 @@
       "type": "thematic",
       "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
         "cluster-systems"
@@ -691,6 +795,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 2,
       "nodeIds": [
         "cluster-systems"
@@ -704,6 +810,8 @@
       "type": "person",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "pothos",
@@ -717,11 +825,13 @@
       "path": "entities/people/private-person-01.md",
       "title": "████████",
       "type": "person",
-      "cluster": "Self",
+      "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-self"
+        "cluster-systems"
       ],
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
@@ -730,11 +840,13 @@
       "path": "entities/people/private-person-02.md",
       "title": "████████",
       "type": "person",
-      "cluster": "Self",
+      "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-self"
+        "cluster-systems"
       ],
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
@@ -745,6 +857,8 @@
       "type": "person",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 8,
       "nodeIds": [
         "harvey-specter",
@@ -760,11 +874,13 @@
       "path": "entities/people/private-person-03.md",
       "title": "████████",
       "type": "person",
-      "cluster": "Self",
+      "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-self"
+        "cluster-systems"
       ],
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
@@ -775,6 +891,8 @@
       "type": "person",
       "cluster": "Creative",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "kanye",
@@ -790,6 +908,8 @@
       "type": "person",
       "cluster": "Creative",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 5,
       "nodeIds": [
         "klangkuenstler",
@@ -806,11 +926,13 @@
       "path": "entities/people/private-person-04.md",
       "title": "████████",
       "type": "person",
-      "cluster": "Self",
+      "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-self"
+        "cluster-systems"
       ],
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
@@ -819,11 +941,13 @@
       "path": "entities/people/private-person-05.md",
       "title": "████████",
       "type": "person",
-      "cluster": "Self",
+      "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-self"
+        "cluster-systems"
       ],
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
@@ -832,11 +956,13 @@
       "path": "entities/people/private-person-06.md",
       "title": "████████",
       "type": "person",
-      "cluster": "Self",
+      "cluster": "Systems",
       "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-self"
+        "cluster-systems"
       ],
       "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
@@ -847,6 +973,8 @@
       "type": "topic",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 7,
       "nodeIds": [
         "non-arrival",
@@ -862,6 +990,8 @@
       "type": "topic",
       "cluster": "Systems",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cloud-consciousness",
@@ -877,6 +1007,8 @@
       "type": "topic",
       "cluster": "Creative",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 4,
       "nodeIds": [
         "fallout",
@@ -895,6 +1027,8 @@
       "type": "topic",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 3,
       "nodeIds": [
         "glory",
@@ -911,6 +1045,8 @@
       "type": "topic",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "hermetic-philosophy",
@@ -931,6 +1067,8 @@
       "type": "topic",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "information-gap",
@@ -949,6 +1087,8 @@
       "type": "topic",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 12,
       "nodeIds": [
         "manifestation",
@@ -965,6 +1105,8 @@
       "type": "topic",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 1,
       "nodeIds": [
         "pothos",
@@ -982,6 +1124,8 @@
       "type": "topic",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 2,
       "nodeIds": [
         "adhd",
@@ -997,6 +1141,8 @@
       "type": "topic",
       "cluster": "Creative",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 1,
       "nodeIds": [
         "schranz",
@@ -1014,6 +1160,8 @@
       "type": "topic",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "singularity",
@@ -1032,6 +1180,8 @@
       "type": "topic",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 9,
       "nodeIds": [
         "harvey-specter",
@@ -1047,6 +1197,8 @@
       "type": "topic",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "synchronicity",
@@ -1058,173 +1210,199 @@
       "content": "---\ntitle: Synchronicity\ndate: 2026-05-09\ncluster: Knowledge\ntags: [synchronicity, carl-jung, vision-alignment, brain-filter, 1111, 444, 333, 222, 1221, 1331, manifestation, hermetic, attention]\nstatus: active\ntype: topic\n---\n\n# Synchronicity\n\nChay's interpretation: synchronicity is **filtered evidence that you are aligned with vision**. Not magic, not coincidence. The brain's labeling-as-important filter, when set correctly, surfaces signal that confirms the trajectory.\n\n## The Chay take\n\n> \"When my entirety of existence is in alignment with my vision, that's when I start to see these particular times like 1111 or 111 or triple 4, triple 3, triple 2, all of these, or 1221, 1331.\" ([[sessions/2026-05-08-00-manifestation-arc-cloud-consciousness]] §40)\n\nThe mechanism (his words):\n\n1. We're constantly stimulus-stimulated with infinite information every day.\n2. The brain applies filters labeling information important / not important.\n3. When the filter is set to vision-aligned (i.e. the brain has accepted \"I am becoming X\"), it surfaces evidence of that becoming.\n4. The 1111s and 333s are pings from the filter. Confirmation that focus is held.\n\nHeard from one of his exes that Carl Jung talked about it. He hasn't read Jung; assumes Jung has a similar framing in different words. (\"The ethos of ideas exists out there. We are merely the radio signals through which the ethos comes into reality.\")\n\n## Triggers Chay tracks\n\n- 1111, 111\n- 444, 333, 222\n- 1221, 1331 (he calls 1331 \"a bow\")\n- General number-mirror patterns\n\n## Where it shows up in Chay's track record\n\n- The \"[[Rachel]]\" sync after Suits adoption (woman with that middle name appeared, into him)\n- Klangkünstler manifestation: discovered him in April 2025 → he announced an India show in July 2025 → Chay \"wasn't even trying to manifest that, but the timing happened\"\n- The Brain vault → Cloud Consciousness rename happening in the same session → Chaitanya = consciousness in Sanskrit. Chay flagged this as one of the densest synchronicities of his life.\n\n## Theory connection\n\n- [[Manifestation]] — synchronicity is the feedback loop that confirms the manifestation is locking\n- [[Hermetic Philosophy]] — \"the universe is mental\"; synchronicity is the universe-as-mental responding to attention\n- [[Time as Illusion]] — if all timelines exist simultaneously, synchronicity is the brain noticing the timeline it's already aligned to\n- [[Cloud Consciousness]] — the rename of the vault was a synchronicity event Chay explicitly named\n\n## Open\n\n- Read actual Jung on synchronicity. Compare to his filter-alignment framing. Likely overlap, possibly different mechanism. (Tracked in [[sessions/2026-05-08-00-manifestation-arc-cloud-consciousness]] open threads.)\n\n## Status\n\n`active` — operational belief. Not falsified by any documented event. Functions as both explanatory framework and feedback signal.\n"
     },
     {
-      "id": "vault-077-frameworks-pipeline-readme-md",
-      "path": "frameworks/_pipeline/README.md",
-      "title": "Instagram scrape pipeline",
+      "id": "vault-077-frameworks-raw-source-redacted-1d917092-md",
+      "path": "frameworks/raw-source/redacted-1d917092.md",
+      "title": "████████",
       "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\ntitle: Instagram scrape pipeline\nstatus: live\ncreated: 2026-05-09\n---\n\n# `_pipeline/` — Instagram scrape + transcribe\n\nPermanent, reusable. Built 2026-05-09. Don't re-implement ad-hoc.\n\n## TL;DR\n\n```\npython frameworks/_pipeline/scrape_ig.py --creator <name> <url1> [<url2> ...]\n```\n\nOutput: `frameworks/_raw/<name>/v<n>.mp3` + `v<n>.transcript.md` per URL. Auto-numbers — won't clobber.\n\nIn any Claude Code session running with the Brain vault as cwd: type `/scrape-ig <urls...>` and Claude runs the pipeline + summarizes the transcripts.\n\n## What's installed\n\n| Component         | Where                                                                                  | Install command                |\n| ----------------- | -------------------------------------------------------------------------------------- | ------------------------------ |\n| `yt-dlp`          | Python pip global                                                                      | `pip install yt-dlp`           |\n| `faster-whisper`  | Python pip global (uses CTranslate2, no GPU needed)                                    | `pip install faster-whisper`   |\n| `ffmpeg`          | `C:/Users/chait/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_.../bin`           | `winget install Gyan.FFmpeg`   |\n| Whisper model     | `~/.cache/huggingface/hub/models--Systran--faster-whisper-base` (~150MB, downloads 1×) | auto on first run              |\n| Instagram cookies | `frameworks/_raw/cookies.txt` (Netscape format)                                        | \"Get cookies.txt LOCALLY\" extn |\n\n## Cookie refresh\n\nInstagram cookies last weeks-to-months. When the script reports \"auth failed — cookies expired\":\n\n1. Open Instagram in Chrome while logged in.\n2. Click the \"Get cookies.txt LOCALLY\" extension icon.\n3. Click Export → Save to `C:\\Users\\chait\\OneDrive\\Desktop\\Brain\\frameworks\\_raw\\cookies.txt` (overwrite the old one).\n4. Re-run the script.\n\n## Adding a new creator\n\n```\npython frameworks/_pipeline/scrape_ig.py --creator new_creator https://www.instagram.com/p/ABC123/\n```\n\nThen read `frameworks/_raw/new_creator/v1.transcript.md`. To distill a framework, ask Claude to analyze the transcripts and write to `frameworks/<new_creator>.md`.\n\n## Re-extracting an existing creator (more samples)\n\nThe script auto-detects existing v<n>.mp3 files and continues numbering. Drop new URLs:\n\n```\npython frameworks/_pipeline/scrape_ig.py --creator jett_franzen <new-url-1> <new-url-2>\n```\n\nWill produce v3, v4 (since v1, v2 already exist).\n\n## Why this exists\n\nAvoids re-figuring out the auth + ffmpeg + transcription flow every session. One command, fail-clear, idempotent.\n"
-    },
-    {
-      "id": "vault-078-meworks-raw-reference-365day-transcript-md",
-      "path": "frameworks/_raw/_reference/365day.transcript.md",
-      "title": "365-day-ADHD creator — sample transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DUQBtDPkvEW/\nduration_sec: 61.1\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: self-aware people isolate themselves\nformat: stream-of-consciousness essay\nnote: NOT used as archetype; reference for cadence/format study\n---\n\n# 365-day-ADHD creator — sample transcript\n\n> People who are self-aware isolate themselves. Emotional intelligence and self-awareness are two things which are amazing — until you have it. Until you've gotten to a level where you can't go back to being the person you used to be. You start noticing the energy that you get from a person, you start noticing their patterns, you basically start noticing everything. Everything. And it gets tiring. And that's why people who are self-aware isolate themselves most of the time, because it's hard, man. How can you be around people that you know have no good intentions for you? Because if you don't [stay away], it's gonna fuck your energy up. If you don't, it's gonna fuck your mental health up. If you don't like the word \"energy,\" say \"mental health\" — it will fuck your mental health up. I've been in groups, I've been with people who I knew from the get-go that were good for me [bad for me, likely], and in the end, as much as I tried, I just couldn't take it anymore. So nowadays I don't even try. I don't even try to get into a group, I don't even try to make friends. I'm like — if it happens, it happens. That's it.\n\n**What this exemplifies:** Stream-of-consciousness, no obvious structure on the surface, repetitive language (\"You start noticing... You start noticing... You basically start noticing everything\"). High conviction, low polish. The \"if it happens, it happens\" close functions as a verdict.\n\n**Note** — likely intended \"I knew from the get-go that were [bad] for me\" — Whisper said \"good for me\" but the rest of the sentence (\"just couldn't take it anymore\") only makes sense if they were bad.\n"
-    },
-    {
-      "id": "vault-079-s-raw-reference-yapstructure-transcript-md",
-      "path": "frameworks/_raw/_reference/yapstructure.transcript.md",
-      "title": "Yap-structure analysis — reference transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DUvZ7IiAJKD/\nduration_sec: 56.9\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: the hidden structure behind viral \"yapping\"\nformat: meta-analysis essay\nnote: KEY reference — decodes the volume-shipper archetype\n---\n\n# Yap-structure analysis — reference transcript\n\n> Yapping on camera looks easy, but everyone's missing the point. So you pick up your phone, you yap on camera, there's minimal editing, there's a vibe of \"I just gotta tell you this right now,\" and then you post it — but it doesn't hit. Just because the top creators look like they do those things doesn't mean that's why it's working. Because their videos only look raw — they look off the cuff, that's the aesthetic. The point they're making is more deliberate and thought through. So I'm a psycho and I studied 84 yapt videos, and the best ones all pass this one test from the book *Get to the Point*. After you say your take out loud, you ask yourself: **so what?** If the answer is obvious, you don't have a point. It's a truism. Actual points have **tension**. Someone can say \"nah, I disagree.\" Here's an example: \"Communication is key in relationships.\" And they just go on about the importance of communication. So what? There's nothing to engage in — it's just noise. But an actual point would be: \"Most relationship problems aren't communication problems. You communicated just fine, you just don't like what you heard.\" Now there's something to chew on.\n\n## Extracted insight (the key)\n\n**The \"so what?\" / tension test** is the hidden structure behind apparently formless viral content. A take is a real take only if someone could disagree with it. Truisms = noise. Tensions = engagement.\n\nThis decodes rawarxchives' framework. The volume-shipper's MVP-daily content works because each take passes the tension test, even when delivery is unstructured.\n\n**Application to all 4 archetypes:**\n- Jett's \"rename move\" (X is in truth Y) is a tension generator by design.\n- Emily's \"counter-intuitive claim\" is a tension generator by design.\n- Moksh's \"cringe is the new cool\" is a tension generator by design.\n- rawarxchives' shorter content needs to be checked for the tension test as the proxy for framework presence.\n\n**Universal layer:** Every script Chay generates from any framework should pass the so-what test. Add a beat-zero check before any other scaffold runs:\n\n```\nTake: <state the take in one sentence>\nSo what / could someone disagree?\n- If yes (named point of disagreement): proceed with framework\n- If no (truism): rewrite the take with tension or kill the script\n```\n\nThis is the cheapest filter to add to the engine. Should be wired into the `/anrxyst-script` skill when built.\n"
-    },
-    {
-      "id": "vault-080-works-raw-emily-mcdonnell-v1-transcript-md",
-      "path": "frameworks/_raw/emily_mcdonnell/v1.transcript.md",
-      "title": "Emily McDonnell — v1 transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DXMtstVgo9F/\nduration_sec: 73.1\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: planning vs action / dopamine\n---\n\n# Emily McDonnell — v1 transcript\n\n> Science shows that one of the best ways to stop yourself from achieving your goals is to try to plan everything out before you even do it. And I'll tell you why and what I do instead. Planning out your goals gives you dopamine, which tricks your brain into thinking that you've accomplished something when you haven't done anything at all. It gives you the illusion of progress. And while planning and strategizing can be helpful, a lot of the time it'll put your brain into analysis paralysis where you don't know what to do next. Doing something badly is way better than not doing anything at all because the first step is where the magic happens. That's why the one piece of advice I give to all of my clients, the reason why they start businesses, travel the world, move to new cities, and actually chase their dreams is to start small and send it. Because when you take that first step, your brain rewards you with dopamine, which builds motivation and momentum. And through neuroplasticity you will be strengthening pathways in your brain that help you look for more opportunities and get more ideas aligned with your goals. You'll stop waiting for motivation to start because the action creates the motivation. The action will also teach you more than over analyzing and planning ever will. I learned this way back in the day when I used to practice intuitive hiking where I would get lost on purpose. I realized that you don't need to know how to get to the top of the mountain from the bottom. You only need to know the next right step.\n"
-    },
-    {
-      "id": "vault-081-works-raw-emily-mcdonnell-v2-transcript-md",
-      "path": "frameworks/_raw/emily_mcdonnell/v2.transcript.md",
-      "title": "Emily McDonnell — v2 transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DWCDOaBgst1/\nduration_sec: 60.4\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: identity drives outcomes\n---\n\n# Emily McDonnell — v2 transcript\n\n> My life changed when I realized that you do not get what you want in life, you get what you are, and I'll tell you three neuroscience-backed reasons why that is. Reason number one is that your brain works 100% of the time to keep you in alignment with who you think you are. Your sense of identity drives your thoughts, your habits, and your decisions. Be very careful of the labels that you identify with because they are instructions for your brain. Reason number two is that your self-worth directly impacts how much love, money, and success you will achieve. Studies show that your self-worth is directly tied to how much money you make even after controlling for external factors. It's not just money either, this is also about relationships, this is why we accept the love we think we deserve. And reason number three is that your brain is always filtering reality to show you more of what matches your beliefs and identity. Your reticular activating system filters out over 99% of the information that's coming at you. So if you don't see opportunities, it's not because they aren't there, it's because your brain isn't wired to notice them. Your mind and reality are one. If you want to change your life, you have to change your mind first.\n\n**Whisper garble:** \"particular activating system\" → \"reticular activating system\" (RAS) — corrected when reading.\n"
-    },
-    {
-      "id": "vault-082-works-raw-emily-mcdonnell-v3-transcript-md",
-      "path": "frameworks/_raw/emily_mcdonnell/v3.transcript.md",
-      "title": "Emily McDonnell — v3 transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DWUF3URAnLp/\nduration_sec: 71.9\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: over-justification effect / having reasons\n---\n\n# Emily McDonnell — v3 transcript\n\n> Having a reason for everything that you do is ruining your life and I'll tell you the neuroscience behind why. If everything you do has a purpose, your workouts, your walks, your hobbies, then your brain turns your entire life into a task. That's why you can be doing all the right things and still not feel happy. When you attach a reason to everything that you do, you're constantly delaying dopamine. So rather than feeling good while you're doing something, you're stuck chasing how you'll feel when it's over, and then that feeling never comes. In psychology, there's something called the over-justification effect, where as soon as you attach a reward or a reason to something you enjoy, you stop enjoying it because your brain literally classifies the activity differently. I was hiking recently and I was wondering why it didn't feel magical like it used to, and then I realized that it was because I had turned it into a task. I needed to complete the trail, get my cardio, finish at a certain time. But as soon as I let all that go and just be there, I was dancing on the mountaintop by the end. When you do things for no reason at all, your brain releases dopamine during the experience not after. You activate present moment awareness networks and you finally stop chasing and start experiencing. The more you remove pressure and add presence, the more alive you will feel.\n"
-    },
-    {
-      "id": "vault-083-ameworks-raw-jett-franzen-v1-transcript-md",
-      "path": "frameworks/_raw/jett_franzen/v1.transcript.md",
-      "title": "Jett Franzen — v1 transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DRU7oC4kbgQ/\nduration_sec: 38.5\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\n---\n\n# Jett Franzen — v1 transcript\n\n**Whisper garble:** \"Dovskyevsky\" → \"Dostoevsky\" (corrected when reading).\n\n> Dostoevsky warned us: tolerance will reach such a level that intelligent people will be forbidden to think so as not to offend the imbeciles. And the prophet was right. We live in an age where thinking has become a crime, where the sensitivity of the fool is worth more than the clarity of the wise. Truth must now apologize, thought must walk on tiptoes, and he who dares to question it is silenced, labeled, and cancelled. What they call tolerance is in truth the new name for cowardice. A society that protects stupidity is doomed to be ruled by it. Dostoevsky saw the abyss long before us, and he was right. The world won't be destroyed by the wicked, but the cowards who can't stand to hear someone think differently.\n\n## Structural beats (annotated)\n\n1. **Authority hook** — invoke a named thinker + their warning (\"Dostoevsky warned us...\")\n2. **Paraphrase the warning** — restate in his own register, slightly sharper\n3. **Anchor** — \"and the prophet was right\" (small, repeated)\n4. **Indictment of the present** — \"we live in an age where...\"\n5. **Three-part rhythm** — \"Truth must now apologize, thought must walk on tiptoes, and he who dares...\"\n6. **Rename move** — \"what they call X is in truth Y\" (\"tolerance\" → \"cowardice\")\n7. **Aphoristic verdict** — \"A society that protects stupidity is doomed to be ruled by it\"\n8. **Anchor repeated** — \"Dostoevsky saw the abyss... and he was right\"\n9. **Final stinger reframe** — name the actual enemy (\"not the wicked, but the cowards\")\n"
-    },
-    {
-      "id": "vault-084-frameworks-raw-jett-franzen-v2-note-md",
-      "path": "frameworks/_raw/jett_franzen/v2.note.md",
-      "title": "Jett Franzen — v2 note",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "public",
-      "redactions": 0,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DXsVc7XEapq/\nduration_sec: 6.1\ntranscribed: 2026-05-09\nstatus: not-usable-for-framework\n---\n\n# Jett Franzen — v2 note\n\nMusic-only post, no spoken content. Whisper output: \"Music\". Likely a vibe/aesthetic reel, not an essay. Excluded from framework extraction. Worth grabbing 1-2 additional Jett essay-reels to strengthen the framework.\n"
-    },
-    {
-      "id": "vault-085-ameworks-raw-moksh-vasant-v1-transcript-md",
-      "path": "frameworks/_raw/moksh_vasant/v1.transcript.md",
-      "title": "Moksh Vasant — v1 transcript",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "redacted-extract",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-knowledge"
+        "cluster-systems"
       ],
-      "content": "---\nsource: https://www.instagram.com/p/DCbWyoPMI3z/\nduration_sec: 49.0\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: day in the life as a 20yo\nformat: aesthetic POV vlog\n---\n\n# Moksh Vasant — v1 transcript\n\n████████  [PRIVATE DETAIL REDACTED]\n\n**Whisper garbles flagged:**\n- \"wrinkle sheets\" → \"wrinkled sheets\"\n- \"without coding\" → unclear, possibly \"I went hard coding\"\n- \"crazy out two months ago\" → \"crazy how 2 months ago\"\n- \"camo mildly\" → unclear, possibly \"camomile tea\" or \"camo mid-light\"\n- \"biohacker is just some of the label I wear\" → \"biohacker is just one of the labels I wear\"\n"
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
-      "id": "vault-086-ameworks-raw-moksh-vasant-v2-transcript-md",
-      "path": "frameworks/_raw/moksh_vasant/v2.transcript.md",
-      "title": "Moksh Vasant — v2 transcript",
+      "id": "vault-078-frameworks-raw-source-redacted-f9abb865-md",
+      "path": "frameworks/raw-source/redacted-f9abb865.md",
+      "title": "████████",
       "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "redacted-extract",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-knowledge"
+        "cluster-systems"
       ],
-      "content": "---\nsource: https://www.instagram.com/p/DFPx-eCTNnj/\nduration_sec: 44.6\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: maximize the delta / shared knowledge ecosystems\nformat: idea essay + newsletter CTA\n---\n\n# Moksh Vasant — v2 transcript\n\n████████  [PRIVATE DETAIL REDACTED]\n\n**Whisper garbles flagged:**\n- \"outgrow\" → \"outgrowth\"\n- \"Reenkish you\" → \"and enriches you\"\n- \"Stetsla\" → \"Tesla\"\n- \"many ecosystems around me\" → \"mini ecosystems around me\"\n- \"delas\" → \"deltas\"\n- The CTA at the end is garbled — likely \"comment 'newsletter'\" or similar trigger word\n"
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
-      "id": "vault-087-ameworks-raw-moksh-vasant-v3-transcript-md",
-      "path": "frameworks/_raw/moksh_vasant/v3.transcript.md",
-      "title": "Moksh Vasant — v3 transcript",
+      "id": "vault-079-frameworks-raw-source-redacted-5f832c88-md",
+      "path": "frameworks/raw-source/redacted-5f832c88.md",
+      "title": "████████",
       "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "redacted-extract",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-knowledge"
+        "cluster-systems"
       ],
-      "content": "---\nsource: https://www.instagram.com/p/DFfVXUnzw4S/\nduration_sec: 62.4\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: thinking like an entrepreneur before becoming one\nformat: framework essay + comment CTA\n---\n\n# Moksh Vasant — v3 transcript\n\n████████  [PRIVATE DETAIL REDACTED]\n\n**Whisper garbles:**\n- \"no, very interesting\" → \"no, really\" (filler)\n- \"competitive mode\" → \"competitive moat\"\n- \"Stu Connect\" → \"StuConnect\" (one word likely)\n"
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
-      "id": "vault-088-ameworks-raw-moksh-vasant-v4-transcript-md",
-      "path": "frameworks/_raw/moksh_vasant/v4.transcript.md",
-      "title": "Moksh Vasant — v4 transcript",
+      "id": "vault-080-frameworks-raw-source-redacted-a37baf81-md",
+      "path": "frameworks/raw-source/redacted-a37baf81.md",
+      "title": "████████",
       "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "redacted-extract",
-      "redactions": 2,
-      "nodeIds": [
-        "cluster-knowledge"
-      ],
-      "content": "---\nsource: https://www.instagram.com/p/DJ_-GKvTsje/\nduration_sec: 49.9\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: tried way too many things — cringe is the new cool\nformat: list essay + ASAP Rocky quote + newsletter CTA\n---\n\n# Moksh Vasant — v4 transcript\n\n████████  [PRIVATE DETAIL REDACTED]\n\n**Whisper garbles:**\n████████  [PRIVATE DETAIL REDACTED]\n- \"got a great shape\" → \"got in great shape\"\n- \"for you\" → \"really well\" (interpretation)\n- \"in public? That's cool\" — possibly the actual stinger of the post\n"
-    },
-    {
-      "id": "vault-089-ameworks-raw-rawarxchives-v1-transcript-md",
-      "path": "frameworks/_raw/rawarxchives/v1.transcript.md",
-      "title": "rawarxchives — v1 transcript (cleaned)",
-      "type": "framework",
-      "cluster": "Knowledge",
-      "privacy": "redacted-extract",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
       "redactions": 1,
       "nodeIds": [
-        "cluster-knowledge"
+        "cluster-systems"
       ],
-      "content": "---\nsource: https://www.instagram.com/p/DXkZVggE36V/\nduration_sec: 169.4\ntranscribed: 2026-05-09\nmodel: faster-whisper base int8\ntopic: three non-negotiable promises (manifesto post)\nformat: long-form vlog manifesto\ncaveat: very rough transcription with many small garbles, content is reconstructed\n---\n\n# rawarxchives — v1 transcript (cleaned)\n\n> You are too early to avoid this video. Yes — in fact, some of you are going to find this video at a very strange moment in your life when you are feeling extremely confused between two life choices. I'll give more context, but when and why am I recording this video? 11:11pm on the clock, 25th April 2026 on the calendar. Why am I recording this video? I have three non-negotiable promises that I am going to make in this video. For the last four months, I don't remember a night when I have slept more than three to four hours. It feels overwhelming to make this video, but here I am.\n>\n> A lot of you have always asked me — when do I sleep, how much do I sleep, if I sleep at all? I always used to say that I am skipping the sleep to make videos, I am doing everything to make videos for the love of making videos. But there was one question that I was not able to answer, or maybe I had the answer already when I was avoiding that question — why am I pursuing a role that is not related to me, indicating 12 to 13 hours of my life [investing]? But I have the answer to that question today, because yesterday was the last day of my office. Yes, I am no longer working there.\n>\n> But mention to all the people that I have met in the office, especially my mentors — they have changed my perspective. I am leaving because now I am aiming for the high potential. I am not limiting my belief to say I was meant to be a good employee — I have full trust, I am meant to be a great guy.\n>\n> But what are the three non-negotiable promises that I am going to make tonight?\n>\n> **Number one:** I am going to be a ruthless workaholic in the next six months. I will be working so hard that it is inevitable to hit a million followers. Not only me — my followers will seek guidance from me. I will make sure that they see their first 100k by the end of this year. The majority of them are already very close, [unclear], 50k. I am not going to stop until all of my followers become the version of themselves that they always wanted to be.\n>\n> **Second non-negotiable promise:** I am going to make myself impregnable in self-belief. People spend their entire lives accumulating everything, and dying void. I am not that guy. I am abundant.\n>\n> **Third:** I am not going to treat my body like garbage. Taking full care of it every single day. And whatever the [unclear] I am, which is a pain in learning new skills, finding new opportunities, becoming the best work in all my superfriends [unclear].\n>\n████████  [PRIVATE DETAIL REDACTED]\n\n**Whisper garbles flagged (significant):**\n- \"deep jobs\" → \"Steve Jobs\"\n- \"real distortion field\" → \"reality distortion field\"\n- \"indicating 12-13 hours\" → \"investing 12-13 hours\"\n- \"high potension\" → \"high potential\"\n- \"ablating denky 50k\" → unclear, possibly \"approaching, like 50k\"\n- \"willed into past catch\" → unclear, likely \"willed into past tense\" / \"will have happened\"\n- Many minor punctuation/word breaks throughout\n\n**Note on format:** This is much longer than typical (2:50). Most rawarxchives content is shorter. This particular reel is a manifesto post — high-conviction, long-form, no editing. Useful as a sample of the volume-shipper at peak conviction, but should be cross-checked with shorter typical posts before locking the framework.\n"
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-081-frameworks-raw-source-redacted-c44db748-md",
+      "path": "frameworks/raw-source/redacted-c44db748.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-082-frameworks-raw-source-redacted-1355a8c7-md",
+      "path": "frameworks/raw-source/redacted-1355a8c7.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-083-frameworks-raw-source-redacted-290a88c2-md",
+      "path": "frameworks/raw-source/redacted-290a88c2.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-084-frameworks-raw-source-redacted-c8028975-md",
+      "path": "frameworks/raw-source/redacted-c8028975.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-085-frameworks-raw-source-redacted-265d3bec-md",
+      "path": "frameworks/raw-source/redacted-265d3bec.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-086-frameworks-raw-source-redacted-69485b15-md",
+      "path": "frameworks/raw-source/redacted-69485b15.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-087-frameworks-raw-source-redacted-3c85cdb6-md",
+      "path": "frameworks/raw-source/redacted-3c85cdb6.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-088-frameworks-raw-source-redacted-0f7579df-md",
+      "path": "frameworks/raw-source/redacted-0f7579df.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
+    },
+    {
+      "id": "vault-089-frameworks-raw-source-redacted-5ed67d85-md",
+      "path": "frameworks/raw-source/redacted-5ed67d85.md",
+      "title": "████████",
+      "type": "framework",
+      "cluster": "Systems",
+      "privacy": "redacted",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P3",
+      "redactions": 1,
+      "nodeIds": [
+        "cluster-systems"
+      ],
+      "content": "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]"
     },
     {
       "id": "vault-090-frameworks-reference-md",
@@ -1233,6 +1411,8 @@
       "type": "framework",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-knowledge"
@@ -1246,6 +1426,8 @@
       "type": "framework",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-knowledge"
@@ -1259,6 +1441,8 @@
       "type": "framework",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-knowledge"
@@ -1272,6 +1456,8 @@
       "type": "framework",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-knowledge"
@@ -1285,6 +1471,8 @@
       "type": "framework",
       "cluster": "Knowledge",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 6,
       "nodeIds": [
         "cluster-knowledge"
@@ -1298,6 +1486,8 @@
       "type": "framework",
       "cluster": "Knowledge",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-knowledge"
@@ -1311,6 +1501,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-systems"
@@ -1324,6 +1516,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-systems"
@@ -1337,6 +1531,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-systems"
@@ -1350,6 +1546,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-systems"
@@ -1363,6 +1561,8 @@
       "type": "note",
       "cluster": "Systems",
       "privacy": "public",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P0",
       "redactions": 0,
       "nodeIds": [
         "cluster-systems"
@@ -1376,6 +1576,8 @@
       "type": "session",
       "cluster": "Systems",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 4,
       "nodeIds": [
         "cluster-systems"
@@ -1389,6 +1591,8 @@
       "type": "session",
       "cluster": "Systems",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 3,
       "nodeIds": [
         "cluster-systems"
@@ -1402,6 +1606,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 5,
       "nodeIds": [
         "pothos",
@@ -1418,6 +1624,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 1,
       "nodeIds": [
         "pothos",
@@ -1433,6 +1641,8 @@
       "type": "session",
       "cluster": "Creative",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 2,
       "nodeIds": [
         "kanye",
@@ -1452,6 +1662,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 58,
       "nodeIds": [
         "manifestation",
@@ -1481,6 +1693,8 @@
       "type": "session",
       "cluster": "Creative",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 2,
       "nodeIds": [
         "cluster-creative"
@@ -1494,6 +1708,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 11,
       "nodeIds": [
         "cluster-self"
@@ -1507,6 +1723,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 15,
       "nodeIds": [
         "pothos",
@@ -1525,6 +1743,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 4,
       "nodeIds": [
         "cluster-self"
@@ -1538,6 +1758,8 @@
       "type": "session",
       "cluster": "Self",
       "privacy": "redacted-extract",
+      "privacyClass": "P0",
+      "sourcePrivacyClass": "P1",
       "redactions": 4,
       "nodeIds": [
         "anrxyst",

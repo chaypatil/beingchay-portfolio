@@ -62,7 +62,7 @@ const publicCorpus = {
     title:sourceData.meta.title,
     description:sourceData.meta.description,
     source_note:sourceData.meta.source_note,
-    generated_at:new Date().toISOString()
+    generator_version:"1.0.0"
   },
   nodes:[...nodes, ...mahavakyaChildren]
 };

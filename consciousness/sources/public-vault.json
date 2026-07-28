@@ -3,7 +3,7 @@
     "title": "Consciousness — Chay's Brain Vault (public distillation)",
     "description": "A graph of the philosophy, drives, and creative architecture behind Chay Patil's work. Distilled from a private cognitive vault (session notes, entity pages, operating profile) into a public dataset for beingchay.com/consciousness. Every node here is public-safe: no named private individuals, no clinical diagnostic detail, no employer information. A separate, unredacted private reference is kept off-site.",
     "source_note": "Distilled 2026-07-23 from ~50 vault source files (sessions, entity pages, memory/profile files). See consciousness-private-vault.md (kept outside this repo) for full unredacted source material and private-tier content, so nothing from the original vault is lost, only filtered for public use.",
-    "generated_at": "2026-07-28T20:41:57.253Z"
+    "generator_version": "1.0.0"
   },
   "nodes": [
     {

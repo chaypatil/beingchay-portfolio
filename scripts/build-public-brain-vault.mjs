@@ -18,7 +18,7 @@ const EMPLOYER_TERMS = [
   "everis", "prosp", "peoplebox", "settos", "intercom", "rob rawson"
 ];
 const HIGH_RISK_LINE = /\b(rape|raped|assault|sexual|sex|hook[\s-]?up|ecstasy|acid trip|drug|weed|psychosis|jail|prison|diagnos|medicat|suicid|self-harm|clinical|salary|payroll|employer|client internals?|probation|job|meeting|manager|colleagues?|coworkers?|customers?|startup|revenue|trial|onboarding|linkedin|campaign|setter|deadline|asana|notion|company internals?|product roadmap)\b|[$₹]\s?\d/i;
-const RESTRICTED_PATH = /(^|\/)(chatgpt-export|claude-export|\.claude|\.obsidian)(\/|$)|\/frameworks\/_raw\/|consciousness-private-vault\.md$/i;
+const RESTRICTED_PATH = /(^|\/)(chatgpt-export|claude-export|\.claude|\.obsidian)(\/|$)|(^|\/)frameworks\/_(raw|pipeline)\/|consciousness-private-vault\.md$/i;
 const PRIVATE_SECTION_PATH = /\/cognitive-mirror\//i;
 const PRIVATE_NOTE_PATH = /$a/;
 
@@ -145,8 +145,14 @@ function sanitizeMarkdown(markdown) {
   return { content, redactions };
 }
 
-function publicPath(relativePath, privatePersonId) {
+function publicPath(relativePath, privatePersonId, restricted = false) {
   if (privatePersonId) return `entities/people/${privatePersonId}.md`;
+  if (restricted) {
+    const section = /^frameworks\/_(raw|pipeline)\//i.test(relativePath)
+      ? "frameworks/raw-source"
+      : "restricted/source";
+    return `${section}/redacted-${shortHash(relativePath)}.md`;
+  }
   if (relativePath.startsWith("sessions/")) {
     const match = path.basename(relativePath).match(/^(\d{4}-\d{2}-\d{2})-(\d{2})/);
     return `sessions/${match ? `${match[1]}-${match[2]}` : slug(relativePath)}.md`;
@@ -190,11 +196,12 @@ const records = allFiles.map((filePath, index) => {
   const privatePersonId = relativePath.startsWith("entities/people/")
     ? privatePersonByFile.get(path.basename(filePath))
     : null;
-  const neverRead = /consciousness-private-vault\.md$/i.test(relativePath);
+  const restrictedPath = RESTRICTED_PATH.test(relativePath);
+  const neverRead = restrictedPath || Boolean(privatePersonId);
   const raw = neverRead ? "" : fs.readFileSync(filePath, "utf8");
   const fullyRestricted = Boolean(
     privatePersonId ||
-    RESTRICTED_PATH.test(relativePath) ||
+    restrictedPath ||
     PRIVATE_SECTION_PATH.test(`/${relativePath}`) ||
     PRIVATE_NOTE_PATH.test(`/${relativePath}`)
   );
@@ -223,7 +230,7 @@ const records = allFiles.map((filePath, index) => {
       : fullyRestricted
         ? "████████"
         : replacePrivateTerms(rawTitle);
-  const safePath = publicPath(relativePath, privatePersonId);
+  const safePath = publicPath(relativePath, privatePersonId, restrictedPath);
   const linkedNodeIds = fullyRestricted ? [] : nodeIdsFor(relativePath, sanitized.content);
   linkedNodeIds.push(CLUSTER_NODE_IDS[safeCluster]);
   return {
@@ -233,6 +240,8 @@ const records = allFiles.map((filePath, index) => {
     type:recordType(relativePath),
     cluster:safeCluster,
     privacy:fullyRestricted ? "redacted" : sanitized.redactions ? "redacted-extract" : "public",
+    privacyClass:"P0",
+    sourcePrivacyClass:fullyRestricted ? "P3" : sanitized.redactions ? "P1" : "P0",
     redactions:sanitized.redactions,
     nodeIds:[...new Set(linkedNodeIds)],
     content:sanitized.content

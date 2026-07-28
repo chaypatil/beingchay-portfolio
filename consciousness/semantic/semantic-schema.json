@@ -1,0 +1,395 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beingchay.com/consciousness/semantic/semantic-schema.json",
+  "title": "Cloud Consciousness semantic integrity model",
+  "description": "A display node indexes claims. It is never evidence. Approval and privacy are fail-closed.",
+  "type": "object",
+  "required": [
+    "meta",
+    "definitions",
+    "sourceArtifacts",
+    "evidenceSpans",
+    "claims",
+    "nodes",
+    "relations",
+    "contradictionSets",
+    "revisions",
+    "externalContexts",
+    "approvalEvents",
+    "auditLedger",
+    "reviewQueue"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schemaVersion", "generatedBy", "generatedOn", "canonicalEvidenceRoot", "publicSafety"],
+      "properties": {
+        "schemaVersion": { "const": "1.0.0" },
+        "generatedBy": { "type": "string" },
+        "generatedOn": { "type": "string", "format": "date" },
+        "canonicalEvidenceRoot": { "const": "Chay OS/vault" },
+        "publicSafety": { "const": "P0-only; private locators and excerpts remain outside this repository" }
+      },
+      "additionalProperties": false
+    },
+    "definitions": {
+      "type": "object",
+      "required": [
+        "vaultRecord",
+        "graphRecord",
+        "node",
+        "motherNode",
+        "childNode",
+        "placeholder",
+        "distillation",
+        "sourceRecord"
+      ],
+      "additionalProperties": { "type": "string" }
+    },
+    "sourceArtifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/SourceArtifact" }
+    },
+    "evidenceSpans": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/EvidenceSpan" }
+    },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Claim" }
+    },
+    "nodes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Node" }
+    },
+    "relations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Relation" }
+    },
+    "contradictionSets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ContradictionSet" }
+    },
+    "revisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Revision" }
+    },
+    "externalContexts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ExternalContext" }
+    },
+    "approvalEvents": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ApprovalState" }
+    },
+    "auditLedger": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/AuditEntry" }
+    },
+    "reviewQueue": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ReviewItem" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+    },
+    "PrivacyClass": {
+      "type": "string",
+      "enum": ["P0", "P1", "P2", "P3"]
+    },
+    "ExpressionType": {
+      "type": "string",
+      "enum": ["direct_quote", "faithful_paraphrase", "synthesis", "inference"]
+    },
+    "EpistemicType": {
+      "type": "string",
+      "enum": [
+        "memory",
+        "belief",
+        "value",
+        "preference",
+        "interpretation",
+        "hypothesis",
+        "plan",
+        "external_factual_claim"
+      ]
+    },
+    "ClaimStatus": {
+      "type": "string",
+      "enum": ["documented", "supported", "tentative", "disputed", "superseded", "unknown"]
+    },
+    "ApprovalValue": {
+      "type": "string",
+      "enum": ["proposed", "approved", "rejected", "superseded"]
+    },
+    "SourceArtifact": {
+      "type": "object",
+      "required": ["id", "kind", "privacy", "safeLocator", "canonical"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "kind": {
+          "type": "string",
+          "enum": ["session", "entity", "profile", "memory", "meta", "public_page", "external_source", "system_observation"]
+        },
+        "privacy": { "$ref": "#/$defs/PrivacyClass" },
+        "safeLocator": { "type": "string" },
+        "canonical": { "type": "boolean" },
+        "contentHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceSpan": {
+      "type": "object",
+      "required": ["id", "sourceArtifactId", "locator", "privacy", "representation"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "sourceArtifactId": { "$ref": "#/$defs/Id" },
+        "locator": { "type": "string" },
+        "privacy": { "$ref": "#/$defs/PrivacyClass" },
+        "representation": { "type": "string", "enum": ["safe_excerpt", "private_hash", "none"] },
+        "safeExcerpt": { "type": "string", "maxLength": 320 },
+        "privateExcerptHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "representation": { "const": "safe_excerpt" } } },
+          "then": { "required": ["safeExcerpt"] }
+        },
+        {
+          "if": { "properties": { "representation": { "const": "private_hash" } } },
+          "then": { "required": ["privateExcerptHash"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "Claim": {
+      "type": "object",
+      "required": [
+        "id",
+        "text",
+        "expressionType",
+        "epistemicType",
+        "status",
+        "confidence",
+        "importance",
+        "privacy",
+        "evidenceSpanIds",
+        "approvalState"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "text": { "type": "string", "minLength": 1 },
+        "expressionType": { "$ref": "#/$defs/ExpressionType" },
+        "epistemicType": { "$ref": "#/$defs/EpistemicType" },
+        "status": { "$ref": "#/$defs/ClaimStatus" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "importance": { "type": "number", "minimum": 0, "maximum": 1 },
+        "privacy": { "$ref": "#/$defs/PrivacyClass" },
+        "evidenceSpanIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        },
+        "externalContextIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        },
+        "approvalState": { "$ref": "#/$defs/ApprovalValue" },
+        "temporalScope": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Node": {
+      "type": "object",
+      "required": ["id", "graphRole", "claimIds", "externalContextIds", "currentCopyHash"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "graphRole": {
+          "type": "string",
+          "enum": ["display_node", "archive_mother", "thematic_mother", "external_context_child", "question", "privacy_placeholder"]
+        },
+        "claimIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        },
+        "externalContextIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        },
+        "currentCopyHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "Relation": {
+      "type": "object",
+      "required": ["id", "fromId", "toId", "type", "status", "approvalState"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "fromId": { "$ref": "#/$defs/Id" },
+        "toId": { "$ref": "#/$defs/Id" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "supports",
+            "contradicts",
+            "historical_variant_of",
+            "resonates_with",
+            "contextualized_by",
+            "influences",
+            "indexes",
+            "belongs_to",
+            "derived_from"
+          ]
+        },
+        "status": { "$ref": "#/$defs/ClaimStatus" },
+        "approvalState": { "$ref": "#/$defs/ApprovalValue" },
+        "evidenceSpanIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "ContradictionSet": {
+      "type": "object",
+      "required": ["id", "claimIds", "resolution"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "claimIds": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        },
+        "resolution": { "type": "string", "enum": ["preserve", "resolved", "superseded", "unknown"] },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Revision": {
+      "type": "object",
+      "required": ["id", "nodeId", "createdOn", "contentHash", "previousRevisionId", "approvalState", "reason"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "nodeId": { "$ref": "#/$defs/Id" },
+        "createdOn": { "type": "string", "format": "date" },
+        "contentHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "previousRevisionId": { "type": ["string", "null"] },
+        "approvalState": { "$ref": "#/$defs/ApprovalValue" },
+        "reason": { "type": "string" },
+        "immutable": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "ExternalContext": {
+      "type": "object",
+      "required": ["id", "label", "claim", "sourceArtifactId", "approvalState"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "label": { "type": "string" },
+        "claim": { "type": "string" },
+        "sourceArtifactId": { "$ref": "#/$defs/Id" },
+        "approvalState": { "$ref": "#/$defs/ApprovalValue" }
+      },
+      "additionalProperties": false
+    },
+    "ApprovalState": {
+      "type": "object",
+      "required": ["id", "subjectId", "state", "actor", "date", "evidence"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "subjectId": { "$ref": "#/$defs/Id" },
+        "state": { "$ref": "#/$defs/ApprovalValue" },
+        "actor": { "type": "string", "enum": ["chay", "agent", "system"] },
+        "date": { "type": "string", "format": "date" },
+        "evidence": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "AuditEntry": {
+      "type": "object",
+      "required": [
+        "nodeId",
+        "sourceArtifactId",
+        "evidenceSpanId",
+        "actualSourceClaim",
+        "proposedDistillation",
+        "expressionType",
+        "epistemicType",
+        "status",
+        "privacy",
+        "temporalScope",
+        "supportedRelationships",
+        "contradictionsOrVariants",
+        "verdict",
+        "failureReasons",
+        "approvalState",
+        "provenanceStatus"
+      ],
+      "properties": {
+        "nodeId": { "$ref": "#/$defs/Id" },
+        "sourceArtifactId": { "$ref": "#/$defs/Id" },
+        "evidenceSpanId": { "$ref": "#/$defs/Id" },
+        "actualSourceClaim": { "type": "string" },
+        "proposedDistillation": { "type": "string" },
+        "expressionType": { "$ref": "#/$defs/ExpressionType" },
+        "epistemicType": { "$ref": "#/$defs/EpistemicType" },
+        "status": { "$ref": "#/$defs/ClaimStatus" },
+        "privacy": { "$ref": "#/$defs/PrivacyClass" },
+        "temporalScope": { "type": "string" },
+        "supportedRelationships": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "contradictionsOrVariants": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "verdict": {
+          "type": "string",
+          "enum": ["keep", "tighten", "rewrite", "split", "merge", "remove", "insufficient_source"]
+        },
+        "historicalVerdict": {
+          "type": "string",
+          "enum": ["keep", "tighten", "rewrite", "split", "merge", "remove", "insufficient_source"]
+        },
+        "failureReasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "approvalState": { "$ref": "#/$defs/ApprovalValue" },
+        "provenanceStatus": {
+          "type": "string",
+          "enum": ["exact", "private_hash", "external_context_only", "system_observation", "blocked"]
+        },
+        "blocker": { "type": "string" },
+        "auditOrigin": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "ReviewItem": {
+      "type": "object",
+      "required": ["id", "subjectIds", "decision", "material", "status"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "subjectIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true
+        },
+        "decision": { "type": "string" },
+        "material": { "type": "boolean" },
+        "status": { "const": "awaiting_chay" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
