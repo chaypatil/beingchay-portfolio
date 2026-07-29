@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/portfolio",
+      "destination": "/c2x/index.html"
+    },
+    {
+      "source": "/portfolio/:path*",
+      "destination": "/c2x/:path*"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/c2x",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/c2x/",
+      "destination": "/portfolio/",
+      "permanent": true
+    }
+  ]
+}

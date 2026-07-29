@@ -45,7 +45,7 @@ export const NODE_REGION = {
   love: {
     region: "limbic",
     weight: 0.9,
-    why: "It gathers attachment, longing, memory, freedom and protection into one mother node."
+    why: "Its detailed association is withheld until the private layer is reviewed."
   },
   "pothos": {
     region: "limbic",
@@ -160,7 +160,12 @@ export const NODE_REGION = {
   "aham-brahmasmi": {
     region: "insula",
     weight: 0.8,
-    why: "It gathers four self-and-reality declarations around Chay's slice-and-whole idea."
+    why: "It treats one finite perspective as a slice of a larger conscious whole."
+  },
+  "four-mahavakyas": {
+    region: "insula",
+    weight: 0.78,
+    why: "It gathers four declarations about self, consciousness and a larger whole."
   },
   "mahavakya-prajnanam": {
     region: "insula",

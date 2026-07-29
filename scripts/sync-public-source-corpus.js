@@ -19,18 +19,18 @@ const allowedNodeKeys = new Set([
   "id", "label", "cluster", "star_core", "one_line", "synthesis", "quotes", "connections"
 ]);
 const mahavakyaChildren = [
-  ["mahavakya-prajnanam", "Prajñānam Brahma", "Consciousness is Brahman.", "Aitareya Upanishad"],
-  ["mahavakya-aham", "Aham Brahmāsmi", "I am Brahman.", "Bṛhadāraṇyaka Upanishad"],
-  ["mahavakya-tat-tvam", "Tat Tvam Asi", "You are That.", "Chāndogya Upanishad"],
-  ["mahavakya-ayam-atma", "Ayam Ātmā Brahma", "This Self is Brahman.", "Māṇḍūkya Upanishad"]
-].map(([id, label, meaning, sourceLabel]) => ({
+  ["mahavakya-prajnanam", "Prajñānam Brahma", "Consciousness is Brahman."],
+  ["mahavakya-aham", "Aham Brahmāsmi", "I am Brahman."],
+  ["mahavakya-tat-tvam", "Tat Tvam Asi", "You are That."],
+  ["mahavakya-ayam-atma", "Ayam Ātmā Brahma", "This Self is Brahman."]
+].map(([id, label, meaning]) => ({
   id,
   label,
   cluster:"Knowledge",
   one_line:meaning,
-  synthesis:`${meaning} One of the four Mahāvākyas used here as Upanishadic context. Source frame: ${sourceLabel}.`,
+  synthesis:`${meaning} One declaration inside Chay's personal Mahāvākyas collection. Source citation pending.`,
   quotes:[meaning],
-  connections:["aham-brahmasmi"]
+  connections:["four-mahavakyas"]
 }));
 
 const sourceData = JSON.parse(fs.readFileSync(source, "utf8"));
@@ -46,25 +46,63 @@ for (const node of sourceData.nodes || []) {
 }
 
 const nodes = sourceData.nodes.map(node => {
-  if (node.id !== "aham-brahmasmi") return node;
+  if (node.id === "love") {
+    return {
+      id:"love",
+      label:"Love",
+      cluster:node.cluster,
+      star_core:node.star_core,
+      one_line:"████████",
+      synthesis:"Private layer. Stories, names, instances and source notes are withheld pending review.",
+      quotes:[],
+      connections:[]
+    };
+  }
+  if (node.id !== "aham-brahmasmi") {
+    return {
+      ...node,
+      connections:(node.connections || []).filter(id => id !== "love")
+    };
+  }
   return {
     ...node,
-    label:"The Four Mahāvākyas",
-    one_line:"Four Upanishadic declarations about Brahman, consciousness and the self.",
-    synthesis:"Prajñānam Brahma — consciousness is Brahman. Aham Brahmāsmi — I am Brahman. Tat Tvam Asi — you are That. Ayam Ātmā Brahma — this Self is Brahman. Chay's canonical note explicitly invokes only Aham Brahmāsmi for his slice-and-whole model; the other three are contextual parallels rather than retroactive claims about what he wrote.",
+    label:"Slice / Whole",
+    one_line:"A finite unit of consciousness is a slice of the same larger whole.",
+    synthesis:"Chay's personal model: one finite perspective is a slice of the ocean without becoming separate from the ocean.",
     quotes:["I am the universe. I am the Brahma. I am a slice of that entire ocean."],
-    connections:[...new Set([...(node.connections || []), ...mahavakyaChildren.map(child => child.id)])]
+    connections:[...new Set([...(node.connections || []).filter(id => id !== "love"), "four-mahavakyas"])]
   };
 });
+if (!nodes.some(node => node.id === "love")) {
+  nodes.push({
+    id:"love",
+    label:"Love",
+    cluster:"Self",
+    one_line:"████████",
+    synthesis:"Private layer. Stories, names, instances and source notes are withheld pending review.",
+    quotes:[],
+    connections:[]
+  });
+}
+
+const mahavakyaParent = {
+  id:"four-mahavakyas",
+  label:"The Four Mahāvākyas",
+  cluster:"Knowledge",
+  one_line:"Four declarations held together as one personal philosophical frame.",
+  synthesis:"Prajñānam Brahma — consciousness is Brahman. Aham Brahmāsmi — I am Brahman. Tat Tvam Asi — you are That. Ayam Ātmā Brahma — this Self is Brahman. Source citations remain pending.",
+  quotes:[],
+  connections:["aham-brahmasmi", ...mahavakyaChildren.map(child => child.id)]
+};
 
 const publicCorpus = {
   meta:{
     title:sourceData.meta.title,
     description:sourceData.meta.description,
     source_note:sourceData.meta.source_note,
-    generator_version:"1.0.0"
+    generator_version:"1.1.0"
   },
-  nodes:[...nodes, ...mahavakyaChildren]
+  nodes:[...nodes, mahavakyaParent, ...mahavakyaChildren]
 };
 
 fs.mkdirSync(path.dirname(target), { recursive:true });

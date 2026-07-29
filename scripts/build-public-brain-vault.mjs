@@ -18,9 +18,12 @@ const EMPLOYER_TERMS = [
   "everis", "prosp", "peoplebox", "settos", "intercom", "rob rawson"
 ];
 const HIGH_RISK_LINE = /\b(rape|raped|assault|sexual|sex|hook[\s-]?up|ecstasy|acid trip|drug|weed|psychosis|jail|prison|diagnos|medicat|suicid|self-harm|clinical|salary|payroll|employer|client internals?|probation|job|meeting|manager|colleagues?|coworkers?|customers?|startup|revenue|trial|onboarding|linkedin|campaign|setter|deadline|asana|notion|company internals?|product roadmap)\b|[$₹]\s?\d/i;
+const PRIVATE_RELATIONSHIP_LINE = /\b(first love|founding wound|how he loves|girlfriend|boyfriend|ex-girlfriend|relationship|romantic|breakup|monogam\w*|dating|attachment style|intimacy)\b/i;
 const RESTRICTED_PATH = /(^|\/)(chatgpt-export|claude-export|\.claude|\.obsidian)(\/|$)|(^|\/)frameworks\/_(raw|pipeline)\/|consciousness-private-vault\.md$/i;
 const PRIVATE_SECTION_PATH = /\/cognitive-mirror\//i;
 const PRIVATE_NOTE_PATH = /$a/;
+const PRIVATE_RELATIONSHIP_TITLE = /\b(love|monogam|relationship|romantic|breakup|dating|attachment|274)\b/i;
+const PRIVATE_RELATIONSHIP_CONTENT = /\b(girlfriend|boyfriend|ex-girlfriend|relationship|romantic|breakup|monogam\w*|dating|attachment style|intimacy)\b/i;
 
 const NODE_ALIASES = new Map(Object.entries({
   "pothos":"pothos",
@@ -40,6 +43,8 @@ const NODE_ALIASES = new Map(Object.entries({
   "rejection-sensitive-dysphoria":"adhd",
   "274":"non-arrival",
   "aham-brahmasmi":"aham-brahmasmi",
+  "four-mahavakyas":"four-mahavakyas",
+  "mahavakyas":"four-mahavakyas",
   "multi-dimensional-self":"multidimensional-self",
   "multidimensional-self":"multidimensional-self",
   "god-as-ethos":"god-as-ethos",
@@ -134,7 +139,7 @@ function replacePrivateTerms(value) {
 function sanitizeMarkdown(markdown) {
   let redactions = 0;
   const content = markdown.split(/\r?\n/).map(line => {
-    if (HIGH_RISK_LINE.test(line)) {
+    if (HIGH_RISK_LINE.test(line) || PRIVATE_RELATIONSHIP_LINE.test(line)) {
       redactions += 1;
       return line.trim() ? "████████  [PRIVATE DETAIL REDACTED]" : "";
     }
@@ -187,7 +192,8 @@ function nodeIdsFor(relativePath, markdown) {
   if (/2026-05-29-00-monogamy/i.test(relativePath)) {
     ["love", "pothos", "non-arrival", "solitude"].forEach(id => ids.add(id));
   }
-  if (/aham brahmasmi|mah[aā]v[aā]kya/i.test(markdown)) ids.add("aham-brahmasmi");
+  if (/aham brahmasmi/i.test(markdown)) ids.add("aham-brahmasmi");
+  if (/mah[aā]v[aā]kya/i.test(markdown)) ids.add("four-mahavakyas");
   return [...ids];
 }
 
@@ -199,11 +205,17 @@ const records = allFiles.map((filePath, index) => {
   const restrictedPath = RESTRICTED_PATH.test(relativePath);
   const neverRead = restrictedPath || Boolean(privatePersonId);
   const raw = neverRead ? "" : fs.readFileSync(filePath, "utf8");
+  const rawTitle = neverRead ? "Private vault reference" : titleFrom(raw, path.basename(filePath, ".md"));
+  const privateRelationshipRecord = relativePath.startsWith("sessions/") && (
+    PRIVATE_RELATIONSHIP_TITLE.test(`${relativePath} ${rawTitle}`) ||
+    PRIVATE_RELATIONSHIP_CONTENT.test(raw)
+  );
   const fullyRestricted = Boolean(
     privatePersonId ||
     restrictedPath ||
     PRIVATE_SECTION_PATH.test(`/${relativePath}`) ||
-    PRIVATE_NOTE_PATH.test(`/${relativePath}`)
+    PRIVATE_NOTE_PATH.test(`/${relativePath}`) ||
+    privateRelationshipRecord
   );
   const sourceForSanitizing = relativePath.startsWith("sessions/")
     ? raw.replace(/^---[\s\S]*?---\s*/m, "---\ntype: session\n---\n")
@@ -211,7 +223,6 @@ const records = allFiles.map((filePath, index) => {
   const sanitized = fullyRestricted
     ? { content:"████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]", redactions:1 }
     : sanitizeMarkdown(sourceForSanitizing);
-  const rawTitle = neverRead ? "Private vault reference" : titleFrom(raw, path.basename(filePath, ".md"));
   const rawCluster = neverRead ? "Systems" : frontmatterValue(raw, "cluster");
   const inferredCluster = /\/memory\/project_anrxyst_/i.test(`/${relativePath}`)
     ? "Creative"

@@ -21,21 +21,21 @@ const graphPublic = publicNodes.filter(node => !node.id.startsWith("locked-"));
 const placeholders = publicNodes.filter(node => node.id.startsWith("locked-"));
 assert.equal(vault.meta.records, 111, "The canonical public-vault inventory must reconcile to 111 records.");
 assert.equal(vault.records.length, 111);
-assert.equal(publicNodes.length, 57, "The visual graph must contain 57 records.");
-assert.equal(graphPublic.length, 49, "The visual graph must contain 49 public nodes.");
+assert.equal(publicNodes.length, 58, "The visual graph must contain 58 records.");
+assert.equal(graphPublic.length, 50, "The visual graph must contain 50 semantic/index nodes.");
 assert.equal(placeholders.length, 8, "The visual graph must contain 8 non-semantic privacy placeholders.");
-assert.equal(model.auditLedger.length, 49, "Every public node needs exactly one audit verdict.");
-assert.equal(model.nodes.length, 49, "Every public node needs a semantic node record.");
-assert.equal(new Set(model.auditLedger.map(entry => entry.nodeId)).size, 49);
+assert.equal(model.auditLedger.length, 50, "Every semantic/index node needs exactly one audit verdict.");
+assert.equal(model.nodes.length, 50, "Every semantic/index node needs a semantic node record.");
+assert.equal(new Set(model.auditLedger.map(entry => entry.nodeId)).size, 50);
 assert.deepEqual(
   [...new Set(model.auditLedger.map(entry => entry.nodeId))].sort(),
   graphPublic.map(node => node.id).sort(),
   "Semantic audit and public graph must account for the same IDs."
 );
-assert.equal(Object.keys(NODE_REGION).length, 49, "Brain mappings must remain compatible.");
+assert.equal(Object.keys(NODE_REGION).length, 50, "Brain mappings must remain compatible.");
 assert.deepEqual(Object.keys(NODE_REGION).sort(), graphPublic.map(node => node.id).sort());
-assert.equal(corpus.nodes.length, 37, "The retrieval corpus contract must remain compatible.");
-assert.equal(publicEdges.length, 102, "The Library edge contract must remain compatible.");
+assert.equal(corpus.nodes.length, 39, "The retrieval corpus must include the separated Mahāvākyas mother and redacted Love shell.");
+assert.equal(publicEdges.length, 97, "The Library edge contract must exclude private Love context.");
 
 const expressionTypes = new Set(["direct_quote", "faithful_paraphrase", "synthesis", "inference"]);
 const epistemicTypes = new Set(["memory", "belief", "value", "preference", "interpretation", "hypothesis", "plan", "external_factual_claim"]);
@@ -82,16 +82,24 @@ assertImmutableRevisions(model.revisions);
 assert.equal(effectivePrivacy(["P0", "P2", "P1"]), "P2", "Privacy inheritance must choose the most restrictive class.");
 assert.equal(effectivePrivacy([]), "P3", "Missing privacy inputs must fail closed.");
 
-const externalChildIds = new Set(["mahavakya-prajnanam", "mahavakya-tat-tvam", "mahavakya-ayam-atma"]);
-for (const id of externalChildIds) {
+const mahavakyaIds = new Set(["four-mahavakyas", "mahavakya-prajnanam", "mahavakya-aham", "mahavakya-tat-tvam", "mahavakya-ayam-atma"]);
+for (const id of mahavakyaIds) {
   const node = model.nodes.find(candidate => candidate.id === id);
-  assert.equal(node.claimIds.length, 0, `${id} must not be represented as a personal claim.`);
-  assert.equal(node.externalContextIds.length, 1, `${id} must remain explicit external context.`);
+  const claim = model.claims.find(candidate => candidate.id === `claim-${id}`);
+  assert.equal(node.claimIds.length, 1, `${id} must remain a distinct personal collection record.`);
+  assert.equal(node.externalContextIds.length, 0, `${id} must not fabricate external sourcing.`);
+  assert.equal(claim.status, "tentative", `${id} must remain tentative while source citations are pending.`);
+  assert.equal(claim.approvalState, "approved", `${id} was explicitly approved as a personal node.`);
 }
 const ahamAudit = model.auditLedger.find(entry => entry.nodeId === "aham-brahmasmi");
 assert.equal(ahamAudit.verdict, "split");
-assert.match(ahamAudit.actualSourceClaim, /explicitly invokes Aham Brahmāsmi/);
-assert(model.reviewQueue.some(item => item.id === "review-aham-semantic-split"));
+assert.match(ahamAudit.actualSourceClaim, /finite unit of consciousness/);
+assert(!model.reviewQueue.some(item => item.id === "review-aham-semantic-split"));
+const loveClaim = model.claims.find(claim => claim.id === "claim-love");
+const loveEvidence = model.evidenceSpans.find(span => span.id === "evidence-love");
+assert.equal(loveClaim.privacy, "P2");
+assert.equal(loveEvidence.representation, "private_hash");
+assert(!("safeExcerpt" in loveEvidence));
 
 for (const claim of model.claims) {
   const event = approvalBySubject.get(claim.id);

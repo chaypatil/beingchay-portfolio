@@ -45,7 +45,7 @@ const positionStorageKey = "consciousness-public-layout-v1";
 const interfaceStorageKey = "consciousness-interface-v1";
 const PROJECT_DESTINATIONS = Object.freeze({
   fallout:"https://fall0ut.in",
-  c2x:"/c2x/"
+  c2x:"/portfolio/"
 });
 const BRAIN_REGION_TARGETS = Object.freeze({
   prefrontal:[250, 292],

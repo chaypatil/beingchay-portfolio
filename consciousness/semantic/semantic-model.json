@@ -4,13 +4,13 @@
     "generatedBy": "scripts/build-semantic-integrity.mjs",
     "generatedOn": "2026-07-29",
     "canonicalEvidenceRoot": "Chay OS/vault",
-    "publicSafety": "P0-only; private locators and excerpts remain outside this repository"
+    "publicSafety": "Public-safe projections only; private claims may retain P2/P3 labels and hashes, never excerpts or locators"
   },
   "definitions": {
     "vaultRecord": "One canonical Markdown artifact in Chay OS/vault. The current inventory contains 111.",
-    "graphRecord": "One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 57.",
+    "graphRecord": "One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 58.",
     "node": "A public graph record that indexes one or more claims or external-context records; it is never evidence.",
-    "motherNode": "A graph index with children. Five archive mothers index vault clusters; Love is thematic; Four Mahāvākyas currently mixes a personal claim and external collection pending split.",
+    "motherNode": "A graph index with children. Five archive mothers index vault clusters; Love is private pending review; Four Mahāvākyas is a separate personal collection.",
     "childNode": "A graph node subordinated to a mother for navigation or context. It does not inherit approval or evidence automatically.",
     "placeholder": "A privacy-preserving UI position with no public claim. Eight placeholders are not one-to-one aliases for private people or vault records.",
     "distillation": "A reviewable transformation from evidence and atomic claims into display copy, labeled by expression type and approval state.",
@@ -91,7 +91,7 @@
       "id": "src-public-c2x",
       "kind": "public_page",
       "privacy": "P0",
-      "safeLocator": "beingchay.com/c2x; no canonical Chay OS source located",
+      "safeLocator": "beingchay.com/portfolio; no canonical Chay OS source located",
       "canonical": false
     },
     {
@@ -151,10 +151,10 @@
       "canonical": true
     },
     {
-      "id": "src-external-mahavakyas",
-      "kind": "external_source",
+      "id": "src-chay-mahavakyas-direction",
+      "kind": "user_direction",
       "privacy": "P0",
-      "safeLocator": "external Upanishadic context; primary citations not yet verified",
+      "safeLocator": "Chay approval on 2026-07-29; source citations intentionally pending",
       "canonical": false
     },
     {
@@ -279,18 +279,18 @@
     {
       "id": "evidence-agency",
       "sourceArtifactId": "src-private-operating-profile",
-      "locator": "agency heading",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "Lack of agency — complaining without acting, learned helplessness."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "847f7f1009071398acfcbdc8f34e589f9e3d87a3cf6a7eae77531d40c405dd6a"
     },
     {
       "id": "evidence-preparation",
       "sourceArtifactId": "src-private-preparation-profile",
-      "locator": "preparation risk heading",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "Am I building toward something real, or am I just getting really good at preparing to build?"
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "f3f0d105c7a7ca88ba6eb17909ac07f3e5e9600d8e7a5b68d55e8b459accf92e"
     },
     {
       "id": "evidence-massive-action",
@@ -311,10 +311,10 @@
     {
       "id": "evidence-love",
       "sourceArtifactId": "src-private-love",
-      "locator": "private session thesis",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "Pothos is not only his drive toward truth, it is the structure of how he loves."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "bf9095e90a050db67ed2fef495f9d7c48bca547ba0b2cce8e1dbe676709bc009"
     },
     {
       "id": "evidence-glory",
@@ -327,26 +327,26 @@
     {
       "id": "evidence-adhd",
       "sourceArtifactId": "src-private-adhd",
-      "locator": "self-report line 25",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "My desired stimulation is only there if there's novelty in there or urgency."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "e75eab6ddee6aff783c2f3d25d2186bc9f249e8000d00c94a82bfaf279646682"
     },
     {
       "id": "evidence-spiral",
       "sourceArtifactId": "src-private-operating-profile",
-      "locator": "spiral pattern heading",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "Real thinking produces options; the spiral only produces verdicts."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "02f83441bdf48f60b35789b0c950f361ad852b4d706a8981a1edebdf8bffae44"
     },
     {
       "id": "evidence-movement",
       "sourceArtifactId": "src-private-operating-profile",
-      "locator": "spiral breaker heading",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "Spiral breaker: Physical movement."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "141801e832071cb2d1ad08e20b2855cc7be236ff1e98706120f8fb88950712ba"
     },
     {
       "id": "evidence-manifestation",
@@ -490,36 +490,44 @@
       "locator": "§45 / lines 510-516",
       "privacy": "P0",
       "representation": "safe_excerpt",
-      "safeExcerpt": "aham brahmasmi ... I am a slice of that entire ocean"
+      "safeExcerpt": "I am the universe. I am the Brahma. I am a slice of that entire ocean."
+    },
+    {
+      "id": "evidence-four-mahavakyas",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "locator": "user direction · 2026-07-29",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Mahāvākyas is my personal node too."
     },
     {
       "id": "evidence-mahavakya-prajnanam",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "locator": "external locator unverified",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "locator": "user direction · 2026-07-29",
       "privacy": "P0",
       "representation": "safe_excerpt",
       "safeExcerpt": "Consciousness is Brahman."
     },
     {
       "id": "evidence-mahavakya-aham",
-      "sourceArtifactId": "src-manifestation-session",
-      "locator": "§45 / lines 510-516",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "locator": "user direction · 2026-07-29",
       "privacy": "P0",
       "representation": "safe_excerpt",
-      "safeExcerpt": "I am the universe. I am the Brahma. I am a slice of that entire ocean."
+      "safeExcerpt": "I am Brahman."
     },
     {
       "id": "evidence-mahavakya-tat-tvam",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "locator": "external locator unverified",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "locator": "user direction · 2026-07-29",
       "privacy": "P0",
       "representation": "safe_excerpt",
       "safeExcerpt": "You are That."
     },
     {
       "id": "evidence-mahavakya-ayam-atma",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "locator": "external locator unverified",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "locator": "user direction · 2026-07-29",
       "privacy": "P0",
       "representation": "safe_excerpt",
       "safeExcerpt": "This Self is Brahman."
@@ -567,10 +575,10 @@
     {
       "id": "evidence-harvey-specter",
       "sourceArtifactId": "src-private-suits",
-      "locator": "line 153",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "The movies and the things that I see that really resonate with me shape me a lot."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "bf1c35a7645579dcb126851c29ec4cbfbc9bb3e7f508fd21c27d02e19af1ae4c"
     },
     {
       "id": "evidence-klangkuenstler",
@@ -615,18 +623,18 @@
     {
       "id": "evidence-solitude",
       "sourceArtifactId": "src-private-solitude",
-      "locator": "self-report line 55",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "I'm my best version when I'm like 90% in solitude."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "372b1687c83271e9ce6a12878b6109717d80084e77fba2bcd8d82f1289f93f1d"
     },
     {
       "id": "evidence-voices",
       "sourceArtifactId": "src-private-voices",
-      "locator": "voice-pattern synthesis",
-      "privacy": "P0",
-      "representation": "safe_excerpt",
-      "safeExcerpt": "Capture Voice 2's energy but translate it into concrete small commitments, don't dampen it."
+      "locator": "private locator withheld",
+      "privacy": "P2",
+      "representation": "private_hash",
+      "privateExcerptHash": "08507ef90d61678b58edb825879a381a620e163adb0a8a736c36dbb53037ad9f"
     }
   ],
   "claims": [
@@ -776,19 +784,19 @@
     },
     {
       "id": "claim-love",
-      "text": "Love connects attachment, distance, devotion and freedom while preserving the correction against instrumental reduction.",
+      "text": "Private layer. Stories, names, personal instances, interpretations and source notes are withheld.",
       "expressionType": "synthesis",
       "epistemicType": "interpretation",
-      "status": "disputed",
-      "confidence": 0.78,
+      "status": "unknown",
+      "confidence": 0,
       "importance": 0.9,
-      "privacy": "P0",
+      "privacy": "P2",
       "evidenceSpanIds": [
         "evidence-love"
       ],
       "externalContextIds": [],
       "approvalState": "proposed",
-      "temporalScope": "historical pattern with later correction"
+      "temporalScope": "private historical material"
     },
     {
       "id": "claim-glory",
@@ -1124,89 +1132,99 @@
     },
     {
       "id": "claim-aham-brahmasmi",
-      "text": "Keep the personal slice/ocean claim separate from the external Four Mahāvākyas collection.",
-      "expressionType": "synthesis",
+      "text": "A finite perspective is a slice of the ocean without becoming separate from the ocean.",
+      "expressionType": "faithful_paraphrase",
       "epistemicType": "belief",
       "status": "documented",
       "confidence": 0.78,
-      "importance": 0.9,
+      "importance": 0.7,
       "privacy": "P0",
       "evidenceSpanIds": [
         "evidence-aham-brahmasmi"
       ],
       "externalContextIds": [],
       "approvalState": "approved",
-      "temporalScope": "personal claim stated 2026-05; external context added later"
+      "temporalScope": "personal claim stated 2026-05"
+    },
+    {
+      "id": "claim-four-mahavakyas",
+      "text": "A personal philosophical collection of four declarations; source citations remain pending.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "confidence": 0.45,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-four-mahavakyas"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "approved as a personal node on 2026-07-29"
     },
     {
       "id": "claim-mahavakya-prajnanam",
-      "text": "External context: Prajñānam Brahma; primary citation verification pending.",
-      "expressionType": "direct_quote",
-      "epistemicType": "external_factual_claim",
-      "status": "unknown",
-      "confidence": 0,
+      "text": "Prajñānam Brahma — consciousness is Brahman.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "confidence": 0.45,
       "importance": 0.7,
       "privacy": "P0",
       "evidenceSpanIds": [
         "evidence-mahavakya-prajnanam"
       ],
-      "externalContextIds": [
-        "context-mahavakya-prajnanam"
-      ],
-      "approvalState": "proposed",
-      "temporalScope": "historical external text"
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "personal collection; source pending"
     },
     {
       "id": "claim-mahavakya-aham",
-      "text": "Aham Brahmāsmi is documented as Chay's chosen contextual parallel.",
-      "expressionType": "synthesis",
+      "text": "Aham Brahmāsmi — I am Brahman.",
+      "expressionType": "faithful_paraphrase",
       "epistemicType": "interpretation",
-      "status": "documented",
-      "confidence": 0.78,
+      "status": "tentative",
+      "confidence": 0.45,
       "importance": 0.7,
       "privacy": "P0",
       "evidenceSpanIds": [
         "evidence-mahavakya-aham"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
-      "temporalScope": "invoked 2026-05"
+      "approvalState": "approved",
+      "temporalScope": "personal collection; source pending"
     },
     {
       "id": "claim-mahavakya-tat-tvam",
-      "text": "External context: Tat Tvam Asi; primary citation verification pending.",
-      "expressionType": "direct_quote",
-      "epistemicType": "external_factual_claim",
-      "status": "unknown",
-      "confidence": 0,
+      "text": "Tat Tvam Asi — you are That.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "confidence": 0.45,
       "importance": 0.7,
       "privacy": "P0",
       "evidenceSpanIds": [
         "evidence-mahavakya-tat-tvam"
       ],
-      "externalContextIds": [
-        "context-mahavakya-tat-tvam"
-      ],
-      "approvalState": "proposed",
-      "temporalScope": "historical external text"
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "personal collection; source pending"
     },
     {
       "id": "claim-mahavakya-ayam-atma",
-      "text": "External context: Ayam Ātmā Brahma; primary citation verification pending.",
-      "expressionType": "direct_quote",
-      "epistemicType": "external_factual_claim",
-      "status": "unknown",
-      "confidence": 0,
+      "text": "Ayam Ātmā Brahma — this Self is Brahman.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "confidence": 0.45,
       "importance": 0.7,
       "privacy": "P0",
       "evidenceSpanIds": [
         "evidence-mahavakya-ayam-atma"
       ],
-      "externalContextIds": [
-        "context-mahavakya-ayam-atma"
-      ],
-      "approvalState": "proposed",
-      "temporalScope": "historical external text"
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "personal collection; source pending"
     },
     {
       "id": "claim-information-theory-of-life",
@@ -1433,22 +1451,6 @@
       "temporalScope": "evolving belief in one session"
     },
     {
-      "id": "claim-love-historical-variant",
-      "text": "Relationships can shape identity while remaining authentic and not merely instrumental.",
-      "expressionType": "faithful_paraphrase",
-      "epistemicType": "interpretation",
-      "status": "documented",
-      "confidence": 0.78,
-      "importance": 0.9,
-      "privacy": "P0",
-      "evidenceSpanIds": [
-        "evidence-love"
-      ],
-      "externalContextIds": [],
-      "approvalState": "proposed",
-      "temporalScope": "historical pattern with later correction"
-    },
-    {
       "id": "claim-hierarchy-question-historical-variant",
       "text": "The vision is also stated through a ranked ambition to become exceptionally influential.",
       "expressionType": "faithful_paraphrase",
@@ -1567,11 +1569,10 @@
       "id": "love",
       "graphRole": "thematic_mother",
       "claimIds": [
-        "claim-love",
-        "claim-love-historical-variant"
+        "claim-love"
       ],
       "externalContextIds": [],
-      "currentCopyHash": "a531940d1eb6218ce513abf66a59df73feccac637cbd52bed23155c582e753f5"
+      "currentCopyHash": "e7d7e3fa6dce63948fcba44f631e997105b129b1d00a824e8928a4683561f9ab"
     },
     {
       "id": "glory",
@@ -1766,48 +1767,57 @@
     },
     {
       "id": "aham-brahmasmi",
-      "graphRole": "thematic_mother",
+      "graphRole": "display_node",
       "claimIds": [
         "claim-aham-brahmasmi"
       ],
       "externalContextIds": [],
-      "currentCopyHash": "d52ea562deab74d02b32aa0a4c42919b6d523774d20500124ff92a16bc24f582"
+      "currentCopyHash": "5906e7b9ddec6c2fbefc7d0d5928cd6ef8e90c2d65142eb3f9f4ff81328f4927"
+    },
+    {
+      "id": "four-mahavakyas",
+      "graphRole": "thematic_mother",
+      "claimIds": [
+        "claim-four-mahavakyas"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "cc1053fbf77f49d916136480954989cbd619ade1690c36ab1cc1087d27dd5541"
     },
     {
       "id": "mahavakya-prajnanam",
-      "graphRole": "external_context_child",
-      "claimIds": [],
-      "externalContextIds": [
-        "context-mahavakya-prajnanam"
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-mahavakya-prajnanam"
       ],
-      "currentCopyHash": "574aed0920f81fb5517413e0155e5df219d7850c3ffae7e201e5a2581a2d0578"
+      "externalContextIds": [],
+      "currentCopyHash": "89af718b9543e07c03a7c593ba9b83cb688a2e2a79082fb8dc0e7d8dfbe77a89"
     },
     {
       "id": "mahavakya-aham",
-      "graphRole": "external_context_child",
+      "graphRole": "display_child",
       "claimIds": [
         "claim-mahavakya-aham"
       ],
       "externalContextIds": [],
-      "currentCopyHash": "29f5f6fa91ff67a36bcb787d234ad7306932b6dcb1bbb824c26f382d80b0e68a"
+      "currentCopyHash": "be0870589524dce521f0e69bbeefd572e11044df21c82a76459569ebf2fffe5a"
     },
     {
       "id": "mahavakya-tat-tvam",
-      "graphRole": "external_context_child",
-      "claimIds": [],
-      "externalContextIds": [
-        "context-mahavakya-tat-tvam"
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-mahavakya-tat-tvam"
       ],
-      "currentCopyHash": "9dd40cb670c5b9fd00b2922a33938c741f4f3ee5d3978dac80bf5e528cd660f9"
+      "externalContextIds": [],
+      "currentCopyHash": "96a4711d36699ecf589c2899472b4415b1401474f2b48ba36e0baeb317d714f8"
     },
     {
       "id": "mahavakya-ayam-atma",
-      "graphRole": "external_context_child",
-      "claimIds": [],
-      "externalContextIds": [
-        "context-mahavakya-ayam-atma"
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-mahavakya-ayam-atma"
       ],
-      "currentCopyHash": "79b29e141dccdb87901917bafd1615af15b40b03241b198a6214bdf747d3011e"
+      "externalContextIds": [],
+      "currentCopyHash": "2d1bf63a1e96b4b0e541858600179ad2bfcc345d1c5aaa0153d924f6ed9a121f"
     },
     {
       "id": "information-theory-of-life",
@@ -2085,6 +2095,15 @@
     {
       "id": "relation-legacy-018",
       "fromId": "cluster-knowledge",
+      "toId": "four-mahavakyas",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-019",
+      "fromId": "cluster-knowledge",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
@@ -2092,7 +2111,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-019",
+      "id": "relation-legacy-020",
       "fromId": "cluster-knowledge",
       "toId": "singularity",
       "type": "influences",
@@ -2101,7 +2120,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-020",
+      "id": "relation-legacy-021",
       "fromId": "cluster-systems",
       "toId": "consciousness",
       "type": "influences",
@@ -2110,7 +2129,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-021",
+      "id": "relation-legacy-022",
       "fromId": "cluster-systems",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2119,18 +2138,9 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-022",
-      "fromId": "c2x",
-      "toId": "agency",
-      "type": "influences",
-      "status": "unknown",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
       "id": "relation-legacy-023",
       "fromId": "c2x",
-      "toId": "information-gap",
+      "toId": "agency",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
@@ -2139,7 +2149,7 @@
     {
       "id": "relation-legacy-024",
       "fromId": "c2x",
-      "toId": "cloud-consciousness",
+      "toId": "information-gap",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
@@ -2148,7 +2158,7 @@
     {
       "id": "relation-legacy-025",
       "fromId": "c2x",
-      "toId": "anrxyst",
+      "toId": "cloud-consciousness",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
@@ -2156,6 +2166,15 @@
     },
     {
       "id": "relation-legacy-026",
+      "fromId": "c2x",
+      "toId": "anrxyst",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-027",
       "fromId": "agency",
       "toId": "preparation",
       "type": "influences",
@@ -2164,7 +2183,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-027",
+      "id": "relation-legacy-028",
       "fromId": "agency",
       "toId": "pothos",
       "type": "influences",
@@ -2173,18 +2192,9 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-028",
+      "id": "relation-legacy-029",
       "fromId": "agency",
       "toId": "glory",
-      "type": "influences",
-      "status": "unknown",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-legacy-029",
-      "fromId": "preparation",
-      "toId": "adhd",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
@@ -2193,6 +2203,15 @@
     {
       "id": "relation-legacy-030",
       "fromId": "preparation",
+      "toId": "adhd",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-031",
+      "fromId": "preparation",
       "toId": "consciousness",
       "type": "influences",
       "status": "supported",
@@ -2200,7 +2219,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-031",
+      "id": "relation-legacy-032",
       "fromId": "pothos",
       "toId": "manifestation",
       "type": "influences",
@@ -2209,7 +2228,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-032",
+      "id": "relation-legacy-033",
       "fromId": "pothos",
       "toId": "glory",
       "type": "influences",
@@ -2218,34 +2237,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-033",
-      "fromId": "love",
-      "toId": "pothos",
-      "type": "influences",
-      "status": "supported",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
       "id": "relation-legacy-034",
-      "fromId": "love",
-      "toId": "non-arrival",
-      "type": "influences",
-      "status": "supported",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-legacy-035",
-      "fromId": "love",
-      "toId": "solitude",
-      "type": "influences",
-      "status": "supported",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-legacy-036",
       "fromId": "manifestation",
       "toId": "synchronicity",
       "type": "influences",
@@ -2254,7 +2246,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-037",
+      "id": "relation-legacy-035",
       "fromId": "spiral",
       "toId": "movement",
       "type": "influences",
@@ -2263,7 +2255,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-038",
+      "id": "relation-legacy-036",
       "fromId": "agency",
       "toId": "fallout",
       "type": "influences",
@@ -2272,7 +2264,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-039",
+      "id": "relation-legacy-037",
       "fromId": "agency",
       "toId": "anrxyst",
       "type": "influences",
@@ -2281,7 +2273,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-040",
+      "id": "relation-legacy-038",
       "fromId": "fallout",
       "toId": "sound",
       "type": "influences",
@@ -2290,7 +2282,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-041",
+      "id": "relation-legacy-039",
       "fromId": "anrxyst",
       "toId": "information-gap",
       "type": "influences",
@@ -2299,7 +2291,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-042",
+      "id": "relation-legacy-040",
       "fromId": "information-gap",
       "toId": "consciousness",
       "type": "influences",
@@ -2308,7 +2300,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-043",
+      "id": "relation-legacy-041",
       "fromId": "consciousness",
       "toId": "self-model-gap",
       "type": "influences",
@@ -2317,7 +2309,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-044",
+      "id": "relation-legacy-042",
       "fromId": "consciousness",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2326,7 +2318,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-045",
+      "id": "relation-legacy-043",
       "fromId": "cloud-consciousness",
       "toId": "singularity",
       "type": "influences",
@@ -2335,7 +2327,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-046",
+      "id": "relation-legacy-044",
       "fromId": "cloud-consciousness",
       "toId": "information-gap",
       "type": "influences",
@@ -2344,7 +2336,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-047",
+      "id": "relation-legacy-045",
       "fromId": "hermetic-philosophy",
       "toId": "manifestation",
       "type": "influences",
@@ -2353,7 +2345,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-048",
+      "id": "relation-legacy-046",
       "fromId": "hermetic-philosophy",
       "toId": "synchronicity",
       "type": "influences",
@@ -2362,7 +2354,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-049",
+      "id": "relation-legacy-047",
       "fromId": "hermetic-philosophy",
       "toId": "singularity",
       "type": "influences",
@@ -2371,7 +2363,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-050",
+      "id": "relation-legacy-048",
       "fromId": "self-belief-scaling",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2380,7 +2372,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-051",
+      "id": "relation-legacy-049",
       "fromId": "self-belief-scaling",
       "toId": "kanye",
       "type": "influences",
@@ -2389,7 +2381,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-052",
+      "id": "relation-legacy-050",
       "fromId": "kanye",
       "toId": "anrxyst",
       "type": "influences",
@@ -2398,7 +2390,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-053",
+      "id": "relation-legacy-051",
       "fromId": "kanye",
       "toId": "alexander",
       "type": "influences",
@@ -2407,7 +2399,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-054",
+      "id": "relation-legacy-052",
       "fromId": "alexander",
       "toId": "pothos",
       "type": "influences",
@@ -2416,7 +2408,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-055",
+      "id": "relation-legacy-053",
       "fromId": "pothos",
       "toId": "non-arrival",
       "type": "influences",
@@ -2425,7 +2417,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-056",
+      "id": "relation-legacy-054",
       "fromId": "non-arrival",
       "toId": "agency",
       "type": "influences",
@@ -2434,7 +2426,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-057",
+      "id": "relation-legacy-055",
       "fromId": "glory",
       "toId": "hierarchy-question",
       "type": "influences",
@@ -2443,7 +2435,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-058",
+      "id": "relation-legacy-056",
       "fromId": "agency",
       "toId": "hierarchy-question",
       "type": "influences",
@@ -2452,7 +2444,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-059",
+      "id": "relation-legacy-057",
       "fromId": "adhd",
       "toId": "solitude",
       "type": "influences",
@@ -2461,7 +2453,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-060",
+      "id": "relation-legacy-058",
       "fromId": "solitude",
       "toId": "preparation",
       "type": "influences",
@@ -2470,7 +2462,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-061",
+      "id": "relation-legacy-059",
       "fromId": "adhd",
       "toId": "voices",
       "type": "influences",
@@ -2479,7 +2471,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-062",
+      "id": "relation-legacy-060",
       "fromId": "voices",
       "toId": "preparation",
       "type": "influences",
@@ -2488,7 +2480,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-063",
+      "id": "relation-legacy-061",
       "fromId": "massive-action",
       "toId": "preparation",
       "type": "influences",
@@ -2497,7 +2489,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-064",
+      "id": "relation-legacy-062",
       "fromId": "massive-action",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2506,7 +2498,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-065",
+      "id": "relation-legacy-063",
       "fromId": "multidimensional-self",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2515,7 +2507,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-066",
+      "id": "relation-legacy-064",
       "fromId": "multidimensional-self",
       "toId": "manifestation",
       "type": "influences",
@@ -2524,7 +2516,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-067",
+      "id": "relation-legacy-065",
       "fromId": "multidimensional-self",
       "toId": "predestination",
       "type": "influences",
@@ -2533,7 +2525,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-068",
+      "id": "relation-legacy-066",
       "fromId": "multidimensional-self",
       "toId": "illusion-not-fake",
       "type": "influences",
@@ -2542,7 +2534,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-069",
+      "id": "relation-legacy-067",
       "fromId": "predestination",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2551,7 +2543,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-070",
+      "id": "relation-legacy-068",
       "fromId": "illusion-not-fake",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2560,8 +2552,26 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-071",
+      "id": "relation-legacy-069",
       "fromId": "god-as-ethos",
+      "toId": "hermetic-philosophy",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-070",
+      "fromId": "god-as-ethos",
+      "toId": "singularity",
+      "type": "influences",
+      "status": "unknown",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-071",
+      "fromId": "aham-brahmasmi",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
@@ -2570,24 +2580,6 @@
     },
     {
       "id": "relation-legacy-072",
-      "fromId": "god-as-ethos",
-      "toId": "singularity",
-      "type": "influences",
-      "status": "unknown",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-legacy-073",
-      "fromId": "aham-brahmasmi",
-      "toId": "hermetic-philosophy",
-      "type": "influences",
-      "status": "supported",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-legacy-074",
       "fromId": "aham-brahmasmi",
       "toId": "god-as-ethos",
       "type": "influences",
@@ -2596,8 +2588,17 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-075",
+      "id": "relation-legacy-073",
       "fromId": "aham-brahmasmi",
+      "toId": "four-mahavakyas",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-074",
+      "fromId": "four-mahavakyas",
       "toId": "mahavakya-prajnanam",
       "type": "influences",
       "status": "supported",
@@ -2605,8 +2606,8 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-076",
-      "fromId": "aham-brahmasmi",
+      "id": "relation-legacy-075",
+      "fromId": "four-mahavakyas",
       "toId": "mahavakya-aham",
       "type": "influences",
       "status": "supported",
@@ -2614,8 +2615,8 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-077",
-      "fromId": "aham-brahmasmi",
+      "id": "relation-legacy-076",
+      "fromId": "four-mahavakyas",
       "toId": "mahavakya-tat-tvam",
       "type": "influences",
       "status": "supported",
@@ -2623,9 +2624,18 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-078",
-      "fromId": "aham-brahmasmi",
+      "id": "relation-legacy-077",
+      "fromId": "four-mahavakyas",
       "toId": "mahavakya-ayam-atma",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-078",
+      "fromId": "information-theory-of-life",
+      "toId": "singularity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
@@ -2634,15 +2644,6 @@
     {
       "id": "relation-legacy-079",
       "fromId": "information-theory-of-life",
-      "toId": "singularity",
-      "type": "influences",
-      "status": "supported",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-legacy-080",
-      "fromId": "information-theory-of-life",
       "toId": "information-gap",
       "type": "influences",
       "status": "unknown",
@@ -2650,7 +2651,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-081",
+      "id": "relation-legacy-080",
       "fromId": "information-theory-of-life",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2659,7 +2660,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-082",
+      "id": "relation-legacy-081",
       "fromId": "information-theory-of-life",
       "toId": "emergence-entropy",
       "type": "influences",
@@ -2668,7 +2669,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-083",
+      "id": "relation-legacy-082",
       "fromId": "emergence-entropy",
       "toId": "singularity",
       "type": "influences",
@@ -2677,7 +2678,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-084",
+      "id": "relation-legacy-083",
       "fromId": "aristocrat-philosophy",
       "toId": "consciousness",
       "type": "influences",
@@ -2686,7 +2687,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-085",
+      "id": "relation-legacy-084",
       "fromId": "purple",
       "toId": "anrxyst",
       "type": "influences",
@@ -2695,7 +2696,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-086",
+      "id": "relation-legacy-085",
       "fromId": "purple",
       "toId": "kanye",
       "type": "influences",
@@ -2704,7 +2705,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-087",
+      "id": "relation-legacy-086",
       "fromId": "fallout",
       "toId": "schranz",
       "type": "influences",
@@ -2713,7 +2714,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-088",
+      "id": "relation-legacy-087",
       "fromId": "schranz",
       "toId": "klangkuenstler",
       "type": "influences",
@@ -2722,7 +2723,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-089",
+      "id": "relation-legacy-088",
       "fromId": "klangkuenstler",
       "toId": "fallout",
       "type": "influences",
@@ -2731,7 +2732,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-090",
+      "id": "relation-legacy-089",
       "fromId": "harvey-specter",
       "toId": "manifestation",
       "type": "influences",
@@ -2740,7 +2741,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-091",
+      "id": "relation-legacy-090",
       "fromId": "harvey-specter",
       "toId": "kanye",
       "type": "influences",
@@ -2749,7 +2750,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-092",
+      "id": "relation-legacy-091",
       "fromId": "pothos",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2758,7 +2759,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-093",
+      "id": "relation-legacy-092",
       "fromId": "pothos",
       "toId": "anrxyst",
       "type": "influences",
@@ -2767,7 +2768,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-094",
+      "id": "relation-legacy-093",
       "fromId": "pothos",
       "toId": "fallout",
       "type": "influences",
@@ -2776,7 +2777,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-095",
+      "id": "relation-legacy-094",
       "fromId": "pothos",
       "toId": "kanye",
       "type": "influences",
@@ -2785,7 +2786,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-096",
+      "id": "relation-legacy-095",
       "fromId": "glory",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2794,7 +2795,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-097",
+      "id": "relation-legacy-096",
       "fromId": "manifestation",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2803,33 +2804,13 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-098",
+      "id": "relation-legacy-097",
       "fromId": "anrxyst",
       "toId": "fallout",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
       "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-aham-contextualized-by-mahavakyas",
-      "fromId": "claim-aham-brahmasmi",
-      "toId": "context-mahavakya-prajnanam",
-      "type": "contextualized_by",
-      "status": "tentative",
-      "approvalState": "proposed",
-      "evidenceSpanIds": []
-    },
-    {
-      "id": "relation-aham-resonates-with-direct-invocation",
-      "fromId": "claim-aham-brahmasmi",
-      "toId": "claim-mahavakya-aham",
-      "type": "resonates_with",
-      "status": "documented",
-      "approvalState": "proposed",
-      "evidenceSpanIds": [
-        "evidence-aham-brahmasmi"
-      ]
     }
   ],
   "contradictionSets": [
@@ -2841,15 +2822,6 @@
       ],
       "resolution": "preserve",
       "note": "Literal cosmological language and the later behavioral clarification are distinct historical variants."
-    },
-    {
-      "id": "contradiction-love-distance-authenticity",
-      "claimIds": [
-        "claim-love",
-        "claim-love-historical-variant"
-      ],
-      "resolution": "preserve",
-      "note": "The later correction limits the earlier Pothos-as-love-engine synthesis."
     },
     {
       "id": "contradiction-hierarchy-influence",
@@ -2965,7 +2937,7 @@
       "id": "revision-love-current",
       "nodeId": "love",
       "createdOn": "2026-07-29",
-      "contentHash": "a531940d1eb6218ce513abf66a59df73feccac637cbd52bed23155c582e753f5",
+      "contentHash": "e7d7e3fa6dce63948fcba44f631e997105b129b1d00a824e8928a4683561f9ab",
       "previousRevisionId": null,
       "approvalState": "proposed",
       "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
@@ -3185,50 +3157,60 @@
       "id": "revision-aham-brahmasmi-current",
       "nodeId": "aham-brahmasmi",
       "createdOn": "2026-07-26",
-      "contentHash": "d52ea562deab74d02b32aa0a4c42919b6d523774d20500124ff92a16bc24f582",
+      "contentHash": "5906e7b9ddec6c2fbefc7d0d5928cd6ef8e90c2d65142eb3f9f4ff81328f4927",
       "previousRevisionId": null,
       "approvalState": "approved",
       "reason": "Completed ten-node audit was approved by Chay and applied before Phase 1.5.",
       "immutable": true
     },
     {
+      "id": "revision-four-mahavakyas-current",
+      "nodeId": "four-mahavakyas",
+      "createdOn": "2026-07-29",
+      "contentHash": "cc1053fbf77f49d916136480954989cbd619ade1690c36ab1cc1087d27dd5541",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly approved this public-safe semantic decision on 2026-07-29.",
+      "immutable": true
+    },
+    {
       "id": "revision-mahavakya-prajnanam-current",
       "nodeId": "mahavakya-prajnanam",
       "createdOn": "2026-07-29",
-      "contentHash": "574aed0920f81fb5517413e0155e5df219d7850c3ffae7e201e5a2581a2d0578",
+      "contentHash": "89af718b9543e07c03a7c593ba9b83cb688a2e2a79082fb8dc0e7d8dfbe77a89",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Chay explicitly approved this public-safe semantic decision on 2026-07-29.",
       "immutable": true
     },
     {
       "id": "revision-mahavakya-aham-current",
       "nodeId": "mahavakya-aham",
       "createdOn": "2026-07-29",
-      "contentHash": "29f5f6fa91ff67a36bcb787d234ad7306932b6dcb1bbb824c26f382d80b0e68a",
+      "contentHash": "be0870589524dce521f0e69bbeefd572e11044df21c82a76459569ebf2fffe5a",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Chay explicitly approved this public-safe semantic decision on 2026-07-29.",
       "immutable": true
     },
     {
       "id": "revision-mahavakya-tat-tvam-current",
       "nodeId": "mahavakya-tat-tvam",
       "createdOn": "2026-07-29",
-      "contentHash": "9dd40cb670c5b9fd00b2922a33938c741f4f3ee5d3978dac80bf5e528cd660f9",
+      "contentHash": "96a4711d36699ecf589c2899472b4415b1401474f2b48ba36e0baeb317d714f8",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Chay explicitly approved this public-safe semantic decision on 2026-07-29.",
       "immutable": true
     },
     {
       "id": "revision-mahavakya-ayam-atma-current",
       "nodeId": "mahavakya-ayam-atma",
       "createdOn": "2026-07-29",
-      "contentHash": "79b29e141dccdb87901917bafd1615af15b40b03241b198a6214bdf747d3011e",
+      "contentHash": "2d1bf63a1e96b4b0e541858600179ad2bfcc345d1c5aaa0153d924f6ed9a121f",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Chay explicitly approved this public-safe semantic decision on 2026-07-29.",
       "immutable": true
     },
     {
@@ -3362,39 +3344,17 @@
       "immutable": true
     },
     {
-      "id": "revision-aham-brahmasmi-split-proposal",
+      "id": "revision-aham-brahmasmi-split-approved",
       "nodeId": "aham-brahmasmi",
       "createdOn": "2026-07-29",
-      "contentHash": "c3920d0bd79e67555a7540853986044a33823e80aab05a665db8f3ea94c8680d",
+      "contentHash": "e1714879f1e63f8a1d74163e960781cb30b7297ee9beed5aeae3a7d7461f6479",
       "previousRevisionId": "revision-aham-brahmasmi-current",
-      "approvalState": "proposed",
-      "reason": "Split the personal Aham Brahmāsmi slice/ocean claim from a Four Mahāvākyas external-context collection while retaining the current public title until approval.",
+      "approvalState": "approved",
+      "reason": "Separate the personal slice-and-whole belief from the personal Four Mahāvākyas collection.",
       "immutable": true
     }
   ],
-  "externalContexts": [
-    {
-      "id": "context-mahavakya-prajnanam",
-      "label": "Prajñānam Brahma",
-      "claim": "Consciousness is Brahman.",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "approvalState": "proposed"
-    },
-    {
-      "id": "context-mahavakya-tat-tvam",
-      "label": "Tat Tvam Asi",
-      "claim": "You are That.",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "approvalState": "proposed"
-    },
-    {
-      "id": "context-mahavakya-ayam-atma",
-      "label": "Ayam Ātmā Brahma",
-      "claim": "This Self is Brahman.",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "approvalState": "proposed"
-    }
-  ],
+  "externalContexts": [],
   "approvalEvents": [
     {
       "id": "approval-cluster-self-current",
@@ -3653,36 +3613,44 @@
       "evidence": "Chay explicitly authorized the completed ten-node correction pass."
     },
     {
+      "id": "approval-four-mahavakyas-current",
+      "subjectId": "claim-four-mahavakyas",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay explicitly approved the semantic split and personal Mahāvākyas node."
+    },
+    {
       "id": "approval-mahavakya-prajnanam-current",
       "subjectId": "claim-mahavakya-prajnanam",
-      "state": "proposed",
-      "actor": "agent",
+      "state": "approved",
+      "actor": "chay",
       "date": "2026-07-29",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "evidence": "Chay explicitly approved the semantic split and personal Mahāvākyas node."
     },
     {
       "id": "approval-mahavakya-aham-current",
       "subjectId": "claim-mahavakya-aham",
-      "state": "proposed",
-      "actor": "agent",
+      "state": "approved",
+      "actor": "chay",
       "date": "2026-07-29",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "evidence": "Chay explicitly approved the semantic split and personal Mahāvākyas node."
     },
     {
       "id": "approval-mahavakya-tat-tvam-current",
       "subjectId": "claim-mahavakya-tat-tvam",
-      "state": "proposed",
-      "actor": "agent",
+      "state": "approved",
+      "actor": "chay",
       "date": "2026-07-29",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "evidence": "Chay explicitly approved the semantic split and personal Mahāvākyas node."
     },
     {
       "id": "approval-mahavakya-ayam-atma-current",
       "subjectId": "claim-mahavakya-ayam-atma",
-      "state": "proposed",
-      "actor": "agent",
+      "state": "approved",
+      "actor": "chay",
       "date": "2026-07-29",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "evidence": "Chay explicitly approved the semantic split and personal Mahāvākyas node."
     },
     {
       "id": "approval-information-theory-of-life-current",
@@ -3991,8 +3959,7 @@
       "supportedRelationships": [
         "glory",
         "alexander",
-        "non-arrival",
-        "love"
+        "non-arrival"
       ],
       "contradictionsOrVariants": [],
       "verdict": "keep",
@@ -4005,29 +3972,23 @@
       "nodeId": "love",
       "sourceArtifactId": "src-private-love",
       "evidenceSpanId": "evidence-love",
-      "actualSourceClaim": "Distance may intensify desire, but later correction rejects reducing relationships to utility or self-image.",
-      "proposedDistillation": "Love connects attachment, distance, devotion and freedom while preserving the correction against instrumental reduction.",
+      "actualSourceClaim": "The source contains stories, names and personal instances that require one-by-one privacy review.",
+      "proposedDistillation": "Private layer. Stories, names, personal instances, interpretations and source notes are withheld.",
       "expressionType": "synthesis",
       "epistemicType": "interpretation",
-      "status": "disputed",
-      "privacy": "P0",
-      "temporalScope": "historical pattern with later correction",
-      "supportedRelationships": [
-        "pothos",
-        "non-arrival",
-        "solitude"
-      ],
-      "contradictionsOrVariants": [
-        "Distance can intensify desire.",
-        "Relationships can shape identity without being fake or merely instrumental."
-      ],
+      "status": "unknown",
+      "privacy": "P2",
+      "temporalScope": "private historical material",
+      "supportedRelationships": [],
+      "contradictionsOrVariants": [],
       "verdict": "tighten",
       "failureReasons": [
-        "agent synthesis risks flattening distinct relationships",
-        "privacy-sensitive relationship structure needs a separate review"
+        "public copy previously exposed a relationship synthesis",
+        "privacy review is not yet complete"
       ],
       "approvalState": "proposed",
       "provenanceStatus": "private_hash",
+      "blocker": "Review each Love record and relation before any public release.",
       "auditOrigin": "phase-1.5"
     },
     {
@@ -4533,122 +4494,136 @@
       "nodeId": "aham-brahmasmi",
       "sourceArtifactId": "src-manifestation-session",
       "evidenceSpanId": "evidence-aham-brahmasmi",
-      "actualSourceClaim": "Chay explicitly invokes Aham Brahmāsmi for a slice-and-whole belief; the other Mahāvākyas are later external context.",
-      "proposedDistillation": "Keep the personal slice/ocean claim separate from the external Four Mahāvākyas collection.",
-      "expressionType": "synthesis",
+      "actualSourceClaim": "Chay describes a finite unit of consciousness as a slice of the same larger whole.",
+      "proposedDistillation": "A finite perspective is a slice of the ocean without becoming separate from the ocean.",
+      "expressionType": "faithful_paraphrase",
       "epistemicType": "belief",
       "status": "documented",
       "privacy": "P0",
-      "temporalScope": "personal claim stated 2026-05; external context added later",
+      "temporalScope": "personal claim stated 2026-05",
       "supportedRelationships": [
-        "mahavakya-aham",
+        "four-mahavakyas",
         "hermetic-philosophy"
       ],
-      "contradictionsOrVariants": [
-        "Current title is an approved display choice; semantic separation is still required."
-      ],
+      "contradictionsOrVariants": [],
       "verdict": "split",
       "historicalVerdict": "rewrite",
       "failureReasons": [
         "Tathāgatagarbha was unsupported prompt contamination",
-        "current display joins personal belief and external collection"
+        "the earlier display collapsed a personal belief into a four-part collection"
       ],
       "approvalState": "approved",
       "provenanceStatus": "exact",
       "auditOrigin": "completed-ten-node-audit-reconciled"
     },
     {
-      "nodeId": "mahavakya-prajnanam",
-      "sourceArtifactId": "src-external-mahavakyas",
-      "evidenceSpanId": "evidence-mahavakya-prajnanam",
-      "actualSourceClaim": "This is external philosophical context, not a documented personal claim.",
-      "proposedDistillation": "External context: Prajñānam Brahma; primary citation verification pending.",
-      "expressionType": "direct_quote",
-      "epistemicType": "external_factual_claim",
-      "status": "unknown",
-      "privacy": "P0",
-      "temporalScope": "historical external text",
-      "supportedRelationships": [
-        "aham-brahmasmi"
-      ],
-      "contradictionsOrVariants": [],
-      "verdict": "insufficient_source",
-      "failureReasons": [
-        "external phrase added without a verified primary citation"
-      ],
-      "approvalState": "proposed",
-      "provenanceStatus": "external_context_only",
-      "blocker": "Verify a primary Upanishadic citation before approval.",
-      "auditOrigin": "phase-1.5"
-    },
-    {
-      "nodeId": "mahavakya-aham",
-      "sourceArtifactId": "src-manifestation-session",
-      "evidenceSpanId": "evidence-mahavakya-aham",
-      "actualSourceClaim": "Aham Brahmāsmi is the one Mahāvākya Chay explicitly invokes and interprets through the ocean metaphor.",
-      "proposedDistillation": "Aham Brahmāsmi is documented as Chay's chosen contextual parallel.",
-      "expressionType": "synthesis",
+      "nodeId": "four-mahavakyas",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "evidenceSpanId": "evidence-four-mahavakyas",
+      "actualSourceClaim": "Chay wants the four declarations held together as a personal philosophy node, distinct from the slice-and-whole belief.",
+      "proposedDistillation": "A personal philosophical collection of four declarations; source citations remain pending.",
+      "expressionType": "faithful_paraphrase",
       "epistemicType": "interpretation",
-      "status": "documented",
+      "status": "tentative",
       "privacy": "P0",
-      "temporalScope": "invoked 2026-05",
+      "temporalScope": "approved as a personal node on 2026-07-29",
       "supportedRelationships": [
-        "aham-brahmasmi"
+        "aham-brahmasmi",
+        "mahavakya-prajnanam",
+        "mahavakya-aham",
+        "mahavakya-tat-tvam",
+        "mahavakya-ayam-atma"
       ],
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
-      "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "approvalState": "approved",
+      "provenanceStatus": "user_direction",
+      "auditOrigin": "chay-decision-2026-07-29"
+    },
+    {
+      "nodeId": "mahavakya-prajnanam",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "evidenceSpanId": "evidence-mahavakya-prajnanam",
+      "actualSourceClaim": "This meaning is part of Chay's personal four-declaration collection; source citation remains pending.",
+      "proposedDistillation": "Prajñānam Brahma — consciousness is Brahman.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "privacy": "P0",
+      "temporalScope": "personal collection; source pending",
+      "supportedRelationships": [
+        "four-mahavakyas"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "user_direction",
+      "auditOrigin": "chay-decision-2026-07-29"
+    },
+    {
+      "nodeId": "mahavakya-aham",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
+      "evidenceSpanId": "evidence-mahavakya-aham",
+      "actualSourceClaim": "This meaning is part of Chay's personal four-declaration collection, not the name of his separate slice-and-whole belief.",
+      "proposedDistillation": "Aham Brahmāsmi — I am Brahman.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
+      "privacy": "P0",
+      "temporalScope": "personal collection; source pending",
+      "supportedRelationships": [
+        "four-mahavakyas"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "user_direction",
+      "auditOrigin": "chay-decision-2026-07-29"
     },
     {
       "nodeId": "mahavakya-tat-tvam",
-      "sourceArtifactId": "src-external-mahavakyas",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
       "evidenceSpanId": "evidence-mahavakya-tat-tvam",
-      "actualSourceClaim": "This is external philosophical context, not a documented personal claim.",
-      "proposedDistillation": "External context: Tat Tvam Asi; primary citation verification pending.",
-      "expressionType": "direct_quote",
-      "epistemicType": "external_factual_claim",
-      "status": "unknown",
+      "actualSourceClaim": "This meaning is part of Chay's personal four-declaration collection; source citation remains pending.",
+      "proposedDistillation": "Tat Tvam Asi — you are That.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
       "privacy": "P0",
-      "temporalScope": "historical external text",
+      "temporalScope": "personal collection; source pending",
       "supportedRelationships": [
-        "aham-brahmasmi"
+        "four-mahavakyas"
       ],
       "contradictionsOrVariants": [],
-      "verdict": "insufficient_source",
-      "failureReasons": [
-        "external phrase added without a verified primary citation"
-      ],
-      "approvalState": "proposed",
-      "provenanceStatus": "external_context_only",
-      "blocker": "Verify a primary Upanishadic citation before approval.",
-      "auditOrigin": "phase-1.5"
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "user_direction",
+      "auditOrigin": "chay-decision-2026-07-29"
     },
     {
       "nodeId": "mahavakya-ayam-atma",
-      "sourceArtifactId": "src-external-mahavakyas",
+      "sourceArtifactId": "src-chay-mahavakyas-direction",
       "evidenceSpanId": "evidence-mahavakya-ayam-atma",
-      "actualSourceClaim": "This is external philosophical context, not a documented personal claim.",
-      "proposedDistillation": "External context: Ayam Ātmā Brahma; primary citation verification pending.",
-      "expressionType": "direct_quote",
-      "epistemicType": "external_factual_claim",
-      "status": "unknown",
+      "actualSourceClaim": "This meaning is part of Chay's personal four-declaration collection; source citation remains pending.",
+      "proposedDistillation": "Ayam Ātmā Brahma — this Self is Brahman.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "tentative",
       "privacy": "P0",
-      "temporalScope": "historical external text",
+      "temporalScope": "personal collection; source pending",
       "supportedRelationships": [
-        "aham-brahmasmi"
+        "four-mahavakyas"
       ],
       "contradictionsOrVariants": [],
-      "verdict": "insufficient_source",
-      "failureReasons": [
-        "external phrase added without a verified primary citation"
-      ],
-      "approvalState": "proposed",
-      "provenanceStatus": "external_context_only",
-      "blocker": "Verify a primary Upanishadic citation before approval.",
-      "auditOrigin": "phase-1.5"
+      "verdict": "keep",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "user_direction",
+      "auditOrigin": "chay-decision-2026-07-29"
     },
     {
       "nodeId": "information-theory-of-life",
@@ -4869,8 +4844,7 @@
       "privacy": "P0",
       "temporalScope": "reported 2026-06",
       "supportedRelationships": [
-        "pothos",
-        "love"
+        "pothos"
       ],
       "contradictionsOrVariants": [],
       "verdict": "keep",
@@ -4952,37 +4926,22 @@
   ],
   "reviewQueue": [
     {
-      "id": "review-aham-semantic-split",
-      "subjectIds": [
-        "aham-brahmasmi",
-        "mahavakya-prajnanam",
-        "mahavakya-aham",
-        "mahavakya-tat-tvam",
-        "mahavakya-ayam-atma"
-      ],
-      "decision": "Approve the semantic split between Chay's Aham Brahmāsmi belief and the external Four Mahāvākyas collection; keep the current public title pending that decision.",
-      "material": true,
-      "status": "awaiting_chay"
-    },
-    {
       "id": "review-insufficient-sources",
       "subjectIds": [
         "c2x",
-        "sound",
-        "mahavakya-prajnanam",
-        "mahavakya-tat-tvam",
-        "mahavakya-ayam-atma"
+        "sound"
       ],
-      "decision": "Provide or approve canonical sources; until then these records remain insufficient_source and cannot become approved personal claims.",
+      "decision": "Provide or approve canonical Chay OS sources for C2X and Sound; until then they remain insufficient_source.",
       "material": true,
       "status": "awaiting_chay"
     },
     {
       "id": "review-privacy-structure",
       "subjectIds": [
-        "privacy-structure"
+        "private-layer-review",
+        "love"
       ],
-      "decision": "Generalize four privacy-sensitive graph relations and decide whether session dates and structural counts should remain visible.",
+      "decision": "Review private nodes, Love records, dates and relationship structure one by one before releasing any detail.",
       "material": true,
       "status": "awaiting_chay"
     },
@@ -5013,10 +4972,6 @@
         "consciousness",
         "self-model-gap",
         "cloud-consciousness",
-        "mahavakya-prajnanam",
-        "mahavakya-aham",
-        "mahavakya-tat-tvam",
-        "mahavakya-ayam-atma",
         "aristocrat-philosophy",
         "purple",
         "schranz",

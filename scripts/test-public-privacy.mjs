@@ -79,10 +79,28 @@ const deployedTextFiles = [
 const publicText = deployedTextFiles.map(file => fs.readFileSync(file, "utf8")).join("\n");
 assert.doesNotMatch(publicText, /[A-Za-z]:[\\/]+Users[\\/]+/i, "Absolute private paths must not enter public artifacts.");
 assert.doesNotMatch(publicText, /frameworks[\\/]_(raw|pipeline)/i, "Raw archive and pipeline placement must not enter public artifacts.");
+assert.doesNotMatch(
+  publicText,
+  /first love|founding wound|pothos is not only his drive toward truth|monogamy confusion/i,
+  "Public artifacts must not expose Love stories or their editorial framing."
+);
 for (const term of [...new Set([...privateTerms, ...employerTerms])].filter(term => term.length > 3)) {
   const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   assert(!new RegExp(`(?<![a-z0-9])${escaped}(?![a-z0-9])`, "i").test(publicText), `A private term survived generated public output (${term.length} characters).`);
 }
+
+const privateShell = "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]";
+for (const record of index.records.filter(record => record.type === "session" && record.content !== privateShell)) {
+  assert.doesNotMatch(
+    record.content,
+    /\b(girlfriend|boyfriend|ex-girlfriend|romantic|breakup|monogam\w*|dating|attachment style|intimacy)\b/i,
+    `${record.id} exposes private relationship context.`
+  );
+}
+const loveNode = corpus.nodes.find(node => node.id === "love");
+assert.equal(loveNode.one_line, "████████");
+assert.deepEqual(loveNode.quotes, []);
+assert.deepEqual(loveNode.connections, []);
 
 const allowedCorpusKeys = new Set(["id", "label", "cluster", "star_core", "one_line", "synthesis", "quotes", "connections"]);
 for (const node of corpus.nodes) {

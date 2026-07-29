@@ -3,11 +3,18 @@ import { readFile } from "node:fs/promises";
 
 const source = await readFile(new URL("../consciousness/map-page.js", import.meta.url), "utf8");
 const shell = await readFile(new URL("../consciousness/index.html", import.meta.url), "utf8");
+const portfolioShell = await readFile(new URL("../c2x/index.html", import.meta.url), "utf8");
+const vercelConfig = JSON.parse(await readFile(new URL("../vercel.json", import.meta.url), "utf8"));
 
 assert.match(
   source,
   /history\.pushState\([^)]*["']\/consciousness\//,
   "The landing must remain in history so mobile Back returns to it."
+);
+assert.match(portfolioShell, /<base href=["']\/portfolio\/["']>/, "The extensionless /portfolio route must resolve relative assets safely.");
+assert(
+  vercelConfig.rewrites.some(route => route.source === "/portfolio/:path*" && route.destination === "/c2x/:path*"),
+  "The public /portfolio route must serve the existing C2X page tree."
 );
 assert.doesNotMatch(
   source,
@@ -16,7 +23,7 @@ assert.doesNotMatch(
 );
 assert.match(
   source,
-  /PROJECT_DESTINATIONS[\s\S]*fallout[\s\S]*https:\/\/fall0ut\.in[\s\S]*c2x[\s\S]*\/c2x\//,
+  /PROJECT_DESTINATIONS[\s\S]*fallout[\s\S]*https:\/\/fall0ut\.in[\s\S]*c2x[\s\S]*\/portfolio\//,
   "FALLØUT and C2X need explicit direct destinations."
 );
 assert.match(

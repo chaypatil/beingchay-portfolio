@@ -8,6 +8,18 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const TARGET = path.join(ROOT, "consciousness", "semantic", "semantic-model.json");
 const PUBLIC_NODES = publicNodes.filter(node => !node.id.startsWith("locked-"));
 const GENERATED_ON = "2026-07-29";
+const HISTORICAL_TEN_IDS = new Set([
+  "hermetic-philosophy",
+  "singularity",
+  "self-belief-scaling",
+  "multidimensional-self",
+  "predestination",
+  "illusion-not-fake",
+  "god-as-ethos",
+  "aham-brahmasmi",
+  "information-theory-of-life",
+  "emergence-entropy"
+]);
 
 const hash = value => crypto.createHash("sha256").update(String(value), "utf8").digest("hex");
 const copyOf = node => ({
@@ -28,7 +40,7 @@ const SOURCE_DEFS = {
   "src-private-adhd": ["session", "P2", "private self-report session; exact path retained in private audit", true],
   "src-manifestation": ["entity", "P0", "entities/topics/Manifestation.md", true],
   "src-synchronicity": ["entity", "P0", "entities/topics/Synchronicity.md", true],
-  "src-public-c2x": ["public_page", "P0", "beingchay.com/c2x; no canonical Chay OS source located", false],
+  "src-public-c2x": ["public_page", "P0", "beingchay.com/portfolio; no canonical Chay OS source located", false],
   "src-anrxyst": ["session", "P1", "sessions/2026-05-09-00-content-engine-substance-format-voice.md", true],
   "src-fallout": ["entity", "P0", "entities/topics/Fallout.md", true],
   "src-sound-map": ["entity", "P0", "multiple artist/topic records; no sufficient sound thesis source located", true],
@@ -37,7 +49,7 @@ const SOURCE_DEFS = {
   "src-system-gap": ["system_observation", "P0", "Phase 1.5 archive-coverage observation", false],
   "src-cloud": ["memory", "P1", "cognitive-mirror/memory/project_cloud_consciousness.md", true],
   "src-manifestation-session": ["session", "P2", "sessions/2026-05-08-00-manifestation-arc-cloud-consciousness.md", true],
-  "src-external-mahavakyas": ["external_source", "P0", "external Upanishadic context; primary citations not yet verified", false],
+  "src-chay-mahavakyas-direction": ["user_direction", "P0", "Chay approval on 2026-07-29; source citations intentionally pending", false],
   "src-aristocrat": ["session", "P1", "sessions/2026-05-03-01-cognitive-mirror-vision.md", true],
   "src-purple": ["session", "P1", "sessions/2026-05-03-04-kanye-creative-influences-purple.md", true],
   "src-schranz": ["entity", "P0", "entities/topics/Schranz.md", true],
@@ -64,8 +76,8 @@ const ROWS = [
   ["agency","src-private-operating-profile","agency heading","Lack of agency — complaining without acting, learned helplessness.","Agency is an explicit value and evaluative standard.","A recurring preference for action over learned helplessness.","faithful_paraphrase","value","documented","P0","keep","private_hash",[],["massive-action","preparation"],[],"current profile","display_node","proposed"],
   ["preparation","src-private-preparation-profile","preparation risk heading","Am I building toward something real, or am I just getting really good at preparing to build?","Preparation creates leverage but can replace execution; 85/15 is a self-estimate.","Systems are useful only when they serve shipped work.","synthesis","interpretation","supported","P0","tighten","private_hash",["estimated ratio can read as measurement"],["massive-action","consciousness"],["The infrastructure is valuable and can also become avoidance."],"current profile estimate","display_node","proposed"],
   ["massive-action","src-massive-action","lines 15-19","Blind reiterations of vague sense of solutions will always lead you out of this turmoil.","Action is preferred to circular strategizing when uncertainty blocks progress.","Choose a workable move that generates evidence instead of strategizing in circles.","faithful_paraphrase","value","documented","P0","keep","exact",[],["agency","preparation"],[],"2026-05 operating note","display_node","proposed"],
-  ["pothos","src-pothos","line 13","Vision is the destiny. Pothos is the fuel.","Pothos names the longing that powers Chay's pursuit of Vision.","Pothos is the fuel; Vision is its destination.","faithful_paraphrase","interpretation","documented","P0","keep","exact",[],["glory","alexander","non-arrival","love"],[],"active framework since 2026-05","display_node","proposed"],
-  ["love","src-private-love","private session thesis","Pothos is not only his drive toward truth, it is the structure of how he loves.","Distance may intensify desire, but later correction rejects reducing relationships to utility or self-image.","Love connects attachment, distance, devotion and freedom while preserving the correction against instrumental reduction.","synthesis","interpretation","disputed","P0","tighten","private_hash",["agent synthesis risks flattening distinct relationships","privacy-sensitive relationship structure needs a separate review"],["pothos","non-arrival","solitude"],["Distance can intensify desire.","Relationships can shape identity without being fake or merely instrumental."],"historical pattern with later correction","thematic_mother","proposed"],
+  ["pothos","src-pothos","line 13","Vision is the destiny. Pothos is the fuel.","Pothos names the longing that powers Chay's pursuit of Vision.","Pothos is the fuel; Vision is its destination.","faithful_paraphrase","interpretation","documented","P0","keep","exact",[],["glory","alexander","non-arrival"],[],"active framework since 2026-05","display_node","proposed"],
+  ["love","src-private-love","private source; locator withheld","private excerpt withheld","The source contains stories, names and personal instances that require one-by-one privacy review.","Private layer. Stories, names, personal instances, interpretations and source notes are withheld.","synthesis","interpretation","unknown","P2","tighten","private_hash",["public copy previously exposed a relationship synthesis","privacy review is not yet complete"],[],[],"private historical material","thematic_mother","proposed","Review each Love record and relation before any public release."],
   ["glory","src-glory","lines 14-22","Glory is the only thing that gives immortality to a mortal man.","Glory means lasting influence on how humans think, not literal immortality or status.","Glory is continuity through influence on thought, not fame or literal survival.","faithful_paraphrase","value","documented","P0","keep","exact",[],["pothos","cloud-consciousness","alexander"],[],"active definition since 2026-05","display_node","proposed"],
   ["adhd","src-private-adhd","self-report line 25","My desired stimulation is only there if there's novelty in there or urgency.","Chay reports novelty- and urgency-linked activation, bursts and shutdown under forced effort.","A self-observed interest-based activation pattern; not a diagnostic or universal claim.","faithful_paraphrase","interpretation","documented","P0","tighten","private_hash",["clinical label can overstate what the evidence span establishes"],["spiral","movement","solitude"],[],"self-report in 2026-05","display_node","proposed"],
   ["spiral","src-private-operating-profile","spiral pattern heading","Real thinking produces options; the spiral only produces verdicts.","A recurring future-catastrophizing pattern is distinguished from analysis by whether options appear.","The spiral produces verdicts; useful analysis produces options.","faithful_paraphrase","interpretation","documented","P0","keep","private_hash",[],["movement","adhd"],[],"current operating model","display_node","proposed"],
@@ -87,11 +99,12 @@ const ROWS = [
   ["predestination","src-manifestation-session","§28 / line 331","when you believe in something, that's when you're destined to be whatever it is that you believe in","Chay reframes destiny as the consequences of repeated belief and action.","Destiny is the echo of repeated beliefs and actions, not a guaranteed external script.","faithful_paraphrase","interpretation","documented","P0","keep","exact",[],["manifestation","multidimensional-self"],[],"interpretation stated 2026-05","display_node","approved"],
   ["illusion-not-fake","src-manifestation-session","§41 / line 474","illusion does not mean that it's obsolete ... everything to you is real","Chay rejects the idea that calling reality illusory removes its consequences.","Illusion does not mean fake; consequences remain real within lived experience.","faithful_paraphrase","belief","documented","P0","keep","exact",[],["god-as-ethos","multidimensional-self"],[],"belief stated 2026-05","display_node","approved"],
   ["god-as-ethos","src-manifestation-session","§25-26 and §30 / lines 293-305, 343-345","It's the totality of all of the possibilities ... all at once.","Chay defines God/ethos as total existence across possibilities and experiments across religious/scientific registers.","A personal definition of God as totality; cross-register equivalence is not established science.","faithful_paraphrase","belief","documented","P0","rewrite","exact",["religious and scientific registers were presented as settled equivalence"],["hermetic-philosophy","illusion-not-fake"],[],"belief stated 2026-05","display_node","approved"],
-  ["aham-brahmasmi","src-manifestation-session","§45 / lines 510-516","aham brahmasmi ... I am a slice of that entire ocean","Chay explicitly invokes Aham Brahmāsmi for a slice-and-whole belief; the other Mahāvākyas are later external context.","Keep the personal slice/ocean claim separate from the external Four Mahāvākyas collection.","synthesis","belief","documented","P0","split","exact",["Tathāgatagarbha was unsupported prompt contamination","current display joins personal belief and external collection"],["mahavakya-aham","hermetic-philosophy"],["Current title is an approved display choice; semantic separation is still required."],"personal claim stated 2026-05; external context added later","thematic_mother","approved"],
-  ["mahavakya-prajnanam","src-external-mahavakyas","external locator unverified","Consciousness is Brahman.","This is external philosophical context, not a documented personal claim.","External context: Prajñānam Brahma; primary citation verification pending.","direct_quote","external_factual_claim","unknown","P0","insufficient_source","external_context_only",["external phrase added without a verified primary citation"],["aham-brahmasmi"],[],"historical external text","external_context_child","proposed","Verify a primary Upanishadic citation before approval."],
-  ["mahavakya-aham","src-manifestation-session","§45 / lines 510-516","I am the universe. I am the Brahma. I am a slice of that entire ocean.","Aham Brahmāsmi is the one Mahāvākya Chay explicitly invokes and interprets through the ocean metaphor.","Aham Brahmāsmi is documented as Chay's chosen contextual parallel.","synthesis","interpretation","documented","P0","keep","exact",[],["aham-brahmasmi"],[],"invoked 2026-05","external_context_child","proposed"],
-  ["mahavakya-tat-tvam","src-external-mahavakyas","external locator unverified","You are That.","This is external philosophical context, not a documented personal claim.","External context: Tat Tvam Asi; primary citation verification pending.","direct_quote","external_factual_claim","unknown","P0","insufficient_source","external_context_only",["external phrase added without a verified primary citation"],["aham-brahmasmi"],[],"historical external text","external_context_child","proposed","Verify a primary Upanishadic citation before approval."],
-  ["mahavakya-ayam-atma","src-external-mahavakyas","external locator unverified","This Self is Brahman.","This is external philosophical context, not a documented personal claim.","External context: Ayam Ātmā Brahma; primary citation verification pending.","direct_quote","external_factual_claim","unknown","P0","insufficient_source","external_context_only",["external phrase added without a verified primary citation"],["aham-brahmasmi"],[],"historical external text","external_context_child","proposed","Verify a primary Upanishadic citation before approval."],
+  ["aham-brahmasmi","src-manifestation-session","§45 / lines 510-516","I am the universe. I am the Brahma. I am a slice of that entire ocean.","Chay describes a finite unit of consciousness as a slice of the same larger whole.","A finite perspective is a slice of the ocean without becoming separate from the ocean.","faithful_paraphrase","belief","documented","P0","split","exact",["Tathāgatagarbha was unsupported prompt contamination","the earlier display collapsed a personal belief into a four-part collection"],["four-mahavakyas","hermetic-philosophy"],[],"personal claim stated 2026-05","display_node","approved"],
+  ["four-mahavakyas","src-chay-mahavakyas-direction","user direction · 2026-07-29","Mahāvākyas is my personal node too.","Chay wants the four declarations held together as a personal philosophy node, distinct from the slice-and-whole belief.","A personal philosophical collection of four declarations; source citations remain pending.","faithful_paraphrase","interpretation","tentative","P0","keep","user_direction",[],["aham-brahmasmi","mahavakya-prajnanam","mahavakya-aham","mahavakya-tat-tvam","mahavakya-ayam-atma"],[],"approved as a personal node on 2026-07-29","thematic_mother","approved"],
+  ["mahavakya-prajnanam","src-chay-mahavakyas-direction","user direction · 2026-07-29","Consciousness is Brahman.","This meaning is part of Chay's personal four-declaration collection; source citation remains pending.","Prajñānam Brahma — consciousness is Brahman.","faithful_paraphrase","interpretation","tentative","P0","keep","user_direction",[],["four-mahavakyas"],[],"personal collection; source pending","display_child","approved"],
+  ["mahavakya-aham","src-chay-mahavakyas-direction","user direction · 2026-07-29","I am Brahman.","This meaning is part of Chay's personal four-declaration collection, not the name of his separate slice-and-whole belief.","Aham Brahmāsmi — I am Brahman.","faithful_paraphrase","interpretation","tentative","P0","keep","user_direction",[],["four-mahavakyas"],[],"personal collection; source pending","display_child","approved"],
+  ["mahavakya-tat-tvam","src-chay-mahavakyas-direction","user direction · 2026-07-29","You are That.","This meaning is part of Chay's personal four-declaration collection; source citation remains pending.","Tat Tvam Asi — you are That.","faithful_paraphrase","interpretation","tentative","P0","keep","user_direction",[],["four-mahavakyas"],[],"personal collection; source pending","display_child","approved"],
+  ["mahavakya-ayam-atma","src-chay-mahavakyas-direction","user direction · 2026-07-29","This Self is Brahman.","This meaning is part of Chay's personal four-declaration collection; source citation remains pending.","Ayam Ātmā Brahma — this Self is Brahman.","faithful_paraphrase","interpretation","tentative","P0","keep","user_direction",[],["four-mahavakyas"],[],"personal collection; source pending","display_child","approved"],
   ["information-theory-of-life","src-manifestation-session","§31-32 / lines 359-371","collecting, preserving, and sustaining information","Chay hypothesizes that life preserves/transmits information and technology may extend that process.","A personal philosophy of life as information preservation, not a neutral biological definition.","faithful_paraphrase","hypothesis","documented","P0","rewrite","exact",["personal theory was presented as neutral fact"],["singularity","cloud-consciousness"],[],"hypothesis stated 2026-05","display_node","approved"],
   ["emergence-entropy","src-manifestation-session","§31 / line 363","emergent properties ... battling with forces of entropy","Chay frames emergence and entropy as a cosmological tension.","A personal cosmological hypothesis about complexity and entropy.","faithful_paraphrase","hypothesis","documented","P0","rewrite","exact",["unsupported personal-ambition analogy existed in pre-audit copy"],["singularity","information-theory-of-life"],[],"hypothesis stated 2026-05","display_node","approved"],
   ["aristocrat-philosophy","src-aristocrat","lines 21 and 89","I believe the best philosophy arises when all of the survival, safety, physiological, and romantic needs are met.","Automation should handle repetitive survival work so time can return to depth and thought.","Automate repetitive necessity to manufacture time for philosophy and original thought.","faithful_paraphrase","value","documented","P0","keep","exact",[],["consciousness","preparation"],[],"active operating principle","display_node","proposed"],
@@ -101,7 +114,7 @@ const ROWS = [
   ["klangkuenstler","src-klangkuenstler","lines 12-33; origin session lines 261-275","that one song has completely reshaped not just mine but everybody around me's life","A track and later live set catalyzed Chay's route into heartbreak techno and Fallout.","A musical discovery became a scene and then a platform; wider impact is self-reported.","synthesis","memory","documented","P0","keep","exact",[],["schranz","fallout","sound"],[],"2025 origin memory","display_node","proposed"],
   ["kanye","src-kanye","lines 16-84; creative session line 80","I want to make my own Graduation.","Graduation is a creative proof-of-concept for conviction and cross-domain world-building, held with caution.","Graduation is an influence and ambition reference, not evidence of achieved equivalence.","synthesis","interpretation","documented","P0","keep","exact",[],["purple","anrxyst"],[],"active influence","display_node","proposed"],
   ["alexander","src-alexander","lines 27-57","If I were not Alexander, I would be Diogenes.","Alexander is Chay's historical anchor for Pothos, preserved with failure/cost counter-evidence.","Alexander is an influence and cautionary anchor, not identity equivalence.","synthesis","interpretation","documented","P0","keep","exact",[],["pothos","glory"],["Boundary-pushing influence coexists with early death and a short-lived empire."],"active historical comparison","display_node","proposed"],
-  ["non-arrival","src-non-arrival","line 37","Never happy, only content is the structural cost of the drive, not a failure at being happy.","Chay describes desire as fueled by distance and arrival as quieting the engine.","Non-arrival is a reported cost of Pothos, not a universal law of desire.","faithful_paraphrase","interpretation","documented","P0","keep","exact",[],["pothos","love"],[],"reported 2026-06","display_node","proposed"],
+  ["non-arrival","src-non-arrival","line 37","Never happy, only content is the structural cost of the drive, not a failure at being happy.","Chay describes desire as fueled by distance and arrival as quieting the engine.","Non-arrival is a reported cost of Pothos, not a universal law of desire.","faithful_paraphrase","interpretation","documented","P0","keep","exact",[],["pothos"],[],"reported 2026-06","display_node","proposed"],
   ["hierarchy-question","src-hierarchy","inbox line 50; creative session lines 242-254","For 100 to be a hundred, it needs a hundred ones.","Chay rejects hierarchy as intrinsic value while also pursuing ranked influence; the conflict is unresolved.","Preserve the tension between non-hierarchical value and ranked ambition as an open question.","synthesis","interpretation","disputed","P0","keep","exact",[],["glory","cloud-consciousness"],["Every unit is constitutive and influence is still described through rank."],"unresolved","question","proposed"],
   ["solitude","src-private-solitude","self-report line 55","I'm my best version when I'm like 90% in solitude.","Chay reports that high-solitude conditions improve consistency and focus.","Solitude is self-reported infrastructure; the 90/10 ratio is personal, not prescriptive.","faithful_paraphrase","preference","documented","P0","keep","private_hash",[],["adhd","movement"],[],"self-report in 2026-05","display_node","proposed"],
   ["voices","src-private-voices","voice-pattern synthesis","Capture Voice 2's energy but translate it into concrete small commitments, don't dampen it.","The private profile models two recurring communication/activation modes; this is an editorial synthesis.","Two recurring modes are useful as a working synthesis, not literal separate selves.","synthesis","interpretation","tentative","P0","tighten","private_hash",["agent-authored profile synthesis can be mistaken for self-description"],["adhd","spiral"],[],"current profile model","display_node","proposed"]
@@ -143,7 +156,15 @@ for (const row of ROWS) {
   const claimId = `claim-${nodeId}`;
   const currentCopy = copyOf(node);
   const currentCopyHash = hash(JSON.stringify(currentCopy));
-  evidenceSpans.push({
+  const privateHashOnly = provenanceStatus === "private_hash";
+  evidenceSpans.push(privateHashOnly ? {
+    id:evidenceSpanId,
+    sourceArtifactId,
+    locator:"private locator withheld",
+    privacy:sourceArtifact.privacy,
+    representation:"private_hash",
+    privateExcerptHash:hash(excerpt)
+  } : {
     id:evidenceSpanId,
     sourceArtifactId,
     locator,
@@ -151,9 +172,7 @@ for (const row of ROWS) {
     representation:"safe_excerpt",
     safeExcerpt:excerpt
   });
-  const externalContextIds = graphRole === "external_context_child" && nodeId !== "mahavakya-aham"
-    ? [`context-${nodeId}`]
-    : [];
+  const externalContextIds = [];
   claims.push({
     id:claimId,
     text:proposedDistillation,
@@ -179,12 +198,14 @@ for (const row of ROWS) {
   revisions.push({
     id:revisionId,
     nodeId,
-    createdOn:approvalState === "approved" ? "2026-07-26" : GENERATED_ON,
+    createdOn:HISTORICAL_TEN_IDS.has(nodeId) ? "2026-07-26" : GENERATED_ON,
     contentHash:currentCopyHash,
     previousRevisionId:null,
     approvalState,
-    reason:approvalState === "approved"
+    reason:HISTORICAL_TEN_IDS.has(nodeId)
       ? "Completed ten-node audit was approved by Chay and applied before Phase 1.5."
+      : approvalState === "approved"
+        ? "Chay explicitly approved this public-safe semantic decision on 2026-07-29."
       : "Deployed legacy copy is represented for review; deployment is not semantic approval.",
     immutable:true
   });
@@ -193,9 +214,11 @@ for (const row of ROWS) {
     subjectId:claimId,
     state:approvalState,
     actor:approvalState === "approved" ? "chay" : "agent",
-    date:approvalState === "approved" ? "2026-07-26" : GENERATED_ON,
+    date:HISTORICAL_TEN_IDS.has(nodeId) ? "2026-07-26" : GENERATED_ON,
     evidence:approvalState === "approved"
-      ? "Chay explicitly authorized the completed ten-node correction pass."
+      ? HISTORICAL_TEN_IDS.has(nodeId)
+        ? "Chay explicitly authorized the completed ten-node correction pass."
+        : "Chay explicitly approved the semantic split and personal Mahāvākyas node."
       : "Phase 1.5 classification proposal; no automatic promotion is permitted."
   });
   auditLedger.push({
@@ -212,12 +235,16 @@ for (const row of ROWS) {
     supportedRelationships,
     contradictionsOrVariants,
     verdict,
-    ...(approvalState === "approved" ? { historicalVerdict:nodeId === "aham-brahmasmi" ? "rewrite" : verdict } : {}),
+    ...(HISTORICAL_TEN_IDS.has(nodeId) ? { historicalVerdict:nodeId === "aham-brahmasmi" ? "rewrite" : verdict } : {}),
     failureReasons,
     approvalState,
     provenanceStatus,
     ...(blocker ? { blocker } : {}),
-    auditOrigin:approvalState === "approved" ? "completed-ten-node-audit-reconciled" : "phase-1.5"
+    auditOrigin:HISTORICAL_TEN_IDS.has(nodeId)
+      ? "completed-ten-node-audit-reconciled"
+      : approvalState === "approved"
+        ? "chay-decision-2026-07-29"
+        : "phase-1.5"
   });
 }
 
@@ -245,12 +272,6 @@ const contradictionSets = [
     note:"Literal cosmological language and the later behavioral clarification are distinct historical variants."
   },
   {
-    id:"contradiction-love-distance-authenticity",
-    claimIds:["claim-love", addVariant("love", "Relationships can shape identity while remaining authentic and not merely instrumental.", "faithful_paraphrase", "interpretation", "documented")],
-    resolution:"preserve",
-    note:"The later correction limits the earlier Pothos-as-love-engine synthesis."
-  },
-  {
     id:"contradiction-hierarchy-influence",
     claimIds:["claim-hierarchy-question", addVariant("hierarchy-question", "The vision is also stated through a ranked ambition to become exceptionally influential.", "faithful_paraphrase", "value", "documented")],
     resolution:"unknown",
@@ -264,29 +285,7 @@ const contradictionSets = [
   }
 ];
 
-const externalContexts = [
-  {
-    id:"context-mahavakya-prajnanam",
-    label:"Prajñānam Brahma",
-    claim:"Consciousness is Brahman.",
-    sourceArtifactId:"src-external-mahavakyas",
-    approvalState:"proposed"
-  },
-  {
-    id:"context-mahavakya-tat-tvam",
-    label:"Tat Tvam Asi",
-    claim:"You are That.",
-    sourceArtifactId:"src-external-mahavakyas",
-    approvalState:"proposed"
-  },
-  {
-    id:"context-mahavakya-ayam-atma",
-    label:"Ayam Ātmā Brahma",
-    claim:"This Self is Brahman.",
-    sourceArtifactId:"src-external-mahavakyas",
-    approvalState:"proposed"
-  }
-];
+const externalContexts = [];
 
 const supported = new Set();
 for (const entry of auditLedger) {
@@ -312,57 +311,31 @@ const relations = publicEdges.filter(edge => {
     evidenceSpanIds:[]
   };
 });
-relations.push({
-  id:"relation-aham-contextualized-by-mahavakyas",
-  fromId:"claim-aham-brahmasmi",
-  toId:"context-mahavakya-prajnanam",
-  type:"contextualized_by",
-  status:"tentative",
-  approvalState:"proposed",
-  evidenceSpanIds:[]
-});
-relations.push({
-  id:"relation-aham-resonates-with-direct-invocation",
-  fromId:"claim-aham-brahmasmi",
-  toId:"claim-mahavakya-aham",
-  type:"resonates_with",
-  status:"documented",
-  approvalState:"proposed",
-  evidenceSpanIds:["evidence-aham-brahmasmi"]
-});
-
 const ahamCurrent = revisions.find(revision => revision.nodeId === "aham-brahmasmi");
-const ahamProposalText = "Split the personal Aham Brahmāsmi slice/ocean claim from a Four Mahāvākyas external-context collection while retaining the current public title until approval.";
+const ahamProposalText = "Separate the personal slice-and-whole belief from the personal Four Mahāvākyas collection.";
 revisions.push({
-  id:"revision-aham-brahmasmi-split-proposal",
+  id:"revision-aham-brahmasmi-split-approved",
   nodeId:"aham-brahmasmi",
   createdOn:GENERATED_ON,
   contentHash:hash(ahamProposalText),
   previousRevisionId:ahamCurrent.id,
-  approvalState:"proposed",
+  approvalState:"approved",
   reason:ahamProposalText,
   immutable:true
 });
 
 const reviewQueue = [
   {
-    id:"review-aham-semantic-split",
-    subjectIds:["aham-brahmasmi","mahavakya-prajnanam","mahavakya-aham","mahavakya-tat-tvam","mahavakya-ayam-atma"],
-    decision:"Approve the semantic split between Chay's Aham Brahmāsmi belief and the external Four Mahāvākyas collection; keep the current public title pending that decision.",
-    material:true,
-    status:"awaiting_chay"
-  },
-  {
     id:"review-insufficient-sources",
-    subjectIds:["c2x","sound","mahavakya-prajnanam","mahavakya-tat-tvam","mahavakya-ayam-atma"],
-    decision:"Provide or approve canonical sources; until then these records remain insufficient_source and cannot become approved personal claims.",
+    subjectIds:["c2x","sound"],
+    decision:"Provide or approve canonical Chay OS sources for C2X and Sound; until then they remain insufficient_source.",
     material:true,
     status:"awaiting_chay"
   },
   {
     id:"review-privacy-structure",
-    subjectIds:["privacy-structure"],
-    decision:"Generalize four privacy-sensitive graph relations and decide whether session dates and structural counts should remain visible.",
+    subjectIds:["private-layer-review","love"],
+    decision:"Review private nodes, Love records, dates and relationship structure one by one before releasing any detail.",
     material:true,
     status:"awaiting_chay"
   },
@@ -381,13 +354,13 @@ const model = {
     generatedBy:"scripts/build-semantic-integrity.mjs",
     generatedOn:GENERATED_ON,
     canonicalEvidenceRoot:"Chay OS/vault",
-    publicSafety:"P0-only; private locators and excerpts remain outside this repository"
+    publicSafety:"Public-safe projections only; private claims may retain P2/P3 labels and hashes, never excerpts or locators"
   },
   definitions:{
     vaultRecord:"One canonical Markdown artifact in Chay OS/vault. The current inventory contains 111.",
-    graphRecord:"One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 57.",
+    graphRecord:"One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 58.",
     node:"A public graph record that indexes one or more claims or external-context records; it is never evidence.",
-    motherNode:"A graph index with children. Five archive mothers index vault clusters; Love is thematic; Four Mahāvākyas currently mixes a personal claim and external collection pending split.",
+    motherNode:"A graph index with children. Five archive mothers index vault clusters; Love is private pending review; Four Mahāvākyas is a separate personal collection.",
     childNode:"A graph node subordinated to a mother for navigation or context. It does not inherit approval or evidence automatically.",
     placeholder:"A privacy-preserving UI position with no public claim. Eight placeholders are not one-to-one aliases for private people or vault records.",
     distillation:"A reviewable transformation from evidence and atomic claims into display copy, labeled by expression type and approval state.",
