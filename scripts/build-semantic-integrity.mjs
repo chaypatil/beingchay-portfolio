@@ -7,7 +7,7 @@ import { publicNodes, publicEdges } from "../consciousness/graph-data.js";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const TARGET = path.join(ROOT, "consciousness", "semantic", "semantic-model.json");
 const PUBLIC_NODES = publicNodes.filter(node => !node.id.startsWith("locked-"));
-const GENERATED_ON = "2026-07-29";
+const GENERATED_ON = "2026-07-30";
 const HISTORICAL_TEN_IDS = new Set([
   "hermetic-philosophy",
   "singularity",
@@ -19,6 +19,19 @@ const HISTORICAL_TEN_IDS = new Set([
   "aham-brahmasmi",
   "information-theory-of-life",
   "emergence-entropy"
+]);
+const ADHD_CLUSTER_IDS = new Set([
+  "adhd",
+  "adhd-initiation-fog",
+  "adhd-urgency-focus",
+  "adhd-burst-rhythm",
+  "adhd-forced-shutdown",
+  "adhd-context-switching",
+  "adhd-visible-progress",
+  "adhd-novelty-decay",
+  "adhd-sleep-window",
+  "adhd-rejection-spike",
+  "adhd-restless-current"
 ]);
 
 const hash = value => crypto.createHash("sha256").update(String(value), "utf8").digest("hex");
@@ -37,7 +50,7 @@ const SOURCE_DEFS = {
   "src-pothos": ["entity", "P0", "entities/topics/Pothos.md", true],
   "src-private-love": ["session", "P2", "private relationship session; exact path retained in private audit", true],
   "src-glory": ["entity", "P0", "entities/topics/Glory.md", true],
-  "src-private-adhd": ["session", "P2", "private self-report session; exact path retained in private audit", true],
+  "src-adhd-public-safe": ["public_safe_distillation", "P0", "cognitive-mirror/consciousness-site/consciousness-dataset-portable.json / activation-model; Chay direction 2026-07-30", true],
   "src-manifestation": ["entity", "P0", "entities/topics/Manifestation.md", true],
   "src-synchronicity": ["entity", "P0", "entities/topics/Synchronicity.md", true],
   "src-public-c2x": ["public_page", "P0", "beingchay.com/portfolio; no canonical Chay OS source located", false],
@@ -79,7 +92,17 @@ const ROWS = [
   ["pothos","src-pothos","line 13","Vision is the destiny. Pothos is the fuel.","Pothos names the longing that powers Chay's pursuit of Vision.","Pothos is the fuel; Vision is its destination.","faithful_paraphrase","interpretation","documented","P0","keep","exact",[],["glory","alexander","non-arrival"],[],"active framework since 2026-05","display_node","proposed"],
   ["love","src-private-love","private source; locator withheld","private excerpt withheld","The source contains stories, names and personal instances that require one-by-one privacy review.","Private layer. Stories, names, personal instances, interpretations and source notes are withheld.","synthesis","interpretation","unknown","P2","tighten","private_hash",["public copy previously exposed a relationship synthesis","privacy review is not yet complete"],[],[],"private historical material","thematic_mother","proposed","Review each Love record and relation before any public release."],
   ["glory","src-glory","lines 14-22","Glory is the only thing that gives immortality to a mortal man.","Glory means lasting influence on how humans think, not literal immortality or status.","Glory is continuity through influence on thought, not fame or literal survival.","faithful_paraphrase","value","documented","P0","keep","exact",[],["pothos","cloud-consciousness","alexander"],[],"active definition since 2026-05","display_node","proposed"],
-  ["adhd","src-private-adhd","self-report line 25","My desired stimulation is only there if there's novelty in there or urgency.","Chay reports novelty- and urgency-linked activation, bursts and shutdown under forced effort.","A self-observed interest-based activation pattern; not a diagnostic or universal claim.","faithful_paraphrase","interpretation","documented","P0","tighten","private_hash",["clinical label can overstate what the evidence span establishes"],["spiral","movement","solitude"],[],"self-report in 2026-05","display_node","proposed"],
+  ["adhd","src-adhd-public-safe","activation-model + Chay direction 2026-07-30","ADHD is a documented part of my life; add my documented traits as baby nodes.","Chay explicitly identifies ADHD as a major documented part of his life and asks for its lived traits to remain distinct.","ADHD indexes Chay's lived activation, attention, work-rhythm, emotional, sleep and restlessness patterns.","synthesis","interpretation","documented","P0","split","exact",["the former single node collapsed several distinct documented traits"],["adhd-initiation-fog","adhd-urgency-focus","adhd-burst-rhythm","adhd-forced-shutdown","adhd-context-switching","adhd-visible-progress","adhd-novelty-decay","adhd-sleep-window","adhd-rejection-spike","adhd-restless-current","solitude","voices"],[],"lifelong pattern; documented and expanded 2026-07-30","thematic_mother","approved"],
+  ["adhd-initiation-fog","src-adhd-public-safe","activation-model / initiation","Required tasks can produce fog even when their importance is understood.","Chay can understand and care about a required task while still being unable to initiate it.","Knowing and caring do not guarantee ignition; required tasks can still produce initiation fog.","faithful_paraphrase","interpretation","documented","P0","split","exact",[],["adhd","adhd-forced-shutdown","preparation"],[],"recurring self-observation","display_child","approved"],
+  ["adhd-urgency-focus","src-adhd-public-safe","activation-model / urgency","I explode under pressure and my focus becomes laser sharp.","Real stakes and approaching deadlines can sharply increase Chay's short-term focus.","Urgency can flip diffuse attention into sharp short-term focus without becoming the ideal way to work.","faithful_paraphrase","interpretation","documented","P0","split","exact",[],["adhd","adhd-burst-rhythm"],[],"recurring self-observation","display_child","approved"],
+  ["adhd-burst-rhythm","src-adhd-public-safe","activation-model / burst rhythm","Short, intense work windows are followed by low-activation periods.","Chay's usable energy and output often arrive in bursts rather than a linear all-day rhythm.","Output arrives in intense windows followed by genuine recovery needs.","faithful_paraphrase","interpretation","documented","P0","split","exact",[],["adhd","adhd-urgency-focus","adhd-visible-progress"],[],"recurring self-observation","display_child","approved"],
+  ["adhd-forced-shutdown","src-adhd-public-safe","activation-model / forced effort","If I force myself to do things even if my brain fog is there, my body literally renders me to sleepy mode.","Forcing effort through initiation fog can produce sleepiness or cognitive shutdown for Chay.","More force through the fog can produce shutdown instead of usable effort.","faithful_paraphrase","interpretation","documented","P0","split","exact",["does not explain every episode of fatigue"],["adhd","adhd-initiation-fog"],[],"recurring self-observation","display_child","approved"],
+  ["adhd-context-switching","src-adhd-public-safe","operating-manual public-safe implication","Context switching is the largest recurring drain on usable attention.","Changing domains, tools or task frames carries a disproportionate activation cost for Chay.","Context switching is a major energy cost; a clear opening move helps the transition.","faithful_paraphrase","interpretation","documented","P0","split","exact",[],["adhd","solitude"],[],"current operating model","display_child","approved"],
+  ["adhd-visible-progress","src-adhd-public-safe","operating-manual public-safe implication","Visible output helps attention remain attached to the task.","Chay's engagement lasts longer when forward motion is tangible and visible.","Visible evidence of progress helps attention remain attached without devaluing invisible work.","faithful_paraphrase","interpretation","documented","P0","split","exact",[],["adhd","adhd-burst-rhythm"],[],"current operating model","display_child","approved"],
+  ["adhd-novelty-decay","src-adhd-public-safe","operating-manual historical estimate","Plans often hold for days before novelty wears off.","New systems can lose activation power when their novelty fades; the recorded duration is only an estimate.","Novelty decay is a recurring system risk, not a measured three-to-seven-day law.","faithful_paraphrase","interpretation","documented","P0","split","exact",["the duration is a working estimate rather than measurement"],["adhd","preparation"],[],"historical working model","display_child","approved"],
+  ["adhd-sleep-window","src-adhd-public-safe","self-report public-safe paraphrase","Missing the first sleepy window makes sleep initiation harder.","Chay reports a narrow sleepiness window whose loss makes falling asleep substantially harder.","A narrow sleep window is a lived timing sensitivity, not a public sleep-disorder claim.","faithful_paraphrase","interpretation","documented","P0","split","exact",["clinical sleep context remains private"],["adhd","solitude"],[],"recurring self-observation","display_child","approved"],
+  ["adhd-rejection-spike","src-adhd-public-safe","RSD public-safe loop","Perceived failure can trigger perfectionism, avoidance and inconsistency.","Perceived rejection, criticism or falling short can produce a fast crash and urge to exit or restart.","A rejection spike can feed perfectionism and avoidance; personal incidents remain private.","faithful_paraphrase","interpretation","documented","P0","split","exact",["RSD is not presented as a standalone DSM diagnosis"],["adhd","preparation","spiral"],[],"recurring experiential vocabulary","display_child","approved"],
+  ["adhd-restless-current","src-adhd-public-safe","operating-manual public-safe implication","Racing internal debate and physical restlessness can occur together.","Chay reports inner restlessness, fidgeting and several concurrent lines of thought.","Outward inattentiveness can coexist with a restless body and loud internal debate.","faithful_paraphrase","interpretation","documented","P0","split","exact",["overlap with Two Voices must not imply literal separate selves"],["adhd","movement","voices"],[],"current operating model","display_child","approved"],
   ["spiral","src-private-operating-profile","spiral pattern heading","Real thinking produces options; the spiral only produces verdicts.","A recurring future-catastrophizing pattern is distinguished from analysis by whether options appear.","The spiral produces verdicts; useful analysis produces options.","faithful_paraphrase","interpretation","documented","P0","keep","private_hash",[],["movement","adhd"],[],"current operating model","display_node","proposed"],
   ["movement","src-private-operating-profile","spiral breaker heading","Spiral breaker: Physical movement.","Movement is a self-reported intervention for shifting cognitive state.","Physical motion is a practical state-change intervention, not a universal treatment claim.","faithful_paraphrase","preference","documented","P0","keep","private_hash",[],["spiral"],[],"current intervention","display_node","proposed"],
   ["manifestation","src-manifestation","line 23","I have chosen a story, I have chosen a timeline that resonates with me so much that it becomes true.","Chay links conviction, identity adoption and aligned action; causal metaphysics remains personal belief.","Conviction selects a story and changes attention and action; stronger causal claims remain hypothesis.","synthesis","belief","documented","P0","keep","exact",[],["synchronicity","self-belief-scaling","predestination"],["Literal timeline alignment and behavioral selection coexist in the record."],"evolving belief","display_node","proposed"],
@@ -157,6 +180,13 @@ for (const row of ROWS) {
   const currentCopy = copyOf(node);
   const currentCopyHash = hash(JSON.stringify(currentCopy));
   const privateHashOnly = provenanceStatus === "private_hash";
+  const decisionDate = HISTORICAL_TEN_IDS.has(nodeId)
+    ? "2026-07-26"
+    : ADHD_CLUSTER_IDS.has(nodeId)
+      ? "2026-07-30"
+      : approvalState === "approved"
+        ? "2026-07-29"
+        : GENERATED_ON;
   evidenceSpans.push(privateHashOnly ? {
     id:evidenceSpanId,
     sourceArtifactId,
@@ -198,12 +228,14 @@ for (const row of ROWS) {
   revisions.push({
     id:revisionId,
     nodeId,
-    createdOn:HISTORICAL_TEN_IDS.has(nodeId) ? "2026-07-26" : GENERATED_ON,
+    createdOn:decisionDate,
     contentHash:currentCopyHash,
     previousRevisionId:null,
     approvalState,
     reason:HISTORICAL_TEN_IDS.has(nodeId)
       ? "Completed ten-node audit was approved by Chay and applied before Phase 1.5."
+      : ADHD_CLUSTER_IDS.has(nodeId)
+        ? "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30."
       : approvalState === "approved"
         ? "Chay explicitly approved this public-safe semantic decision on 2026-07-29."
       : "Deployed legacy copy is represented for review; deployment is not semantic approval.",
@@ -214,10 +246,12 @@ for (const row of ROWS) {
     subjectId:claimId,
     state:approvalState,
     actor:approvalState === "approved" ? "chay" : "agent",
-    date:HISTORICAL_TEN_IDS.has(nodeId) ? "2026-07-26" : GENERATED_ON,
+    date:decisionDate,
     evidence:approvalState === "approved"
       ? HISTORICAL_TEN_IDS.has(nodeId)
         ? "Chay explicitly authorized the completed ten-node correction pass."
+        : ADHD_CLUSTER_IDS.has(nodeId)
+          ? "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
         : "Chay explicitly approved the semantic split and personal Mahāvākyas node."
       : "Phase 1.5 classification proposal; no automatic promotion is permitted."
   });
@@ -242,6 +276,8 @@ for (const row of ROWS) {
     ...(blocker ? { blocker } : {}),
     auditOrigin:HISTORICAL_TEN_IDS.has(nodeId)
       ? "completed-ten-node-audit-reconciled"
+      : ADHD_CLUSTER_IDS.has(nodeId)
+        ? "chay-decision-2026-07-30"
       : approvalState === "approved"
         ? "chay-decision-2026-07-29"
         : "phase-1.5"
@@ -358,9 +394,9 @@ const model = {
   },
   definitions:{
     vaultRecord:"One canonical Markdown artifact in Chay OS/vault. The current inventory contains 111.",
-    graphRecord:"One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 58.",
+    graphRecord:`One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains ${publicNodes.length}.`,
     node:"A public graph record that indexes one or more claims or external-context records; it is never evidence.",
-    motherNode:"A graph index with children. Five archive mothers index vault clusters; Love is private pending review; Four Mahāvākyas is a separate personal collection.",
+    motherNode:"A graph index with children. Five archive mothers index vault clusters; ADHD and Four Mahāvākyas are thematic mothers; Love is private pending review.",
     childNode:"A graph node subordinated to a mother for navigation or context. It does not inherit approval or evidence automatically.",
     placeholder:"A privacy-preserving UI position with no public claim. Eight placeholders are not one-to-one aliases for private people or vault records.",
     distillation:"A reviewable transformation from evidence and atomic claims into display copy, labeled by expression type and approval state.",

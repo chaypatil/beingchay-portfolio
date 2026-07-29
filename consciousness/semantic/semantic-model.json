@@ -2,15 +2,15 @@
   "meta": {
     "schemaVersion": "1.0.0",
     "generatedBy": "scripts/build-semantic-integrity.mjs",
-    "generatedOn": "2026-07-29",
+    "generatedOn": "2026-07-30",
     "canonicalEvidenceRoot": "Chay OS/vault",
     "publicSafety": "Public-safe projections only; private claims may retain P2/P3 labels and hashes, never excerpts or locators"
   },
   "definitions": {
     "vaultRecord": "One canonical Markdown artifact in Chay OS/vault. The current inventory contains 111.",
-    "graphRecord": "One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 58.",
+    "graphRecord": "One record in publicNodes, including public semantic/display nodes and locked UI placeholders. The current graph contains 68.",
     "node": "A public graph record that indexes one or more claims or external-context records; it is never evidence.",
-    "motherNode": "A graph index with children. Five archive mothers index vault clusters; Love is private pending review; Four Mahāvākyas is a separate personal collection.",
+    "motherNode": "A graph index with children. Five archive mothers index vault clusters; ADHD and Four Mahāvākyas are thematic mothers; Love is private pending review.",
     "childNode": "A graph node subordinated to a mother for navigation or context. It does not inherit approval or evidence automatically.",
     "placeholder": "A privacy-preserving UI position with no public claim. Eight placeholders are not one-to-one aliases for private people or vault records.",
     "distillation": "A reviewable transformation from evidence and atomic claims into display copy, labeled by expression type and approval state.",
@@ -67,10 +67,10 @@
       "canonical": true
     },
     {
-      "id": "src-private-adhd",
-      "kind": "session",
-      "privacy": "P2",
-      "safeLocator": "private self-report session; exact path retained in private audit",
+      "id": "src-adhd-public-safe",
+      "kind": "public_safe_distillation",
+      "privacy": "P0",
+      "safeLocator": "cognitive-mirror/consciousness-site/consciousness-dataset-portable.json / activation-model; Chay direction 2026-07-30",
       "canonical": true
     },
     {
@@ -326,11 +326,91 @@
     },
     {
       "id": "evidence-adhd",
-      "sourceArtifactId": "src-private-adhd",
-      "locator": "private locator withheld",
-      "privacy": "P2",
-      "representation": "private_hash",
-      "privateExcerptHash": "e75eab6ddee6aff783c2f3d25d2186bc9f249e8000d00c94a82bfaf279646682"
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "activation-model + Chay direction 2026-07-30",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "ADHD is a documented part of my life; add my documented traits as baby nodes."
+    },
+    {
+      "id": "evidence-adhd-initiation-fog",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "activation-model / initiation",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Required tasks can produce fog even when their importance is understood."
+    },
+    {
+      "id": "evidence-adhd-urgency-focus",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "activation-model / urgency",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "I explode under pressure and my focus becomes laser sharp."
+    },
+    {
+      "id": "evidence-adhd-burst-rhythm",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "activation-model / burst rhythm",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Short, intense work windows are followed by low-activation periods."
+    },
+    {
+      "id": "evidence-adhd-forced-shutdown",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "activation-model / forced effort",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "If I force myself to do things even if my brain fog is there, my body literally renders me to sleepy mode."
+    },
+    {
+      "id": "evidence-adhd-context-switching",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "operating-manual public-safe implication",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Context switching is the largest recurring drain on usable attention."
+    },
+    {
+      "id": "evidence-adhd-visible-progress",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "operating-manual public-safe implication",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Visible output helps attention remain attached to the task."
+    },
+    {
+      "id": "evidence-adhd-novelty-decay",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "operating-manual historical estimate",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Plans often hold for days before novelty wears off."
+    },
+    {
+      "id": "evidence-adhd-sleep-window",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "self-report public-safe paraphrase",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Missing the first sleepy window makes sleep initiation harder."
+    },
+    {
+      "id": "evidence-adhd-rejection-spike",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "RSD public-safe loop",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Perceived failure can trigger perfectionism, avoidance and inconsistency."
+    },
+    {
+      "id": "evidence-adhd-restless-current",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "locator": "operating-manual public-safe implication",
+      "privacy": "P0",
+      "representation": "safe_excerpt",
+      "safeExcerpt": "Racing internal debate and physical restlessness can occur together."
     },
     {
       "id": "evidence-spiral",
@@ -816,7 +896,23 @@
     },
     {
       "id": "claim-adhd",
-      "text": "A self-observed interest-based activation pattern; not a diagnostic or universal claim.",
+      "text": "ADHD indexes Chay's lived activation, attention, work-rhythm, emotional, sleep and restlessness patterns.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.9,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "lifelong pattern; documented and expanded 2026-07-30"
+    },
+    {
+      "id": "claim-adhd-initiation-fog",
+      "text": "Knowing and caring do not guarantee ignition; required tasks can still produce initiation fog.",
       "expressionType": "faithful_paraphrase",
       "epistemicType": "interpretation",
       "status": "documented",
@@ -824,11 +920,155 @@
       "importance": 0.7,
       "privacy": "P0",
       "evidenceSpanIds": [
-        "evidence-adhd"
+        "evidence-adhd-initiation-fog"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
-      "temporalScope": "self-report in 2026-05"
+      "approvalState": "approved",
+      "temporalScope": "recurring self-observation"
+    },
+    {
+      "id": "claim-adhd-urgency-focus",
+      "text": "Urgency can flip diffuse attention into sharp short-term focus without becoming the ideal way to work.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-urgency-focus"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "recurring self-observation"
+    },
+    {
+      "id": "claim-adhd-burst-rhythm",
+      "text": "Output arrives in intense windows followed by genuine recovery needs.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-burst-rhythm"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "recurring self-observation"
+    },
+    {
+      "id": "claim-adhd-forced-shutdown",
+      "text": "More force through the fog can produce shutdown instead of usable effort.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-forced-shutdown"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "recurring self-observation"
+    },
+    {
+      "id": "claim-adhd-context-switching",
+      "text": "Context switching is a major energy cost; a clear opening move helps the transition.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-context-switching"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "current operating model"
+    },
+    {
+      "id": "claim-adhd-visible-progress",
+      "text": "Visible evidence of progress helps attention remain attached without devaluing invisible work.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-visible-progress"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "current operating model"
+    },
+    {
+      "id": "claim-adhd-novelty-decay",
+      "text": "Novelty decay is a recurring system risk, not a measured three-to-seven-day law.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-novelty-decay"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "historical working model"
+    },
+    {
+      "id": "claim-adhd-sleep-window",
+      "text": "A narrow sleep window is a lived timing sensitivity, not a public sleep-disorder claim.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-sleep-window"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "recurring self-observation"
+    },
+    {
+      "id": "claim-adhd-rejection-spike",
+      "text": "A rejection spike can feed perfectionism and avoidance; personal incidents remain private.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-rejection-spike"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "recurring experiential vocabulary"
+    },
+    {
+      "id": "claim-adhd-restless-current",
+      "text": "Outward inattentiveness can coexist with a restless body and loud internal debate.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "confidence": 0.78,
+      "importance": 0.7,
+      "privacy": "P0",
+      "evidenceSpanIds": [
+        "evidence-adhd-restless-current"
+      ],
+      "externalContextIds": [],
+      "approvalState": "approved",
+      "temporalScope": "current operating model"
     },
     {
       "id": "claim-spiral",
@@ -1585,12 +1825,102 @@
     },
     {
       "id": "adhd",
-      "graphRole": "display_node",
+      "graphRole": "thematic_mother",
       "claimIds": [
         "claim-adhd"
       ],
       "externalContextIds": [],
-      "currentCopyHash": "d8f558e3e116cbe38866fb45292c02ad875195581146dae563f1c73fcfd441a5"
+      "currentCopyHash": "57b8413b9ba78d961902438143d0f9aaca6acb26f2d19226dbf9ed341a17d676"
+    },
+    {
+      "id": "adhd-initiation-fog",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-initiation-fog"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "05267f0b6a09e049516f02f722cbbf53ccfe0de57cb23c4fe8e0b01c1ae83f50"
+    },
+    {
+      "id": "adhd-urgency-focus",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-urgency-focus"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "a505ff66b82bdf91b78a84311cd0eea871ab1fdb1500018b774c105b43c140a1"
+    },
+    {
+      "id": "adhd-burst-rhythm",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-burst-rhythm"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "be50efd29ac107747d59b9b27d963a651f301431a367817e63dc563d1db4e263"
+    },
+    {
+      "id": "adhd-forced-shutdown",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-forced-shutdown"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "81c43d03c48cc3f66c807e9e61236f2dca80079db72adbc6d9b44fb4ae0f3932"
+    },
+    {
+      "id": "adhd-context-switching",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-context-switching"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "6f43738e2042514229438099f9688ed92dacdc736ad4d1db98ae5a4194fe0f63"
+    },
+    {
+      "id": "adhd-visible-progress",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-visible-progress"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "8210be73311109ccb787d37eff776ac994e8a6d1bb4a925eca9957f8c4f0aa9f"
+    },
+    {
+      "id": "adhd-novelty-decay",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-novelty-decay"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "756258e1cf1edad5e94f74ba603ca7a3414f2d4125450b85169c277a1801013b"
+    },
+    {
+      "id": "adhd-sleep-window",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-sleep-window"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "c20a5f1da3bd2dc42cafa48642ad0c766249ea4df4899aedab299702f2df6f9e"
+    },
+    {
+      "id": "adhd-rejection-spike",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-rejection-spike"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "85fb9073c7ecce0a78f90cc3dacbfd315e5cb44ac5ecd184527ae35b28698752"
+    },
+    {
+      "id": "adhd-restless-current",
+      "graphRole": "display_child",
+      "claimIds": [
+        "claim-adhd-restless-current"
+      ],
+      "externalContextIds": [],
+      "currentCopyHash": "47b9c8da8a3a5bb2cf27aa8181930fd5f143787117344ecf20b80428f263c4d9"
     },
     {
       "id": "spiral",
@@ -2220,6 +2550,186 @@
     },
     {
       "id": "relation-legacy-032",
+      "fromId": "adhd",
+      "toId": "adhd-initiation-fog",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-033",
+      "fromId": "adhd",
+      "toId": "adhd-urgency-focus",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-034",
+      "fromId": "adhd",
+      "toId": "adhd-burst-rhythm",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-035",
+      "fromId": "adhd",
+      "toId": "adhd-forced-shutdown",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-036",
+      "fromId": "adhd",
+      "toId": "adhd-context-switching",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-037",
+      "fromId": "adhd",
+      "toId": "adhd-visible-progress",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-038",
+      "fromId": "adhd",
+      "toId": "adhd-novelty-decay",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-039",
+      "fromId": "adhd",
+      "toId": "adhd-sleep-window",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-040",
+      "fromId": "adhd",
+      "toId": "adhd-rejection-spike",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-041",
+      "fromId": "adhd",
+      "toId": "adhd-restless-current",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-042",
+      "fromId": "adhd-initiation-fog",
+      "toId": "adhd-forced-shutdown",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-043",
+      "fromId": "adhd-urgency-focus",
+      "toId": "adhd-burst-rhythm",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-044",
+      "fromId": "adhd-visible-progress",
+      "toId": "adhd-burst-rhythm",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-045",
+      "fromId": "adhd-context-switching",
+      "toId": "solitude",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-046",
+      "fromId": "adhd-rejection-spike",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-047",
+      "fromId": "adhd-rejection-spike",
+      "toId": "spiral",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-048",
+      "fromId": "adhd-novelty-decay",
+      "toId": "preparation",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-049",
+      "fromId": "adhd-sleep-window",
+      "toId": "solitude",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-050",
+      "fromId": "adhd-restless-current",
+      "toId": "movement",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-051",
+      "fromId": "adhd-restless-current",
+      "toId": "voices",
+      "type": "influences",
+      "status": "supported",
+      "approvalState": "proposed",
+      "evidenceSpanIds": []
+    },
+    {
+      "id": "relation-legacy-052",
       "fromId": "pothos",
       "toId": "manifestation",
       "type": "influences",
@@ -2228,7 +2738,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-033",
+      "id": "relation-legacy-053",
       "fromId": "pothos",
       "toId": "glory",
       "type": "influences",
@@ -2237,7 +2747,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-034",
+      "id": "relation-legacy-054",
       "fromId": "manifestation",
       "toId": "synchronicity",
       "type": "influences",
@@ -2246,7 +2756,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-035",
+      "id": "relation-legacy-055",
       "fromId": "spiral",
       "toId": "movement",
       "type": "influences",
@@ -2255,7 +2765,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-036",
+      "id": "relation-legacy-056",
       "fromId": "agency",
       "toId": "fallout",
       "type": "influences",
@@ -2264,7 +2774,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-037",
+      "id": "relation-legacy-057",
       "fromId": "agency",
       "toId": "anrxyst",
       "type": "influences",
@@ -2273,7 +2783,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-038",
+      "id": "relation-legacy-058",
       "fromId": "fallout",
       "toId": "sound",
       "type": "influences",
@@ -2282,7 +2792,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-039",
+      "id": "relation-legacy-059",
       "fromId": "anrxyst",
       "toId": "information-gap",
       "type": "influences",
@@ -2291,7 +2801,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-040",
+      "id": "relation-legacy-060",
       "fromId": "information-gap",
       "toId": "consciousness",
       "type": "influences",
@@ -2300,7 +2810,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-041",
+      "id": "relation-legacy-061",
       "fromId": "consciousness",
       "toId": "self-model-gap",
       "type": "influences",
@@ -2309,7 +2819,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-042",
+      "id": "relation-legacy-062",
       "fromId": "consciousness",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2318,7 +2828,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-043",
+      "id": "relation-legacy-063",
       "fromId": "cloud-consciousness",
       "toId": "singularity",
       "type": "influences",
@@ -2327,7 +2837,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-044",
+      "id": "relation-legacy-064",
       "fromId": "cloud-consciousness",
       "toId": "information-gap",
       "type": "influences",
@@ -2336,7 +2846,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-045",
+      "id": "relation-legacy-065",
       "fromId": "hermetic-philosophy",
       "toId": "manifestation",
       "type": "influences",
@@ -2345,7 +2855,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-046",
+      "id": "relation-legacy-066",
       "fromId": "hermetic-philosophy",
       "toId": "synchronicity",
       "type": "influences",
@@ -2354,7 +2864,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-047",
+      "id": "relation-legacy-067",
       "fromId": "hermetic-philosophy",
       "toId": "singularity",
       "type": "influences",
@@ -2363,7 +2873,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-048",
+      "id": "relation-legacy-068",
       "fromId": "self-belief-scaling",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2372,7 +2882,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-049",
+      "id": "relation-legacy-069",
       "fromId": "self-belief-scaling",
       "toId": "kanye",
       "type": "influences",
@@ -2381,7 +2891,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-050",
+      "id": "relation-legacy-070",
       "fromId": "kanye",
       "toId": "anrxyst",
       "type": "influences",
@@ -2390,7 +2900,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-051",
+      "id": "relation-legacy-071",
       "fromId": "kanye",
       "toId": "alexander",
       "type": "influences",
@@ -2399,7 +2909,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-052",
+      "id": "relation-legacy-072",
       "fromId": "alexander",
       "toId": "pothos",
       "type": "influences",
@@ -2408,7 +2918,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-053",
+      "id": "relation-legacy-073",
       "fromId": "pothos",
       "toId": "non-arrival",
       "type": "influences",
@@ -2417,7 +2927,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-054",
+      "id": "relation-legacy-074",
       "fromId": "non-arrival",
       "toId": "agency",
       "type": "influences",
@@ -2426,7 +2936,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-055",
+      "id": "relation-legacy-075",
       "fromId": "glory",
       "toId": "hierarchy-question",
       "type": "influences",
@@ -2435,7 +2945,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-056",
+      "id": "relation-legacy-076",
       "fromId": "agency",
       "toId": "hierarchy-question",
       "type": "influences",
@@ -2444,7 +2954,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-057",
+      "id": "relation-legacy-077",
       "fromId": "adhd",
       "toId": "solitude",
       "type": "influences",
@@ -2453,7 +2963,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-058",
+      "id": "relation-legacy-078",
       "fromId": "solitude",
       "toId": "preparation",
       "type": "influences",
@@ -2462,7 +2972,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-059",
+      "id": "relation-legacy-079",
       "fromId": "adhd",
       "toId": "voices",
       "type": "influences",
@@ -2471,7 +2981,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-060",
+      "id": "relation-legacy-080",
       "fromId": "voices",
       "toId": "preparation",
       "type": "influences",
@@ -2480,7 +2990,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-061",
+      "id": "relation-legacy-081",
       "fromId": "massive-action",
       "toId": "preparation",
       "type": "influences",
@@ -2489,7 +2999,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-062",
+      "id": "relation-legacy-082",
       "fromId": "massive-action",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2498,7 +3008,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-063",
+      "id": "relation-legacy-083",
       "fromId": "multidimensional-self",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2507,7 +3017,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-064",
+      "id": "relation-legacy-084",
       "fromId": "multidimensional-self",
       "toId": "manifestation",
       "type": "influences",
@@ -2516,7 +3026,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-065",
+      "id": "relation-legacy-085",
       "fromId": "multidimensional-self",
       "toId": "predestination",
       "type": "influences",
@@ -2525,7 +3035,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-066",
+      "id": "relation-legacy-086",
       "fromId": "multidimensional-self",
       "toId": "illusion-not-fake",
       "type": "influences",
@@ -2534,7 +3044,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-067",
+      "id": "relation-legacy-087",
       "fromId": "predestination",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2543,7 +3053,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-068",
+      "id": "relation-legacy-088",
       "fromId": "illusion-not-fake",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2552,7 +3062,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-069",
+      "id": "relation-legacy-089",
       "fromId": "god-as-ethos",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2561,7 +3071,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-070",
+      "id": "relation-legacy-090",
       "fromId": "god-as-ethos",
       "toId": "singularity",
       "type": "influences",
@@ -2570,7 +3080,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-071",
+      "id": "relation-legacy-091",
       "fromId": "aham-brahmasmi",
       "toId": "hermetic-philosophy",
       "type": "influences",
@@ -2579,7 +3089,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-072",
+      "id": "relation-legacy-092",
       "fromId": "aham-brahmasmi",
       "toId": "god-as-ethos",
       "type": "influences",
@@ -2588,7 +3098,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-073",
+      "id": "relation-legacy-093",
       "fromId": "aham-brahmasmi",
       "toId": "four-mahavakyas",
       "type": "influences",
@@ -2597,7 +3107,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-074",
+      "id": "relation-legacy-094",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-prajnanam",
       "type": "influences",
@@ -2606,7 +3116,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-075",
+      "id": "relation-legacy-095",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-aham",
       "type": "influences",
@@ -2615,7 +3125,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-076",
+      "id": "relation-legacy-096",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-tat-tvam",
       "type": "influences",
@@ -2624,7 +3134,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-077",
+      "id": "relation-legacy-097",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-ayam-atma",
       "type": "influences",
@@ -2633,7 +3143,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-078",
+      "id": "relation-legacy-098",
       "fromId": "information-theory-of-life",
       "toId": "singularity",
       "type": "influences",
@@ -2642,7 +3152,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-079",
+      "id": "relation-legacy-099",
       "fromId": "information-theory-of-life",
       "toId": "information-gap",
       "type": "influences",
@@ -2651,7 +3161,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-080",
+      "id": "relation-legacy-100",
       "fromId": "information-theory-of-life",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2660,7 +3170,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-081",
+      "id": "relation-legacy-101",
       "fromId": "information-theory-of-life",
       "toId": "emergence-entropy",
       "type": "influences",
@@ -2669,7 +3179,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-082",
+      "id": "relation-legacy-102",
       "fromId": "emergence-entropy",
       "toId": "singularity",
       "type": "influences",
@@ -2678,7 +3188,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-083",
+      "id": "relation-legacy-103",
       "fromId": "aristocrat-philosophy",
       "toId": "consciousness",
       "type": "influences",
@@ -2687,7 +3197,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-084",
+      "id": "relation-legacy-104",
       "fromId": "purple",
       "toId": "anrxyst",
       "type": "influences",
@@ -2696,7 +3206,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-085",
+      "id": "relation-legacy-105",
       "fromId": "purple",
       "toId": "kanye",
       "type": "influences",
@@ -2705,7 +3215,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-086",
+      "id": "relation-legacy-106",
       "fromId": "fallout",
       "toId": "schranz",
       "type": "influences",
@@ -2714,7 +3224,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-087",
+      "id": "relation-legacy-107",
       "fromId": "schranz",
       "toId": "klangkuenstler",
       "type": "influences",
@@ -2723,7 +3233,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-088",
+      "id": "relation-legacy-108",
       "fromId": "klangkuenstler",
       "toId": "fallout",
       "type": "influences",
@@ -2732,7 +3242,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-089",
+      "id": "relation-legacy-109",
       "fromId": "harvey-specter",
       "toId": "manifestation",
       "type": "influences",
@@ -2741,7 +3251,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-090",
+      "id": "relation-legacy-110",
       "fromId": "harvey-specter",
       "toId": "kanye",
       "type": "influences",
@@ -2750,7 +3260,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-091",
+      "id": "relation-legacy-111",
       "fromId": "pothos",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2759,7 +3269,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-092",
+      "id": "relation-legacy-112",
       "fromId": "pothos",
       "toId": "anrxyst",
       "type": "influences",
@@ -2768,7 +3278,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-093",
+      "id": "relation-legacy-113",
       "fromId": "pothos",
       "toId": "fallout",
       "type": "influences",
@@ -2777,7 +3287,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-094",
+      "id": "relation-legacy-114",
       "fromId": "pothos",
       "toId": "kanye",
       "type": "influences",
@@ -2786,7 +3296,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-095",
+      "id": "relation-legacy-115",
       "fromId": "glory",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2795,7 +3305,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-096",
+      "id": "relation-legacy-116",
       "fromId": "manifestation",
       "toId": "cloud-consciousness",
       "type": "influences",
@@ -2804,7 +3314,7 @@
       "evidenceSpanIds": []
     },
     {
-      "id": "relation-legacy-097",
+      "id": "relation-legacy-117",
       "fromId": "anrxyst",
       "toId": "fallout",
       "type": "influences",
@@ -2846,7 +3356,7 @@
     {
       "id": "revision-cluster-self-current",
       "nodeId": "cluster-self",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "12d3cdc9a5cde23b934abbdc17ea7f62a3c310eff94be378cfef06e421069e9f",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2856,7 +3366,7 @@
     {
       "id": "revision-cluster-work-current",
       "nodeId": "cluster-work",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "511337ecda7a8e3e858f3bb39fc91e825f0ca68da8a6df26aa56188a21d91c27",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2866,7 +3376,7 @@
     {
       "id": "revision-cluster-creative-current",
       "nodeId": "cluster-creative",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "cb999ea6551c8e6869448cc1597c29b3c1c66cbe239a5b5d4041b952fb637fdf",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2876,7 +3386,7 @@
     {
       "id": "revision-cluster-knowledge-current",
       "nodeId": "cluster-knowledge",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "cb1b000d82dc9c744111d1998287cbcddf8af4c5056cedadccabfe56de66407d",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2886,7 +3396,7 @@
     {
       "id": "revision-cluster-systems-current",
       "nodeId": "cluster-systems",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "532f7a27e4e1ccbfe2ea138a2c1e2df454f7004b8ca81314c0d6634623165edb",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2896,7 +3406,7 @@
     {
       "id": "revision-agency-current",
       "nodeId": "agency",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "c6055d36b35eebb54800c81756238addd91c0fca8f965bc099fe794f27bf403f",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2906,7 +3416,7 @@
     {
       "id": "revision-preparation-current",
       "nodeId": "preparation",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "28b7c19308e45a7b68fda65f22bf9e67797122e255607502b19e16043d12f0f5",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2916,7 +3426,7 @@
     {
       "id": "revision-massive-action-current",
       "nodeId": "massive-action",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "7499fb0370bf8d00001eb7525523840355bdce00e9df6adbdfbf969cde1e2714",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2926,7 +3436,7 @@
     {
       "id": "revision-pothos-current",
       "nodeId": "pothos",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "81eed2ea429031b4b6dfad262a4e8761e57050fb403e36ee714e70d95580587b",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2936,7 +3446,7 @@
     {
       "id": "revision-love-current",
       "nodeId": "love",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "e7d7e3fa6dce63948fcba44f631e997105b129b1d00a824e8928a4683561f9ab",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2946,7 +3456,7 @@
     {
       "id": "revision-glory-current",
       "nodeId": "glory",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "0feb8b47ab6079dc4cf9a1b99a3c272138418089cd11a049ee3a55508717b9e3",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2956,17 +3466,117 @@
     {
       "id": "revision-adhd-current",
       "nodeId": "adhd",
-      "createdOn": "2026-07-29",
-      "contentHash": "d8f558e3e116cbe38866fb45292c02ad875195581146dae563f1c73fcfd441a5",
+      "createdOn": "2026-07-30",
+      "contentHash": "57b8413b9ba78d961902438143d0f9aaca6acb26f2d19226dbf9ed341a17d676",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-initiation-fog-current",
+      "nodeId": "adhd-initiation-fog",
+      "createdOn": "2026-07-30",
+      "contentHash": "05267f0b6a09e049516f02f722cbbf53ccfe0de57cb23c4fe8e0b01c1ae83f50",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-urgency-focus-current",
+      "nodeId": "adhd-urgency-focus",
+      "createdOn": "2026-07-30",
+      "contentHash": "a505ff66b82bdf91b78a84311cd0eea871ab1fdb1500018b774c105b43c140a1",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-burst-rhythm-current",
+      "nodeId": "adhd-burst-rhythm",
+      "createdOn": "2026-07-30",
+      "contentHash": "be50efd29ac107747d59b9b27d963a651f301431a367817e63dc563d1db4e263",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-forced-shutdown-current",
+      "nodeId": "adhd-forced-shutdown",
+      "createdOn": "2026-07-30",
+      "contentHash": "81c43d03c48cc3f66c807e9e61236f2dca80079db72adbc6d9b44fb4ae0f3932",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-context-switching-current",
+      "nodeId": "adhd-context-switching",
+      "createdOn": "2026-07-30",
+      "contentHash": "6f43738e2042514229438099f9688ed92dacdc736ad4d1db98ae5a4194fe0f63",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-visible-progress-current",
+      "nodeId": "adhd-visible-progress",
+      "createdOn": "2026-07-30",
+      "contentHash": "8210be73311109ccb787d37eff776ac994e8a6d1bb4a925eca9957f8c4f0aa9f",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-novelty-decay-current",
+      "nodeId": "adhd-novelty-decay",
+      "createdOn": "2026-07-30",
+      "contentHash": "756258e1cf1edad5e94f74ba603ca7a3414f2d4125450b85169c277a1801013b",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-sleep-window-current",
+      "nodeId": "adhd-sleep-window",
+      "createdOn": "2026-07-30",
+      "contentHash": "c20a5f1da3bd2dc42cafa48642ad0c766249ea4df4899aedab299702f2df6f9e",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-rejection-spike-current",
+      "nodeId": "adhd-rejection-spike",
+      "createdOn": "2026-07-30",
+      "contentHash": "85fb9073c7ecce0a78f90cc3dacbfd315e5cb44ac5ecd184527ae35b28698752",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
+      "immutable": true
+    },
+    {
+      "id": "revision-adhd-restless-current-current",
+      "nodeId": "adhd-restless-current",
+      "createdOn": "2026-07-30",
+      "contentHash": "47b9c8da8a3a5bb2cf27aa8181930fd5f143787117344ecf20b80428f263c4d9",
+      "previousRevisionId": null,
+      "approvalState": "approved",
+      "reason": "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30.",
       "immutable": true
     },
     {
       "id": "revision-spiral-current",
       "nodeId": "spiral",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "5b40dcaf3f2c2ce90a662f7a31e813f2f4e62ce216bdc10097927b9507de2b6d",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2976,7 +3586,7 @@
     {
       "id": "revision-movement-current",
       "nodeId": "movement",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "70617be93ed1b5a39faa172f67c5ea4ac76feb98a3241b6e6c725cf95eaf32e5",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2986,7 +3596,7 @@
     {
       "id": "revision-manifestation-current",
       "nodeId": "manifestation",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "3762c4e17093e7f9aa59e9c2b7ea0218b815680deafd22eb425963986d7e6c75",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -2996,7 +3606,7 @@
     {
       "id": "revision-synchronicity-current",
       "nodeId": "synchronicity",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "db7b02a6ba37d1a2ad68cfb9d7202689731794001e83e50823f746d2602ded08",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3006,7 +3616,7 @@
     {
       "id": "revision-c2x-current",
       "nodeId": "c2x",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "69b043aea4fb0e4cc6924431f81fbee0d2e1e67951840951409c79652c718ab8",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3016,7 +3626,7 @@
     {
       "id": "revision-anrxyst-current",
       "nodeId": "anrxyst",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "7f8205648c280fa1a7a36891a8cd4edb0a579d4c4f1bb645621de23a020111c4",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3026,7 +3636,7 @@
     {
       "id": "revision-fallout-current",
       "nodeId": "fallout",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "0bafb54df04dd84f488ffae8417a5e9eaed1c51c0b07d895a1ad5e98a529cc79",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3036,7 +3646,7 @@
     {
       "id": "revision-sound-current",
       "nodeId": "sound",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "69a8736dcb608f1c5f59db9a1e7ee846560efcdfbc2651b8c269a46473710e16",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3046,7 +3656,7 @@
     {
       "id": "revision-information-gap-current",
       "nodeId": "information-gap",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "225b515b4f9f4119ecd1fddb0ce5836401e2d525ff57895227dfb98f42b00434",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3056,7 +3666,7 @@
     {
       "id": "revision-consciousness-current",
       "nodeId": "consciousness",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "41a4f5d8b2ca438a5344212a43e9db98a8024e715281ce13ed3b738ca74c90cf",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3066,7 +3676,7 @@
     {
       "id": "revision-self-model-gap-current",
       "nodeId": "self-model-gap",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "d0318860092a85841584e42c7a9d55c9e1c116c1e3d14d664a6f133609df77da",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3076,7 +3686,7 @@
     {
       "id": "revision-cloud-consciousness-current",
       "nodeId": "cloud-consciousness",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "1385b31ead9a3b77aff9a81bea95dc472f5fd893dba4f4bbd1659051cfa49755",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3236,7 +3846,7 @@
     {
       "id": "revision-aristocrat-philosophy-current",
       "nodeId": "aristocrat-philosophy",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "996fa446b5c7e5cc3ba63e63b0cefa56c38676433338518ac62e78e89b99c7ca",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3246,7 +3856,7 @@
     {
       "id": "revision-purple-current",
       "nodeId": "purple",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "99478fe5751c45db2941da3cc1627d3e6d015f052b06a9804f4a8d841c4a4ff0",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3256,7 +3866,7 @@
     {
       "id": "revision-schranz-current",
       "nodeId": "schranz",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "04ac8f86de9f6f70694a3f2577fbdb26a2e0c1d05265748c1e252e4f4bb1ce11",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3266,7 +3876,7 @@
     {
       "id": "revision-harvey-specter-current",
       "nodeId": "harvey-specter",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "12981682e019a0b0bc7fee8dfc7352ecd1021b9caf324c80c9fdf0a14083ca1d",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3276,7 +3886,7 @@
     {
       "id": "revision-klangkuenstler-current",
       "nodeId": "klangkuenstler",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "0a3ffbf7ea56b1cc95dc913f5a9f902bb101281095f9c1844b8d341a40c64eb0",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3286,7 +3896,7 @@
     {
       "id": "revision-kanye-current",
       "nodeId": "kanye",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "dd18c07f7e8b668a69248548027f018c39da0758f0de3a007d7e63b5f743bd26",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3296,7 +3906,7 @@
     {
       "id": "revision-alexander-current",
       "nodeId": "alexander",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "0a87f8cabf4cd8914f675e51a720fa4b80b261d3561c99ba01bac8fae87ad971",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3306,7 +3916,7 @@
     {
       "id": "revision-non-arrival-current",
       "nodeId": "non-arrival",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "e7400d2968dfd7adb0138bb4e99fc069ac3967c27549d61a483dceb3e2090cc0",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3316,7 +3926,7 @@
     {
       "id": "revision-hierarchy-question-current",
       "nodeId": "hierarchy-question",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "912456007fd64f94d5d4b6842462beb15d818fa9348d014d8ca8df5ec4a7f662",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3326,7 +3936,7 @@
     {
       "id": "revision-solitude-current",
       "nodeId": "solitude",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "5565bb6ec29f73d183df99b315348e36d34e0abef86fdfb7845ad5e933b61d84",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3336,7 +3946,7 @@
     {
       "id": "revision-voices-current",
       "nodeId": "voices",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "91ef033f57a9964f89c8d177469a4a2ba72a12ee2d21f11189434e5c7a63f9bc",
       "previousRevisionId": null,
       "approvalState": "proposed",
@@ -3346,7 +3956,7 @@
     {
       "id": "revision-aham-brahmasmi-split-approved",
       "nodeId": "aham-brahmasmi",
-      "createdOn": "2026-07-29",
+      "createdOn": "2026-07-30",
       "contentHash": "e1714879f1e63f8a1d74163e960781cb30b7297ee9beed5aeae3a7d7461f6479",
       "previousRevisionId": "revision-aham-brahmasmi-current",
       "approvalState": "approved",
@@ -3361,7 +3971,7 @@
       "subjectId": "claim-cluster-self",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3369,7 +3979,7 @@
       "subjectId": "claim-cluster-work",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3377,7 +3987,7 @@
       "subjectId": "claim-cluster-creative",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3385,7 +3995,7 @@
       "subjectId": "claim-cluster-knowledge",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3393,7 +4003,7 @@
       "subjectId": "claim-cluster-systems",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3401,7 +4011,7 @@
       "subjectId": "claim-agency",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3409,7 +4019,7 @@
       "subjectId": "claim-preparation",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3417,7 +4027,7 @@
       "subjectId": "claim-massive-action",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3425,7 +4035,7 @@
       "subjectId": "claim-pothos",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3433,7 +4043,7 @@
       "subjectId": "claim-love",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3441,23 +4051,103 @@
       "subjectId": "claim-glory",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
       "id": "approval-adhd-current",
       "subjectId": "claim-adhd",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-29",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-initiation-fog-current",
+      "subjectId": "claim-adhd-initiation-fog",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-urgency-focus-current",
+      "subjectId": "claim-adhd-urgency-focus",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-burst-rhythm-current",
+      "subjectId": "claim-adhd-burst-rhythm",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-forced-shutdown-current",
+      "subjectId": "claim-adhd-forced-shutdown",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-context-switching-current",
+      "subjectId": "claim-adhd-context-switching",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-visible-progress-current",
+      "subjectId": "claim-adhd-visible-progress",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-novelty-decay-current",
+      "subjectId": "claim-adhd-novelty-decay",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-sleep-window-current",
+      "subjectId": "claim-adhd-sleep-window",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-rejection-spike-current",
+      "subjectId": "claim-adhd-rejection-spike",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
+    },
+    {
+      "id": "approval-adhd-restless-current-current",
+      "subjectId": "claim-adhd-restless-current",
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-30",
+      "evidence": "Chay explicitly requested his documented ADHD traits in the brain scan and as baby nodes around an ADHD mother node."
     },
     {
       "id": "approval-spiral-current",
       "subjectId": "claim-spiral",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3465,7 +4155,7 @@
       "subjectId": "claim-movement",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3473,7 +4163,7 @@
       "subjectId": "claim-manifestation",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3481,7 +4171,7 @@
       "subjectId": "claim-synchronicity",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3489,7 +4179,7 @@
       "subjectId": "claim-c2x",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3497,7 +4187,7 @@
       "subjectId": "claim-anrxyst",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3505,7 +4195,7 @@
       "subjectId": "claim-fallout",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3513,7 +4203,7 @@
       "subjectId": "claim-sound",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3521,7 +4211,7 @@
       "subjectId": "claim-information-gap",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3529,7 +4219,7 @@
       "subjectId": "claim-consciousness",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3537,7 +4227,7 @@
       "subjectId": "claim-self-model-gap",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3545,7 +4235,7 @@
       "subjectId": "claim-cloud-consciousness",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3673,7 +4363,7 @@
       "subjectId": "claim-aristocrat-philosophy",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3681,7 +4371,7 @@
       "subjectId": "claim-purple",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3689,7 +4379,7 @@
       "subjectId": "claim-schranz",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3697,7 +4387,7 @@
       "subjectId": "claim-harvey-specter",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3705,7 +4395,7 @@
       "subjectId": "claim-klangkuenstler",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3713,7 +4403,7 @@
       "subjectId": "claim-kanye",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3721,7 +4411,7 @@
       "subjectId": "claim-alexander",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3729,7 +4419,7 @@
       "subjectId": "claim-non-arrival",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3737,7 +4427,7 @@
       "subjectId": "claim-hierarchy-question",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3745,7 +4435,7 @@
       "subjectId": "claim-solitude",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     },
     {
@@ -3753,7 +4443,7 @@
       "subjectId": "claim-voices",
       "state": "proposed",
       "actor": "agent",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
     }
   ],
@@ -4016,28 +4706,271 @@
     },
     {
       "nodeId": "adhd",
-      "sourceArtifactId": "src-private-adhd",
+      "sourceArtifactId": "src-adhd-public-safe",
       "evidenceSpanId": "evidence-adhd",
-      "actualSourceClaim": "Chay reports novelty- and urgency-linked activation, bursts and shutdown under forced effort.",
-      "proposedDistillation": "A self-observed interest-based activation pattern; not a diagnostic or universal claim.",
+      "actualSourceClaim": "Chay explicitly identifies ADHD as a major documented part of his life and asks for its lived traits to remain distinct.",
+      "proposedDistillation": "ADHD indexes Chay's lived activation, attention, work-rhythm, emotional, sleep and restlessness patterns.",
+      "expressionType": "synthesis",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "lifelong pattern; documented and expanded 2026-07-30",
+      "supportedRelationships": [
+        "adhd-initiation-fog",
+        "adhd-urgency-focus",
+        "adhd-burst-rhythm",
+        "adhd-forced-shutdown",
+        "adhd-context-switching",
+        "adhd-visible-progress",
+        "adhd-novelty-decay",
+        "adhd-sleep-window",
+        "adhd-rejection-spike",
+        "adhd-restless-current",
+        "solitude",
+        "voices"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [
+        "the former single node collapsed several distinct documented traits"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-initiation-fog",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-initiation-fog",
+      "actualSourceClaim": "Chay can understand and care about a required task while still being unable to initiate it.",
+      "proposedDistillation": "Knowing and caring do not guarantee ignition; required tasks can still produce initiation fog.",
       "expressionType": "faithful_paraphrase",
       "epistemicType": "interpretation",
       "status": "documented",
       "privacy": "P0",
-      "temporalScope": "self-report in 2026-05",
+      "temporalScope": "recurring self-observation",
       "supportedRelationships": [
-        "spiral",
-        "movement",
+        "adhd",
+        "adhd-forced-shutdown",
+        "preparation"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-urgency-focus",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-urgency-focus",
+      "actualSourceClaim": "Real stakes and approaching deadlines can sharply increase Chay's short-term focus.",
+      "proposedDistillation": "Urgency can flip diffuse attention into sharp short-term focus without becoming the ideal way to work.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "recurring self-observation",
+      "supportedRelationships": [
+        "adhd",
+        "adhd-burst-rhythm"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-burst-rhythm",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-burst-rhythm",
+      "actualSourceClaim": "Chay's usable energy and output often arrive in bursts rather than a linear all-day rhythm.",
+      "proposedDistillation": "Output arrives in intense windows followed by genuine recovery needs.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "recurring self-observation",
+      "supportedRelationships": [
+        "adhd",
+        "adhd-urgency-focus",
+        "adhd-visible-progress"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-forced-shutdown",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-forced-shutdown",
+      "actualSourceClaim": "Forcing effort through initiation fog can produce sleepiness or cognitive shutdown for Chay.",
+      "proposedDistillation": "More force through the fog can produce shutdown instead of usable effort.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "recurring self-observation",
+      "supportedRelationships": [
+        "adhd",
+        "adhd-initiation-fog"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [
+        "does not explain every episode of fatigue"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-context-switching",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-context-switching",
+      "actualSourceClaim": "Changing domains, tools or task frames carries a disproportionate activation cost for Chay.",
+      "proposedDistillation": "Context switching is a major energy cost; a clear opening move helps the transition.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current operating model",
+      "supportedRelationships": [
+        "adhd",
         "solitude"
       ],
       "contradictionsOrVariants": [],
-      "verdict": "tighten",
-      "failureReasons": [
-        "clinical label can overstate what the evidence span establishes"
+      "verdict": "split",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-visible-progress",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-visible-progress",
+      "actualSourceClaim": "Chay's engagement lasts longer when forward motion is tangible and visible.",
+      "proposedDistillation": "Visible evidence of progress helps attention remain attached without devaluing invisible work.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current operating model",
+      "supportedRelationships": [
+        "adhd",
+        "adhd-burst-rhythm"
       ],
-      "approvalState": "proposed",
-      "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-novelty-decay",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-novelty-decay",
+      "actualSourceClaim": "New systems can lose activation power when their novelty fades; the recorded duration is only an estimate.",
+      "proposedDistillation": "Novelty decay is a recurring system risk, not a measured three-to-seven-day law.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "historical working model",
+      "supportedRelationships": [
+        "adhd",
+        "preparation"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [
+        "the duration is a working estimate rather than measurement"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-sleep-window",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-sleep-window",
+      "actualSourceClaim": "Chay reports a narrow sleepiness window whose loss makes falling asleep substantially harder.",
+      "proposedDistillation": "A narrow sleep window is a lived timing sensitivity, not a public sleep-disorder claim.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "recurring self-observation",
+      "supportedRelationships": [
+        "adhd",
+        "solitude"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [
+        "clinical sleep context remains private"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-rejection-spike",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-rejection-spike",
+      "actualSourceClaim": "Perceived rejection, criticism or falling short can produce a fast crash and urge to exit or restart.",
+      "proposedDistillation": "A rejection spike can feed perfectionism and avoidance; personal incidents remain private.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "recurring experiential vocabulary",
+      "supportedRelationships": [
+        "adhd",
+        "preparation",
+        "spiral"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [
+        "RSD is not presented as a standalone DSM diagnosis"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
+    },
+    {
+      "nodeId": "adhd-restless-current",
+      "sourceArtifactId": "src-adhd-public-safe",
+      "evidenceSpanId": "evidence-adhd-restless-current",
+      "actualSourceClaim": "Chay reports inner restlessness, fidgeting and several concurrent lines of thought.",
+      "proposedDistillation": "Outward inattentiveness can coexist with a restless body and loud internal debate.",
+      "expressionType": "faithful_paraphrase",
+      "epistemicType": "interpretation",
+      "status": "documented",
+      "privacy": "P0",
+      "temporalScope": "current operating model",
+      "supportedRelationships": [
+        "adhd",
+        "movement",
+        "voices"
+      ],
+      "contradictionsOrVariants": [],
+      "verdict": "split",
+      "failureReasons": [
+        "overlap with Two Voices must not imply literal separate selves"
+      ],
+      "approvalState": "approved",
+      "provenanceStatus": "exact",
+      "auditOrigin": "chay-decision-2026-07-30"
     },
     {
       "nodeId": "spiral",
@@ -4959,7 +5892,6 @@
         "pothos",
         "love",
         "glory",
-        "adhd",
         "spiral",
         "movement",
         "manifestation",

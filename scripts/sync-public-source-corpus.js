@@ -32,6 +32,88 @@ const mahavakyaChildren = [
   quotes:[meaning],
   connections:["four-mahavakyas"]
 }));
+const adhdChildren = [
+  {
+    id:"adhd-initiation-fog",
+    label:"Initiation Fog",
+    one_line:"Knowing a task matters does not reliably make it possible to start.",
+    synthesis:"A documented gap between knowing and ignition: required tasks can produce fog even when their importance is understood, while attention defects toward something immediately stimulating.",
+    quotes:[],
+    connections:["adhd","adhd-forced-shutdown","preparation"]
+  },
+  {
+    id:"adhd-urgency-focus",
+    label:"Urgency Focus",
+    one_line:"Real stakes can flip diffuse attention into sharp short-term focus.",
+    synthesis:"Urgency and approaching deadlines are recorded as powerful ignition conditions. This explains a recurring pattern without claiming crisis is the ideal or only way to work.",
+    quotes:["I explode under pressure and my focus becomes laser sharp."],
+    connections:["adhd","adhd-burst-rhythm"]
+  },
+  {
+    id:"adhd-burst-rhythm",
+    label:"Burst Rhythm",
+    one_line:"Output arrives in intense windows followed by genuine recovery needs.",
+    synthesis:"The documented work rhythm is episodic rather than linear: concentrated periods of unusually high output, then low-activation recovery. It is a lived pattern, not a productivity prescription.",
+    quotes:[],
+    connections:["adhd","adhd-urgency-focus","adhd-visible-progress"]
+  },
+  {
+    id:"adhd-forced-shutdown",
+    label:"Forced-Effort Shutdown",
+    one_line:"More force through the fog can produce sleepiness instead of usable effort.",
+    synthesis:"Chay reports that forcing effort through initiation fog can end in cognitive shutdown or sleepiness rather than steady compliance. The public record does not generalize that response to every episode of fatigue.",
+    quotes:["If I force myself to do things even if my brain fog is there, my body literally renders me to sleepy mode."],
+    connections:["adhd","adhd-initiation-fog"]
+  },
+  {
+    id:"adhd-context-switching",
+    label:"Context-Switch Cost",
+    one_line:"Changing mental frames carries a disproportionate activation cost.",
+    synthesis:"Switching domains, tools or task frames is documented as a major drain. Transition support and a clear opening move often matter more than adding another large plan.",
+    quotes:[],
+    connections:["adhd","solitude-unlock"]
+  },
+  {
+    id:"adhd-visible-progress",
+    label:"Visible Progress",
+    one_line:"Attention holds longer when forward motion can be seen.",
+    synthesis:"Tangible output such as a sent message, saved file, visible count or working artifact helps engagement persist. Invisible work can remain valuable while still costing more activation.",
+    quotes:[],
+    connections:["adhd","adhd-burst-rhythm"]
+  },
+  {
+    id:"adhd-novelty-decay",
+    label:"Novelty Decay",
+    one_line:"A new system can stop activating attention once it stops feeling new.",
+    synthesis:"Plans and scaffolds are documented as working briefly before novelty fades. The recorded three-to-seven-day range is a working estimate, not a measured constant.",
+    quotes:[],
+    connections:["adhd","preparation-execution-paradox"]
+  },
+  {
+    id:"adhd-sleep-window",
+    label:"Sleep Window",
+    one_line:"Missing the first sleepy window can make sleep initiation much harder.",
+    synthesis:"A narrow sleepiness window is documented as part of Chay's lived timing sensitivity. This is a personal observation, not a public sleep-disorder claim.",
+    quotes:[],
+    connections:["adhd","solitude-unlock"]
+  },
+  {
+    id:"adhd-rejection-spike",
+    label:"Rejection Spike",
+    one_line:"Perceived failure can trigger a fast crash, perfectionism and an exit urge.",
+    synthesis:"The public-safe loop preserves the pattern without its incidents: perceived criticism, rejection or falling short can produce sudden avoidance, restart impulses and inconsistency. RSD is experiential vocabulary here, not a standalone DSM claim.",
+    quotes:[],
+    connections:["adhd","preparation-execution-paradox"]
+  },
+  {
+    id:"adhd-restless-current",
+    label:"Restless Current",
+    one_line:"Inattentiveness can coexist with fidgeting and loud internal debate.",
+    synthesis:"The record describes inner restlessness, physical fidgeting and several lines of thought arguing at once. It overlaps with the Two Voices synthesis without implying literal separate selves.",
+    quotes:[],
+    connections:["adhd","voices"]
+  }
+].map(node => ({ ...node, cluster:"Self" }));
 
 const sourceData = JSON.parse(fs.readFileSync(source, "utf8"));
 if (!sourceData?.meta?.description?.includes("public-safe")) {
@@ -102,7 +184,7 @@ const publicCorpus = {
     source_note:sourceData.meta.source_note,
     generator_version:"1.1.0"
   },
-  nodes:[...nodes, mahavakyaParent, ...mahavakyaChildren]
+  nodes:[...nodes, mahavakyaParent, ...mahavakyaChildren, ...adhdChildren]
 };
 
 fs.mkdirSync(path.dirname(target), { recursive:true });

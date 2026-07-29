@@ -1,6 +1,6 @@
 # Phase 1.5 — Semantic integrity and privacy verification
 
-Date: 2026-07-29
+Date: 2026-07-30
 Status: approved public-safe decisions applied; private review remains queued
 
 This is the public-safe review packet. Exact private locators, private evidence hashes, identities, and historical-risk detail are stored only in the canonical private vault.
@@ -13,15 +13,16 @@ The counts describe different layers and must not be treated as competing totals
 | --- | ---: | --- |
 | Canonical Markdown inventory | 111 | Every Markdown artifact currently under `Chay OS/vault` |
 | Public-vault structural records | 111 | One P0-safe structural projection for each canonical Markdown artifact |
-| Graph records | 58 | Every record in `publicNodes`, including privacy placeholders |
-| Semantic/index graph nodes | 50 | Display/index records with semantic audit records |
+| Graph records | 68 | Every record in `publicNodes`, including privacy placeholders |
+| Semantic/index graph nodes | 60 | Display/index records with semantic audit records |
 | Privacy placeholders | 8 | UI positions without public claims; not aliases for eight people or eight vault files |
-| Graph edges | 97 | Public-safe visual relations; evidence approval is separate |
-| Brain mappings | 50 | Artistic associations for every semantic/index node |
-| Retrieval source-corpus entries | 39 | Includes the separated Mahāvākyas mother and a content-free Love shell |
+| Graph edges | 117 | Public-safe visual relations; evidence approval is separate |
+| Brain mappings | 60 | Artistic associations for every semantic/index node |
+| Retrieval source-corpus entries | 49 | Includes Mahāvākyas, ten ADHD children and a content-free Love shell |
 | Canonical archive mothers | 5 | Self, Work, Creative, Knowledge, Systems |
-| Thematic mothers | 2 | Private Love and the personal Four Mahāvākyas collection |
+| Thematic mothers | 3 | ADHD, private Love and the personal Four Mahāvākyas collection |
 | Mahāvākya child nodes | 4 | Personal collection records; source citations remain pending |
+| ADHD child nodes | 10 | Public-safe lived traits; private clinical and incident detail remains withheld |
 
 Definitions are machine-readable in `semantic-model.json`:
 
@@ -36,7 +37,7 @@ Definitions are machine-readable in `semantic-model.json`:
 
 ## 2. Semantic audit ledger
 
-Every one of the 50 semantic/index nodes now has:
+Every one of the 60 semantic/index nodes now has:
 
 - a source-artifact status;
 - an evidence locator or explicit blocker;
@@ -48,28 +49,30 @@ Every one of the 50 semantic/index nodes now has:
 - an immutable current revision;
 - a provenance status.
 
-Current 50-node verdicts:
+Current 60-node verdicts:
 
 | Verdict | Count |
 | --- | ---: |
 | Keep | 36 |
-| Tighten | 6 |
+| Tighten | 5 |
 | Rewrite | 5 |
-| Split | 1 |
+| Split | 12 |
 | Merge | 0 |
 | Remove | 0 |
 | Insufficient source | 2 |
 
 The completed ten-node audit remains historically represented. Its original result was 6 rewrite, 2 tighten, 2 keep. The contaminated combined record is now an approved **split**: the personal slice/whole belief and the personal Four Mahāvākyas collection are distinct records without erasing the audit history.
 
+The former single ADHD record is also now an approved **split**. One thematic mother indexes ten public-safe lived traits: initiation fog, urgency focus, burst rhythm, forced-effort shutdown, context-switch cost, visible progress, novelty decay, sleep-window sensitivity, rejection spikes and restless current. Clinical assessment detail, medication, named incidents and relationship context remain outside the public graph.
+
 Approval state:
 
 | State | Count |
 | --- | ---: |
-| Approved | 15 |
-| Proposed | 35 |
+| Approved | 26 |
+| Proposed | 34 |
 
-Deployment is not treated as semantic approval. Ten records retain the explicit 2026-07-26 approval event; the separated Mahāvākyas collection and its four children carry Chay's 2026-07-29 approval. All other classifications remain proposed.
+Deployment is not treated as semantic approval. Ten records retain the explicit 2026-07-26 approval event; the separated Mahāvākyas collection and its four children carry Chay's 2026-07-29 approval; the ADHD mother and ten children carry Chay's explicit 2026-07-30 approval. All other classifications remain proposed.
 
 ## 3. Proposed revisions awaiting Chay
 
@@ -77,7 +80,7 @@ One review queue in `semantic-model.json` now contains three remaining material 
 
 1. Supply or approve canonical Chay OS sources for C2X and Sound.
 2. Review Love, private nodes, dates and relationship structure one by one before releasing any detail.
-3. Review the remaining 35 semantic classifications as one batch. No proposal can approve itself.
+3. Review the remaining 34 semantic classifications as one batch. No proposal can approve itself.
 
 The original Tathāgatagarbha contamination is a permanent regression fixture. An editorially introduced term without evidence and explicit Chay approval is rejected.
 
@@ -93,10 +96,10 @@ Love's claims, variants and evidence have moved entirely behind the pending priv
 
 ## 5. Unsupported-edge report
 
-The 97 public-safe visual graph edges are not automatically semantic evidence.
+The 117 public-safe visual graph edges are not automatically semantic evidence.
 
 - Seven Love-context relations were removed from public output pending private review.
-- Of the remaining relations, 58 are `supported` by this pass and 39 remain `unknown`.
+- Of the remaining relations, 78 are `supported` by this pass and 39 remain `unknown`.
 - `unknown` means the current audit did not find a shortest-sufficient evidence span for that edge; it does not mean the relationship is false.
 - No unknown edge is promoted to an approved semantic relation.
 
@@ -163,7 +166,7 @@ Added:
 
 The tests prove:
 
-- all 50 semantic/index nodes are accounted for;
+- all 60 semantic/index nodes are accounted for;
 - all required enums and dimensions remain separate;
 - agent interpretations cannot approve themselves;
 - approval requires an explicit Chay event and evidence;
@@ -193,7 +196,7 @@ Phase 1.5's data-layer exit gate passes:
 
 - counts reconcile;
 - the completed audit is represented without losing its history;
-- all 50 semantic/index nodes have a verdict or blocker;
+- all 60 semantic/index nodes have a verdict or blocker;
 - every visible node has a provenance status;
 - external context and personal claims are separate;
 - contradictions are preserved;
