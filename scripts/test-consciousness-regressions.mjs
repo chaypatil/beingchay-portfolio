@@ -34,6 +34,11 @@ assert.match(
 );
 assert.match(
   source,
+  /function selectNode\(id, openMobile\)[\s\S]*PROJECT_DESTINATIONS\[id\][\s\S]*window\.location\.assign\(projectDestination\)/,
+  "Project nodes must navigate directly from the landing, Library, and Brain arrangements."
+);
+assert.match(
+  source,
   /bindNativeTouchSwipe\(libraryRail[\s\S]*direction:"left"[\s\S]*setPanelCollapsed\("rail", true\)/,
   "The mobile library must observe native touch swipes instead of fighting browser scrolling."
 );

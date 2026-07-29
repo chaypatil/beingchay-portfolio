@@ -728,6 +728,11 @@ function finishTouchGesture(event) {
 function selectNode(id, openMobile) {
   const node = nodeById.get(id);
   if (!node) return;
+  const projectDestination = PROJECT_DESTINATIONS[id];
+  if (projectDestination) {
+    window.location.assign(projectDestination);
+    return;
+  }
   if (node.privacy === "locked") {
     openPrivateNotice();
     return;
