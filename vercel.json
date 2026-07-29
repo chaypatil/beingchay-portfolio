@@ -5,6 +5,10 @@
       "destination": "/c2x/index.html"
     },
     {
+      "source": "/portfolio/",
+      "destination": "/c2x/index.html"
+    },
+    {
       "source": "/portfolio/:path*",
       "destination": "/c2x/:path*"
     }

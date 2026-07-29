@@ -16,6 +16,12 @@ assert(
   vercelConfig.rewrites.some(route => route.source === "/portfolio/:path*" && route.destination === "/c2x/:path*"),
   "The public /portfolio route must serve the existing C2X page tree."
 );
+assert(
+  ["/portfolio", "/portfolio/"].every(source =>
+    vercelConfig.rewrites.some(route => route.source === source && route.destination === "/c2x/index.html")
+  ),
+  "Both extensionless portfolio entry URLs must resolve to the C2X shell."
+);
 assert.doesNotMatch(
   source,
   /history\.replaceState\([^)]*["']\/consciousness\//,
