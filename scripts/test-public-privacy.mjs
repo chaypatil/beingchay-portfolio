@@ -32,6 +32,11 @@ assert.equal(index.meta.records, 111);
 assert.equal(index.records.filter(record => record.privacy === "public").length, index.meta.public);
 assert.equal(index.records.filter(record => record.privacy !== "public").length, index.meta.redacted);
 assert(index.records.every(record => record.privacyClass === "P0"), "Every emitted record must contain P0 output only.");
+assert.equal(index.meta.public, 14, "Only explicitly allowlisted P0 bodies may be readable.");
+assert.equal(index.meta.redacted, 97, "Every unapproved record must fail closed.");
+const builder = fs.readFileSync(path.join(ROOT, "scripts", "build-public-brain-vault.mjs"), "utf8");
+assert.match(builder, /PUBLIC_BODY_APPROVALS = new Map/);
+assert.match(builder, /PUBLIC_BODY_APPROVALS\.get\(relativePath\) === sourceHash/);
 
 const allowedRecordKeys = new Set(["id", "path", "title", "type", "cluster", "privacy", "privacyClass", "sourcePrivacyClass", "redactions", "nodeIds", "content"]);
 for (const record of index.records) {
@@ -40,13 +45,18 @@ for (const record of index.records) {
     assert(record.privacy !== "public", `${record.id} inherits private source material but was emitted as public.`);
   }
 }
-const restrictedRaw = index.records.filter(record => record.path.startsWith("frameworks/raw-source/"));
-assert(restrictedRaw.length > 0, "Raw framework archives must remain represented in the 111-record structural count.");
-for (const record of restrictedRaw) {
+const redactedRecords = index.records.filter(record => record.privacy === "redacted");
+assert.equal(redactedRecords.length, 97);
+assert.equal(index.records.filter(record => record.privacy === "redacted-extract").length, 0);
+for (const record of redactedRecords) {
   assert.equal(record.privacy, "redacted");
   assert.equal(record.sourcePrivacyClass, "P3");
-  assert.equal(record.content, "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]");
-  assert.match(record.path, /^frameworks\/raw-source\/redacted-[a-f0-9]{8}\.md$/);
+  assert.equal(record.content, "[REDACTED_DOCUMENT]");
+  assert.equal(record.title, "Private record");
+  assert.equal(record.type, "private");
+  assert.equal(record.cluster, "Private");
+  assert.deepEqual(record.nodeIds, []);
+  assert.match(record.path, /^private\/record-\d{3}\.md$/);
 }
 
 const peopleDir = path.join(VAULT, "entities", "people");
@@ -79,6 +89,7 @@ const deployedTextFiles = [
 const publicText = deployedTextFiles.map(file => fs.readFileSync(file, "utf8")).join("\n");
 assert.doesNotMatch(publicText, /[A-Za-z]:[\\/]+Users[\\/]+/i, "Absolute private paths must not enter public artifacts.");
 assert.doesNotMatch(publicText, /frameworks[\\/]_(raw|pipeline)/i, "Raw archive and pipeline placement must not enter public artifacts.");
+assert.doesNotMatch(publicText, /\[PRIVATE DETAIL REDACTED\]/i, "Private records must be opaque instead of shipping sanitized prose.");
 assert.doesNotMatch(
   publicText,
   /first love|founding wound|pothos is not only his drive toward truth|monogamy confusion/i,
@@ -89,14 +100,6 @@ for (const term of [...new Set([...privateTerms, ...employerTerms])].filter(term
   assert(!new RegExp(`(?<![a-z0-9])${escaped}(?![a-z0-9])`, "i").test(publicText), `A private term survived generated public output (${term.length} characters).`);
 }
 
-const privateShell = "████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]";
-for (const record of index.records.filter(record => record.type === "session" && record.content !== privateShell)) {
-  assert.doesNotMatch(
-    record.content,
-    /\b(girlfriend|boyfriend|ex-girlfriend|romantic|breakup|monogam\w*|dating|attachment style|intimacy)\b/i,
-    `${record.id} exposes private relationship context.`
-  );
-}
 const loveNode = corpus.nodes.find(node => node.id === "love");
 assert.equal(loveNode.one_line, "████████");
 assert.deepEqual(loveNode.quotes, []);
@@ -107,5 +110,25 @@ for (const node of corpus.nodes) {
   assert.deepEqual(Object.keys(node).filter(key => !allowedCorpusKeys.has(key)), [], `Forbidden retrieval-corpus field on ${node.id}`);
 }
 assert(!("generated_at" in corpus.meta), "Nondeterministic generation timestamps must not enter the corpus.");
+
+const vaultClient = fs.readFileSync(path.join(ROOT, "consciousness", "vault", "vault.js"), "utf8");
+assert.match(vaultClient, /record\.privacy === "redacted"\s*\?\s*redactionDocument\(record\)/);
+assert.match(vaultClient, /document\.createElement\("span"\)/);
+assert.match(vaultClient, /cache:"no-store"/);
+
+const mapClient = fs.readFileSync(path.join(ROOT, "consciousness", "map-page.js"), "utf8");
+assert.doesNotMatch(mapClient, /localStorage\.setItem\(questionDraftKey/);
+assert.match(mapClient, /localStorage\.removeItem\(questionDraftKey\)/);
+
+const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, "vercel.json"), "utf8"));
+const consciousnessHeaders = vercel.headers.find(rule => rule.source === "/consciousness/:path*")?.headers || [];
+const headerValue = key => consciousnessHeaders.find(header => header.key === key)?.value || "";
+assert.match(headerValue("Content-Security-Policy"), /default-src 'self'/);
+assert.match(headerValue("Content-Security-Policy"), /frame-ancestors 'none'/);
+assert.equal(headerValue("X-Frame-Options"), "DENY");
+assert.equal(headerValue("Referrer-Policy"), "no-referrer");
+const robots = fs.readFileSync(path.join(ROOT, "robots.txt"), "utf8");
+assert.match(robots, /Disallow: \/consciousness\/vault\//);
+assert.match(robots, /Disallow: \/consciousness\/sources\//);
 
 console.log("public privacy and deterministic generation checks passed");

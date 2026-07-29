@@ -6,9 +6,26 @@ const contextEl = document.querySelector("#context");
 const requestedNode = new URLSearchParams(location.search).get("node");
 let records = [];
 let showRedacted = true;
+const redactionWidths = [92, 76, 84, 48, 88, 63, 95, 71, 55, 86, 67, 79, 43, 90, 61, 82, 52, 73];
 
 function normalize(value) {
   return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function redactionDocument(record) {
+  const documentEl = document.createElement("div");
+  documentEl.className = "redaction-document";
+  documentEl.setAttribute("role", "img");
+  documentEl.setAttribute("aria-label", "Private record. Content withheld.");
+  const seed = [...record.id].reduce((sum, character) => sum + character.charCodeAt(0), 0);
+  redactionWidths.forEach((width, index) => {
+    const line = document.createElement("span");
+    line.className = "redaction-line";
+    line.setAttribute("aria-hidden", "true");
+    line.style.setProperty("--redaction-width", `${redactionWidths[(index + seed) % redactionWidths.length]}%`);
+    documentEl.append(line);
+  });
+  return documentEl;
 }
 
 function render() {
@@ -32,12 +49,16 @@ function render() {
     title.className = "record-title";
     meta.className = "record-meta";
     number.textContent = String(index + 1).padStart(3, "0");
-    title.textContent = record.title;
+    title.textContent = record.privacy === "redacted" ? "" : record.title;
     meta.textContent = `${record.type} / ${record.cluster} / ${record.privacy}`;
     summary.append(number, title, meta);
-    const body = document.createElement("pre");
-    body.className = "record-body";
-    body.textContent = record.content;
+    const body = record.privacy === "redacted"
+      ? redactionDocument(record)
+      : document.createElement("pre");
+    if (record.privacy !== "redacted") {
+      body.className = "record-body";
+      body.textContent = record.content;
+    }
     details.append(summary, body);
     vaultEl.append(details);
   });
@@ -52,14 +73,14 @@ function render() {
 }
 
 try {
-  const response = await fetch("./public-vault-index.json", { cache:"force-cache" });
+  const response = await fetch("./public-vault-index.json", { cache:"no-store" });
   if (!response.ok) throw new Error("Vault unavailable");
   const payload = await response.json();
   records = payload.records || [];
   if (requestedNode) {
     contextEl.textContent = `Source shelf for node: ${requestedNode}. This includes direct pages, sessions and backlinks that survived the public redaction boundary.`;
   } else {
-    contextEl.textContent = `${payload.meta.records} records indexed from the canonical Chay OS vault. ${payload.meta.redacted} contain redactions or are fully withheld; their place in the notebook remains visible.`;
+    contextEl.textContent = `${payload.meta.records} records indexed from the canonical Chay OS vault. ${payload.meta.redacted} are structure-only silhouettes; no underlying private text is delivered to the browser.`;
   }
   render();
 } catch {

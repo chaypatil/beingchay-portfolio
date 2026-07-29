@@ -27,9 +27,12 @@
     .record-title { overflow:hidden; text-overflow:ellipsis; font-size:12px; text-transform:uppercase; }
     .record[open] summary { background:var(--ink); color:var(--paper); }
     .record-body { margin:0; max-height:66vh; overflow:auto; padding:18px; border-top:1px solid var(--ink); white-space:pre-wrap; overflow-wrap:anywhere; font:12px/1.65 "Courier New",monospace; }
-    .record.is-private { background:#0a0a0a; color:#efeee8; box-shadow:4px 4px 0 #30302d; }
-    .record.is-private .record-title { display:inline-block; width:min(220px,44vw); color:transparent; background:#efeee8; }
-    .record.is-private .record-body { border-color:#efeee8; }
+    .record.is-private { background:var(--paper); color:var(--ink); box-shadow:4px 4px 0 #30302d; }
+    .record.is-private .record-title { display:block; width:min(220px,44vw); height:1em; color:transparent; background:var(--ink); user-select:none; }
+    .record.is-private[open] .record-title { background:var(--paper); }
+    .redaction-document { display:grid; gap:10px; padding:22px 18px 26px; border-top:1px solid var(--ink); user-select:none; -webkit-user-select:none; }
+    .redaction-line { display:block; width:var(--redaction-width); height:12px; background:var(--ink); pointer-events:none; }
+    .redaction-line:nth-child(5n) { margin-bottom:10px; }
     .empty { padding:70px 20px; text-align:center; text-transform:uppercase; font-size:11px; }
     @media (max-width:640px) {
       .top { grid-template-columns:auto 1fr; padding:10px 14px; min-height:58px; }
@@ -52,7 +55,7 @@
     <input class="search" id="search" type="search" placeholder="search notes, topics, sessions…" autocomplete="off">
     <button class="filter" id="privacy-filter" type="button" aria-pressed="false">show redacted / on</button>
   </div>
-  <p class="context" id="context">The full notebook structure is public. Black records are real private layers whose source text never enters the public repository.</p>
+  <p class="context" id="context">The notebook inventory is public. Black records are visual silhouettes only: their words, titles, paths, clusters and relationships never enter this site.</p>
   <main class="vault" id="vault" aria-live="polite"></main>
   <script type="module" src="./vault.js"></script>
 </body>

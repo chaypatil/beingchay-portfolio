@@ -125,13 +125,13 @@ Confirmed and fixed:
 - Their filenames, folder placement, and contents no longer enter generated output.
 - Public-vault and retrieval-corpus generation are deterministic.
 
-The public-vault distribution changed because raw/pipeline records and relationship-session material now fail closed:
+The public-vault distribution changed again after the privacy-hardening pass. Readable bodies now require an explicit P0 allowlist and an approved content hash; a blacklist miss or later source edit can no longer publish a note. Every unapproved record is emitted only as an opaque visual silhouette:
 
 | Public projection | Before Phase 1.5 | After Phase 1.5 |
 | --- | ---: | ---: |
-| Public | 25 | 17 |
-| Sanitized/redacted extract | 30 | 20 |
-| Fully redacted | 56 | 74 |
+| Public | 25 | 14 |
+| Sanitized/redacted extract | 30 | 0 |
+| Fully redacted | 56 | 97 |
 | Total | 111 | 111 |
 
 The direct scan covers generated JSON, graph data, compiled landing HTML, consciousness HTML/JavaScript, Vault code, Brain mappings, and Codex Map assets. It rejects:
@@ -146,9 +146,9 @@ The direct scan covers generated JSON, graph data, compiled landing HTML, consci
 
 Aggregate residual risk awaiting Chay:
 
-- redacted structure can reveal chronology, counts, and relationship shape even when content is withheld;
+- the total count of private records remains visible by product design, but their chronology, titles, paths, clusters, line counts and relationship shape are no longer emitted;
 - legacy visible copy is still a deployed display layer, not semantic approval;
-- line-level sanitization is not a substitute for approval-based publishing.
+- the remaining fourteen readable bodies are an explicit allowlist and still require future content review when their canonical source changes.
 
 No sensitive excerpts or identities are included in this report.
 

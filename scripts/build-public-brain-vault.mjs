@@ -1,6 +1,7 @@
 // Builds a public, redacted reading layer from the canonical Chay OS vault.
 // It never copies the private reference, private person pages, employer memory,
 // clinical profiles, raw exports, or third-party transcript archives.
+import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -24,6 +25,25 @@ const PRIVATE_SECTION_PATH = /\/cognitive-mirror\//i;
 const PRIVATE_NOTE_PATH = /$a/;
 const PRIVATE_RELATIONSHIP_TITLE = /\b(love|monogam|relationship|romantic|breakup|dating|attachment|274)\b/i;
 const PRIVATE_RELATIONSHIP_CONTENT = /\b(girlfriend|boyfriend|ex-girlfriend|relationship|romantic|breakup|monogam\w*|dating|attachment style|intimacy)\b/i;
+const REDACTED_DOCUMENT = "[REDACTED_DOCUMENT]";
+// Public bodies are allowlisted, never inferred safe merely because a blacklist
+// happened not to match them. Everything else fails closed as an opaque record.
+const PUBLIC_BODY_APPROVALS = new Map([
+  ["entities/topics/Cloud Consciousness.md", "eafd28fa139a8cc413495323a56989a788a07aa1362642b63a6983a927e099e6"],
+  ["entities/topics/Hermetic Philosophy.md", "6b47c4781a073a085fa5ed6506e2e5e81c1011f2a6cefca1605cf2059bfb895e"],
+  ["entities/topics/Information Asymmetry.md", "b808a07883db03a5da180cdec0c9ae14efe42eca9a651950a114af00345bfa19"],
+  ["entities/topics/Singularity.md", "b279bfa56d102022cb4264e04158ce23c03d770f24bb8580894e2e208d7c548a"],
+  ["entities/topics/Synchronicity.md", "d810e203800dce54eda249b18b86f63d07dfdd15c60e3d6bbfe60145f2a83781"],
+  ["frameworks/CREATOR-FORMAT-FRAMEWORKS.md", "71d87d2b0375540c3a2b1d5cb87d1caf81bf84358bd2a1d174ebab8737b11b26"],
+  ["frameworks/emily_mcdonnell.md", "ba9e2be18e7cd7c808ca315e22b709bbe1309038f9a89234a3c8405e1c51fb39"],
+  ["frameworks/jett_franzen.md", "bd1c531d7beecae10c7e0d463f51987fd40a085b04437ebe1c40ec130ef8e077"],
+  ["frameworks/rawarxchives.md", "ce3d6de394c9230546ffc9d87ef13f07aadb38121dff21f1ac9be6d263313fc4"],
+  ["gaps.md", "58d766a51deaf3c1dbfa7c39421bad58062c3d1e9ed231b591fdf485eaecd99f"],
+  ["inbox/2026-05-09.md", "36a6aefd62f030bbf1ff5a9b54f7d33ec12e6ce3de62be990189dfa9aa9d9d95"],
+  ["London.md", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+  ["README.md", "9c7444a1c235880513fe5010983dc68cc511c5f420fd9fc08630eee659123c81"],
+  ["scripts/2026-05-09-001-adhd-scaffolding-dissolving.md", "580e6674023ebf53201c3959a9129eae61efdc015954a38e59b6e4e4d1d61fe5"]
+]);
 
 const NODE_ALIASES = new Map(Object.entries({
   "pothos":"pothos",
@@ -220,9 +240,15 @@ const records = allFiles.map((filePath, index) => {
   const sourceForSanitizing = relativePath.startsWith("sessions/")
     ? raw.replace(/^---[\s\S]*?---\s*/m, "---\ntype: session\n---\n")
     : raw;
-  const sanitized = fullyRestricted
-    ? { content:"████████\n\n[PRIVATE RECORD — STRUCTURE VISIBLE, CONTENT WITHHELD]", redactions:1 }
+  const sanitizedCandidate = fullyRestricted
+    ? { content:"", redactions:1 }
     : sanitizeMarkdown(sourceForSanitizing);
+  const sourceHash = crypto.createHash("sha256").update(raw).digest("hex");
+  const approvedPublicBody = PUBLIC_BODY_APPROVALS.get(relativePath) === sourceHash && sanitizedCandidate.redactions === 0;
+  const withheld = !approvedPublicBody;
+  const sanitized = withheld
+    ? { content:REDACTED_DOCUMENT, redactions:1 }
+    : sanitizedCandidate;
   const rawCluster = neverRead ? "Systems" : frontmatterValue(raw, "cluster");
   const inferredCluster = /\/memory\/project_anrxyst_/i.test(`/${relativePath}`)
     ? "Creative"
@@ -234,25 +260,21 @@ const records = allFiles.map((filePath, index) => {
           ? "Knowledge"
           : "Systems";
   const safeCluster = CLUSTER_NODE_IDS[rawCluster] ? rawCluster : inferredCluster;
-  const safeTitle = privatePersonId
-    ? "████████"
-    : relativePath.startsWith("sessions/")
-      ? `Session — ${path.basename(publicPath(relativePath)).replace(".md", "")}`
-      : fullyRestricted
-        ? "████████"
-        : replacePrivateTerms(rawTitle);
-  const safePath = publicPath(relativePath, privatePersonId, restrictedPath);
-  const linkedNodeIds = fullyRestricted ? [] : nodeIdsFor(relativePath, sanitized.content);
-  linkedNodeIds.push(CLUSTER_NODE_IDS[safeCluster]);
+  const safeTitle = withheld ? "Private record" : replacePrivateTerms(rawTitle);
+  const safePath = withheld
+    ? `private/record-${String(index + 1).padStart(3, "0")}.md`
+    : publicPath(relativePath, privatePersonId, restrictedPath);
+  const linkedNodeIds = withheld ? [] : nodeIdsFor(relativePath, sanitized.content);
+  if (!withheld) linkedNodeIds.push(CLUSTER_NODE_IDS[safeCluster]);
   return {
     id:`vault-${String(index + 1).padStart(3, "0")}-${slug(safePath).slice(-42)}`,
     path:safePath,
     title:safeTitle,
-    type:recordType(relativePath),
-    cluster:safeCluster,
-    privacy:fullyRestricted ? "redacted" : sanitized.redactions ? "redacted-extract" : "public",
+    type:withheld ? "private" : recordType(relativePath),
+    cluster:withheld ? "Private" : safeCluster,
+    privacy:withheld ? "redacted" : "public",
     privacyClass:"P0",
-    sourcePrivacyClass:fullyRestricted ? "P3" : sanitized.redactions ? "P1" : "P0",
+    sourcePrivacyClass:withheld ? "P3" : "P0",
     redactions:sanitized.redactions,
     nodeIds:[...new Set(linkedNodeIds)],
     content:sanitized.content
@@ -266,7 +288,7 @@ const serialized = `${JSON.stringify({
     records:records.length,
     public:records.filter(record => record.privacy === "public").length,
     redacted:records.filter(record => record.privacy !== "public").length,
-    rule:"Every markdown record is represented. Restricted records remain visible as redacted structure; raw private content never enters the repository."
+    rule:"Every markdown record is represented. Only explicitly allowlisted P0 bodies are readable; all other records are opaque visual placeholders whose raw text, title, path, cluster and relations never enter the repository."
   },
   records
 }, null, 2)}\n`;

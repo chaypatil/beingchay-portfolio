@@ -1577,9 +1577,18 @@ function endMirrorSession() {
   document.querySelector("#ask-input").disabled = true;
 }
 
+let privateQuestionDrafts = {};
+try {
+  const storedQuestionDrafts = localStorage.getItem(questionDraftKey);
+  localStorage.removeItem(questionDraftKey);
+  privateQuestionDrafts = JSON.parse(storedQuestionDrafts || "{}");
+} catch {
+  try { localStorage.removeItem(questionDraftKey); } catch {}
+  privateQuestionDrafts = {};
+}
+
 function readQuestionDrafts() {
-  try { return JSON.parse(localStorage.getItem(questionDraftKey) || "{}"); }
-  catch { return {}; }
+  return privateQuestionDrafts;
 }
 
 function writeQuestionDraft(question, answer) {
@@ -1592,7 +1601,7 @@ function writeQuestionDraft(question, answer) {
     privacy:"private local draft",
     createdAt:new Date().toISOString()
   };
-  localStorage.setItem(questionDraftKey, JSON.stringify(drafts));
+  privateQuestionDrafts = drafts;
 }
 
 function nextProbeQuestion() {
@@ -1654,7 +1663,7 @@ document.querySelector("#ask-form").addEventListener("submit", async event => {
   if (questionEngineMode && activeProbeQuestion) {
     writeQuestionDraft(activeProbeQuestion, question);
     appendConversation("message user", question);
-    appendConversation("evidence-line", "SAVED LOCALLY / UNREVIEWED / NO GRAPH CHANGE");
+    appendConversation("evidence-line", "HELD IN THIS TAB / UNREVIEWED / NOT PERSISTED / NO GRAPH CHANGE");
     input.value = "";
     renderProbeQuestion(false);
     conversation.scrollTop = conversation.scrollHeight;
