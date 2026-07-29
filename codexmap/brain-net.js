@@ -8,6 +8,7 @@ uniform vec2 uScale;
 uniform vec2 uRotation;
 uniform float uZoom;
 varying float vPhase;
+varying float vDepth;
 
 vec3 rotatePoint(vec3 point) {
   float cy = cos(uRotation.x);
@@ -28,7 +29,7 @@ vec3 rotatePoint(vec3 point) {
 
 void main() {
   vec3 point = rotatePoint(aPosition);
-  float perspective = 1.0 / (1.0 + point.z * 0.035);
+  float perspective = 1.0 / (1.0 + point.z * 0.048);
   gl_Position = vec4(
     point.x * uScale.x * uZoom * perspective,
     point.y * uScale.y * uZoom * perspective,
@@ -36,6 +37,7 @@ void main() {
     1.0
   );
   vPhase = aPhase;
+  vDepth = point.z;
 }
 `;
 
@@ -46,14 +48,16 @@ uniform vec3 uPulseColor;
 uniform float uTime;
 uniform float uSignal;
 varying float vPhase;
+varying float vDepth;
 
 void main() {
-  float cycle = fract(vPhase - uTime * 0.115);
-  float head = smoothstep(0.16, 0.0, abs(cycle - 0.5));
-  float tail = smoothstep(0.34, 0.0, abs(cycle - 0.42)) * 0.32;
+  float cycle = fract(vPhase - uTime * 0.31);
+  float head = smoothstep(0.12, 0.0, abs(cycle - 0.5));
+  float tail = smoothstep(0.28, 0.0, abs(cycle - 0.41)) * 0.28;
   float pulse = clamp(head + tail, 0.0, 1.0) * uSignal;
   vec3 color = mix(uColor.rgb, uPulseColor, pulse);
-  float alpha = uColor.a + pulse * (1.0 - uColor.a);
+  float depthFade = clamp(0.58 + vDepth * 0.075, 0.2, 1.0);
+  float alpha = (uColor.a + pulse * (1.0 - uColor.a)) * depthFade;
   gl_FragColor = vec4(color, alpha);
 }
 `;
@@ -78,6 +82,131 @@ function hashString(value) {
     hash = Math.imul(hash, 16777619);
   }
   return hash >>> 0;
+}
+
+function smoothRange(edge0, edge1, value) {
+  const progress = Math.max(0, Math.min(1, (value - edge0) / (edge1 - edge0)));
+  return progress * progress * (3 - 2 * progress);
+}
+
+// The source mesh remains the Blender-authored topology. This lightweight
+// sculpting pass gives that topology a recognizable cerebral silhouette:
+// broader paired hemispheres, a top cleft, a raised posterior underside and a
+// hanging temporal area. It is an illustration, never an anatomical claim.
+function sculptCerebrum([sourceX, sourceY, sourceZ]) {
+  let x = sourceX;
+  let y = sourceY;
+  let z = sourceZ * 1.24;
+  const front = Math.exp(-Math.pow((x + 4.15) / 2.15, 2));
+  const rear = Math.exp(-Math.pow((x - 4.35) / 1.75, 2));
+  const temporal = Math.exp(-Math.pow((x - .15) / 2.75, 2))
+    * smoothRange(.18, 1, Math.abs(z) / 4.35);
+
+  // A rounder frontal dome and a slightly tapered occipital pole.
+  x -= front * .18;
+  x -= rear * .16 * smoothRange(-.3, 1.9, y);
+  if (y > 0) y += front * .22 + (1 - rear) * .08;
+
+  // Lift the rear underside to leave a readable cerebellar notch, while the
+  // lateral temporal lobes retain their lower, fuller silhouette.
+  if (y < -.7) {
+    y += rear * smoothRange(-2.9, -1.05, -y) * .68;
+    y -= temporal * .42;
+  }
+
+  // Separate the hemispheres near the crown. From frontal angles this avoids
+  // the flattened single-shell look and preserves a central longitudinal gap.
+  const crown = smoothRange(.35, 2.8, y);
+  const midline = Math.exp(-Math.pow(z / .72, 2));
+  if (crown > 0 && midline > .02) {
+    const side = z === 0 ? (x < 0 ? -1 : 1) : Math.sign(z);
+    z += side * .28 * crown * midline;
+    y -= .24 * crown * midline;
+  }
+
+  return [x, y, z];
+}
+
+const BRAIN_VERTICES = BRAIN_MESH.vertices.map(sculptCerebrum);
+
+function appendLine(positions, phases, start, end, phase) {
+  positions.push(...start, ...end);
+  phases.push(phase, phase + .035);
+}
+
+// Separate wire volumes make the silhouette legible as a brain rather than an
+// egg: a folded cerebellum beneath the rear and a short curved brainstem.
+function buildAnatomyLines() {
+  const positions = [];
+  const phases = [];
+  const rings = 8;
+  const segments = 16;
+  const cerebellumPoint = (ring, segment) => {
+    const latitude = -Math.PI / 2 + Math.PI * ring / rings;
+    const longitude = Math.PI * 2 * segment / segments;
+    const fold = 1 + .08 * Math.sin(longitude * 5 + latitude * 3);
+    return [
+      3.55 + Math.cos(latitude) * Math.cos(longitude) * 1.72 * fold,
+      -2.22 + Math.sin(latitude) * 1.08 * fold,
+      Math.cos(latitude) * Math.sin(longitude) * 1.72 * fold
+    ];
+  };
+  for (let ring = 0; ring <= rings; ring += 1) {
+    for (let segment = 0; segment < segments; segment += 1) {
+      const phase = (ring * segments + segment) / ((rings + 1) * segments);
+      appendLine(
+        positions,
+        phases,
+        cerebellumPoint(ring, segment),
+        cerebellumPoint(ring, (segment + 1) % segments),
+        phase
+      );
+      if (ring < rings) {
+        appendLine(
+          positions,
+          phases,
+          cerebellumPoint(ring, segment),
+          cerebellumPoint(ring + 1, segment),
+          phase + .17
+        );
+      }
+    }
+  }
+
+  const stemRings = 7;
+  const stemSegments = 10;
+  const stemPoint = (ring, segment) => {
+    const progress = ring / stemRings;
+    const angle = Math.PI * 2 * segment / stemSegments;
+    const radius = .64 - progress * .22;
+    return [
+      1.35 - progress * .36 + Math.cos(angle) * radius,
+      -2.28 - progress * 2.08,
+      Math.sin(angle) * radius * .82
+    ];
+  };
+  for (let ring = 0; ring <= stemRings; ring += 1) {
+    for (let segment = 0; segment < stemSegments; segment += 1) {
+      const phase = .45 + (ring * stemSegments + segment) / 300;
+      appendLine(
+        positions,
+        phases,
+        stemPoint(ring, segment),
+        stemPoint(ring, (segment + 1) % stemSegments),
+        phase
+      );
+      if (ring < stemRings) {
+        appendLine(
+          positions,
+          phases,
+          stemPoint(ring, segment),
+          stemPoint(ring + 1, segment),
+          phase + .11
+        );
+      }
+    }
+  }
+  return { positions:new Float32Array(positions), phases:new Float32Array(phases) };
 }
 
 function compile(gl, type, source) {
@@ -106,7 +235,7 @@ function buildLineGeometry(paths) {
   const phases = [];
   paths.forEach((path, pathIndex) => {
     const seed = (hashString(`path-${pathIndex}`) % 1000) / 1000;
-    const points = path.map(point => Array.isArray(point) ? point : BRAIN_MESH.vertices[point]);
+    const points = path.map(point => Array.isArray(point) ? sculptCerebrum(point) : BRAIN_VERTICES[point]);
     for (let index = 0; index < points.length - 1; index += 1) {
       const start = points[index];
       const end = points[index + 1];
@@ -127,8 +256,8 @@ function createBuffer(gl, data, target = gl.ARRAY_BUFFER) {
 function nearestVertex(target, offset) {
   let bestIndex = 0;
   let bestDistance = Infinity;
-  for (let index = 0; index < BRAIN_MESH.vertices.length; index += 1) {
-    const [x, y, z] = BRAIN_MESH.vertices[index];
+  for (let index = 0; index < BRAIN_VERTICES.length; index += 1) {
+    const [x, y, z] = BRAIN_VERTICES[index];
     const dx = x - target[0];
     const dy = y - target[1];
     const distance = dx * dx + dy * dy + z * z * .08 + ((index + offset) % 11) * .008;
@@ -151,7 +280,7 @@ function chooseNodeVertex(node, index) {
     ];
     return nearestVertex(jittered, index);
   }
-  return hashString(node.id) % BRAIN_MESH.vertices.length;
+  return hashString(node.id) % BRAIN_VERTICES.length;
 }
 
 export function mountBrainNet(canvas, {
@@ -169,7 +298,7 @@ export function mountBrainNet(canvas, {
   const gl = canvas.getContext("webgl", {
     alpha:transparent,
     antialias:false,
-    depth:false,
+    depth:true,
     powerPreference:"high-performance",
     preserveDrawingBuffer:false
   });
@@ -190,15 +319,18 @@ export function mountBrainNet(canvas, {
     signal:gl.getUniformLocation(program, "uSignal")
   };
 
-  const positions = new Float32Array(BRAIN_MESH.vertices.flat());
+  const positions = new Float32Array(BRAIN_VERTICES.flat());
   const edgeIndices = new Uint16Array(BRAIN_MESH.edges.flat());
   const phaseZero = new Float32Array(BRAIN_MESH.vertices.length);
   const signalGeometry = buildLineGeometry([...BRAIN_MESH.paths, ...BRAIN_MESH.axons]);
+  const anatomyGeometry = buildAnatomyLines();
   const meshPositionBuffer = createBuffer(gl, positions);
   const meshPhaseBuffer = createBuffer(gl, phaseZero);
   const meshIndexBuffer = createBuffer(gl, edgeIndices, gl.ELEMENT_ARRAY_BUFFER);
   const signalPositionBuffer = createBuffer(gl, signalGeometry.positions);
   const signalPhaseBuffer = createBuffer(gl, signalGeometry.phases);
+  const anatomyPositionBuffer = createBuffer(gl, anatomyGeometry.positions);
+  const anatomyPhaseBuffer = createBuffer(gl, anatomyGeometry.phases);
 
   let projectionEntries = [];
   let markerEntries = [];
@@ -206,7 +338,7 @@ export function mountBrainNet(canvas, {
   function setProjectionNodes(nextNodes) {
     projectionEntries = nextNodes.map((node, index) => ({
       node,
-      point:BRAIN_MESH.vertices[chooseNodeVertex(node, index)]
+      point:BRAIN_VERTICES[chooseNodeVertex(node, index)]
     }));
     if (!markerLayer) return;
     markerLayer.replaceChildren();
@@ -228,20 +360,20 @@ export function mountBrainNet(canvas, {
 
   setProjectionNodes(nodes);
 
-  let width = 1;
-  let height = 1;
-  let yaw = -.18;
-  let pitch = .23;
-  let zoom = 1;
-  let pointer = null;
-  let lastPaint = 0;
-  let animationFrame = 0;
-  let running = active;
   const compact = matchMedia("(max-width: 760px)").matches;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const frameInterval = compact ? 50 : 33;
+  let width = 1;
+  let height = 1;
+  let yaw = compact ? -.34 : -.22;
+  let pitch = compact ? .18 : .23;
+  let zoom = compact ? .9 : 1;
+  let pointer = null;
+  let animationFrame = 0;
+  let running = active;
+  let sizeDirty = true;
 
   function resize() {
+    if (!sizeDirty) return;
     const bounds = canvas.getBoundingClientRect();
     const dpr = Math.min(devicePixelRatio || 1, compact ? 1 : 1.25);
     const nextWidth = Math.max(1, Math.round(bounds.width * dpr));
@@ -253,6 +385,7 @@ export function mountBrainNet(canvas, {
     width = bounds.width;
     height = bounds.height;
     gl.viewport(0, 0, nextWidth, nextHeight);
+    sizeDirty = false;
   }
 
   function rotatedPoint(source) {
@@ -278,7 +411,7 @@ export function mountBrainNet(canvas, {
   function project(source) {
     const [x, y, z] = rotatedPoint(source);
     const [scaleX, scaleY] = scales();
-    const perspective = 1 / (1 + z * .035);
+    const perspective = 1 / (1 + z * .048);
     return {
       x:(x * scaleX * zoom * perspective * .5 + .5) * width,
       y:(.5 - y * scaleY * zoom * perspective * .5) * height,
@@ -305,7 +438,9 @@ export function mountBrainNet(canvas, {
     const meshColor = dark ? [.28, .72, .43, .3] : [.035, .24, .12, .48];
     const axonColor = dark ? [.18, .56, .31, .18] : [.025, .19, .09, .28];
     gl.clearColor(...background);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
     gl.useProgram(program);
     gl.uniform2f(uniforms.scale, ...scales());
     gl.uniform2f(uniforms.rotation, yaw, pitch);
@@ -320,6 +455,11 @@ export function mountBrainNet(canvas, {
     gl.uniform4f(uniforms.color, ...meshColor);
     gl.uniform1f(uniforms.signal, 0);
     gl.drawElements(gl.LINES, edgeIndices.length, gl.UNSIGNED_SHORT, 0);
+
+    bindGeometry(anatomyPositionBuffer, anatomyPhaseBuffer);
+    gl.uniform4f(uniforms.color, ...meshColor);
+    gl.uniform1f(uniforms.signal, 0);
+    gl.drawArrays(gl.LINES, 0, anatomyGeometry.phases.length);
 
     bindGeometry(signalPositionBuffer, signalPhaseBuffer);
     gl.uniform4f(uniforms.color, ...axonColor);
@@ -346,9 +486,8 @@ export function mountBrainNet(canvas, {
   function animate(now) {
     if (!running) return;
     animationFrame = requestAnimationFrame(animate);
-    if (document.hidden || now - lastPaint < frameInterval) return;
-    lastPaint = now;
-    if (!pointer && !reducedMotion && autoRotate) yaw += .00045;
+    if (document.hidden) return;
+    if (!pointer && !reducedMotion && autoRotate) yaw += compact ? .0007 : .00055;
     draw(now);
   }
 
@@ -377,7 +516,11 @@ export function mountBrainNet(canvas, {
       zoom = Math.max(.72, Math.min(1.65, zoom * Math.exp(-event.deltaY * .001)));
     }, { passive:false });
   }
-  addEventListener("resize", resize, { passive:true });
+  const resizeObserver = new ResizeObserver(() => {
+    sizeDirty = true;
+    if (running && reducedMotion) draw(performance.now());
+  });
+  resizeObserver.observe(canvas);
 
   if (reducedMotion) {
     if (running) draw(0);

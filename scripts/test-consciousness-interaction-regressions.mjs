@@ -17,6 +17,27 @@ assert.match(controller, /brainProjectionById/, "Map nodes must follow the rotat
 assert.doesNotMatch(page, /toggle-glitch/, "The map/brain control must not carry the retired glitch wiggle.");
 assert.match(page, /class="mode-cue mode-cue-left"/, "Directional cues must flank the map/brain control.");
 assert.match(page, /class="mode-cue mode-cue-right"/, "Directional cues must flank the map/brain control.");
+assert.match(
+  page,
+  /mode-cue-left[^>]*[^]*?&gt;&gt;&gt;[^]*?id="deep-toggle"[^]*?id="map-theme-toggle"[^]*?&lt;&lt;&lt;/,
+  "Mode controls must read >>> [brain] [theme] <<< with one inward cue per side."
+);
+assert.doesNotMatch(page, /id="detail-toggle"|id="layout-reset"/, "INFO and RST must not return to the map dock.");
+assert.doesNotMatch(page, /cue-from-left|cue-from-right/, "Mode cues must remain still.");
+
+// Node movement is temporary deformation, not a persisted custom layout.
+assert.match(controller, /const elasticField = /, "Node dragging must deform an elastic field.");
+assert.match(controller, /function returnElasticField\(/, "Dragged nodes must spring back to canonical positions.");
+assert.doesNotMatch(controller, /localStorage\.setItem\(positionStorageKey/, "Dragged positions must never persist.");
+assert.match(controller, /function finishMapTap\(/, "A background tap must dismiss the mobile detail sheet.");
+assert.match(controller, /shouldStart:canSwipeDetail/, "The whole detail sheet must support swipe-down dismissal at scroll top.");
+
+// The old 20fps mobile throttle and flat single-shell brain are regressions.
+assert.doesNotMatch(controller, /compactMap \? 50 : 33/, "The relationship graph must follow native refresh.");
+assert.doesNotMatch(brain, /compact \? 50 : 33/, "Brain rendering must follow native refresh.");
+assert.match(brain, /function sculptCerebrum\(/, "Brain geometry needs a volumetric cerebral sculpt.");
+assert.match(brain, /function buildAnatomyLines\(/, "Brain silhouette needs cerebellum and brainstem wire volumes.");
+assert.match(brain, /uTime \* 0\.31/, "Brain signals must retain the faster firing cadence.");
 
 // Regression: pre-playing a second Audio object leaked both tracks on iOS.
 assert.doesNotMatch(controller, /primeTransitionMusic/, "The landing must never start the second track before transition.");

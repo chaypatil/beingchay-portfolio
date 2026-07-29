@@ -23,6 +23,9 @@ let spatialNodeLayer = null;
 let spatialUpdateFrame = 0;
 let dragState = null;
 let canvasDrag = null;
+let mapTap = null;
+let elasticFrame = 0;
+const elasticField = { id:null, dx:0, dy:0, vx:0, vy:0 };
 const touchPointers = new Map();
 let pinchState = null;
 let suppressClickUntil = 0;
@@ -36,6 +39,7 @@ let brainMorph = brainMode ? 1 : 0;
 let brainMorphFrame = 0;
 let brainRenderer = null;
 let brainProjectionById = new Map();
+let brainScreenTransform = null;
 const brainCanvas = document.querySelector("#brain-backdrop");
 // Everything drifts slowly around the centre on both layers. Just noticeable.
 const AUTO_YAW_RATE = 0.018;
@@ -59,13 +63,9 @@ const BRAIN_REGION_TARGETS = Object.freeze({
   brainstem:[565, 474],
   default:[500, 325]
 });
-let savedPublicPositions = {};
-
-try {
-  savedPublicPositions = JSON.parse(localStorage.getItem(positionStorageKey) || "{}");
-} catch {
-  savedPublicPositions = {};
-}
+// Older builds persisted individually dragged nodes. The graph is now an
+// elastic field: the canonical arrangement always wins after release.
+try { localStorage.removeItem(positionStorageKey); } catch {}
 
 function el(name, attrs = {}) {
   const node = document.createElementNS(ns, name);
@@ -99,32 +99,36 @@ function clamp(value, minimum, maximum) {
 
 function getNodePosition(node) {
   if (nodePositions.has(node.id)) return nodePositions.get(node.id);
-  const saved = publicNodeIds.has(node.id) ? savedPublicPositions[node.id] : null;
   const position = {
-    x:Number.isFinite(saved?.x) ? saved.x : node.x,
-    y:Number.isFinite(saved?.y) ? saved.y : node.y,
-    z:Number.isFinite(saved?.z) ? saved.z : ((hashString(node.id) % 241) - 120)
+    x:node.x,
+    y:node.y,
+    z:(hashString(node.id) % 241) - 120
   };
   nodePositions.set(node.id, position);
   return position;
 }
 
-function savePublicPositions() {
-  const serializable = {};
-  for (const node of publicNodes) {
-    const position = nodePositions.get(node.id);
-    if (!position) continue;
-    serializable[node.id] = {
-      x:Number(position.x.toFixed(2)),
-      y:Number(position.y.toFixed(2)),
-      z:Number(position.z.toFixed(2))
-    };
+function elasticOffsetForNode(node, layout) {
+  if (!elasticField.id || (Math.abs(elasticField.dx) < .01 && Math.abs(elasticField.dy) < .01)) {
+    return { x:0, y:0 };
   }
-  try {
-    localStorage.setItem(positionStorageKey, JSON.stringify(serializable));
-  } catch {
-    // The spatial layout is optional; the graph still works without storage.
-  }
+  const source = nodeById.get(elasticField.id);
+  if (!source) return { x:0, y:0 };
+  if (node.id === source.id) return { x:elasticField.dx, y:elasticField.dy };
+
+  const nodeX = layout.xOffset + node.x * layout.xScale;
+  const nodeY = layout.yOffset + node.y * layout.yScale;
+  const sourceX = layout.xOffset + source.x * layout.xScale;
+  const sourceY = layout.yOffset + source.y * layout.yScale;
+  const distanceToPull = Math.hypot(nodeX - sourceX, nodeY - sourceY);
+  const localInfluence = Math.exp(-Math.pow(distanceToPull / 330, 2));
+  const centerDistance = Math.hypot(nodeX - layout.width / 2, nodeY - layout.height / 2);
+  const centerAnchor = .12 + .88 * clamp(centerDistance / 520, 0, 1);
+  const influence = (.12 + localInfluence * .58) * centerAnchor;
+  return {
+    x:elasticField.dx * influence,
+    y:elasticField.dy * influence
+  };
 }
 
 function graphLayout() {
@@ -161,11 +165,6 @@ function zoomAt(clientX, clientY, factor) {
   const after = clientToLayout(clientX, clientY);
   camera.panX += before.x - after.x;
   camera.panY += before.y - after.y;
-  applyCamera();
-}
-
-function resetCamera() {
-  camera = { panX:0, panY:0, zoom:compactMap ? .72 : .82, yaw:0, pitch:0 };
   applyCamera();
 }
 
@@ -209,14 +208,21 @@ function ensureBrainRenderer() {
       active:brainMode,
       onProjectionFrame(projectedNodes) {
         if (!brainMode) return;
-        const bounds = brainCanvas.getBoundingClientRect();
-        const matrix = svg.getScreenCTM();
-        if (!matrix || !bounds.width || !bounds.height) return;
-        const inverse = matrix.inverse();
+        if (!brainScreenTransform) {
+          const bounds = brainCanvas.getBoundingClientRect();
+          const matrix = svg.getScreenCTM();
+          if (!matrix || !bounds.width || !bounds.height) return;
+          brainScreenTransform = {
+            left:bounds.left,
+            top:bounds.top,
+            inverse:matrix.inverse()
+          };
+        }
+        const { left, top, inverse } = brainScreenTransform;
         brainProjectionById = new Map(projectedNodes.map(point => {
           const layoutPoint = new DOMPoint(
-            bounds.left + point.x,
-            bounds.top + point.y
+            left + point.x,
+            top + point.y
           ).matrixTransform(inverse);
           return [point.id, {
             x:layoutPoint.x,
@@ -240,6 +246,7 @@ function easeInOutCubic(value) {
 function setBrainMode(enabled, { updateUrl = true, animate = true } = {}) {
   if (spaceMode) return;
   brainMode = Boolean(enabled);
+  brainScreenTransform = null;
   if (brainMode) ensureBrainRenderer();
   brainRenderer?.setActive(brainMode);
   document.body.classList.toggle("brain-mode", brainMode);
@@ -286,8 +293,9 @@ function setMapTheme(theme, { persist = true } = {}) {
 
 function projectNode(node, layout) {
   const position = getNodePosition(node);
-  const baseX = layout.xOffset + position.x * layout.xScale;
-  const baseY = layout.yOffset + position.y * layout.yScale;
+  const elastic = elasticOffsetForNode(node, layout);
+  const baseX = layout.xOffset + position.x * layout.xScale + elastic.x;
+  const baseY = layout.yOffset + position.y * layout.yScale + elastic.y;
   const centerX = layout.width / 2;
   const centerY = layout.height / 2;
   let relationshipPoint;
@@ -584,15 +592,18 @@ function beginNodeDrag(event, id) {
   if (event.pointerType === "touch" && touchPointers.size > 1) return;
   const node = nodeById.get(id);
   if (!node) return;
-  const position = getNodePosition(node);
+  cancelAnimationFrame(elasticFrame);
+  elasticField.id = id;
+  elasticField.dx = 0;
+  elasticField.dy = 0;
+  elasticField.vx = 0;
+  elasticField.vy = 0;
   dragState = {
     id,
     pointerId:event.pointerId,
-    mode:event.shiftKey ? "z" : "xy",
     startClientX:event.clientX,
     startClientY:event.clientY,
     startPoint:clientPoint(event),
-    startPosition:{ ...position },
     moved:false
   };
   document.body.classList.add("node-dragging");
@@ -608,36 +619,52 @@ function moveDraggedNode(event) {
     activeNodeId = dragState.id;
     svg.setPointerCapture?.(event.pointerId);
   }
-  const position = getNodePosition(node);
-  if (dragState.mode === "z") {
-    const nextZ = dragState.startPosition.z + (dragState.startClientY - event.clientY) * 1.15;
-    position.z = clamp(nextZ, -180, 180);
-  } else {
-    const layout = graphLayout();
-    const currentPoint = clientPoint(event);
-    const depthScale = depthMode ? 900 / (900 - clamp(dragState.startPosition.z, -180, 180)) : 1;
-    const dx = (currentPoint.x - dragState.startPoint.x) / depthScale;
-    const dy = (currentPoint.y - dragState.startPoint.y) / depthScale;
-    position.x = clamp(dragState.startPosition.x + dx / layout.xScale, -120, 1120);
-    position.y = clamp(dragState.startPosition.y + dy / layout.yScale, -120, 770);
-  }
+  const currentPoint = clientPoint(event);
+  elasticField.dx = clamp(currentPoint.x - dragState.startPoint.x, -420, 420);
+  elasticField.dy = clamp(currentPoint.y - dragState.startPoint.y, -300, 300);
   dragState.moved = dragState.moved || hasMoved;
   scheduleSpatialUpdate();
+}
+
+function returnElasticField() {
+  cancelAnimationFrame(elasticFrame);
+  let previous = performance.now();
+  const tick = now => {
+    const delta = Math.min(2, Math.max(.35, (now - previous) / 16.67));
+    previous = now;
+    // A critically damped-ish spring: enough overshoot to feel organic, never
+    // enough to leave the information architecture displaced.
+    elasticField.vx += (-elasticField.dx * .075 - elasticField.vx * .22) * delta;
+    elasticField.vy += (-elasticField.dy * .075 - elasticField.vy * .22) * delta;
+    elasticField.dx += elasticField.vx * delta;
+    elasticField.dy += elasticField.vy * delta;
+    updateSpatialFrame();
+    if (
+      Math.abs(elasticField.dx) < .08
+      && Math.abs(elasticField.dy) < .08
+      && Math.abs(elasticField.vx) < .08
+      && Math.abs(elasticField.vy) < .08
+    ) {
+      elasticField.id = null;
+      elasticField.dx = 0;
+      elasticField.dy = 0;
+      updateSpatialFrame({ restack:true });
+      return;
+    }
+    elasticFrame = requestAnimationFrame(tick);
+  };
+  elasticFrame = requestAnimationFrame(tick);
 }
 
 function finishNodeDrag(event) {
   if (!dragState || event.pointerId !== dragState.pointerId) return;
   const moved = dragState.moved;
-  if (moved) {
-    suppressClickUntil = performance.now() + 220;
-    savePublicPositions();
-  }
+  if (moved) suppressClickUntil = performance.now() + 220;
   dragState = null;
   document.body.classList.remove("node-dragging");
   try { svg.releasePointerCapture?.(event.pointerId); } catch {}
-  // Replacing the SVG here used to remove a stationary click target before
-  // the browser emitted `click`. Only a real drag needs a final repaint.
-  if (moved) renderGraph();
+  if (moved) returnElasticField();
+  else elasticField.id = null;
 }
 
 function beginCanvasDrag(event) {
@@ -684,6 +711,19 @@ function finishCanvasDrag(event) {
   canvasDrag = null;
   document.body.classList.remove("canvas-dragging", "orbiting");
   try { svg.releasePointerCapture?.(event.pointerId); } catch {}
+}
+
+function beginMapTap(event) {
+  if (!compactMap || event.target.closest?.(".node")) return;
+  mapTap = { id:event.pointerId, x:event.clientX, y:event.clientY };
+}
+
+function finishMapTap(event) {
+  if (!mapTap || mapTap.id !== event.pointerId) return;
+  const distance = Math.hypot(event.clientX - mapTap.x, event.clientY - mapTap.y);
+  mapTap = null;
+  if (distance > 8 || !detailPanel.classList.contains("open")) return;
+  setPanelCollapsed("detail", true);
 }
 
 function onWheel(event) {
@@ -759,9 +799,9 @@ function selectNode(id, openMobile) {
     item.innerHTML = `<span>${target?.label || targetId.replaceAll("-"," ")}</span><em>${relationship}</em>`;
     list.append(item);
   }
-  if (openMobile && window.innerWidth <= 768) {
+  if (openMobile) {
     setPanelCollapsed("detail", false);
-    document.querySelector("#detail-panel").classList.add("open");
+    if (window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
   }
 }
 
@@ -803,7 +843,6 @@ function writeInterfaceState() {
   try {
     localStorage.setItem(interfaceStorageKey, JSON.stringify({
       rail:document.body.classList.contains("rail-collapsed"),
-      detail:document.body.classList.contains("detail-collapsed"),
       depth:depthMode
     }));
   } catch {
@@ -830,16 +869,6 @@ function setDepthMode(enabled, persist = true) {
   }
   if (!enabled) { camera.yaw = 0; camera.pitch = 0; }
   if (persist) writeInterfaceState();
-  renderGraph();
-}
-
-function adjustSelectedDepth(delta) {
-  const node = nodeById.get(activeNodeId);
-  if (!node || node.privacy === "locked") return;
-  if (!depthMode) setDepthMode(true);
-  const position = getNodePosition(node);
-  position.z = clamp(position.z + delta, -180, 180);
-  savePublicPositions();
   renderGraph();
 }
 
@@ -1149,13 +1178,18 @@ function bindNativeTouchSwipe(element, { shouldStart, direction, onCommit }) {
 }
 
 const detailPanel = document.querySelector("#detail-panel");
+function canSwipeDetail(event) {
+  if (event.target.closest("button, a, input, textarea, select")) return false;
+  const body = event.target.closest(".detail-body");
+  return !body || body.scrollTop <= 1;
+}
 bindMobileVerticalSwipe(detailPanel, {
-  shouldStart:event => Boolean(event.target.closest("#detail-head")),
+  shouldStart:canSwipeDetail,
   onMove:dy => detailPanel.style.setProperty("--sheet-drag", `${Math.max(0, Math.min(160, dy))}px`),
   onDown:() => setPanelCollapsed("detail", true)
 });
 bindNativeTouchSwipe(detailPanel, {
-  shouldStart:event => Boolean(event.target.closest("#detail-head")),
+  shouldStart:canSwipeDetail,
   direction:"down",
   onCommit:() => setPanelCollapsed("detail", true)
 });
@@ -1185,26 +1219,23 @@ bindMobileHorizontalSwipe(mapStage, {
 });
 
 svg.addEventListener("pointerdown", beginCanvasDrag);
+svg.addEventListener("pointerdown", beginMapTap, { capture:true });
 svg.addEventListener("pointerdown", beginTouchGesture, { capture:true });
 svg.addEventListener("pointermove", moveDraggedNode);
 svg.addEventListener("pointermove", moveCanvasDrag);
 svg.addEventListener("pointermove", moveTouchGesture, { capture:true });
 svg.addEventListener("pointerup", finishNodeDrag);
 svg.addEventListener("pointerup", finishCanvasDrag);
+svg.addEventListener("pointerup", finishMapTap, { capture:true });
 svg.addEventListener("pointercancel", finishNodeDrag);
 svg.addEventListener("pointercancel", finishCanvasDrag);
+svg.addEventListener("pointercancel", () => { mapTap = null; }, { capture:true });
 svg.addEventListener("pointerup", finishTouchGesture, { capture:true });
 svg.addEventListener("pointercancel", finishTouchGesture, { capture:true });
 svg.addEventListener("wheel", onWheel, { passive:false });
 
 document.querySelector("#rail-toggle").addEventListener("click", () => {
   setPanelCollapsed("rail", !document.body.classList.contains("rail-collapsed"));
-});
-
-document.querySelector("#detail-toggle").addEventListener("click", () => {
-  const willCollapse = !document.body.classList.contains("detail-collapsed");
-  setPanelCollapsed("detail", willCollapse);
-  if (!willCollapse && window.innerWidth <= 768) document.querySelector("#detail-panel").classList.add("open");
 });
 
 let bgMusic = document.querySelector("#bg-music");
@@ -1390,14 +1421,6 @@ function runSpaceTransit() {
   // Remove the overlay after animations complete
   window.setTimeout(() => field.remove(), 2200);
 }
-
-document.querySelector("#layout-reset").addEventListener("click", () => {
-  nodePositions.clear();
-  savedPublicPositions = {};
-  try { localStorage.removeItem(positionStorageKey); } catch {}
-  resetCamera();
-  renderGraph();
-});
 
 const questionDraftKey = "consciousness-question-drafts-v1";
 const publicConversationMarkup = document.querySelector("#conversation").innerHTML;
@@ -1702,18 +1725,24 @@ window.addEventListener("resize", () => {
   cancelAnimationFrame(resizeFrame);
   resizeFrame = requestAnimationFrame(() => {
     const nextCompactMap = window.matchMedia("(max-width: 768px)").matches;
-    if (nextCompactMap !== compactMap || nextCompactMap) {
-      const breakpointChanged = nextCompactMap !== compactMap;
-      compactMap = nextCompactMap;
-      if (breakpointChanged) camera.zoom = compactMap ? .72 : .82;
+    const breakpointChanged = nextCompactMap !== compactMap;
+    compactMap = nextCompactMap;
+    brainScreenTransform = null;
+    if (breakpointChanged) {
+      camera.zoom = compactMap ? .72 : .82;
       renderGraph();
+      return;
     }
+    // Mobile browser chrome changes the visual viewport while scrolling.
+    // Rebuilding the whole graph here caused the pronounced 20–25fps hitch.
+    applyCamera();
+    brainRenderer?.redraw();
   });
 }, { passive:true });
 
 const initialInterfaceState = readInterfaceState();
 setPanelCollapsed("rail", initialInterfaceState.rail === true, false);
-setPanelCollapsed("detail", initialInterfaceState.detail ?? compactMap, false);
+setPanelCollapsed("detail", compactMap, false);
 depthMode = true;
 document.body.classList.add("depth-mode");
 camera.yaw = 0.6;
@@ -1836,17 +1865,20 @@ function buildStar() {
   return group;
 }
 
-// Update only cached spatial elements. Mobile is capped at 20 fps and desktop
-// at 30 fps; the orbit is intentionally slow, so higher rates only waste work.
+// Update only cached spatial elements at the display's native refresh rate.
+// Brain mode owns its own projection loop, so the relationship-map orbit stays
+// idle there instead of making a second pass over every node and edge.
 let orbitFrame = 0;
-let lastOrbitPaint = 0;
 let lastRestack = 0;
 function tickOrbit(now) {
   orbitFrame = window.requestAnimationFrame(tickOrbit);
-  if (document.hidden || dragState || canvasDrag || !document.body.classList.contains("view-map-active")) return;
-  const frameInterval = compactMap ? 50 : 33;
-  if (now - lastOrbitPaint < frameInterval) return;
-  lastOrbitPaint = now;
+  if (
+    document.hidden
+    || brainMode
+    || dragState
+    || canvasDrag
+    || !document.body.classList.contains("view-map-active")
+  ) return;
   autoYaw = (now / 1000) * AUTO_YAW_RATE;
   if (!depthMode) return;
   const shouldRestack = now - lastRestack >= 900;

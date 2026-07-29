@@ -74,7 +74,8 @@
     body.space-mode .map-view { background: #050506; }
     body.space-mode .map-view::after { display: none; }
     body.space-mode .view { background: #050506; }
-    body.space-mode .deep-rail { z-index: 40; }
+    body.space-mode .deep-rail { z-index: 40; grid-template-columns: 30px 48px; }
+    body.space-mode .mode-cue-right { display: none; }
     /* Landing nodes: black pixel-blobs. Their map colour escapes as an offset
        shadow; it never becomes a neat diagram border on the dark field. */
     body.space-mode .node { filter: none; }
@@ -130,7 +131,18 @@
     @keyframes star-breathe { 0%,100% { opacity: .96; } 50% { opacity: 1; } }
     body.space-mode.dismantling .node { transition: opacity .5s ease; opacity: .15; }
     body.space-mode.dismantling .star-group { transition: opacity .5s ease; opacity: 0; }
-    .deep-rail { position: absolute; z-index: 25; top: 6px; left: 50%; display: flex; align-items: center; gap: 5px; transform: translateX(-50%); }
+    .deep-rail {
+      position: absolute;
+      z-index: 25;
+      top: 6px;
+      left: 50%;
+      display: grid;
+      grid-template-columns: 30px 48px 48px 30px;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      transform: translateX(-50%);
+    }
     .deep-toggle { width: 48px; height: 48px; display: grid; place-items: center; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; }
     .deep-track { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ink); background: transparent; position: relative; transition: border-color .2s ease; }
     .deep-track::after { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--ink); opacity: .18; transition: opacity .2s ease, transform .2s ease; }
@@ -138,17 +150,14 @@
     .deep-toggle[aria-checked="true"] .deep-track::after { opacity: .9; transform: scale(2); }
     .deep-toggle:focus-visible .deep-track { outline: 1px solid var(--ink); outline-offset: 3px; }
     .mode-cue {
-      width: 16px;
+      width: 30px;
       color: var(--ink);
-      font: 13px/1 var(--mono);
+      font: 700 11px/1 var(--mono);
+      letter-spacing: -2px;
       text-align: center;
       opacity: .52;
       pointer-events: none;
     }
-    .mode-cue-left { animation: cue-from-left 1.6s ease-in-out infinite alternate; }
-    .mode-cue-right { animation: cue-from-right 1.6s ease-in-out infinite alternate; }
-    @keyframes cue-from-left { to { transform: translateX(4px); opacity: .9; } }
-    @keyframes cue-from-right { to { transform: translateX(-4px); opacity: .9; } }
     .map-theme-toggle {
       position: relative;
       z-index: 1;
@@ -318,6 +327,7 @@
     .detail-panel {
       grid-row: 2; grid-column: 3; border-left: 1px solid var(--line);
       background: rgba(11,11,9,.92); overflow: auto; display: flex; flex-direction: column;
+      overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
     }
     .detail-head { padding: 22px 20px 18px; border-bottom: 1px solid var(--line); }
     .detail-type { display: flex; align-items: center; gap: 8px; color: var(--node-color, var(--belief)); font: 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
@@ -624,6 +634,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity .7s ease;
+      contain: strict;
     }
     body.brain-mode .brain-backdrop { opacity: .82; }
     body.brain-mode .edge,
@@ -695,7 +706,7 @@
     .node {
       cursor: grab;
       will-change: transform, opacity;
-      transition: opacity .2s steps(4, end), transform .24s steps(6, end);
+      transition: opacity .16s linear;
     }
     body.node-dragging .node { cursor: grabbing; transition: none; }
     .node .node-visual {
@@ -1070,9 +1081,9 @@
       .privacy-toggle { width: 44px; min-height: 44px; justify-content: center; padding: 0; }
       .toggle-track { width: 26px; }
       body.private-mode .toggle-dot { transform: translateX(12px); }
-      .deep-rail { top: 4px; gap: 2px; }
+      .deep-rail { top: 4px; grid-template-columns: 26px 42px 42px 26px; }
       .deep-toggle, .map-theme-toggle { width: 42px; height: 42px; }
-      .mode-cue { width: 12px; font-size: 10px; }
+      .mode-cue { width: 26px; font-size: 9px; }
 
       .left-rail {
         display: block;
@@ -1105,6 +1116,7 @@
       .map-head h1 { padding: 6px 8px 5px; font-size: 12px; box-shadow: 3px 0 0 var(--signal-blue), -2px 2px 0 var(--signal-green); }
       .map-view::after { right: 3%; top: 3%; width: 74px; height: 8px; }
       .signal-pixel { animation: none; }
+      .node .node-visual { animation: none; }
       .ui-dock { top: 8px; right: 8px; gap: 2px; padding: 2px; }
       .ui-tool { min-width: 31px; height: 28px; padding-inline: 5px; font-size: 7px; }
       body.rail-collapsed .shell { grid-template-rows: 54px 0 minmax(0, 1fr) 44px; }
@@ -1128,7 +1140,8 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transition: transform .2s steps(5, end), opacity .16s steps(4, end), visibility .2s;
+        will-change: transform;
+        transition: transform .2s cubic-bezier(.2,.8,.2,1), opacity .14s linear, visibility .2s;
       }
       .detail-panel.open {
         transform: translateY(var(--sheet-drag, 0px));
@@ -1247,17 +1260,15 @@
     <section class="stage">
       <nav class="ui-dock" aria-label="Interface and spatial controls">
         <button class="ui-tool" id="rail-toggle" type="button" aria-pressed="false" title="Toggle library">LIB</button>
-        <button class="ui-tool" id="detail-toggle" type="button" aria-pressed="false" title="Toggle node detail">INFO</button>
-        <button class="ui-tool map-only" id="layout-reset" type="button" title="Reset positions and view">RST</button>
         <button class="ui-tool" id="sound-toggle" type="button" aria-pressed="false" title="Toggle ambient sound">SND</button>
       </nav>
       <div class="deep-rail">
-        <span class="mode-cue mode-cue-left" aria-hidden="true">→</span>
+        <span class="mode-cue mode-cue-left" aria-hidden="true">&gt;&gt;&gt;</span>
         <a class="deep-toggle" id="deep-toggle" href="/consciousness/" role="switch" aria-checked="false" aria-label="Enter Cloud Consciousness">
           <span class="deep-track" aria-hidden="true"><span class="deep-knob"></span></span>
         </a>
-        <span class="mode-cue mode-cue-right" aria-hidden="true">←</span>
         <button class="map-theme-toggle" id="map-theme-toggle" type="button" aria-label="Switch to dark mode"></button>
+        <span class="mode-cue mode-cue-right" aria-hidden="true">&lt;&lt;&lt;</span>
       </div>
       <audio class="bg-music" id="bg-music" src="/assets/smoke-state-1.mp3" loop preload="auto"></audio>
       <section class="view map-view active" id="view-map" aria-label="Cognitive constellation">
