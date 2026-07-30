@@ -7,6 +7,7 @@ attribute float aPhase;
 uniform vec2 uScale;
 uniform vec2 uRotation;
 uniform float uZoom;
+uniform float uDepthScale;
 varying float vPhase;
 varying float vDepth;
 
@@ -28,7 +29,8 @@ vec3 rotatePoint(vec3 point) {
 }
 
 void main() {
-  vec3 point = rotatePoint(aPosition);
+  vec3 source = vec3(aPosition.x, aPosition.y, aPosition.z * uDepthScale);
+  vec3 point = rotatePoint(source);
   float perspective = 1.0 / (1.0 + point.z * 0.048);
   gl_Position = vec4(
     point.x * uScale.x * uZoom * perspective,
@@ -128,6 +130,26 @@ function sculptCerebrum([sourceX, sourceY, sourceZ]) {
 }
 
 const BRAIN_VERTICES = BRAIN_MESH.vertices.map(sculptCerebrum);
+
+// Keep one model unit the same physical size on both axes. Independent clip
+// space scales distort the mesh on portrait screens because their pixel axes
+// have radically different lengths.
+export function brainProjectionScales(viewWidth, viewHeight, compactMode = false) {
+  const safeWidth = Math.max(1, viewWidth);
+  const safeHeight = Math.max(1, viewHeight);
+  const horizontalPadding = compactMode ? 1.12 : 1.08;
+  const verticalPadding = compactMode ? 1.12 : 1.08;
+  const modelWidth = 12.9;
+  const modelHeight = 8.25;
+  const pixelsPerUnit = Math.min(
+    safeWidth / (modelWidth * horizontalPadding),
+    safeHeight / (modelHeight * verticalPadding)
+  );
+  return [
+    pixelsPerUnit * 2 / safeWidth,
+    pixelsPerUnit * 2 / safeHeight
+  ];
+}
 
 function appendLine(positions, phases, start, end, phase) {
   positions.push(...start, ...end);
@@ -313,6 +335,7 @@ export function mountBrainNet(canvas, {
     scale:gl.getUniformLocation(program, "uScale"),
     rotation:gl.getUniformLocation(program, "uRotation"),
     zoom:gl.getUniformLocation(program, "uZoom"),
+    depthScale:gl.getUniformLocation(program, "uDepthScale"),
     color:gl.getUniformLocation(program, "uColor"),
     pulseColor:gl.getUniformLocation(program, "uPulseColor"),
     time:gl.getUniformLocation(program, "uTime"),
@@ -367,6 +390,7 @@ export function mountBrainNet(canvas, {
   let yaw = compact ? -.34 : -.22;
   let pitch = compact ? .18 : .23;
   let zoom = compact ? .9 : 1;
+  const depthScale = compact ? 1.12 : 1;
   let pointer = null;
   let animationFrame = 0;
   let running = active;
@@ -390,12 +414,13 @@ export function mountBrainNet(canvas, {
 
   function rotatedPoint(source) {
     const [x, y, z] = source;
+    const scaledZ = z * depthScale;
     const cy = Math.cos(yaw);
     const sy = Math.sin(yaw);
     const cp = Math.cos(pitch);
     const sp = Math.sin(pitch);
-    const yawX = x * cy + z * sy;
-    const yawZ = -x * sy + z * cy;
+    const yawX = x * cy + scaledZ * sy;
+    const yawZ = -x * sy + scaledZ * cy;
     return [
       yawX,
       y * cp - yawZ * sp,
@@ -404,8 +429,7 @@ export function mountBrainNet(canvas, {
   }
 
   function scales() {
-    const portrait = height > width;
-    return [1 / (portrait ? 8.1 : 13.2), 1 / (portrait ? 5.7 : 4.5)];
+    return brainProjectionScales(width, height, compact);
   }
 
   function project(source) {
@@ -435,8 +459,8 @@ export function mountBrainNet(canvas, {
     const background = transparent
       ? [0, 0, 0, 0]
       : dark ? [0.022, .025, .028, 1] : [.95, .95, .935, 1];
-    const meshColor = dark ? [.28, .72, .43, .3] : [.035, .24, .12, .48];
-    const axonColor = dark ? [.18, .56, .31, .18] : [.025, .19, .09, .28];
+    const meshColor = dark ? [.28, .72, .43, .3] : [.025, .2, .085, .66];
+    const axonColor = dark ? [.18, .56, .31, .18] : [.02, .15, .065, .42];
     gl.clearColor(...background);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.DEPTH_TEST);
@@ -445,8 +469,9 @@ export function mountBrainNet(canvas, {
     gl.uniform2f(uniforms.scale, ...scales());
     gl.uniform2f(uniforms.rotation, yaw, pitch);
     gl.uniform1f(uniforms.zoom, zoom);
+    gl.uniform1f(uniforms.depthScale, depthScale);
     gl.uniform1f(uniforms.time, now / 1000);
-    gl.uniform3f(uniforms.pulseColor, dark ? .24 : .03, dark ? 1 : .48, dark ? .53 : .2);
+    gl.uniform3f(uniforms.pulseColor, dark ? .24 : .04, dark ? 1 : .34, dark ? .53 : .15);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
@@ -466,7 +491,7 @@ export function mountBrainNet(canvas, {
     gl.uniform1f(uniforms.signal, 0);
     gl.drawArrays(gl.LINES, 0, signalGeometry.phases.length);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-    gl.uniform4f(uniforms.color, dark ? .08 : .02, dark ? .25 : .18, dark ? .14 : .08, dark ? .08 : .16);
+    gl.uniform4f(uniforms.color, dark ? .08 : .015, dark ? .25 : .12, dark ? .14 : .05, dark ? .08 : .22);
     gl.uniform1f(uniforms.signal, 1);
     gl.drawArrays(gl.LINES, 0, signalGeometry.phases.length);
 

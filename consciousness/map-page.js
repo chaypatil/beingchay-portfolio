@@ -714,7 +714,7 @@ function finishCanvasDrag(event) {
 }
 
 function beginMapTap(event) {
-  if (!compactMap || event.target.closest?.(".node")) return;
+  if (event.target.closest?.(".node")) return;
   mapTap = { id:event.pointerId, x:event.clientX, y:event.clientY };
 }
 
@@ -722,7 +722,9 @@ function finishMapTap(event) {
   if (!mapTap || mapTap.id !== event.pointerId) return;
   const distance = Math.hypot(event.clientX - mapTap.x, event.clientY - mapTap.y);
   mapTap = null;
-  if (distance > 8 || !detailPanel.classList.contains("open")) return;
+  const expanded = !document.body.classList.contains("detail-collapsed")
+    && (!compactMap || detailPanel.classList.contains("open"));
+  if (distance > 8 || !expanded) return;
   setPanelCollapsed("detail", true);
 }
 
@@ -1081,7 +1083,7 @@ document.querySelectorAll(".thread-link").forEach(button => button.addEventListe
 }));
 
 document.querySelector("#detail-head").addEventListener("click", () => {
-  if (window.innerWidth <= 768) setPanelCollapsed("detail", true);
+  setPanelCollapsed("detail", true);
 });
 
 function bindMobileVerticalSwipe(element, { shouldStart, onMove, onUp, onDown, capturePointer = true }) {

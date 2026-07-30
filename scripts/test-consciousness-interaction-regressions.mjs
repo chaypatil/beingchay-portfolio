@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { brainProjectionScales } from "../codexmap/brain-net.js";
 
 const page = await readFile(new URL("../consciousness/index.html", import.meta.url), "utf8");
 const controller = await readFile(new URL("../consciousness/map-page.js", import.meta.url), "utf8");
@@ -29,7 +30,17 @@ assert.doesNotMatch(page, /cue-from-left|cue-from-right/, "Mode cues must remain
 assert.match(controller, /const elasticField = /, "Node dragging must deform an elastic field.");
 assert.match(controller, /function returnElasticField\(/, "Dragged nodes must spring back to canonical positions.");
 assert.doesNotMatch(controller, /localStorage\.setItem\(positionStorageKey/, "Dragged positions must never persist.");
-assert.match(controller, /function finishMapTap\(/, "A background tap must dismiss the mobile detail sheet.");
+assert.match(controller, /function finishMapTap\(/, "A background tap must dismiss the detail sheet.");
+assert.doesNotMatch(
+  controller,
+  /function beginMapTap\(event\) \{\s+if \(!compactMap/,
+  "Desktop background taps must not be excluded from detail dismissal."
+);
+assert.match(
+  controller,
+  /const expanded = !document\.body\.classList\.contains\("detail-collapsed"\)\s+&& \(!compactMap \|\| detailPanel\.classList\.contains\("open"\)\)/,
+  "Detail dismissal must recognize both desktop panels and mobile sheets."
+);
 assert.match(controller, /shouldStart:canSwipeDetail/, "The whole detail sheet must support swipe-down dismissal at scroll top.");
 
 // The old 20fps mobile throttle and flat single-shell brain are regressions.
@@ -38,6 +49,14 @@ assert.doesNotMatch(brain, /compact \? 50 : 33/, "Brain rendering must follow na
 assert.match(brain, /function sculptCerebrum\(/, "Brain geometry needs a volumetric cerebral sculpt.");
 assert.match(brain, /function buildAnatomyLines\(/, "Brain silhouette needs cerebellum and brainstem wire volumes.");
 assert.match(brain, /uTime \* 0\.31/, "Brain signals must retain the faster firing cadence.");
+assert.match(brain, /uniform float uDepthScale/, "Portrait Brain mode needs an explicit depth correction.");
+const [mobileScaleX, mobileScaleY] = brainProjectionScales(390, 700, true);
+assert.ok(
+  Math.abs(mobileScaleX * 390 - mobileScaleY * 700) < 1e-10,
+  "A brain model unit must occupy equal physical pixels on portrait X and Y axes."
+);
+assert.match(page, /--brain-node: #04361d/, "Light Brain nodes must use the darker green foreground.");
+assert.match(page, /--brain-glow: #77a98a/, "Light Brain nodes need a restrained lighter-green glow.");
 
 // Regression: pre-playing a second Audio object leaked both tracks on iOS.
 assert.doesNotMatch(controller, /primeTransitionMusic/, "The landing must never start the second track before transition.");
