@@ -1,6 +1,14 @@
 import { publicNodes, publicEdges, typeMeta } from "./graph-data.js";
 import { NODE_REGION } from "./brain/brain-mapping.js";
-import { mountBrainNet } from "../codexmap/brain-net.js";
+import { mountBrainNet } from "../codexmap/brain-net.js?v=shape-2";
+import {
+  asksForVaultEvidence,
+  mirrorConceptReply,
+  mirrorTerms,
+  normalizeMirrorText,
+  rankMirrorNodes,
+  rankVaultRecords
+} from "./mirror-retrieval.js?v=1";
 
 
 
@@ -1443,12 +1451,6 @@ let activeProbeQuestion = null;
 let publicMirrorTurns = 0;
 let mirrorReplyPending = false;
 
-const MIRROR_STOP_WORDS = new Set([
-  "a","about","am","an","and","are","as","at","be","because","but","can","chay",
-  "did","do","does","for","from","had","has","have","he","his","how","i","if",
-  "in","is","it","like","me","of","on","or","so","that","the","this","to","was",
-  "what","when","where","which","who","why","with","would","you","your"
-]);
 let publicBrainVaultPromise;
 
 function loadPublicBrainVault() {
@@ -1463,66 +1465,18 @@ function loadPublicBrainVault() {
   return publicBrainVaultPromise;
 }
 
-function mirrorTerms(value) {
-  return value.toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
-    .split(/\s+/)
-    .filter(term => term.length > 2 && !MIRROR_STOP_WORDS.has(term));
-}
-
-function rankMirrorNodes(question) {
-  const lower = question.toLowerCase();
-  const terms = mirrorTerms(question);
-  return publicNodes
-    .filter(node => node.privacy !== "locked")
-    .map(node => {
-      const label = node.label.toLowerCase();
-      const haystack = `${node.label} ${node.type} ${node.summary} ${node.status}`.toLowerCase();
-      let score = lower.includes(label) && label.length > 3 ? 18 : 0;
-      for (const term of terms) {
-        if (label.includes(term)) score += 8;
-        else if (haystack.includes(term)) score += 2;
-      }
-      return { node, score };
-    })
-    .filter(entry => entry.score > 0)
-    .sort((a, b) => b.score - a.score || b.node.r - a.node.r)
-    .slice(0, 3);
-}
-
-function rankVaultRecords(question, records) {
-  const terms = mirrorTerms(question);
-  if (!terms.length) return [];
-  return records
-    .filter(record => record.privacy !== "redacted")
-    .map(record => {
-      const title = normalizeMirrorText(`${record.title} ${record.path}`);
-      const content = normalizeMirrorText(record.content);
-      let score = 0;
-      for (const term of terms) {
-        if (title.includes(term)) score += 12;
-        if (record.nodeIds.some(id => id.includes(term))) score += 8;
-        if (content.includes(term)) score += 2;
-      }
-      return { record, score };
-    })
-    .filter(entry => entry.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3);
-}
-
-function normalizeMirrorText(value) {
-  return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
-}
-
 function vaultExcerpt(record, question) {
   const terms = mirrorTerms(question);
   const lines = record.content
     .split(/\r?\n/)
     .map(line => line.replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1").replace(/^[-#>*\s]+/, "").trim())
     .filter(line => line.length >= 42 && line.length <= 360 && !line.includes("████") && !line.startsWith("title:"));
-  return lines.find(line => terms.some(term => normalizeMirrorText(line).includes(term))) || lines[0] || "";
+  return lines
+    .map(line => ({
+      line,
+      score:terms.filter(term => normalizeMirrorText(line).includes(term)).length
+    }))
+    .sort((a, b) => b.score - a.score)[0]?.line || "";
 }
 
 function lowerFirst(value) {
@@ -1537,11 +1491,11 @@ function conciseSummary(value, limit = 112) {
 }
 
 const MIRROR_TAUNTS = [
-  "try to keep up.",
+  "small hobby, obviously.",
   "there, saved you a spiral.",
   "ask better next time.",
   "congrats, the graph had to spell it out.",
-  "don’t make it weird."
+  "subtle. practically invisible."
 ];
 
 function withMirrorTaunt(text, question) {
@@ -1566,10 +1520,14 @@ async function buildMirrorReply(question) {
     return { text:withMirrorTaunt("fair. try an actual question and i’ll try an actual answer.", question), nodes:[] };
   }
 
-  const [ranked, vaultRecords] = [rankMirrorNodes(question), await loadPublicBrainVault()];
-  const vaultMatch = rankVaultRecords(question, vaultRecords)[0]?.record;
-  const directExcerpt = vaultMatch ? vaultExcerpt(vaultMatch, question) : "";
-  if (directExcerpt) {
+  const conceptReply = mirrorConceptReply(question);
+  if (conceptReply) return conceptReply;
+
+  const [ranked, vaultRecords] = [rankMirrorNodes(question, publicNodes), await loadPublicBrainVault()];
+  const alignedNodeIds = ranked.map(entry => entry.node.id);
+  const vaultMatch = rankVaultRecords(question, vaultRecords, { alignedNodeIds })[0]?.record;
+  const directExcerpt = vaultMatch && asksForVaultEvidence(question) ? vaultExcerpt(vaultMatch, question) : "";
+  if (directExcerpt && ranked.length) {
     return {
       text:withMirrorTaunt(`the vault actually says: “${conciseSummary(directExcerpt)}”`, question),
       nodes:vaultMatch.nodeIds.slice(0, 2),
@@ -1592,7 +1550,11 @@ async function buildMirrorReply(question) {
   } else {
     text = `${primary.label}? ${conciseSummary(primary.summary)}`;
   }
-  return { text:withMirrorTaunt(text, question), nodes:[primary.id] };
+  return {
+    text:withMirrorTaunt(text, question),
+    nodes:ranked.slice(0, 2).map(entry => entry.node.id),
+    vaultPath:vaultMatch?.path
+  };
 }
 
 function endMirrorSession() {
