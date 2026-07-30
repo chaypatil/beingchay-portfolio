@@ -8,6 +8,7 @@ uniform vec2 uScale;
 uniform vec2 uRotation;
 uniform float uZoom;
 uniform float uDepthScale;
+uniform float uVerticalScale;
 varying float vPhase;
 varying float vDepth;
 
@@ -34,7 +35,7 @@ void main() {
   float perspective = 1.0 / (1.0 + point.z * 0.048);
   gl_Position = vec4(
     point.x * uScale.x * uZoom * perspective,
-    point.y * uScale.y * uZoom * perspective,
+    point.y * uScale.y * uZoom * perspective * uVerticalScale,
     point.z * 0.025,
     1.0
   );
@@ -149,6 +150,10 @@ export function brainProjectionScales(viewWidth, viewHeight, compactMode = false
     pixelsPerUnit * 2 / safeWidth,
     pixelsPerUnit * 2 / safeHeight
   ];
+}
+
+export function brainVerticalScale(compactMode = false) {
+  return compactMode ? 1.1 : 1.07;
 }
 
 function appendLine(positions, phases, start, end, phase) {
@@ -336,6 +341,7 @@ export function mountBrainNet(canvas, {
     rotation:gl.getUniformLocation(program, "uRotation"),
     zoom:gl.getUniformLocation(program, "uZoom"),
     depthScale:gl.getUniformLocation(program, "uDepthScale"),
+    verticalScale:gl.getUniformLocation(program, "uVerticalScale"),
     color:gl.getUniformLocation(program, "uColor"),
     pulseColor:gl.getUniformLocation(program, "uPulseColor"),
     time:gl.getUniformLocation(program, "uTime"),
@@ -391,6 +397,7 @@ export function mountBrainNet(canvas, {
   let pitch = compact ? .18 : .23;
   let zoom = compact ? .9 : 1;
   const depthScale = compact ? 1.12 : 1;
+  const verticalScale = brainVerticalScale(compact);
   let pointer = null;
   let animationFrame = 0;
   let running = active;
@@ -438,7 +445,7 @@ export function mountBrainNet(canvas, {
     const perspective = 1 / (1 + z * .048);
     return {
       x:(x * scaleX * zoom * perspective * .5 + .5) * width,
-      y:(.5 - y * scaleY * zoom * perspective * .5) * height,
+      y:(.5 - y * scaleY * zoom * perspective * verticalScale * .5) * height,
       z,
       perspective
     };
@@ -470,6 +477,7 @@ export function mountBrainNet(canvas, {
     gl.uniform2f(uniforms.rotation, yaw, pitch);
     gl.uniform1f(uniforms.zoom, zoom);
     gl.uniform1f(uniforms.depthScale, depthScale);
+    gl.uniform1f(uniforms.verticalScale, verticalScale);
     gl.uniform1f(uniforms.time, now / 1000);
     gl.uniform3f(uniforms.pulseColor, dark ? .24 : .04, dark ? 1 : .34, dark ? .53 : .15);
     gl.enable(gl.BLEND);

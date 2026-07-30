@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { brainProjectionScales } from "../codexmap/brain-net.js";
+import { brainProjectionScales, brainVerticalScale } from "../codexmap/brain-net.js";
 
 const page = await readFile(new URL("../consciousness/index.html", import.meta.url), "utf8");
 const controller = await readFile(new URL("../consciousness/map-page.js", import.meta.url), "utf8");
@@ -55,6 +55,8 @@ assert.ok(
   Math.abs(mobileScaleX * 390 - mobileScaleY * 700) < 1e-10,
   "A brain model unit must occupy equal physical pixels on portrait X and Y axes."
 );
+assert.equal(brainVerticalScale(false), 1.07, "Desktop Brain needs the approved slight vertical correction.");
+assert.equal(brainVerticalScale(true), 1.1, "Mobile Brain needs a slightly stronger vertical correction.");
 assert.match(page, /--brain-node: #04361d/, "Light Brain nodes must use the darker green foreground.");
 assert.match(page, /--brain-glow: #77a98a/, "Light Brain nodes need a restrained lighter-green glow.");
 
