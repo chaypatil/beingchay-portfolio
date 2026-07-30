@@ -5,8 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#efeee8">
-  <title>beingchay</title>
-  <meta name="description" content="The constellation behind Chay: fallout, ANRXYST, C2X, and the light at the centre.">
+  <title>beingchay — Chay Patil</title>
+  <meta name="description" content="The personal site of Chay Patil—work, creative projects, and an evolving map of the ideas behind them.">
+  <link rel="canonical" href="https://beingchay.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beingchay">
+  <meta property="og:title" content="beingchay — Chay Patil">
+  <meta property="og:description" content="The personal site of Chay Patil—work, creative projects, and an evolving map of the ideas behind them.">
+  <meta property="og:url" content="https://beingchay.com/">
+  <meta property="og:image" content="https://beingchay.com/assets/central-light-hero.png">
+  <meta property="og:image:alt" content="A bright central light surrounded by a constellation of thoughts">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="beingchay — Chay Patil">
+  <meta name="twitter:description" content="The personal site of Chay Patil—work, creative projects, and an evolving map of the ideas behind them.">
+  <meta name="twitter:image" content="https://beingchay.com/assets/central-light-hero.png">
   <style>
     :root {
       color-scheme: dark;
@@ -479,7 +491,9 @@
       --question: #111111;
       --signal-blue: #2447a8;
       --signal-green: #277052;
-      --brain-green: #0b5d32;
+      --brain-green: #0a4b2a;
+      --brain-node: #04361d;
+      --brain-glow: #77a98a;
       --rail-size: 210px;
       --detail-size: 360px;
       --mono: "Courier New", "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
@@ -645,14 +659,21 @@
     }
     body.brain-mode .boot-field { display: none; }
     body.brain-mode .node {
-      --node-color: var(--brain-green) !important;
-      --ghost-color: var(--brain-green) !important;
+      --node-color: var(--brain-node) !important;
+      --ghost-color: var(--brain-glow) !important;
     }
-    body.brain-mode .node .halo { stroke: var(--brain-green); stroke-opacity: .32; }
-    body.brain-mode .node .ghost { fill: var(--brain-green); opacity: .17; }
-    body.brain-mode .node .core { stroke: var(--brain-green); }
-    body.brain-mode .node .point { fill: var(--brain-green); }
-    body.brain-mode .node.active .halo { filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brain-green), transparent 34%)); }
+    body.brain-mode .node .halo {
+      stroke: var(--brain-glow);
+      stroke-opacity: .34;
+      filter: drop-shadow(0 0 3px color-mix(in srgb, var(--brain-glow), transparent 48%));
+    }
+    body.brain-mode .node .ghost { fill: var(--brain-glow); opacity: .14; }
+    body.brain-mode .node .core {
+      stroke: var(--brain-node);
+      filter: drop-shadow(0 0 2px color-mix(in srgb, var(--brain-glow), transparent 42%));
+    }
+    body.brain-mode .node .point { fill: var(--brain-node); }
+    body.brain-mode .node.active .halo { filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brain-glow), transparent 34%)); }
     .boot-field {
       position: absolute;
       z-index: 20;
@@ -1013,6 +1034,8 @@
       --line: rgba(236,238,234,.11);
       --line-strong: rgba(236,238,234,.28);
       --brain-green: #3fd681;
+      --brain-node: #2bc16f;
+      --brain-glow: #80efaa;
     }
     html[data-theme="dark"] body {
       background-image:
@@ -1442,6 +1465,6 @@
     </article>
   </dialog>
 
-  <script type="module" src="/consciousness/map-page.js?v=phase1-5"></script>
+  <script type="module" src="/consciousness/map-page.js?v=phase1-5-2"></script>
 </body>
 </html>
