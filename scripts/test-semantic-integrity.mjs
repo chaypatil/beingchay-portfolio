@@ -36,6 +36,23 @@ assert.equal(Object.keys(NODE_REGION).length, 60, "Brain mappings must remain co
 assert.deepEqual(Object.keys(NODE_REGION).sort(), graphPublic.map(node => node.id).sort());
 assert.equal(corpus.nodes.length, 49, "The retrieval corpus must include Mahāvākyas, the ADHD children and the redacted Love shell.");
 assert.equal(publicEdges.length, 117, "The Library edge contract must include the public-safe ADHD cluster and exclude private Love context.");
+assert.equal(model.auditLedger.filter(entry => entry.approvalState === "approved").length, 57);
+assert.deepEqual(
+  model.auditLedger.filter(entry => entry.approvalState === "proposed").map(entry => entry.nodeId).sort(),
+  ["c2x", "love", "sound"],
+  "Only the two source blockers and private Love review may remain proposed."
+);
+assert.equal(model.reviewQueue.length, 2, "Completed Phase 1.5 work must not remain in a review queue.");
+assert(!model.reviewQueue.some(item => item.id === "review-remaining-semantic-proposals"));
+assert.equal(new Set(model.relations.map(relation => relation.id)).size, model.relations.length);
+for (const relation of model.relations) {
+  assert.equal(relation.id, `relation-${relation.fromId}--${relation.toId}`, "Relation IDs must survive edge insertions.");
+  assert.equal(
+    relation.reviewDisposition,
+    relation.status === "supported" ? "reviewed_supported" : "reviewed_deliberately_unknown"
+  );
+}
+assert.equal(model.relations.filter(relation => relation.reviewDisposition === "reviewed_deliberately_unknown").length, 39);
 
 const expressionTypes = new Set(["direct_quote", "faithful_paraphrase", "synthesis", "inference"]);
 const epistemicTypes = new Set(["memory", "belief", "value", "preference", "interpretation", "hypothesis", "plan", "external_factual_claim"]);

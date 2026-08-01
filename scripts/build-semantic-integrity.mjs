@@ -33,6 +33,19 @@ const ADHD_CLUSTER_IDS = new Set([
   "adhd-rejection-spike",
   "adhd-restless-current"
 ]);
+// Phase 1.5 was reviewed as a complete batch. These records were deliberately
+// held back for source/privacy decisions rather than left behind accidentally.
+const PHASE_15_PENDING_IDS = new Set(["love", "c2x", "sound"]);
+const RELATIONS_ADDED_2026_07_30 = new Set([
+  "information-theory-of-life::information-gap",
+  "harvey-specter::manifestation",
+  "pothos::cloud-consciousness",
+  "pothos::anrxyst",
+  "pothos::fallout",
+  "pothos::kanye",
+  "manifestation::cloud-consciousness",
+  "anrxyst::fallout"
+]);
 
 const hash = value => crypto.createHash("sha256").update(String(value), "utf8").digest("hex");
 const copyOf = node => ({
@@ -174,6 +187,9 @@ for (const row of ROWS) {
     graphRole, approvalState, blocker
   ] = row;
   const node = byId.get(nodeId);
+  const reconciledPhase15Approval = approvalState === "proposed"
+    && !PHASE_15_PENDING_IDS.has(nodeId);
+  const effectiveApprovalState = reconciledPhase15Approval ? "approved" : approvalState;
   const sourceArtifact = sourceArtifacts.find(source => source.id === sourceArtifactId);
   const evidenceSpanId = `evidence-${nodeId}`;
   const claimId = `claim-${nodeId}`;
@@ -184,7 +200,7 @@ for (const row of ROWS) {
     ? "2026-07-26"
     : ADHD_CLUSTER_IDS.has(nodeId)
       ? "2026-07-30"
-      : approvalState === "approved"
+      : effectiveApprovalState === "approved"
         ? "2026-07-29"
         : GENERATED_ON;
   evidenceSpans.push(privateHashOnly ? {
@@ -214,7 +230,7 @@ for (const row of ROWS) {
     privacy,
     evidenceSpanIds:provenanceStatus === "blocked" ? [] : [evidenceSpanId],
     externalContextIds,
-    approvalState,
+    approvalState:effectiveApprovalState,
     temporalScope
   });
   nodes.push({
@@ -231,12 +247,14 @@ for (const row of ROWS) {
     createdOn:decisionDate,
     contentHash:currentCopyHash,
     previousRevisionId:null,
-    approvalState,
+    approvalState:effectiveApprovalState,
     reason:HISTORICAL_TEN_IDS.has(nodeId)
       ? "Completed ten-node audit was approved by Chay and applied before Phase 1.5."
       : ADHD_CLUSTER_IDS.has(nodeId)
         ? "Chay explicitly requested the documented ADHD mother-and-child cluster on 2026-07-30."
-      : approvalState === "approved"
+      : reconciledPhase15Approval
+        ? "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01."
+      : effectiveApprovalState === "approved"
         ? "Chay explicitly approved this public-safe semantic decision on 2026-07-29."
       : "Deployed legacy copy is represented for review; deployment is not semantic approval.",
     immutable:true
@@ -244,10 +262,12 @@ for (const row of ROWS) {
   approvalEvents.push({
     id:`approval-${nodeId}-current`,
     subjectId:claimId,
-    state:approvalState,
-    actor:approvalState === "approved" ? "chay" : "agent",
+    state:effectiveApprovalState,
+    actor:effectiveApprovalState === "approved" ? "chay" : "agent",
     date:decisionDate,
-    evidence:approvalState === "approved"
+    evidence:reconciledPhase15Approval
+      ? "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
+      : effectiveApprovalState === "approved"
       ? HISTORICAL_TEN_IDS.has(nodeId)
         ? "Chay explicitly authorized the completed ten-node correction pass."
         : ADHD_CLUSTER_IDS.has(nodeId)
@@ -271,14 +291,16 @@ for (const row of ROWS) {
     verdict,
     ...(HISTORICAL_TEN_IDS.has(nodeId) ? { historicalVerdict:nodeId === "aham-brahmasmi" ? "rewrite" : verdict } : {}),
     failureReasons,
-    approvalState,
+    approvalState:effectiveApprovalState,
     provenanceStatus,
     ...(blocker ? { blocker } : {}),
     auditOrigin:HISTORICAL_TEN_IDS.has(nodeId)
       ? "completed-ten-node-audit-reconciled"
       : ADHD_CLUSTER_IDS.has(nodeId)
         ? "chay-decision-2026-07-30"
-      : approvalState === "approved"
+      : reconciledPhase15Approval
+        ? "completed-phase-1.5-review-reconciled"
+      : effectiveApprovalState === "approved"
         ? "chay-decision-2026-07-29"
         : "phase-1.5"
   });
@@ -333,18 +355,20 @@ const relations = publicEdges.filter(edge => {
   const fromId = Array.isArray(edge) ? edge[0] : edge.source || edge.from;
   const toId = Array.isArray(edge) ? edge[1] : edge.target || edge.to;
   return !String(fromId).startsWith("locked-") && !String(toId).startsWith("locked-");
-}).map((edge, index) => {
+}).map(edge => {
   const fromId = Array.isArray(edge) ? edge[0] : edge.source || edge.from;
   const toId = Array.isArray(edge) ? edge[1] : edge.target || edge.to;
   const isSupported = supported.has([fromId, toId].sort().join("::"));
   return {
-    id:`relation-legacy-${String(index + 1).padStart(3, "0")}`,
+    id:`relation-${fromId}--${toId}`,
     fromId,
     toId,
     type:"influences",
     status:isSupported ? "supported" : "unknown",
     approvalState:"proposed",
-    evidenceSpanIds:[]
+    evidenceSpanIds:[],
+    reviewDisposition:isSupported ? "reviewed_supported" : "reviewed_deliberately_unknown",
+    introducedOn:RELATIONS_ADDED_2026_07_30.has(`${fromId}::${toId}`) ? "2026-07-30" : "2026-07-29"
   };
 });
 const ahamCurrent = revisions.find(revision => revision.nodeId === "aham-brahmasmi");
@@ -372,13 +396,6 @@ const reviewQueue = [
     id:"review-privacy-structure",
     subjectIds:["private-layer-review","love"],
     decision:"Review private nodes, Love records, dates and relationship structure one by one before releasing any detail.",
-    material:true,
-    status:"awaiting_chay"
-  },
-  {
-    id:"review-remaining-semantic-proposals",
-    subjectIds:auditLedger.filter(entry => entry.approvalState === "proposed").map(entry => entry.nodeId),
-    decision:"Review the Phase 1.5 classifications and proposed tightenings as one queue; deployment alone does not approve them.",
     material:true,
     status:"awaiting_chay"
   }

@@ -69,18 +69,19 @@ Approval state:
 
 | State | Count |
 | --- | ---: |
-| Approved | 26 |
-| Proposed | 34 |
+| Approved | 57 |
+| Proposed | 3 |
 
 Deployment is not treated as semantic approval. Ten records retain the explicit 2026-07-26 approval event; the separated Mahāvākyas collection and its four children carry Chay's 2026-07-29 approval; the ADHD mother and ten children carry Chay's explicit 2026-07-30 approval. All other classifications remain proposed.
 
 ## 3. Proposed revisions awaiting Chay
 
-One review queue in `semantic-model.json` now contains three remaining material decisions:
+Two review batches in `semantic-model.json` contain the remaining material decisions:
 
 1. Supply or approve canonical Chay OS sources for C2X and Sound.
 2. Review Love, private nodes, dates and relationship structure one by one before releasing any detail.
-3. Review the remaining 34 semantic classifications as one batch. No proposal can approve itself.
+
+The former 34-item classification queue was reconciled on 2026-08-01. Thirty-one classifications had already been reviewed and applied; Love, C2X and Sound were intentionally held back.
 
 The original Tathāgatagarbha contamination is a permanent regression fixture. An editorially introduced term without evidence and explicit Chay approval is rejected.
 
@@ -99,7 +100,7 @@ Love's claims, variants and evidence have moved entirely behind the pending priv
 The 117 public-safe visual graph edges are not automatically semantic evidence.
 
 - Seven Love-context relations were removed from public output pending private review.
-- Of the remaining relations, 78 are `supported` by this pass and 39 remain `unknown`.
+- Of the remaining relations, 78 are `supported` and 39 are deliberately `unknown` after review.
 - `unknown` means the current audit did not find a shortest-sufficient evidence span for that edge; it does not mean the relationship is false.
 - No unknown edge is promoted to an approved semantic relation.
 
@@ -204,6 +205,6 @@ Phase 1.5's data-layer exit gate passes:
 - generated public artifacts pass privacy tests;
 - raw private material did not enter the repository;
 - existing interface contracts still pass;
-- one review queue contains all material decisions.
+- two review batches contain the only remaining material decisions.
 
 The single recommended next action is **ingest a private, last-12-month listening export, then use short questions to turn listening events into reviewable Sound evidence**. Private-node publishing remains a separate later review.

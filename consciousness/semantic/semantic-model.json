@@ -731,7 +731,7 @@
         "evidence-cluster-self"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current taxonomy"
     },
     {
@@ -747,7 +747,7 @@
         "evidence-cluster-work"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current taxonomy"
     },
     {
@@ -763,7 +763,7 @@
         "evidence-cluster-creative"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current taxonomy"
     },
     {
@@ -779,7 +779,7 @@
         "evidence-cluster-knowledge"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current taxonomy"
     },
     {
@@ -795,7 +795,7 @@
         "evidence-cluster-systems"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current taxonomy"
     },
     {
@@ -811,7 +811,7 @@
         "evidence-agency"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current profile"
     },
     {
@@ -827,7 +827,7 @@
         "evidence-preparation"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current profile estimate"
     },
     {
@@ -843,7 +843,7 @@
         "evidence-massive-action"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "2026-05 operating note"
     },
     {
@@ -859,7 +859,7 @@
         "evidence-pothos"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active framework since 2026-05"
     },
     {
@@ -891,7 +891,7 @@
         "evidence-glory"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active definition since 2026-05"
     },
     {
@@ -1083,7 +1083,7 @@
         "evidence-spiral"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current operating model"
     },
     {
@@ -1099,7 +1099,7 @@
         "evidence-movement"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current intervention"
     },
     {
@@ -1115,7 +1115,7 @@
         "evidence-manifestation"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "evolving belief"
     },
     {
@@ -1131,7 +1131,7 @@
         "evidence-synchronicity"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current interpretation"
     },
     {
@@ -1161,7 +1161,7 @@
         "evidence-anrxyst"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active project"
     },
     {
@@ -1177,7 +1177,7 @@
         "evidence-fallout"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active project"
     },
     {
@@ -1207,7 +1207,7 @@
         "evidence-information-gap"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active thesis"
     },
     {
@@ -1223,7 +1223,7 @@
         "evidence-consciousness"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active project"
     },
     {
@@ -1239,7 +1239,7 @@
         "evidence-self-model-gap"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "continuous"
     },
     {
@@ -1255,7 +1255,7 @@
         "evidence-cloud-consciousness"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "childhood origin, active project"
     },
     {
@@ -1511,7 +1511,7 @@
         "evidence-aristocrat-philosophy"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active operating principle"
     },
     {
@@ -1527,7 +1527,7 @@
         "evidence-purple"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current aesthetic preference"
     },
     {
@@ -1543,7 +1543,7 @@
         "evidence-schranz"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active influence"
     },
     {
@@ -1559,7 +1559,7 @@
         "evidence-harvey-specter"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "historical influence"
     },
     {
@@ -1575,7 +1575,7 @@
         "evidence-klangkuenstler"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "2025 origin memory"
     },
     {
@@ -1591,7 +1591,7 @@
         "evidence-kanye"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active influence"
     },
     {
@@ -1607,7 +1607,7 @@
         "evidence-alexander"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "active historical comparison"
     },
     {
@@ -1623,7 +1623,7 @@
         "evidence-non-arrival"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "reported 2026-06"
     },
     {
@@ -1639,7 +1639,7 @@
         "evidence-hierarchy-question"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "unresolved"
     },
     {
@@ -1655,7 +1655,7 @@
         "evidence-solitude"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "self-report in 2026-05"
     },
     {
@@ -1671,7 +1671,7 @@
         "evidence-voices"
       ],
       "externalContextIds": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "temporalScope": "current profile model"
     },
     {
@@ -2270,1057 +2270,1291 @@
   ],
   "relations": [
     {
-      "id": "relation-legacy-001",
+      "id": "relation-consciousness--cluster-self",
       "fromId": "consciousness",
       "toId": "cluster-self",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-002",
+      "id": "relation-consciousness--cluster-work",
       "fromId": "consciousness",
       "toId": "cluster-work",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-003",
+      "id": "relation-consciousness--cluster-creative",
       "fromId": "consciousness",
       "toId": "cluster-creative",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-004",
+      "id": "relation-consciousness--cluster-knowledge",
       "fromId": "consciousness",
       "toId": "cluster-knowledge",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-005",
+      "id": "relation-consciousness--cluster-systems",
       "fromId": "consciousness",
       "toId": "cluster-systems",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-006",
+      "id": "relation-cluster-self--agency",
       "fromId": "cluster-self",
       "toId": "agency",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-007",
+      "id": "relation-cluster-self--adhd",
       "fromId": "cluster-self",
       "toId": "adhd",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-008",
+      "id": "relation-cluster-self--love",
       "fromId": "cluster-self",
       "toId": "love",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-009",
+      "id": "relation-cluster-self--voices",
       "fromId": "cluster-self",
       "toId": "voices",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-010",
+      "id": "relation-cluster-work--c2x",
       "fromId": "cluster-work",
       "toId": "c2x",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-011",
+      "id": "relation-cluster-work--preparation",
       "fromId": "cluster-work",
       "toId": "preparation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-012",
+      "id": "relation-cluster-work--massive-action",
       "fromId": "cluster-work",
       "toId": "massive-action",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-013",
+      "id": "relation-cluster-creative--anrxyst",
       "fromId": "cluster-creative",
       "toId": "anrxyst",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-014",
+      "id": "relation-cluster-creative--fallout",
       "fromId": "cluster-creative",
       "toId": "fallout",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-015",
+      "id": "relation-cluster-creative--sound",
       "fromId": "cluster-creative",
       "toId": "sound",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-016",
+      "id": "relation-cluster-creative--purple",
       "fromId": "cluster-creative",
       "toId": "purple",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-017",
+      "id": "relation-cluster-knowledge--aham-brahmasmi",
       "fromId": "cluster-knowledge",
       "toId": "aham-brahmasmi",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-018",
+      "id": "relation-cluster-knowledge--four-mahavakyas",
       "fromId": "cluster-knowledge",
       "toId": "four-mahavakyas",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-019",
+      "id": "relation-cluster-knowledge--hermetic-philosophy",
       "fromId": "cluster-knowledge",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-020",
+      "id": "relation-cluster-knowledge--singularity",
       "fromId": "cluster-knowledge",
       "toId": "singularity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-021",
+      "id": "relation-cluster-systems--consciousness",
       "fromId": "cluster-systems",
       "toId": "consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-022",
+      "id": "relation-cluster-systems--cloud-consciousness",
       "fromId": "cluster-systems",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-023",
+      "id": "relation-c2x--agency",
       "fromId": "c2x",
       "toId": "agency",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-024",
+      "id": "relation-c2x--information-gap",
       "fromId": "c2x",
       "toId": "information-gap",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-025",
+      "id": "relation-c2x--cloud-consciousness",
       "fromId": "c2x",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-026",
+      "id": "relation-c2x--anrxyst",
       "fromId": "c2x",
       "toId": "anrxyst",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-027",
+      "id": "relation-agency--preparation",
       "fromId": "agency",
       "toId": "preparation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-028",
+      "id": "relation-agency--pothos",
       "fromId": "agency",
       "toId": "pothos",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-029",
+      "id": "relation-agency--glory",
       "fromId": "agency",
       "toId": "glory",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-030",
+      "id": "relation-preparation--adhd",
       "fromId": "preparation",
       "toId": "adhd",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-031",
+      "id": "relation-preparation--consciousness",
       "fromId": "preparation",
       "toId": "consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-032",
+      "id": "relation-adhd--adhd-initiation-fog",
       "fromId": "adhd",
       "toId": "adhd-initiation-fog",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-033",
+      "id": "relation-adhd--adhd-urgency-focus",
       "fromId": "adhd",
       "toId": "adhd-urgency-focus",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-034",
+      "id": "relation-adhd--adhd-burst-rhythm",
       "fromId": "adhd",
       "toId": "adhd-burst-rhythm",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-035",
+      "id": "relation-adhd--adhd-forced-shutdown",
       "fromId": "adhd",
       "toId": "adhd-forced-shutdown",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-036",
+      "id": "relation-adhd--adhd-context-switching",
       "fromId": "adhd",
       "toId": "adhd-context-switching",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-037",
+      "id": "relation-adhd--adhd-visible-progress",
       "fromId": "adhd",
       "toId": "adhd-visible-progress",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-038",
+      "id": "relation-adhd--adhd-novelty-decay",
       "fromId": "adhd",
       "toId": "adhd-novelty-decay",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-039",
+      "id": "relation-adhd--adhd-sleep-window",
       "fromId": "adhd",
       "toId": "adhd-sleep-window",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-040",
+      "id": "relation-adhd--adhd-rejection-spike",
       "fromId": "adhd",
       "toId": "adhd-rejection-spike",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-041",
+      "id": "relation-adhd--adhd-restless-current",
       "fromId": "adhd",
       "toId": "adhd-restless-current",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-042",
+      "id": "relation-adhd-initiation-fog--adhd-forced-shutdown",
       "fromId": "adhd-initiation-fog",
       "toId": "adhd-forced-shutdown",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-043",
+      "id": "relation-adhd-urgency-focus--adhd-burst-rhythm",
       "fromId": "adhd-urgency-focus",
       "toId": "adhd-burst-rhythm",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-044",
+      "id": "relation-adhd-visible-progress--adhd-burst-rhythm",
       "fromId": "adhd-visible-progress",
       "toId": "adhd-burst-rhythm",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-045",
+      "id": "relation-adhd-context-switching--solitude",
       "fromId": "adhd-context-switching",
       "toId": "solitude",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-046",
+      "id": "relation-adhd-rejection-spike--preparation",
       "fromId": "adhd-rejection-spike",
       "toId": "preparation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-047",
+      "id": "relation-adhd-rejection-spike--spiral",
       "fromId": "adhd-rejection-spike",
       "toId": "spiral",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-048",
+      "id": "relation-adhd-novelty-decay--preparation",
       "fromId": "adhd-novelty-decay",
       "toId": "preparation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-049",
+      "id": "relation-adhd-sleep-window--solitude",
       "fromId": "adhd-sleep-window",
       "toId": "solitude",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-050",
+      "id": "relation-adhd-restless-current--movement",
       "fromId": "adhd-restless-current",
       "toId": "movement",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-051",
+      "id": "relation-adhd-restless-current--voices",
       "fromId": "adhd-restless-current",
       "toId": "voices",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-052",
+      "id": "relation-pothos--manifestation",
       "fromId": "pothos",
       "toId": "manifestation",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-053",
+      "id": "relation-pothos--glory",
       "fromId": "pothos",
       "toId": "glory",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-054",
+      "id": "relation-manifestation--synchronicity",
       "fromId": "manifestation",
       "toId": "synchronicity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-055",
+      "id": "relation-spiral--movement",
       "fromId": "spiral",
       "toId": "movement",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-056",
+      "id": "relation-agency--fallout",
       "fromId": "agency",
       "toId": "fallout",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-057",
+      "id": "relation-agency--anrxyst",
       "fromId": "agency",
       "toId": "anrxyst",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-058",
+      "id": "relation-fallout--sound",
       "fromId": "fallout",
       "toId": "sound",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-059",
+      "id": "relation-anrxyst--information-gap",
       "fromId": "anrxyst",
       "toId": "information-gap",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-060",
+      "id": "relation-information-gap--consciousness",
       "fromId": "information-gap",
       "toId": "consciousness",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-061",
+      "id": "relation-consciousness--self-model-gap",
       "fromId": "consciousness",
       "toId": "self-model-gap",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-062",
+      "id": "relation-consciousness--cloud-consciousness",
       "fromId": "consciousness",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-063",
+      "id": "relation-cloud-consciousness--singularity",
       "fromId": "cloud-consciousness",
       "toId": "singularity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-064",
+      "id": "relation-cloud-consciousness--information-gap",
       "fromId": "cloud-consciousness",
       "toId": "information-gap",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-065",
+      "id": "relation-hermetic-philosophy--manifestation",
       "fromId": "hermetic-philosophy",
       "toId": "manifestation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-066",
+      "id": "relation-hermetic-philosophy--synchronicity",
       "fromId": "hermetic-philosophy",
       "toId": "synchronicity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-067",
+      "id": "relation-hermetic-philosophy--singularity",
       "fromId": "hermetic-philosophy",
       "toId": "singularity",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-068",
+      "id": "relation-self-belief-scaling--hermetic-philosophy",
       "fromId": "self-belief-scaling",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-069",
+      "id": "relation-self-belief-scaling--kanye",
       "fromId": "self-belief-scaling",
       "toId": "kanye",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-070",
+      "id": "relation-kanye--anrxyst",
       "fromId": "kanye",
       "toId": "anrxyst",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-071",
+      "id": "relation-kanye--alexander",
       "fromId": "kanye",
       "toId": "alexander",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-072",
+      "id": "relation-alexander--pothos",
       "fromId": "alexander",
       "toId": "pothos",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-073",
+      "id": "relation-pothos--non-arrival",
       "fromId": "pothos",
       "toId": "non-arrival",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-074",
+      "id": "relation-non-arrival--agency",
       "fromId": "non-arrival",
       "toId": "agency",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-075",
+      "id": "relation-glory--hierarchy-question",
       "fromId": "glory",
       "toId": "hierarchy-question",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-076",
+      "id": "relation-agency--hierarchy-question",
       "fromId": "agency",
       "toId": "hierarchy-question",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-077",
+      "id": "relation-adhd--solitude",
       "fromId": "adhd",
       "toId": "solitude",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-078",
+      "id": "relation-solitude--preparation",
       "fromId": "solitude",
       "toId": "preparation",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-079",
+      "id": "relation-adhd--voices",
       "fromId": "adhd",
       "toId": "voices",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-080",
+      "id": "relation-voices--preparation",
       "fromId": "voices",
       "toId": "preparation",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-081",
+      "id": "relation-massive-action--preparation",
       "fromId": "massive-action",
       "toId": "preparation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-082",
+      "id": "relation-massive-action--cloud-consciousness",
       "fromId": "massive-action",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-083",
+      "id": "relation-multidimensional-self--hermetic-philosophy",
       "fromId": "multidimensional-self",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-084",
+      "id": "relation-multidimensional-self--manifestation",
       "fromId": "multidimensional-self",
       "toId": "manifestation",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-085",
+      "id": "relation-multidimensional-self--predestination",
       "fromId": "multidimensional-self",
       "toId": "predestination",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-086",
+      "id": "relation-multidimensional-self--illusion-not-fake",
       "fromId": "multidimensional-self",
       "toId": "illusion-not-fake",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-087",
+      "id": "relation-predestination--hermetic-philosophy",
       "fromId": "predestination",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-088",
+      "id": "relation-illusion-not-fake--hermetic-philosophy",
       "fromId": "illusion-not-fake",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-089",
+      "id": "relation-god-as-ethos--hermetic-philosophy",
       "fromId": "god-as-ethos",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-090",
+      "id": "relation-god-as-ethos--singularity",
       "fromId": "god-as-ethos",
       "toId": "singularity",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-091",
+      "id": "relation-aham-brahmasmi--hermetic-philosophy",
       "fromId": "aham-brahmasmi",
       "toId": "hermetic-philosophy",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-092",
+      "id": "relation-aham-brahmasmi--god-as-ethos",
       "fromId": "aham-brahmasmi",
       "toId": "god-as-ethos",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-093",
+      "id": "relation-aham-brahmasmi--four-mahavakyas",
       "fromId": "aham-brahmasmi",
       "toId": "four-mahavakyas",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-094",
+      "id": "relation-four-mahavakyas--mahavakya-prajnanam",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-prajnanam",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-095",
+      "id": "relation-four-mahavakyas--mahavakya-aham",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-aham",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-096",
+      "id": "relation-four-mahavakyas--mahavakya-tat-tvam",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-tat-tvam",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-097",
+      "id": "relation-four-mahavakyas--mahavakya-ayam-atma",
       "fromId": "four-mahavakyas",
       "toId": "mahavakya-ayam-atma",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-098",
+      "id": "relation-information-theory-of-life--singularity",
       "fromId": "information-theory-of-life",
       "toId": "singularity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-099",
+      "id": "relation-information-theory-of-life--information-gap",
       "fromId": "information-theory-of-life",
       "toId": "information-gap",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-100",
+      "id": "relation-information-theory-of-life--cloud-consciousness",
       "fromId": "information-theory-of-life",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-101",
+      "id": "relation-information-theory-of-life--emergence-entropy",
       "fromId": "information-theory-of-life",
       "toId": "emergence-entropy",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-102",
+      "id": "relation-emergence-entropy--singularity",
       "fromId": "emergence-entropy",
       "toId": "singularity",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-103",
+      "id": "relation-aristocrat-philosophy--consciousness",
       "fromId": "aristocrat-philosophy",
       "toId": "consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-104",
+      "id": "relation-purple--anrxyst",
       "fromId": "purple",
       "toId": "anrxyst",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-105",
+      "id": "relation-purple--kanye",
       "fromId": "purple",
       "toId": "kanye",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-106",
+      "id": "relation-fallout--schranz",
       "fromId": "fallout",
       "toId": "schranz",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-107",
+      "id": "relation-schranz--klangkuenstler",
       "fromId": "schranz",
       "toId": "klangkuenstler",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-108",
+      "id": "relation-klangkuenstler--fallout",
       "fromId": "klangkuenstler",
       "toId": "fallout",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-109",
+      "id": "relation-harvey-specter--manifestation",
       "fromId": "harvey-specter",
       "toId": "manifestation",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-110",
+      "id": "relation-harvey-specter--kanye",
       "fromId": "harvey-specter",
       "toId": "kanye",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-111",
+      "id": "relation-pothos--cloud-consciousness",
       "fromId": "pothos",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-112",
+      "id": "relation-pothos--anrxyst",
       "fromId": "pothos",
       "toId": "anrxyst",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-113",
+      "id": "relation-pothos--fallout",
       "fromId": "pothos",
       "toId": "fallout",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-114",
+      "id": "relation-pothos--kanye",
       "fromId": "pothos",
       "toId": "kanye",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-115",
+      "id": "relation-glory--cloud-consciousness",
       "fromId": "glory",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "supported",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_supported",
+      "introducedOn": "2026-07-29"
     },
     {
-      "id": "relation-legacy-116",
+      "id": "relation-manifestation--cloud-consciousness",
       "fromId": "manifestation",
       "toId": "cloud-consciousness",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     },
     {
-      "id": "relation-legacy-117",
+      "id": "relation-anrxyst--fallout",
       "fromId": "anrxyst",
       "toId": "fallout",
       "type": "influences",
       "status": "unknown",
       "approvalState": "proposed",
-      "evidenceSpanIds": []
+      "evidenceSpanIds": [],
+      "reviewDisposition": "reviewed_deliberately_unknown",
+      "introducedOn": "2026-07-30"
     }
   ],
   "contradictionSets": [
@@ -3356,91 +3590,91 @@
     {
       "id": "revision-cluster-self-current",
       "nodeId": "cluster-self",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "12d3cdc9a5cde23b934abbdc17ea7f62a3c310eff94be378cfef06e421069e9f",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-cluster-work-current",
       "nodeId": "cluster-work",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "511337ecda7a8e3e858f3bb39fc91e825f0ca68da8a6df26aa56188a21d91c27",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-cluster-creative-current",
       "nodeId": "cluster-creative",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "cb999ea6551c8e6869448cc1597c29b3c1c66cbe239a5b5d4041b952fb637fdf",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-cluster-knowledge-current",
       "nodeId": "cluster-knowledge",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "cb1b000d82dc9c744111d1998287cbcddf8af4c5056cedadccabfe56de66407d",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-cluster-systems-current",
       "nodeId": "cluster-systems",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "532f7a27e4e1ccbfe2ea138a2c1e2df454f7004b8ca81314c0d6634623165edb",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-agency-current",
       "nodeId": "agency",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "c6055d36b35eebb54800c81756238addd91c0fca8f965bc099fe794f27bf403f",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-preparation-current",
       "nodeId": "preparation",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "28b7c19308e45a7b68fda65f22bf9e67797122e255607502b19e16043d12f0f5",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-massive-action-current",
       "nodeId": "massive-action",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "7499fb0370bf8d00001eb7525523840355bdce00e9df6adbdfbf969cde1e2714",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-pothos-current",
       "nodeId": "pothos",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "81eed2ea429031b4b6dfad262a4e8761e57050fb403e36ee714e70d95580587b",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
@@ -3456,11 +3690,11 @@
     {
       "id": "revision-glory-current",
       "nodeId": "glory",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "0feb8b47ab6079dc4cf9a1b99a3c272138418089cd11a049ee3a55508717b9e3",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
@@ -3576,41 +3810,41 @@
     {
       "id": "revision-spiral-current",
       "nodeId": "spiral",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "5b40dcaf3f2c2ce90a662f7a31e813f2f4e62ce216bdc10097927b9507de2b6d",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-movement-current",
       "nodeId": "movement",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "70617be93ed1b5a39faa172f67c5ea4ac76feb98a3241b6e6c725cf95eaf32e5",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-manifestation-current",
       "nodeId": "manifestation",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "3762c4e17093e7f9aa59e9c2b7ea0218b815680deafd22eb425963986d7e6c75",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-synchronicity-current",
       "nodeId": "synchronicity",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "db7b02a6ba37d1a2ad68cfb9d7202689731794001e83e50823f746d2602ded08",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
@@ -3626,21 +3860,21 @@
     {
       "id": "revision-anrxyst-current",
       "nodeId": "anrxyst",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "7f8205648c280fa1a7a36891a8cd4edb0a579d4c4f1bb645621de23a020111c4",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-fallout-current",
       "nodeId": "fallout",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "0bafb54df04dd84f488ffae8417a5e9eaed1c51c0b07d895a1ad5e98a529cc79",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
@@ -3656,41 +3890,41 @@
     {
       "id": "revision-information-gap-current",
       "nodeId": "information-gap",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "225b515b4f9f4119ecd1fddb0ce5836401e2d525ff57895227dfb98f42b00434",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-consciousness-current",
       "nodeId": "consciousness",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "41a4f5d8b2ca438a5344212a43e9db98a8024e715281ce13ed3b738ca74c90cf",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-self-model-gap-current",
       "nodeId": "self-model-gap",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "d0318860092a85841584e42c7a9d55c9e1c116c1e3d14d664a6f133609df77da",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-cloud-consciousness-current",
       "nodeId": "cloud-consciousness",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "1385b31ead9a3b77aff9a81bea95dc472f5fd893dba4f4bbd1659051cfa49755",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
@@ -3846,111 +4080,111 @@
     {
       "id": "revision-aristocrat-philosophy-current",
       "nodeId": "aristocrat-philosophy",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "996fa446b5c7e5cc3ba63e63b0cefa56c38676433338518ac62e78e89b99c7ca",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-purple-current",
       "nodeId": "purple",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "99478fe5751c45db2941da3cc1627d3e6d015f052b06a9804f4a8d841c4a4ff0",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-schranz-current",
       "nodeId": "schranz",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "04ac8f86de9f6f70694a3f2577fbdb26a2e0c1d05265748c1e252e4f4bb1ce11",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-harvey-specter-current",
       "nodeId": "harvey-specter",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "12981682e019a0b0bc7fee8dfc7352ecd1021b9caf324c80c9fdf0a14083ca1d",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-klangkuenstler-current",
       "nodeId": "klangkuenstler",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "0a3ffbf7ea56b1cc95dc913f5a9f902bb101281095f9c1844b8d341a40c64eb0",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-kanye-current",
       "nodeId": "kanye",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "dd18c07f7e8b668a69248548027f018c39da0758f0de3a007d7e63b5f743bd26",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-alexander-current",
       "nodeId": "alexander",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "0a87f8cabf4cd8914f675e51a720fa4b80b261d3561c99ba01bac8fae87ad971",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-non-arrival-current",
       "nodeId": "non-arrival",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "e7400d2968dfd7adb0138bb4e99fc069ac3967c27549d61a483dceb3e2090cc0",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-hierarchy-question-current",
       "nodeId": "hierarchy-question",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "912456007fd64f94d5d4b6842462beb15d818fa9348d014d8ca8df5ec4a7f662",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-solitude-current",
       "nodeId": "solitude",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "5565bb6ec29f73d183df99b315348e36d34e0abef86fdfb7845ad5e933b61d84",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
       "id": "revision-voices-current",
       "nodeId": "voices",
-      "createdOn": "2026-07-30",
+      "createdOn": "2026-07-29",
       "contentHash": "91ef033f57a9964f89c8d177469a4a2ba72a12ee2d21f11189434e5c7a63f9bc",
       "previousRevisionId": null,
-      "approvalState": "proposed",
-      "reason": "Deployed legacy copy is represented for review; deployment is not semantic approval.",
+      "approvalState": "approved",
+      "reason": "Phase 1.5 was completed and applied; the stale proposed label was reconciled on 2026-08-01.",
       "immutable": true
     },
     {
@@ -3969,74 +4203,74 @@
     {
       "id": "approval-cluster-self-current",
       "subjectId": "claim-cluster-self",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-cluster-work-current",
       "subjectId": "claim-cluster-work",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-cluster-creative-current",
       "subjectId": "claim-cluster-creative",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-cluster-knowledge-current",
       "subjectId": "claim-cluster-knowledge",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-cluster-systems-current",
       "subjectId": "claim-cluster-systems",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-agency-current",
       "subjectId": "claim-agency",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-preparation-current",
       "subjectId": "claim-preparation",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-massive-action-current",
       "subjectId": "claim-massive-action",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-pothos-current",
       "subjectId": "claim-pothos",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-love-current",
@@ -4049,10 +4283,10 @@
     {
       "id": "approval-glory-current",
       "subjectId": "claim-glory",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-adhd-current",
@@ -4145,34 +4379,34 @@
     {
       "id": "approval-spiral-current",
       "subjectId": "claim-spiral",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-movement-current",
       "subjectId": "claim-movement",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-manifestation-current",
       "subjectId": "claim-manifestation",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-synchronicity-current",
       "subjectId": "claim-synchronicity",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-c2x-current",
@@ -4185,18 +4419,18 @@
     {
       "id": "approval-anrxyst-current",
       "subjectId": "claim-anrxyst",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-fallout-current",
       "subjectId": "claim-fallout",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-sound-current",
@@ -4209,34 +4443,34 @@
     {
       "id": "approval-information-gap-current",
       "subjectId": "claim-information-gap",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-consciousness-current",
       "subjectId": "claim-consciousness",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-self-model-gap-current",
       "subjectId": "claim-self-model-gap",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-cloud-consciousness-current",
       "subjectId": "claim-cloud-consciousness",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-hermetic-philosophy-current",
@@ -4361,90 +4595,90 @@
     {
       "id": "approval-aristocrat-philosophy-current",
       "subjectId": "claim-aristocrat-philosophy",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-purple-current",
       "subjectId": "claim-purple",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-schranz-current",
       "subjectId": "claim-schranz",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-harvey-specter-current",
       "subjectId": "claim-harvey-specter",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-klangkuenstler-current",
       "subjectId": "claim-klangkuenstler",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-kanye-current",
       "subjectId": "claim-kanye",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-alexander-current",
       "subjectId": "claim-alexander",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-non-arrival-current",
       "subjectId": "claim-non-arrival",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-hierarchy-question-current",
       "subjectId": "claim-hierarchy-question",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-solitude-current",
       "subjectId": "claim-solitude",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     },
     {
       "id": "approval-voices-current",
       "subjectId": "claim-voices",
-      "state": "proposed",
-      "actor": "agent",
-      "date": "2026-07-30",
-      "evidence": "Phase 1.5 classification proposal; no automatic promotion is permitted."
+      "state": "approved",
+      "actor": "chay",
+      "date": "2026-07-29",
+      "evidence": "Chay confirmed that the previous Phase 1.5 review was completed; this reconciles its stale queue metadata."
     }
   ],
   "auditLedger": [
@@ -4468,9 +4702,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "cluster-work",
@@ -4491,9 +4725,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "cluster-creative",
@@ -4515,9 +4749,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "cluster-knowledge",
@@ -4538,9 +4772,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "cluster-systems",
@@ -4561,9 +4795,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "agency",
@@ -4583,9 +4817,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "preparation",
@@ -4609,9 +4843,9 @@
       "failureReasons": [
         "estimated ratio can read as measurement"
       ],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "massive-action",
@@ -4631,9 +4865,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "pothos",
@@ -4654,9 +4888,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "love",
@@ -4700,9 +4934,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "adhd",
@@ -4990,9 +5224,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "movement",
@@ -5011,9 +5245,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "manifestation",
@@ -5036,9 +5270,9 @@
       ],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "synchronicity",
@@ -5058,9 +5292,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "c2x",
@@ -5105,9 +5339,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "fallout",
@@ -5128,9 +5362,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "sound",
@@ -5176,9 +5410,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "consciousness",
@@ -5198,9 +5432,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "self-model-gap",
@@ -5219,9 +5453,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "system_observation",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "cloud-consciousness",
@@ -5242,9 +5476,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "hermetic-philosophy",
@@ -5626,9 +5860,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "purple",
@@ -5648,9 +5882,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "schranz",
@@ -5671,9 +5905,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "harvey-specter",
@@ -5692,9 +5926,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "klangkuenstler",
@@ -5715,9 +5949,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "kanye",
@@ -5737,9 +5971,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "alexander",
@@ -5761,9 +5995,9 @@
       ],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "non-arrival",
@@ -5782,9 +6016,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "hierarchy-question",
@@ -5806,9 +6040,9 @@
       ],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "exact",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "solitude",
@@ -5828,9 +6062,9 @@
       "contradictionsOrVariants": [],
       "verdict": "keep",
       "failureReasons": [],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     },
     {
       "nodeId": "voices",
@@ -5852,9 +6086,9 @@
       "failureReasons": [
         "agent-authored profile synthesis can be mistaken for self-description"
       ],
-      "approvalState": "proposed",
+      "approvalState": "approved",
       "provenanceStatus": "private_hash",
-      "auditOrigin": "phase-1.5"
+      "auditOrigin": "completed-phase-1.5-review-reconciled"
     }
   ],
   "reviewQueue": [
@@ -5875,48 +6109,6 @@
         "love"
       ],
       "decision": "Review private nodes, Love records, dates and relationship structure one by one before releasing any detail.",
-      "material": true,
-      "status": "awaiting_chay"
-    },
-    {
-      "id": "review-remaining-semantic-proposals",
-      "subjectIds": [
-        "cluster-self",
-        "cluster-work",
-        "cluster-creative",
-        "cluster-knowledge",
-        "cluster-systems",
-        "agency",
-        "preparation",
-        "massive-action",
-        "pothos",
-        "love",
-        "glory",
-        "spiral",
-        "movement",
-        "manifestation",
-        "synchronicity",
-        "c2x",
-        "anrxyst",
-        "fallout",
-        "sound",
-        "information-gap",
-        "consciousness",
-        "self-model-gap",
-        "cloud-consciousness",
-        "aristocrat-philosophy",
-        "purple",
-        "schranz",
-        "harvey-specter",
-        "klangkuenstler",
-        "kanye",
-        "alexander",
-        "non-arrival",
-        "hierarchy-question",
-        "solitude",
-        "voices"
-      ],
-      "decision": "Review the Phase 1.5 classifications and proposed tightenings as one queue; deployment alone does not approve them.",
       "material": true,
       "status": "awaiting_chay"
     }
