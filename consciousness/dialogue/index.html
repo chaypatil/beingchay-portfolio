@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <title>Dialogue Lab — private</title>
+  <link rel="stylesheet" href="./dialogue.css?v=1">
+</head>
+<body>
+  <main class="lab-shell">
+    <header class="lab-header">
+      <a href="/consciousness/" aria-label="Back to Cloud Consciousness">← चैतन्य</a>
+      <span>private dialogue lab</span>
+      <span id="lab-status">locked</span>
+    </header>
+
+    <section class="auth-card" id="auth-card" aria-labelledby="auth-title">
+      <p class="eyebrow">Private Layer</p>
+      <h1 id="auth-title">Continue the thought.</h1>
+      <p>This conversation stays outside the public Mirror. Nothing becomes part of the model without review.</p>
+      <form id="auth-form">
+        <label class="sr-only" for="lab-password">Private password</label>
+        <input id="lab-password" type="password" autocomplete="current-password" maxlength="256" placeholder="password" required>
+        <button type="submit">Enter</button>
+      </form>
+      <p class="error" id="auth-error" aria-live="polite"></p>
+    </section>
+
+    <section class="dialogue-app" id="dialogue-app" hidden>
+      <nav class="mode-selector" aria-label="Conversation intention">
+        <button type="button" data-mode="listen" aria-pressed="true">Listen</button>
+        <button type="button" data-mode="interrogate" aria-pressed="false">Interrogate</button>
+        <button type="button" data-mode="counter" aria-pressed="false">Counter</button>
+        <button type="button" data-mode="synthesize" aria-pressed="false">Synthesize</button>
+      </nav>
+
+      <section class="conversation" id="lab-conversation" aria-live="polite">
+        <article class="message mirror"><p>Put the unfinished version here. It does not need to arrive dressed for court.</p></article>
+      </section>
+
+      <details class="evidence-drawer" id="evidence-drawer">
+        <summary>What this response used</summary>
+        <div id="evidence-content"><p>No sources used yet.</p></div>
+      </details>
+
+      <form class="composer" id="lab-form">
+        <label class="sr-only" for="lab-input">Develop a thought</label>
+        <textarea id="lab-input" rows="3" maxlength="12000" placeholder="Write the thought before it becomes neat…" required></textarea>
+        <div><button type="button" id="end-session">End + review</button><button type="submit">Send ↗</button></div>
+      </form>
+    </section>
+
+    <dialog class="review-dialog" id="review-dialog">
+      <header><span>Session review</span><button type="button" id="review-close" aria-label="Close">×</button></header>
+      <p id="review-summary"></p>
+      <div id="proposal-list"></div>
+      <footer><button type="button" id="download-session">Download private source record</button></footer>
+    </dialog>
+  </main>
+  <script type="module" src="./dialogue.js?v=1"></script>
+</body>
+</html>

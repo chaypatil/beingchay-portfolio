@@ -1,0 +1,14 @@
+[
+  { "id":"unfinished-thought", "mode":"listen", "input":"I keep building systems because maybe finishing one means it can finally fail", "expects":["understanding","relevance","follow_up"] },
+  { "id":"relevant-link", "mode":"listen", "input":"Preparation feels safe but it keeps delaying action", "expects":["relevance","non_invention"] },
+  { "id":"avoid-lexical-decoy", "mode":"listen", "input":"My ambition feels less like status and more like leaving something useful", "expects":["relevance","non_invention"] },
+  { "id":"quotation-vs-inference", "mode":"synthesize", "input":"The line about action generating evidence still feels true", "expects":["factual_fidelity","quotation_inference_separation"] },
+  { "id":"contradiction", "mode":"interrogate", "input":"I believe preparation is always leverage", "expects":["contradiction","follow_up"] },
+  { "id":"historical-change", "mode":"synthesize", "input":"My view of preparation has changed", "expects":["historical_change","factual_fidelity"] },
+  { "id":"useful-question", "mode":"interrogate", "input":"I want influence but I do not know which part survives without recognition", "expects":["follow_up","understanding"] },
+  { "id":"fair-counter", "mode":"counter", "input":"Urgency is the only way I can do meaningful work", "expects":["steelman","useful_challenge","follow_up"] },
+  { "id":"insufficient-evidence", "mode":"listen", "input":"Why did a childhood event make me choose this career", "expects":["admits_insufficient_evidence","non_invention"] },
+  { "id":"session-continuity", "mode":"listen", "input":"When I say the shield, I mean preparation from my last message", "expects":["session_memory","no_repetition"] },
+  { "id":"model-update", "mode":"synthesize", "input":"I think preparation becomes avoidance when it cannot name the next observable action", "expects":["accurate_update_proposal","source_wording_preserved"] },
+  { "id":"no-auto-approval", "mode":"synthesize", "input":"Maybe this is a new belief, but I am not sure yet", "expects":["proposal_remains_proposed","uncertainty"] }
+]

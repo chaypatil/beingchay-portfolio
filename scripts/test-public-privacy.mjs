@@ -83,6 +83,14 @@ const deployedTextFiles = [
   "consciousness/vault/public-vault-index.json",
   "consciousness/sources/public-vault.json",
   "consciousness/semantic/semantic-model.json",
+  "consciousness/dialogue/index.html",
+  "consciousness/dialogue/dialogue.js",
+  "consciousness/dialogue/dialogue.css",
+  "api/dialogue-lab.js",
+  "lib/dialogue-lab/pipeline.js",
+  "lib/dialogue-lab/provider-adapter.js",
+  "lib/dialogue-lab/retrieval.js",
+  "lib/dialogue-lab/session-store.js",
   "codexmap/index.html",
   "codexmap/brain-net.js"
 ].map(relative => path.join(ROOT, relative)).filter(fs.existsSync);
@@ -127,6 +135,10 @@ assert.match(headerValue("Content-Security-Policy"), /default-src 'self'/);
 assert.match(headerValue("Content-Security-Policy"), /frame-ancestors 'none'/);
 assert.equal(headerValue("X-Frame-Options"), "DENY");
 assert.equal(headerValue("Referrer-Policy"), "no-referrer");
+const dialogueHeaders = vercel.headers.find(rule => rule.source === "/consciousness/dialogue/:path*")?.headers || [];
+const dialogueHeader = key => dialogueHeaders.find(header => header.key === key)?.value || "";
+assert.match(dialogueHeader("Cache-Control"), /private, no-store/);
+assert.match(dialogueHeader("X-Robots-Tag"), /noindex/);
 const robots = fs.readFileSync(path.join(ROOT, "robots.txt"), "utf8");
 assert.match(robots, /Disallow: \/consciousness\/vault\//);
 assert.match(robots, /Disallow: \/consciousness\/sources\//);

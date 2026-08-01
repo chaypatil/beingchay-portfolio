@@ -1,10 +1,4 @@
-const { scryptSync, timingSafeEqual } = require("node:crypto");
-
-const ALLOWED_ORIGINS = new Set([
-  "https://beingchay.com",
-  "https://www.beingchay.com",
-  "https://beingchay.vercel.app"
-]);
+const { isAllowedOrigin, verifyPrivatePassword } = require("../lib/private-auth");
 
 function deny(res, status, message) {
   res.status(status).json({ error: message });
@@ -24,7 +18,7 @@ module.exports = async function handler(req, res) {
   }
 
   const origin = req.headers.origin;
-  if (origin && !ALLOWED_ORIGINS.has(origin)) return deny(res, 403, "Forbidden");
+  if (!isAllowedOrigin(origin)) return deny(res, 403, "Forbidden");
 
   const encodedPayload = process.env.CONSCIOUSNESS_PRIVATE_DATA_B64;
   if (!configuredHash || !encodedPayload) return deny(res, 503, "Private layer unavailable");
@@ -41,17 +35,7 @@ module.exports = async function handler(req, res) {
     return deny(res, 401, "Access denied");
   }
 
-  const [saltHex, expectedHex] = configuredHash.split(":");
-  if (!saltHex || !expectedHex) return deny(res, 503, "Private layer unavailable");
-
-  let accepted = false;
-  try {
-    const actual = scryptSync(password, Buffer.from(saltHex, "hex"), 32);
-    const expected = Buffer.from(expectedHex, "hex");
-    accepted = actual.length === expected.length && timingSafeEqual(actual, expected);
-  } catch {
-    return deny(res, 503, "Private layer unavailable");
-  }
+  const accepted = verifyPrivatePassword(password, configuredHash);
 
   if (!accepted) {
     await new Promise(resolve => setTimeout(resolve, 650));
