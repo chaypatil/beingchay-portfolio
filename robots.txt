@@ -3,4 +3,5 @@ Disallow: /api/
 Disallow: /consciousness/vault/
 Disallow: /consciousness/sources/
 Disallow: /consciousness/semantic/
+Disallow: /consciousness/dialogue/
 
