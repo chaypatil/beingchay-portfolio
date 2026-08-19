@@ -62,66 +62,6 @@ export const NODE_REGION = {
     weight: 0.94,
     why: "It indexes Chay's lived attention, activation and inner-state patterns."
   },
-  "adhd-initiation-fog": {
-    region: "prefrontal",
-    weight: 0.88,
-    why: "Knowing what matters but not starting sits in the initiation drawer."
-  },
-  "adhd-urgency-focus": {
-    region: "brainstem",
-    weight: 0.9,
-    why: "Pressure abruptly switching focus on makes this a momentum drawer."
-  },
-  "adhd-burst-rhythm": {
-    region: "motor",
-    weight: 0.87,
-    why: "Intense output windows and recovery are filed with action rhythm."
-  },
-  "adhd-forced-shutdown": {
-    region: "insula",
-    weight: 0.9,
-    why: "Effort turning into felt shutdown belongs to the inner-state drawer."
-  },
-  "adhd-context-switching": {
-    region: "parietal",
-    weight: 0.86,
-    why: "Moving between frames and tasks fits the attention-routing drawer."
-  },
-  "adhd-visible-progress": {
-    region: "occipital",
-    weight: 0.82,
-    why: "Visible evidence of movement keeps the task legible and attached."
-  },
-  "adhd-novelty-decay": {
-    region: "limbic",
-    weight: 0.84,
-    why: "Interest fading from a once-new system belongs to the salience drawer."
-  },
-  "adhd-sleep-window": {
-    region: "brainstem",
-    weight: 0.8,
-    why: "A narrow timing window is stored with bodily rhythm and switching."
-  },
-  "adhd-rejection-spike": {
-    region: "limbic",
-    weight: 0.93,
-    why: "The fast emotional crash and exit urge make this a feeling drawer."
-  },
-  "adhd-restless-current": {
-    region: "motor",
-    weight: 0.85,
-    why: "Fidgeting and internal motion are filed with restless movement."
-  },
-  "spiral": {
-    region: "insula",
-    weight: 0.9,
-    why: "Private inner weather hardens into verdicts, making it an inward-friction theme."
-  },
-  "movement": {
-    region: "motor",
-    weight: 0.99,
-    why: "It explicitly uses physical movement to change the state of thought."
-  },
   "manifestation": {
     region: "occipital",
     weight: 0.82,
@@ -297,9 +237,4 @@ export const NODE_REGION = {
     weight: 0.94,
     why: "It protects inner conditions, energy, sleep, and focus from outside noise."
   },
-  "voices": {
-    region: "temporal",
-    weight: 0.9,
-    why: "Two modes of speech and self-narration compete over tone, energy, and promise."
-  }
 };

@@ -3,7 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#efeee8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#efeee8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#080909" media="(prefers-color-scheme: dark)">
+  <script>
+    // Set the theme before first paint so dark-mode visitors never see a white flash.
+    // Mirrors preferredMapTheme() in map-page.js — keep the two in sync.
+    (function () {
+      var t;
+      try { t = localStorage.getItem("consciousness-map-theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") {
+        t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
   <title>चैतन्य — beingchay</title>
   <meta name="description" content="चैतन्य — a living map of Chay's memories, beliefs, patterns, influences, and contradictions.">
   <link rel="canonical" href="https://beingchay.com/consciousness/">
@@ -475,14 +489,18 @@
        graph paper, 1-bit geometry, square nodes and chromatic registration noise. */
     :root {
       color-scheme: light;
+      /* Surface tokens. Panels, grid lines and shadows read from these so the
+         dark theme can flip them. Never hardcode the paper colour again. */
+      --panel-rgb: 239, 238, 232;
+      --grid-rgb: 10, 10, 10;
       --paper: #efeee8;
       --paper-deep: #e5e3dc;
       --bg: #efeee8;
       --ink: #0a0a0a;
       --muted: #4b4a47;
       --dim: #77746e;
-      --line: rgba(10, 10, 10, .12);
-      --line-strong: rgba(10, 10, 10, .34);
+      --line: rgba(var(--grid-rgb), .12);
+      --line-strong: rgba(var(--grid-rgb), .34);
       --accent: #613cff;
       --memory: #766bff;
       --belief: #613cff;
@@ -504,8 +522,8 @@
     html, body { background: var(--paper); color: var(--ink); }
     body {
       background-image:
-        linear-gradient(rgba(10,10,10,.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10,10,10,.055) 1px, transparent 1px);
+        linear-gradient(rgba(var(--grid-rgb), .055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--grid-rgb), .055) 1px, transparent 1px);
       background-size: 16px 16px;
     }
     ::selection { background: var(--ink); color: var(--paper); }
@@ -521,7 +539,7 @@
     .topbar {
       grid-template-columns: 210px 1fr 360px;
       border-color: var(--ink);
-      background: rgba(239,238,232,.94);
+      background: rgba(var(--panel-rgb), .94);
       backdrop-filter: blur(8px);
     }
     .brand { border-color: var(--ink); color: var(--ink); text-decoration: none; }
@@ -542,10 +560,10 @@
 
     .left-rail {
       border-color: var(--ink);
-      background-color: rgba(239,238,232,.9);
+      background-color: rgba(var(--panel-rgb), .9);
       background-image:
-        linear-gradient(rgba(10,10,10,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10,10,10,.045) 1px, transparent 1px);
+        linear-gradient(rgba(var(--grid-rgb), .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--grid-rgb), .045) 1px, transparent 1px);
       background-size: 16px 16px;
       min-width: 0;
       transition: opacity .2s steps(4, end), visibility .2s, padding .28s steps(6, end);
@@ -568,8 +586,8 @@
       gap: 3px;
       padding: 3px;
       border: 1px solid var(--ink);
-      background: rgba(239,238,232,.94);
-      box-shadow: 3px 3px 0 rgba(10,10,10,.14);
+      background: rgba(var(--panel-rgb), .94);
+      box-shadow: 3px 3px 0 rgba(var(--grid-rgb), .14);
     }
     .ui-tool {
       appearance: none;
@@ -599,8 +617,8 @@
       isolation: isolate;
       background-color: var(--paper);
       background-image:
-        linear-gradient(rgba(10,10,10,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10,10,10,.07) 1px, transparent 1px);
+        linear-gradient(rgba(var(--grid-rgb), .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--grid-rgb), .07) 1px, transparent 1px);
       background-size: 16px 16px;
     }
     .map-view::after {
@@ -716,7 +734,7 @@
       pointer-events: none;
     }
     .edge {
-      stroke: rgba(10,10,10,.2);
+      stroke: rgba(var(--grid-rgb), .2);
       stroke-width: 1;
       shape-rendering: crispEdges;
     }
@@ -760,7 +778,7 @@
       stroke: var(--node-color);
       stroke-width: 2;
       shape-rendering: crispEdges;
-      filter: drop-shadow(2px 2px 0 rgba(10,10,10,.16));
+      filter: drop-shadow(2px 2px 0 rgba(var(--grid-rgb), .16));
     }
     .node .point {
       fill: var(--node-color);
@@ -806,8 +824,8 @@
     .editorial-view, .time-view, .voice-intro {
       background-color: var(--paper);
       background-image:
-        linear-gradient(rgba(10,10,10,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10,10,10,.045) 1px, transparent 1px);
+        linear-gradient(rgba(var(--grid-rgb), .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--grid-rgb), .045) 1px, transparent 1px);
       background-size: 16px 16px;
     }
     .editorial-header h2, .time-header h2, .voice-intro h2 {
@@ -834,12 +852,12 @@
     .voice-intro { padding: clamp(30px, 4vw, 56px); border-color: var(--ink); }
     .voice-intro h2 { font-size: clamp(50px, 4.8vw, 72px); }
     .voice-console {
-      color: var(--paper);
-      --ink: var(--paper);
+      color: #efeee8;
+      --ink: #efeee8;
       --muted: #b4b2aa;
       --dim: #73716b;
-      --line: rgba(239,238,232,.16);
-      --line-strong: rgba(239,238,232,.34);
+      --line: rgba(239, 238, 232, .16);
+      --line-strong: rgba(239, 238, 232, .34);
       background-color: #080808;
       background-image:
         linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
@@ -849,12 +867,12 @@
     .ask-submit { color: var(--signal-green); }
 
     .detail-panel {
-      color: var(--paper);
-      --ink: var(--paper);
+      color: #efeee8;
+      --ink: #efeee8;
       --muted: #bbb8af;
       --dim: #77746d;
-      --line: rgba(239,238,232,.14);
-      --line-strong: rgba(239,238,232,.34);
+      --line: rgba(239, 238, 232, .14);
+      --line-strong: rgba(239, 238, 232, .34);
       border-color: var(--ink);
       background-color: #080808;
       background-image:
@@ -870,20 +888,20 @@
     .inference-note { border-color: var(--line-strong); background: rgba(255,255,255,.03); }
 
     .private-dialog {
-      color: var(--paper);
-      --ink: var(--paper);
+      color: #efeee8;
+      --ink: #efeee8;
       --muted: #aaa89f;
       --dim: #706e68;
-      --line: rgba(239,238,232,.16);
-      --line-strong: rgba(239,238,232,.4);
-      border: 1px solid rgba(239,238,232,.34);
+      --line: rgba(239, 238, 232, .16);
+      --line-strong: rgba(239, 238, 232, .4);
+      border: 1px solid rgba(239, 238, 232, .34);
       background: #050505;
       box-shadow: 0 24px 80px rgba(0,0,0,.72);
     }
     .private-dialog::backdrop { background: rgba(0,0,0,.76); backdrop-filter: blur(2px); }
     .private-submit { color: var(--signal-green); }
     .transit-dialog-body { display: grid; gap: 16px; padding: 20px; }
-    .transit-dialog-question { margin: 0; color: var(--paper); font: 12px/1.5 var(--mono); }
+    .transit-dialog-question { margin: 0; color: #efeee8; font: 12px/1.5 var(--mono); }
     .transit-dialog-enter {
       appearance: none;
       width: 100%;
@@ -902,7 +920,7 @@
     .transit-dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .transit-dialog-decline { box-shadow: none; color: var(--muted); border-color: var(--dim); }
 
-    .bottom-bar { border-color: var(--ink); background: rgba(239,238,232,.96); }
+    .bottom-bar { border-color: var(--ink); background: rgba(var(--panel-rgb), .96); }
     .time-scrub { height: 48px; color: var(--dim); font-weight: 700; }
     .time-scrub::before, .time-scrub::after { top: 24px; }
     .time-scrub::before { background: var(--line-strong); }
@@ -1027,6 +1045,8 @@
 
     html[data-theme="dark"] {
       color-scheme: dark;
+      --panel-rgb: 8, 9, 9;
+      --grid-rgb: 236, 238, 234;
       --paper: #080909;
       --paper-deep: #111313;
       --bg: #080909;
@@ -1357,8 +1377,8 @@
           </article>
           <article class="era" style="--era-color:var(--tension)">
             <time class="era-year">2021—23</time><h3>Constraint and reinvention</h3>
-            <p>Jail, rupture, financial pressure and altered self-image. Suits becomes an intentional scaffold for composure and power.</p>
-            <div class="era-tags"><span>survival</span><span>identity scaffold</span><span>control</span></div>
+            <p>A period of external constraint and rebuilding. Suits becomes an intentional scaffold for composure and power.</p>
+            <div class="era-tags"><span>identity scaffold</span><span>composure</span></div>
           </article>
           <article class="era" style="--era-color:var(--influence)">
             <time class="era-year">2024—25</time><h3>Public forms appear</h3>

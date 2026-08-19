@@ -1,11 +1,21 @@
 # Internal / working docs — never publish to the live site
-HANDOVER-FINAL.md
-HANDOVER-claude-code-deploy.md
-HANDOVER-for-claude-code-vault-work.md
-HANDOVER-CONSCIOUSNESS-CONTINUITY.md
+*.md
+.archive-handovers
 consciousness/NODE-BACKLOG.md
 consciousness/NODE-PUBLISHING-PROCESS.md
 assets/logos/peoplebox.jfif
+
+# Internal review + provenance tooling. Not referenced by any page.
+# Contains verbatim source quotes and privacy classifications.
+consciousness/semantic
+
+# Build + test scripts. NOTE: scripts/vercel-analytics-init.js is loaded by every
+# page, so this directory must NOT be excluded wholesale.
+scripts/build-*
+scripts/test-*
+scripts/sync-public-source-corpus.js
+scripts/fixtures
+scripts/lib
 
 # Secrets / local tooling (also gitignored)
 .env*

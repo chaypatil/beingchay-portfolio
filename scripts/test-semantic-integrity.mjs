@@ -21,22 +21,22 @@ const graphPublic = publicNodes.filter(node => !node.id.startsWith("locked-"));
 const placeholders = publicNodes.filter(node => node.id.startsWith("locked-"));
 assert.equal(vault.meta.records, 111, "The canonical public-vault inventory must reconcile to 111 records.");
 assert.equal(vault.records.length, 111);
-assert.equal(publicNodes.length, 68, "The visual graph must contain 68 records.");
-assert.equal(graphPublic.length, 60, "The visual graph must contain 60 semantic/index nodes.");
+assert.equal(publicNodes.length, 55, "The visual graph must contain 55 records.");
+assert.equal(graphPublic.length, 47, "The visual graph must contain 47 semantic/index nodes.");
 assert.equal(placeholders.length, 8, "The visual graph must contain 8 non-semantic privacy placeholders.");
-assert.equal(model.auditLedger.length, 60, "Every semantic/index node needs exactly one audit verdict.");
-assert.equal(model.nodes.length, 60, "Every semantic/index node needs a semantic node record.");
-assert.equal(new Set(model.auditLedger.map(entry => entry.nodeId)).size, 60);
+assert.equal(model.auditLedger.length, 47, "Every semantic/index node needs exactly one audit verdict.");
+assert.equal(model.nodes.length, 47, "Every semantic/index node needs a semantic node record.");
+assert.equal(new Set(model.auditLedger.map(entry => entry.nodeId)).size, 47);
 assert.deepEqual(
   [...new Set(model.auditLedger.map(entry => entry.nodeId))].sort(),
   graphPublic.map(node => node.id).sort(),
   "Semantic audit and public graph must account for the same IDs."
 );
-assert.equal(Object.keys(NODE_REGION).length, 60, "Brain mappings must remain compatible.");
+assert.equal(Object.keys(NODE_REGION).length, 47, "Brain mappings must remain compatible.");
 assert.deepEqual(Object.keys(NODE_REGION).sort(), graphPublic.map(node => node.id).sort());
-assert.equal(corpus.nodes.length, 49, "The retrieval corpus must include Mahāvākyas, the ADHD children and the redacted Love shell.");
-assert.equal(publicEdges.length, 117, "The Library edge contract must include the public-safe ADHD cluster and exclude private Love context.");
-assert.equal(model.auditLedger.filter(entry => entry.approvalState === "approved").length, 57);
+assert.equal(corpus.nodes.length, 36, "The retrieval corpus must include Mahāvākyas and the redacted Love shell, and must exclude every withheld record.");
+assert.equal(publicEdges.length, 93, "The Library edge contract must exclude the withheld ADHD cluster and private Love context.");
+assert.equal(model.auditLedger.filter(entry => entry.approvalState === "approved").length, 44);
 assert.deepEqual(
   model.auditLedger.filter(entry => entry.approvalState === "proposed").map(entry => entry.nodeId).sort(),
   ["c2x", "love", "sound"],
@@ -52,7 +52,7 @@ for (const relation of model.relations) {
     relation.status === "supported" ? "reviewed_supported" : "reviewed_deliberately_unknown"
   );
 }
-assert.equal(model.relations.filter(relation => relation.reviewDisposition === "reviewed_deliberately_unknown").length, 39);
+assert.equal(model.relations.filter(relation => relation.reviewDisposition === "reviewed_deliberately_unknown").length, 37);
 
 const expressionTypes = new Set(["direct_quote", "faithful_paraphrase", "synthesis", "inference"]);
 const epistemicTypes = new Set(["memory", "belief", "value", "preference", "interpretation", "hypothesis", "plan", "external_factual_claim"]);
@@ -118,7 +118,14 @@ assert.equal(loveClaim.privacy, "P2");
 assert.equal(loveEvidence.representation, "private_hash");
 assert(!("safeExcerpt" in loveEvidence));
 
-const adhdChildIds = [
+// Withheld on 2026-08-19. These ten child nodes were added on Chay's explicit
+// request (audit origin "chay-decision-2026-07-30"). He reversed that decision:
+// read together they form a clinical symptom inventory, and a stranger evaluating
+// him professionally reads them as a reliability risk. The material is preserved in
+// Chay OS. This test now guards the reversal so a future sync cannot quietly
+// reintroduce them. To restore any of them, remove the id from withheldNodeIds in
+// scripts/sync-public-source-corpus.js and move it back into this file's kept list.
+const withheldChildIds = [
   "adhd-initiation-fog",
   "adhd-urgency-focus",
   "adhd-burst-rhythm",
@@ -130,22 +137,25 @@ const adhdChildIds = [
   "adhd-rejection-spike",
   "adhd-restless-current"
 ];
+const withheldPatternIds = ["spiral", "movement", "voices"];
 const adhdMother = model.nodes.find(node => node.id === "adhd");
 assert.equal(adhdMother.graphRole, "thematic_mother", "ADHD must remain an explicit thematic mother.");
-for (const id of adhdChildIds) {
-  const graphNode = graphPublic.find(node => node.id === id);
-  const semanticNode = model.nodes.find(node => node.id === id);
-  const claim = model.claims.find(candidate => candidate.id === `claim-${id}`);
-  const audit = model.auditLedger.find(entry => entry.nodeId === id);
-  assert(graphNode, `${id} must remain visible in the Library graph.`);
-  assert(semanticNode, `${id} must have a semantic node record.`);
-  assert.equal(semanticNode.graphRole, "display_child", `${id} must remain a child node.`);
-  assert.equal(claim.privacy, "P0", `${id} is approved only as a public-safe distillation.`);
-  assert.equal(claim.approvalState, "approved", `${id} was explicitly requested by Chay.`);
-  assert.equal(audit.auditOrigin, "chay-decision-2026-07-30");
-  assert(NODE_REGION[id], `${id} must have an artistic Brain mapping.`);
-  assert(corpus.nodes.some(node => node.id === id), `${id} must be available to Mirror retrieval.`);
+for (const id of [...withheldChildIds, ...withheldPatternIds]) {
+  assert(!graphPublic.some(node => node.id === id), `${id} must stay out of the Library graph.`);
+  assert(!model.nodes.some(node => node.id === id), `${id} must have no semantic node record.`);
+  assert(!model.claims.some(claim => claim.id === `claim-${id}`), `${id} must have no claim record.`);
+  assert(!model.auditLedger.some(entry => entry.nodeId === id), `${id} must have no audit verdict.`);
+  assert(!model.evidenceSpans.some(span => span.id === `evidence-${id}`), `${id} must have no evidence span.`);
+  assert(!NODE_REGION[id], `${id} must have no Brain mapping.`);
+  assert(!corpus.nodes.some(node => node.id === id), `${id} must be unavailable to Mirror retrieval.`);
+  assert(!publicEdges.some(edge => edge[0] === id || edge[1] === id), `${id} must have no public edge.`);
 }
+// The withheld quotes must not survive anywhere in the shipped semantic model.
+const modelText = JSON.stringify(model).toLowerCase();
+for (const phrase of ["renders me to sleepy mode", "rejection spike", "rsd", "hype-man", "catastrophiz"]) {
+  assert(!modelText.includes(phrase), `Withheld phrase leaked back into the semantic model: ${phrase}`);
+}
+const adhdChildIds = withheldChildIds;
 const publicAdhdArtifacts = JSON.stringify({
   graph:graphPublic.filter(node => node.id === "adhd" || adhdChildIds.includes(node.id)),
   corpus:corpus.nodes.filter(node => node.id === "adhd" || adhdChildIds.includes(node.id))

@@ -288,16 +288,37 @@ function setBrainMode(enabled, { updateUrl = true, animate = true } = {}) {
   brainMorphFrame = requestAnimationFrame(step);
 }
 
+const THEME_KEY = "consciousness-map-theme";
+
+// Resolve the theme the visitor should get: their own stored choice wins, otherwise
+// follow the OS/browser setting. Without this the page hard-defaulted to light, so
+// anyone browsing at night fell through to an external dark-mode tool inverting the
+// page — which mangles the SVG graph and makes label text read as redaction bars.
+function preferredMapTheme() {
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "dark" || stored === "light") return stored;
+  } catch {}
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
 function setMapTheme(theme, { persist = true } = {}) {
   const next = theme === "dark" ? "dark" : "light";
   document.documentElement.dataset.theme = next;
   const toggle = document.querySelector("#map-theme-toggle");
   toggle?.setAttribute("aria-label", `Switch to ${next === "dark" ? "light" : "dark"} mode`);
   if (persist) {
-    try { localStorage.setItem("consciousness-map-theme", next); } catch {}
+    try { localStorage.setItem(THEME_KEY, next); } catch {}
   }
   brainRenderer?.redraw();
 }
+
+// Follow the OS if the visitor has never picked a theme here themselves.
+window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", event => {
+  let hasChoice = false;
+  try { hasChoice = Boolean(localStorage.getItem(THEME_KEY)); } catch {}
+  if (!hasChoice) setMapTheme(event.matches ? "dark" : "light", { persist:false });
+});
 
 function projectNode(node, layout) {
   const position = getNodePosition(node);
@@ -902,9 +923,6 @@ const SOURCE_ALIASES = {
   manifestation: "manifestation",
   "non-arrival": "non-arrival",
   "hierarchy-question": "hierarchy-tension",
-  adhd: "activation-model",
-  voices: "voices",
-  preparation: "preparation-execution-paradox",
   "massive-action": "massive-action",
   solitude: "solitude-unlock",
   "multidimensional-self": "multidimensional-self",
@@ -1443,7 +1461,7 @@ const probeQuestions = [
   { id:"timeline-variant", priority:90, nodes:["multidimensional-self","predestination"], question:"Do choices literally select existing timelines for you, or is that now mainly a language for consequences and identity?", unlocks:"A dated historical variant instead of one flattened cosmology." },
   { id:"system-dissolves", priority:88, nodes:["preparation","consciousness"], question:"What proof would tell you a system has finished serving you and should now dissolve?", unlocks:"A stopping rule for scaffolding, the vault and Cloud Consciousness itself." },
   { id:"entropy-personal", priority:86, nodes:["emergence-entropy","massive-action"], question:"Where in your actual life do you see emergence fighting entropy, without using the universe as the explanation?", unlocks:"A sourced bridge, if one exists, between cosmology and personal behavior." },
-  { id:"voice-range", priority:84, nodes:["voices","consciousness"], question:"What does your voice sound like when you are gentle, uncertain or wrong, not sharp and performing certainty?", unlocks:"Range for the Mirror so wit does not become caricature." },
+  { id:"voice-range", priority:84, nodes:["consciousness"], question:"What does your voice sound like when you are gentle, uncertain or wrong, not sharp and performing certainty?", unlocks:"Range for the Mirror so wit does not become caricature." },
   { id:"model-missing", priority:82, nodes:["self-model-gap","consciousness"], question:"What part of you is systematically absent from your notes because you only notice it while living, not while reflecting?", unlocks:"A blind spot in the archive and the next candidate evidence source." }
 ];
 let questionEngineMode = false;
@@ -1714,11 +1732,7 @@ camera.pitch = -0.32;
 
 buildFilters();
 renderGraph();
-try {
-  setMapTheme(localStorage.getItem("consciousness-map-theme") || "light", { persist:false });
-} catch {
-  setMapTheme("light", { persist:false });
-}
+setMapTheme(preferredMapTheme(), { persist:false });
 if (brainMode) setBrainMode(true, { updateUrl:false, animate:false });
 // Boot sequence runs on normal page load only — when transitioning from
 // space-mode the transit animation replaces it as one continuous motion.
@@ -1925,7 +1939,7 @@ if (spaceMode) {
       spaceMode = false;
       document.body.classList.remove("space-mode", "dismantling");
       window.history.pushState({ surface:"consciousness" }, "", "/consciousness/");
-      setMapTheme("light", { persist:false });
+      setMapTheme(preferredMapTheme(), { persist:false });
       if (preSelectNodeId) activeNodeId = preSelectNodeId;
       renderGraph();
       // No runBootSequence — the transit animation IS the boot equivalent.
