@@ -27,13 +27,26 @@ assert.equal(hashFile(CORPUS), firstCorpusHash, "Public source-corpus generation
 
 const index = JSON.parse(fs.readFileSync(INDEX, "utf8"));
 const corpus = JSON.parse(fs.readFileSync(CORPUS, "utf8"));
-assert.equal(index.records.length, 111);
-assert.equal(index.meta.records, 111);
+// The vault grows every time Chay writes a note, so a hardcoded total is a test
+// that fails on success. What actually matters is that the header agrees with the
+// array and that every non-allowlisted record is genuinely opaque.
+assert.equal(index.meta.records, index.records.length, "Vault index header disagrees with its own record array.");
+assert.ok(index.records.length >= 111, "Vault index shrank unexpectedly.");
+for (const record of index.records) {
+  if (record.privacy === "public") continue;
+  assert.equal(record.privacy, "redacted", `Record ${record.id} is neither public nor redacted.`);
+  assert.match(record.path, /^private\/record-\d+\.md$/, `Record ${record.id} leaks a real vault path.`);
+  assert.equal(record.title, "Private record", `Record ${record.id} leaks a real title.`);
+  assert.equal(record.cluster, "Private", `Record ${record.id} leaks a real cluster.`);
+  assert.ok(!record.body, `Record ${record.id} carries a body it should not have.`);
+}
 assert.equal(index.records.filter(record => record.privacy === "public").length, index.meta.public);
 assert.equal(index.records.filter(record => record.privacy !== "public").length, index.meta.redacted);
 assert(index.records.every(record => record.privacyClass === "P0"), "Every emitted record must contain P0 output only.");
 assert.equal(index.meta.public, 14, "Only explicitly allowlisted P0 bodies may be readable.");
-assert.equal(index.meta.redacted, 97, "Every unapproved record must fail closed.");
+// public stays pinned: 14 allowlisted bodies is a real ceiling and it growing would
+// be a leak. redacted is derived, because it rises every time Chay writes a note.
+assert.equal(index.meta.redacted, index.records.length - index.meta.public, "Every unapproved record must fail closed.");
 const builder = fs.readFileSync(path.join(ROOT, "scripts", "build-public-brain-vault.mjs"), "utf8");
 assert.match(builder, /PUBLIC_BODY_APPROVALS = new Map/);
 assert.match(builder, /PUBLIC_BODY_APPROVALS\.get\(relativePath\) === sourceHash/);
@@ -46,7 +59,7 @@ for (const record of index.records) {
   }
 }
 const redactedRecords = index.records.filter(record => record.privacy === "redacted");
-assert.equal(redactedRecords.length, 97);
+assert.equal(redactedRecords.length, index.meta.redacted);
 assert.equal(index.records.filter(record => record.privacy === "redacted-extract").length, 0);
 for (const record of redactedRecords) {
   assert.equal(record.privacy, "redacted");
