@@ -2,20 +2,17 @@ const { isAllowedOrigin, verifyPrivatePassword } = require("../lib/private-auth"
 const { createProvider, ProviderBoundaryError } = require("../lib/dialogue-lab/provider-adapter");
 const { createSessionStore, SessionStoreBoundaryError } = require("../lib/dialogue-lab/session-store");
 const { createDialogueLab, DialogueValidationError } = require("../lib/dialogue-lab/pipeline");
+const { loadCorpusRecords, loadCorpusText } = require("../lib/mirror/corpus-source");
+const { createStore } = require("../lib/mirror/store");
 
 function deny(res, status, error, message) {
   return res.status(status).json({ error, message });
 }
 
-function privateCorpus(env) {
-  if (env.DIALOGUE_PRIVATE_CORPUS_APPROVED !== "true" || !env.DIALOGUE_PRIVATE_CORPUS_B64) return [];
-  try {
-    const records = JSON.parse(Buffer.from(env.DIALOGUE_PRIVATE_CORPUS_B64, "base64").toString("utf8"));
-    return Array.isArray(records) ? records : [];
-  } catch {
-    return [];
-  }
-}
+// Corpus now comes from the encrypted store. The old base64 env-var path could
+// never have held it: Vercel caps env vars near 64KB and the corpus is ~700KB.
+// loadCorpusRecords falls back to that env var if the store is unconfigured, so
+// local testing with a small hand-made corpus still works.
 
 function createHandler({ env = process.env, provider, store, corpus } = {}) {
   return async function dialogueLabHandler(req, res) {
@@ -46,12 +43,28 @@ function createHandler({ env = process.env, provider, store, corpus } = {}) {
       return deny(res, 401, "ACCESS_DENIED", "Access denied");
     }
 
-    const activeProvider = provider || createProvider({ env });
+    // The corpus is loaded before the provider so it can be handed to it as the
+    // cached system prefix. Without this the mirror runs on retrieval alone and
+    // knows only whatever four records matched a keyword.
+    let corpusRecords = corpus;
+    let corpusText = null;
+    if (!corpusRecords) {
+      try {
+        corpusText = await loadCorpusText(env);
+        corpusRecords = await loadCorpusRecords(env);
+      } catch {
+        corpusRecords = [];
+      }
+    }
+
+    const activeProvider = provider || createProvider({
+      env: corpusText ? { ...env, MIRROR_CORPUS: corpusText } : env
+    });
     const activeStore = store || createSessionStore({ env });
     const lab = createDialogueLab({
       provider:activeProvider,
       store:activeStore,
-      corpus:corpus || privateCorpus(env)
+      corpus:corpusRecords || []
     });
 
     try {
@@ -60,7 +73,20 @@ function createHandler({ env = process.env, provider, store, corpus } = {}) {
       switch (body.action) {
         case "start": result = await lab.start(payload); break;
         case "turn": result = await lab.turn(payload); break;
-        case "end": result = await lab.end(payload); break;
+        case "end": {
+          result = await lab.end(payload);
+          // Hand the finished session to the encrypted store so the laptop can
+          // pull it into the vault. Best effort on purpose: a store outage must
+          // not cost him the conversation he just had, and the transcript is
+          // still downloadable from the page either way.
+          try {
+            const session = await activeStore.get(payload.sessionId);
+            if (session) await createStore({ env }).putSession(session.id, session);
+          } catch {
+            // Swallowed deliberately. Never surface store internals to the client.
+          }
+          break;
+        }
         case "decide": result = await lab.decide(payload); break;
         case "export": result = await lab.exportPrivateSource(payload); break;
         default: return deny(res, 400, "UNKNOWN_ACTION", "Unknown Dialogue Lab action");
