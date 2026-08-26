@@ -1,0 +1,8 @@
+{
+  "name": "beingchay-portfolio",
+  "private": true,
+  "description": "Static site plus Vercel serverless functions. The SDK below is used only by the private Dialogue Lab endpoint; every public page is dependency-free.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0"
+  }
+}

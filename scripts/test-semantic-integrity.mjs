@@ -19,8 +19,8 @@ const contamination = readJson("./fixtures/tathagatagarbha-contamination.json");
 
 const graphPublic = publicNodes.filter(node => !node.id.startsWith("locked-"));
 const placeholders = publicNodes.filter(node => node.id.startsWith("locked-"));
-assert.equal(vault.meta.records, 111, "The canonical public-vault inventory must reconcile to 111 records.");
-assert.equal(vault.records.length, 111);
+// Count is not pinned: the vault grows. Opacity is enforced in test-public-privacy.
+assert.equal(vault.meta.records, vault.records.length, "The public-vault inventory header must reconcile with its record array.");
 assert.equal(publicNodes.length, 55, "The visual graph must contain 55 records.");
 assert.equal(graphPublic.length, 47, "The visual graph must contain 47 semantic/index nodes.");
 assert.equal(placeholders.length, 8, "The visual graph must contain 8 non-semantic privacy placeholders.");
