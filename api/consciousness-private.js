@@ -1,4 +1,4 @@
-const { isAllowedOrigin, verifyPrivatePassword } = require("../lib/private-auth");
+const { isAllowedOrigin, verifyPrivatePassword } = require("./_lib/private-auth");
 
 function deny(res, status, message) {
   res.status(status).json({ error: message });

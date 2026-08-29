@@ -7,8 +7,8 @@ import assert from "node:assert";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
-const { encrypt, decrypt, fingerprint, generateKey, MirrorCryptoError } = require("../lib/mirror/crypto.js");
-const { createStore, MirrorStoreError } = require("../lib/mirror/store.js");
+const { encrypt, decrypt, fingerprint, generateKey, MirrorCryptoError } = require("../api/_lib/mirror/crypto.js");
+const { createStore, MirrorStoreError } = require("../api/_lib/mirror/store.js");
 
 const KEY = generateKey();
 const env = { MIRROR_ENCRYPTION_KEY: KEY };

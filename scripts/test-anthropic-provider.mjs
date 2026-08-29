@@ -7,8 +7,8 @@ import assert from "node:assert";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
-const { createAnthropicProvider } = require("../lib/dialogue-lab/anthropic-provider.js");
-const { createDialogueLab, DialogueValidationError } = require("../lib/dialogue-lab/pipeline.js");
+const { createAnthropicProvider } = require("../api/_lib/dialogue-lab/anthropic-provider.js");
+const { createDialogueLab, DialogueValidationError } = require("../api/_lib/dialogue-lab/pipeline.js");
 
 const CORPUS = [
   { id: "solitude-unlock", title: "Solitude", claim: "Best version at roughly 90% solitude.", approvalState: "approved", tags: ["solitude", "focus"] },

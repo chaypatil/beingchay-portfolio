@@ -29,15 +29,26 @@ const check = async (name, fn) => {
   catch (e) { console.log("FAIL ", name, "\n      ", e.message); process.exitCode = 1; }
 };
 
-await check("vercel.json blocks /lib from being served", () => {
-  const rule = (config.rewrites || []).find(r => r.source === "/lib/:path*");
-  assert.ok(rule, "the /lib block is missing from vercel.json rewrites");
-  assert.ok(!/^\/(lib|api)\b/.test(rule.destination), "block must not resolve back into real files");
+await check("no server-side code sits in the static root", () => {
+  // Vercel serves everything outside api/ as a static file, and it resolves the
+  // filesystem BEFORE applying rewrites, so a rewrite can never shadow a file
+  // that exists. A /lib/* rewrite was tried on 2026-08-20 and did nothing: the
+  // files stayed publicly readable. The only fix that works is keeping shared
+  // server code out of the served root entirely, hence api/_lib. Paths under
+  // api/ beginning with an underscore are bundled with the functions that
+  // require them but are never routable.
+  assert.ok(!fs.existsSync(new URL("../lib", import.meta.url)),
+    "lib/ is back in the static root and would be publicly readable again");
+  assert.ok(fs.existsSync(new URL("../api/_lib", import.meta.url)),
+    "api/_lib is missing, so the functions cannot resolve their imports");
 });
 
-await check("the /lib block is first, so nothing shadows it", () => {
-  assert.equal((config.rewrites || [])[0].source, "/lib/:path*",
-    "a rewrite ahead of the block could match /lib first and serve it");
+await check("api files import from _lib, not from a served path", () => {
+  for (const file of ["dialogue-lab.js", "consciousness-private.js"]) {
+    const src = fs.readFileSync(new URL(`../api/${file}`, import.meta.url), "utf8");
+    assert.ok(!/require\(["']\.\.\/lib\//.test(src),
+      `api/${file} still imports from the static root`);
+  }
 });
 
 await check("vercel.json carries no keys Vercel would reject", () => {

@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/lib/:path*",
-      "destination": "/_blocked"
-    },
-    {
       "source": "/portfolio",
       "destination": "/c2x/index.html"
     },

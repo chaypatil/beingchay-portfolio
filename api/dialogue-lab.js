@@ -1,9 +1,9 @@
-const { isAllowedOrigin, verifyPrivatePassword } = require("../lib/private-auth");
-const { createProvider, ProviderBoundaryError } = require("../lib/dialogue-lab/provider-adapter");
-const { createSessionStore, SessionStoreBoundaryError } = require("../lib/dialogue-lab/session-store");
-const { createDialogueLab, DialogueValidationError } = require("../lib/dialogue-lab/pipeline");
-const { loadCorpusRecords, loadCorpusText } = require("../lib/mirror/corpus-source");
-const { createStore } = require("../lib/mirror/store");
+const { isAllowedOrigin, verifyPrivatePassword } = require("./_lib/private-auth");
+const { createProvider, ProviderBoundaryError } = require("./_lib/dialogue-lab/provider-adapter");
+const { createSessionStore, SessionStoreBoundaryError } = require("./_lib/dialogue-lab/session-store");
+const { createDialogueLab, DialogueValidationError } = require("./_lib/dialogue-lab/pipeline");
+const { loadCorpusRecords, loadCorpusText } = require("./_lib/mirror/corpus-source");
+const { createStore } = require("./_lib/mirror/store");
 
 function deny(res, status, error, message) {
   return res.status(status).json({ error, message });

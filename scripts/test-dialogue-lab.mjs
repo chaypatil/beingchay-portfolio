@@ -4,9 +4,9 @@ import { createRequire } from "node:module";
 import { scryptSync, randomBytes } from "node:crypto";
 
 const require = createRequire(import.meta.url);
-const { createDialogueLab, DialogueValidationError, primaryQuestionCount } = require("../lib/dialogue-lab/pipeline");
-const { FixtureProvider, ProviderBoundaryError, createProvider } = require("../lib/dialogue-lab/provider-adapter");
-const { MemorySessionStore, createSessionStore } = require("../lib/dialogue-lab/session-store");
+const { createDialogueLab, DialogueValidationError, primaryQuestionCount } = require("../api/_lib/dialogue-lab/pipeline");
+const { FixtureProvider, ProviderBoundaryError, createProvider } = require("../api/_lib/dialogue-lab/provider-adapter");
+const { MemorySessionStore, createSessionStore } = require("../api/_lib/dialogue-lab/session-store");
 const { createHandler } = require("../api/dialogue-lab");
 
 const scenarios = JSON.parse(fs.readFileSync(new URL("./fixtures/dialogue-lab-scenarios.json", import.meta.url), "utf8"));
