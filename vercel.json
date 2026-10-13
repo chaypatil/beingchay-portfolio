@@ -9,6 +9,10 @@
       "destination": "/c2x/index.html"
     },
     {
+      "source": "/portfolio/:path*/",
+      "destination": "/c2x/:path*/index.html"
+    },
+    {
       "source": "/portfolio/:path*",
       "destination": "/c2x/:path*"
     }
