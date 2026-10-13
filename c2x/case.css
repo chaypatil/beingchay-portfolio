@@ -1115,7 +1115,9 @@
   .exp-cta { flex-direction: column; align-items: flex-start; }
 }
 
-.exp--venture .exp-logo img { filter: invert(1); max-width: 36px; }
+/* chrome wordmark on transparent: show it as-is, wide enough to read */
+.exp--venture .exp-logo { width: 96px; border-color: transparent; }
+.exp--venture .exp-logo img { max-width: 92px; max-height: 40px; }
 
 /* ---------- Affiliate share bars ---------- */
 
