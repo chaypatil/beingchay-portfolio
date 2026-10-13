@@ -19,17 +19,19 @@
 
   /* Plays a scene when it scrolls into view; exposes play() for the replay button. */
   function runner(root, render, simTotal, realTotal) {
-    var start = null, raf = null;
+    var elapsed = 0, last = null, raf = null;
     function frame(now) {
-      if (start === null) start = now;
-      var t = Math.min(simTotal, ((now - start) / realTotal) * simTotal);
+      // cap each step so a backgrounded tab resumes where it paused instead of jumping to the end
+      if (last !== null) elapsed += Math.min(now - last, 100);
+      last = now;
+      var t = Math.min(simTotal, (elapsed / realTotal) * simTotal);
       render(t);
-      if (t < simTotal) raf = requestAnimationFrame(frame);
+      raf = t < simTotal ? requestAnimationFrame(frame) : null;
     }
     function play() {
       if (raf) cancelAnimationFrame(raf);
       if (reduce) { render(simTotal); return; }
-      start = null; render(0); raf = requestAnimationFrame(frame);
+      elapsed = 0; last = null; render(0); raf = requestAnimationFrame(frame);
     }
     render(reduce ? simTotal : 0);
     if (!reduce) {
