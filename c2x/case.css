@@ -1107,7 +1107,12 @@
   .lead { grid-template-columns: minmax(0, 1fr) auto; padding: 5px 10px; }
   .lane-top, .lane-live, .lane-foot { padding-left: 10px; padding-right: 10px; }
   .live-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .live-steps span { font-size: 8px; letter-spacing: 0; }
   .lane-clock { font-size: 16px; }
+  /* tighter pills so names stay readable; "Ready" collapses to a tick */
+  .lead .pill { padding: 2px 4px 1px; font-size: 8.5px; letter-spacing: 0.04em; }
+  .lane--ai .lead-status .pill + .pill--sent { padding: 2px 5px 1px; font-size: 0; letter-spacing: 0; }
+  .lane--ai .lead-status .pill + .pill--sent::after { content: "\2713"; font-size: 9px; }
   .exp-head { grid-template-columns: auto minmax(0, 1fr); }
   .exp-dates { grid-column: 1 / -1; }
   .exp-summary,
