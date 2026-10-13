@@ -407,8 +407,10 @@
 
 .scene-replay {
   flex: none;
+  min-height: 44px;
+  margin: -10px -8px -10px 0;
   border: 0;
-  padding: 6px 0;
+  padding: 0 8px;
   background: transparent;
   color: var(--accent);
   font-family: var(--font-mono);
@@ -972,6 +974,9 @@
 }
 
 .c2x-body .exp-cta a {
+  display: inline-block;
+  padding: 8px 0;
+  margin: -8px 0;
   color: var(--accent);
   font-family: var(--font-display);
   font-size: clamp(20px, 1.9vw, 26px);
