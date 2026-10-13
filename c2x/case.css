@@ -216,7 +216,7 @@
 }
 
 .metric strong .metric-from {
-  color: var(--faint);
+  color: var(--muted);
   text-decoration: line-through;
   text-decoration-thickness: 2px;
 }
@@ -225,7 +225,8 @@
   color: var(--accent);
 }
 
-.metric span {
+/* the label only: spans inside the number (5m -> 30s) stay inline */
+.metric > span {
   display: block;
   margin-top: 12px;
   color: var(--muted);
