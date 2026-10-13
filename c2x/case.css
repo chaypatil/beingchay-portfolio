@@ -1113,6 +1113,10 @@
   .lead .pill { padding: 2px 4px 1px; font-size: 8.5px; letter-spacing: 0.04em; }
   .lane--ai .lead-status .pill + .pill--sent { padding: 2px 5px 1px; font-size: 0; letter-spacing: 0; }
   .lane--ai .lead-status .pill + .pill--sent::after { content: "\2713"; font-size: 9px; }
+  /* role title gets its own line, tags and check sit under it */
+  .role { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; min-height: 50px; padding: 6px 14px; }
+  .role-title { grid-column: 1 / -1; }
+  .role-tags { min-height: 17px; }
   .exp-head { grid-template-columns: auto minmax(0, 1fr); }
   .exp-dates { grid-column: 1 / -1; }
   .exp-summary,
