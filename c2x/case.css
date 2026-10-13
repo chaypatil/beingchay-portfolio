@@ -1145,3 +1145,22 @@
 .case-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .c2x-body .case-nav a { display: inline-block; padding: 8px 12px 7px; border: 1px solid var(--ink); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
 .c2x-body .case-nav a:hover { background: var(--ink); color: var(--panel); }
+
+/* ---------- Case page header: who this is, a way home, a way to talk ---------- */
+
+.case-header { position: absolute; }
+
+.case-header-cta {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1;
+}
+
+.case-header-cta:hover { color: var(--accent); }
+
+@media (max-width: 760px) {
+  .case-header-cta { font-size: 15px; }
+}
