@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./c2x.css?v=20260725a">
+    <link rel="stylesheet" href="./case.css?v=20261006a">
   <script defer src="/scripts/vercel-analytics-init.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   </head>
@@ -106,86 +107,220 @@
             <p>Hey, I'm Chay. I turn your team's scattered AI tools and workflows into a system that actually knows your startup and runs without hand-holding.</p>
           </div>
 
-          <div class="work-list" aria-label="Selected work">
-            <a class="work-row" href="./work/fallout/">
-              <span class="work-logo fallout-logo"><img src="../assets/logos/fallout-wordmark.png" alt="Fallout logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name"><strong>Fallout</strong></span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>Music agency and collective</em>
-                <span>My own build, run entirely on AI-assisted workflows of content, outreach, ticketing, sales, and the site dashboard itself, now one of India's fastest-growing hard-techno collectives.</span>
-              </span>
-              <span class="work-meta">[ 2026 &middot; Founder ]</span>
-            </a>
+          <div class="exp-list" aria-label="Experience">
+            <article class="exp" data-reveal aria-labelledby="exp-everis">
+              <header class="exp-head">
+                <span class="exp-logo"><img src="../assets/logos/everis-transparent.png" alt="" loading="lazy" decoding="async"></span>
+                <div>
+                  <h3 class="exp-name" id="exp-everis">Everis</h3>
+                  <p class="exp-role">AI Workflow &amp; Growth Consultant &middot; Prosp and Pebble</p>
+                </div>
+                <span class="exp-dates">Feb 2026 &ndash; Sep 2026</span>
+              </header>
 
-            <a class="work-row" href="./work/prosp/">
-              <span class="work-logo"><img src="../assets/logos/prosp-logo-color.png" alt="Prosp logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name"><strong>Prosp</strong></span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>Growth workflows</em>
-                <span>Human-reviewed AI outreach I built for Everis that cut time-per-lead by ~75%, so the team works live leads instead of admin.</span>
-              </span>
-              <span class="work-meta">[ 2026 &middot; Growth workflows ]</span>
-            </a>
+              <div class="exp-feature">
+                <div class="exp-feature-head">
+                  <div>
+                    <p class="exp-kicker">Featured &middot; Prosp</p>
+                    <h3>The AI setter</h3>
+                  </div>
+                  <p>Every post pulled hundreds of comments. Each one now gets scored and answered personally, about 30 seconds a lead instead of 5 minutes, across 1,000+ warm leads every month.</p>
+                </div>
+                <div class="scene race" data-race>
+                  <div class="scene-head">
+                    <p class="scene-title">Same 10 comments on a &ldquo;comment AI&rdquo; post. Two ways to answer them.</p>
+                    <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
+                  </div>
+                  <div class="race-lanes">
+                    <div class="lane lane--manual" data-lane="manual">
+                      <div class="lane-top"><span class="lane-name">By hand</span><span class="lane-clock" data-clock>00:00</span></div>
+                      <div class="lane-live"><p class="live-label">Right now</p><p class="live-now" data-now>Waiting for comments</p><p class="live-detail" data-detail>&nbsp;</p><div class="live-steps" data-steps></div></div>
+                      <ol class="lane-list" data-list></ol>
+                      <div class="lane-foot">Answered <span><span data-done>0</span> / 10</span></div>
+                    </div>
+                    <div class="lane lane--ai" data-lane="ai">
+                      <div class="lane-top"><span class="lane-name">AI setter</span><span class="lane-clock" data-clock>00:00</span></div>
+                      <div class="lane-live"><p class="live-label">Right now</p><p class="live-now" data-now>Waiting for comments</p><p class="live-detail" data-detail>&nbsp;</p><div class="live-steps" data-steps></div></div>
+                      <ol class="lane-list" data-list></ol>
+                      <div class="lane-foot">Handled <span><span data-done>0</span> / 10</span></div>
+                    </div>
+                  </div>
+                  <p class="scene-note">Illustrative leads and names. Timings from the real system: about 5 minutes a lead by hand, about 30 seconds with the setter, and a human still sends every message. The clock runs fast.</p>
+                </div>
+              </div>
 
-            <a class="work-row" href="./work/pebble/">
-              <span class="work-logo pebble-logo"><img src="../assets/logos/pebble-mascot-logo.png" alt="Pebble logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name"><strong>Pebble</strong></span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>Content ops</em>
-                <span>An AI content pipeline for Everis: prompts, scenes, voice, captions, QA, producing 20+ review-ready pieces a week on a locked brand kit.</span>
-              </span>
-              <span class="work-meta">[ 2026 &middot; Content ops ]</span>
-            </a>
+              <ul class="exp-summary">
+                <li><b>AI setter</b>1,000+ warm leads a month, scored and answered in about 30 seconds each</li>
+                <li><b>Onboarding</b>Rebuilt around the real drop-off point, found in 30+ support chats</li>
+                <li><b>Affiliates</b>Found the 41 partners (6.7%) driving 80% of revenue; win-back email hit 51% opens</li>
+                <li><b>Website</b>Redesigned Prosp&rsquo;s site, built with Claude</li>
+                <li><b>AI video</b>A content pipeline shipping 20+ review-ready pieces a week</li>
+                <li><b>Hiring</b>AI-assisted hiring flows and tests on Testlify</li>
+              </ul>
+              <div class="exp-cta">
+                <p>The setter, plus everything else I built at Everis.</p>
+                <a href="./work/everis/">[ See how it works ]</a>
+              </div>
+            </article>
 
-            <a class="work-row" href="./work/everis/">
-              <span class="work-logo everis-logo"><img src="../assets/logos/everis-transparent.png" alt="Everis logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name"><strong>Everis</strong></span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>Hiring + context</em>
-                <span>AI-assisted hiring flows and tests built on Testlify, with one shared source of truth so hiring runs on AI without re-explaining the company.</span>
-              </span>
-              <span class="work-meta">[ 2026 &middot; Hiring + context ]</span>
-            </a>
+            <article class="exp" data-reveal aria-labelledby="exp-peoplebox">
+              <header class="exp-head">
+                <span class="exp-logo"><img src="../assets/logos/peoplebox-icon.png" alt="" loading="lazy" decoding="async"></span>
+                <div>
+                  <h3 class="exp-name" id="exp-peoplebox">Peoplebox.ai <span class="yc-batch"><span>S22</span><img src="../assets/logos/ycombinator.svg" alt="Y Combinator S22" loading="lazy" decoding="async"></span></h3>
+                  <p class="exp-role">Lead, Data Management &amp; Annotation</p>
+                </div>
+                <span class="exp-dates">Feb 2025 &ndash; Jan 2026</span>
+              </header>
 
-            <a class="work-row" href="./work/peoplebox-ai/">
-              <span class="work-logo peoplebox-logo"><img src="../assets/logos/peoplebox-icon.png" alt="Peoplebox.ai logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name peoplebox-name">
-                <strong>Peoplebox.ai</strong>
-                <span class="yc-batch"><span>S22</span><img src="../assets/logos/ycombinator.svg" alt="Y Combinator S22" loading="lazy" decoding="async"></span>
-              </span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>AI data & workflow ops</em>
-                <span>Led a 5-engineer team on the human-review layer behind an AI product: annotation, QA, and review loops that turned messy requirements into repeatable rules.</span>
-              </span>
-              <span class="work-meta">[ 2025 &middot; AI data & workflow ops ]</span>
-            </a>
+              <div class="exp-feature">
+                <div class="exp-feature-head">
+                  <div>
+                    <p class="exp-kicker">Featured &middot; AI recruiter</p>
+                    <h3>Teaching an AI to read engineering roles</h3>
+                  </div>
+                  <p>An AI recruiter has to know a Staff SRE from a junior QA before it can match anyone. My team tagged roles by domain and seniority, reviewed every label, and fed it back until the model hit 98%.</p>
+                </div>
+                <div class="scene roles" data-roles>
+                  <div class="scene-head">
+                    <p class="scene-title">From raw job titles to a model that matches candidates</p>
+                    <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
+                  </div>
+                  <div class="roles-body">
+                    <div>
+                      <p class="roles-col-label">Roles in &middot; tagged &middot; reviewed</p>
+                      <ol class="role-list" data-role-list></ol>
+                    </div>
+                    <div class="roles-model">
+                      <p class="roles-col-label">The model</p>
+                      <div class="model-inner">
+                        <p class="model-round" data-round>Collecting labelled roles</p>
+                        <div class="model-meter" data-meter><i></i></div>
+                        <p class="model-score" data-meter-label>Model is guessing</p>
+                        <p class="model-phase" data-phase></p>
+                      </div>
+                      <div class="model-inner">
+                        <div class="model-match" data-match>
+                          <p><b>Candidate:</b> backend engineer, 6 years, Go</p>
+                          <p><b>Role:</b> Sr. Backend Engineer (Go)</p>
+                          <p><span class="pill pill--hot">Strong match</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="scene-note">Example roles. The 98% is the real result after recurring fine-tuning; the climb shown here is illustrative.</p>
+                </div>
+              </div>
 
-            <a class="work-row" href="./work/ticombo/">
-              <span class="work-logo"><img src="../assets/logos/ticombo.svg" alt="Ticombo logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name"><strong>Ticombo</strong></span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>Content + AI</em>
-                <span>Ran website and Instagram content with AI built into the production pipeline, my first real go at making AI useful inside a live marketing team.</span>
-              </span>
-              <span class="work-meta">[ 2023&ndash;2025 &middot; Content + AI ]</span>
-            </a>
+              <ul class="exp-summary">
+                <li><b>Team</b>Led a 5-person data and QA team at a YC-backed AI startup</li>
+                <li><b>Data</b>Engineering roles tagged by domain and seniority, every label reviewed</li>
+                <li><b>Accuracy</b>98% through recurring fine-tuning, 5% above Gemini 2.5 Pro at the time</li>
+                <li><b>Shipped</b>Planning to production in under 3 months</li>
+                <li><b>Clients</b>Used by teams like Hasura and Razorpay to hire</li>
+                <li><b>Loop</b>Client feedback turned into labelling rules and review standards</li>
+              </ul>
+              <div class="exp-cta">
+                <p>How the data, review and fine-tuning loop worked.</p>
+                <a href="./work/peoplebox-ai/">[ See how it works ]</a>
+              </div>
+            </article>
 
-            <a class="work-row" href="./work/soileum/">
-              <span class="work-logo"><img src="../assets/logos/soileum-logo.png" alt="Soileum logo" loading="lazy" decoding="async"></span>
-              <span class="axis-title work-name"><strong>Soileum</strong></span>
-              <span class="axis-marker" aria-hidden="true"><i></i></span>
-              <span class="axis-detail work-detail">
-                <em>Growth</em>
-                <span>First startup reps: community, growth, and turning loose problems into shipped work.</span>
-              </span>
-              <span class="work-meta">[ 2023 &middot; Growth ]</span>
-            </a>
+            <article class="exp" data-reveal aria-labelledby="exp-ticombo">
+              <header class="exp-head">
+                <span class="exp-logo"><img src="../assets/logos/ticombo.svg" alt="" loading="lazy" decoding="async"></span>
+                <div>
+                  <h3 class="exp-name" id="exp-ticombo">Ticombo</h3>
+                  <p class="exp-role">Content Marketer</p>
+                </div>
+                <span class="exp-dates">Oct 2023 &ndash; Feb 2025</span>
+              </header>
+
+              <div class="exp-feature">
+                <div class="exp-feature-head">
+                  <div>
+                    <p class="exp-kicker">Featured &middot; Event automation</p>
+                    <h3>Live events, listed automatically</h3>
+                  </div>
+                  <p>Resellers can only sell what's on the marketplace. Instead of someone copying new events over by hand, automations watched live event sites and listed each new one for resellers.</p>
+                </div>
+                <div class="scene events" data-events>
+                  <div class="scene-head">
+                    <p class="scene-title">New events, found and listed without anyone copying them over</p>
+                    <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
+                  </div>
+                  <div class="events-body">
+                    <div>
+                      <p class="roles-col-label">Watching</p>
+                      <ul class="sources">
+                        <li data-source="Venue calendar">Venue calendar</li>
+                        <li data-source="Promoter page">Promoter page</li>
+                        <li data-source="Box office">Box office</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p class="roles-col-label">Detected</p>
+                      <ol class="feed" data-feed></ol>
+                    </div>
+                    <div>
+                      <p class="roles-col-label">On the marketplace &middot; <span data-listed>0</span> listed</p>
+                      <ol class="board" data-board></ol>
+                    </div>
+                  </div>
+                  <p class="scene-note">Illustrative events and sources.</p>
+                </div>
+              </div>
+
+              <ul class="exp-summary">
+                <li><b>Automation</b>New events spotted on live sites and listed for resellers automatically</li>
+                <li><b>Content</b>Website and Instagram content with AI built into production</li>
+                <li><b>Ops</b>Meta campaigns, plus hundreds of content tickets closed across teams in Jira and HubSpot</li>
+              </ul>
+              <div class="exp-cta">
+                <p>How the event watcher and the content pipeline worked.</p>
+                <a href="./work/ticombo/">[ See how it works ]</a>
+              </div>
+            </article>
+
+            <div class="exp-earlier" data-reveal>
+              <p>Earlier</p>
+              <ul>
+                <li><b>Agasthya E-cell</b>Co-founded Christ University&rsquo;s first student-led E-cell; Pitchfork drew 60+ teams nationwide</li>
+                <li><b>Soileum</b>Growth and community for a web3 startup, working with the marketing lead</li>
+                <li><b>Results.io</b>Ran Discord communities for 6 web3 clients, engagement up 25%+</li>
+              </ul>
+            </div>
+
+            <p class="venture-divider" data-reveal>My own venture</p>
+
+            <article class="exp exp--venture" data-reveal aria-labelledby="exp-fallout">
+              <header class="exp-head">
+                <span class="exp-logo"><img src="../assets/logos/fallout-wordmark.png" alt="" loading="lazy" decoding="async"></span>
+                <div>
+                  <h3 class="exp-name" id="exp-fallout">fall&Oslash;ut</h3>
+                  <p class="exp-role">Co-founder</p>
+                </div>
+                <span class="exp-dates">Oct 2025 &ndash; Now</span>
+              </header>
+              <div class="exp-feature">
+                <div class="exp-feature-head">
+                  <div>
+                    <p class="exp-kicker">Built and run with AI</p>
+                    <h3>One of the leading hard techno platforms in India</h3>
+                  </div>
+                  <p>Two people, no developer, no agency. The site, the ticketing, the finance tooling and the ad engine are all built with AI.</p>
+                </div>
+              </div>
+              <ul class="exp-summary">
+                <li><b>Reach</b>600K+ organic monthly impressions and a 1M+ view video</li>
+                <li><b>Partners</b>Promotions partner for major events and organizers across India and Europe</li>
+                <li><b>Stack</b>Offline-capable QR ticketing on Postgres, finance tooling and ads, under $250 to build</li>
+              </ul>
+              <div class="exp-cta">
+                <p>The venture I run alongside client work.</p>
+                <a href="./work/fallout/">[ See fall&Oslash;ut ]</a>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -282,5 +417,6 @@
 
     <script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js" defer></script>
     <script src="./c2x.js?v=20260725a" defer></script>
+    <script src="./anims.js?v=20261006a" defer></script>
   </body>
 </html>

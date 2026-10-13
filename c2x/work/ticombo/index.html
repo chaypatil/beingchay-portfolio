@@ -4,35 +4,109 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ticombo | C2X</title>
-    <meta name="description" content="How Chay built AI into Ticombo's live website and Instagram content production pipeline.">
+    <meta name="description" content="How Chay set up automations at Ticombo that watched live event sites and listed new events for ticket resellers, plus AI-built content.">
     <link rel="canonical" href="https://beingchay.com/portfolio/work/ticombo/">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="beingchay">
     <meta property="og:title" content="Ticombo | C2X">
-    <meta property="og:description" content="AI-assisted website and Instagram content production inside a live marketing team.">
+    <meta property="og:description" content="Live events, spotted and listed for resellers automatically.">
     <meta property="og:url" content="https://beingchay.com/portfolio/work/ticombo/">
     <meta property="og:image" content="https://beingchay.com/assets/consultation-hero-desktop.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ticombo | C2X">
-    <meta name="twitter:description" content="AI-assisted website and Instagram content production inside a live marketing team.">
-    <meta name="twitter:image" content="https://beingchay.com/assets/consultation-hero-desktop.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../c2x.css">
+    <link rel="stylesheet" href="../../case.css?v=20261006a">
+    <script defer src="../../anims.js?v=20261006a"></script>
   <script defer src="/scripts/vercel-analytics-init.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body class="c2x-body">
-    <main class="c2x-section hero-section">
-      <div class="section-inner">
-        <p class="section-label"><span>Work</span><span>/</span><span>Ticombo</span></p>
-        <h1>Ticombo</h1>
-        <div class="hero-bottom">
-          <p>Ran website and Instagram content with AI built into the production pipeline, my first real go at making AI useful inside a live marketing team.</p>
-          <a class="text-cta" href="../../">[ Back to C2X ]</a>
+    <main>
+      <section class="c2x-section case-hero" aria-labelledby="case-title">
+        <div class="section-inner">
+          <p class="section-label"><span>Work</span><span>/</span><span>Ticombo</span></p>
+          <h1 id="case-title">Live events, listed automatically</h1>
+          <div class="hero-bottom">
+            <p>Content Marketer, Oct 2023 to Feb 2025. Ticombo is a ticket resale marketplace. Besides running content, I set up automations that watched live event sites and listed new events for resellers without anyone copying them over.</p>
+            <a class="text-cta" href="../../">[ Back ]</a>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="c2x-section case-section" aria-labelledby="problem-title">
+        <div class="section-inner">
+          <p class="section-label"><span>01</span><span>/</span><span>The problem</span></p>
+          <div class="case-intro">
+            <h2 id="problem-title">Resellers can only sell what's already on the marketplace.</h2>
+            <p>New events go live on venue calendars, promoter pages and box offices all the time. Copying each one over by hand is slow, and every hour an event isn't listed is an hour resellers can't sell it.</p>
+          </div>
+          <div class="scene events" data-events>
+            <div class="scene-head">
+              <p class="scene-title">New events, found and listed without anyone copying them over</p>
+              <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
+            </div>
+            <div class="events-body">
+              <div>
+                <p class="roles-col-label">Watching</p>
+                <ul class="sources">
+                  <li data-source="Venue calendar">Venue calendar</li>
+                  <li data-source="Promoter page">Promoter page</li>
+                  <li data-source="Box office">Box office</li>
+                </ul>
+              </div>
+              <div>
+                <p class="roles-col-label">Detected</p>
+                <ol class="feed" data-feed></ol>
+              </div>
+              <div>
+                <p class="roles-col-label">On the marketplace &middot; <span data-listed>0</span> listed</p>
+                <ol class="board" data-board></ol>
+              </div>
+            </div>
+            <p class="scene-note">Illustrative events and sources.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section" aria-labelledby="flow-title">
+        <div class="section-inner">
+          <p class="section-label"><span>02</span><span>/</span><span>How it worked</span></p>
+          <div class="case-intro">
+            <h2 id="flow-title">Watch, detect, list. No copy-paste.</h2>
+            <p>The automations did the checking and the copying, so the marketplace kept up with new events on its own.</p>
+          </div>
+          <ol class="flow" aria-label="Event listing automation">
+            <li class="flow-step is-ai"><p class="flow-index"><span>01</span><span class="flow-tag">Auto</span></p><h3>Watch live event sites</h3><p>Venue calendars, promoter pages and box offices, checked on a schedule.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>02</span><span class="flow-tag">Auto</span></p><h3>Spot what's new</h3><p>New events picked out from the ones already on the marketplace.</p></li>
+            <li class="flow-step"><p class="flow-index"><span>03</span><span class="flow-tag">Listing</span></p><h3>Listed for resellers</h3><p>The event goes up on the marketplace, ready for resellers to list their tickets.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section" aria-labelledby="content-title">
+        <div class="section-inner">
+          <p class="section-label"><span>03</span><span>/</span><span>Content</span></p>
+          <div class="case-intro">
+            <h2 id="content-title">Content with AI built into production.</h2>
+            <p>My first real go at making AI useful inside a live marketing team: website and Instagram content made with AI in the pipeline, Meta campaigns with the marketing manager, and hundreds of content tickets closed across marketing, design and content in Jira and HubSpot.</p>
+          </div>
+          <ul class="stack">
+            <li>Premiere Pro</li><li>Illustrator</li><li>Midjourney</li><li>ChatGPT</li><li>Meta Ads</li><li>Jira</li><li>HubSpot</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section blue-section" aria-labelledby="next-title">
+        <div class="section-inner case-next">
+          <div>
+            <p class="section-label"><span>Next</span><span>/</span><span>Your team</span></p>
+            <h2 id="next-title" style="margin:22px 0 0;font-family:var(--font-display);font-size:clamp(30px,3.4vw,46px);line-height:1.06;">Someone on your team still copying things over by hand?</h2>
+          </div>
+          <a class="text-cta" href="../../#contact">[ Let's talk ]</a>
+        </div>
+      </section>
     </main>
   </body>
 </html>

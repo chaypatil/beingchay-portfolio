@@ -4,35 +4,201 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Everis | C2X</title>
-    <meta name="description" content="How Chay built AI-assisted hiring flows around one shared source of company context at Everis.">
+    <meta name="description" content="What Chay built at Everis: an AI setter handling 1,000+ warm leads a month, an onboarding rebuild, an affiliate audit, a site redesign, an AI video pipeline and AI hiring flows.">
     <link rel="canonical" href="https://beingchay.com/portfolio/work/everis/">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="beingchay">
     <meta property="og:title" content="Everis | C2X">
-    <meta property="og:description" content="AI-assisted hiring flows built around a shared source of company context.">
+    <meta property="og:description" content="An AI setter, an onboarding rebuild, an affiliate audit, a site redesign, an AI video pipeline and AI hiring flows.">
     <meta property="og:url" content="https://beingchay.com/portfolio/work/everis/">
     <meta property="og:image" content="https://beingchay.com/assets/consultation-hero-desktop.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Everis | C2X">
-    <meta name="twitter:description" content="AI-assisted hiring flows built around a shared source of company context.">
-    <meta name="twitter:image" content="https://beingchay.com/assets/consultation-hero-desktop.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../c2x.css">
+    <link rel="stylesheet" href="../../case.css?v=20261006a">
+    <script defer src="../../anims.js?v=20261006a"></script>
   <script defer src="/scripts/vercel-analytics-init.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body class="c2x-body">
-    <main class="c2x-section hero-section">
-      <div class="section-inner">
-        <p class="section-label"><span>Work</span><span>/</span><span>Everis</span></p>
-        <h1>Everis</h1>
-        <div class="hero-bottom">
-          <p>AI-assisted hiring flows and tests built on Testlify, with one shared source of truth so hiring runs on AI without re-explaining the company.</p>
-          <a class="text-cta" href="../../">[ Back to C2X ]</a>
+    <main>
+      <section class="c2x-section case-hero" aria-labelledby="case-title">
+        <div class="section-inner">
+          <p class="section-label"><span>Work</span><span>/</span><span>Everis</span></p>
+          <h1 id="case-title">Everis</h1>
+          <div class="hero-bottom">
+            <div>
+              <p>AI Workflow &amp; Growth Consultant, Feb to Sep 2026. Everis buys small SaaS businesses and grows them. I built the AI systems behind their growth, mostly for Prosp and Pebble.</p>
+              <ul class="case-nav" style="margin-top:20px">
+                <li><a href="#setter">AI setter</a></li>
+                <li><a href="#onboarding">Onboarding</a></li>
+                <li><a href="#affiliates">Affiliates</a></li>
+                <li><a href="#website">Website</a></li>
+                <li><a href="#video">AI video</a></li>
+                <li><a href="#hiring">Hiring</a></li>
+              </ul>
+            </div>
+            <a class="text-cta" href="../../">[ Back ]</a>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- 1. The AI setter -->
+      <section class="c2x-section case-section" id="setter" aria-labelledby="setter-title">
+        <div class="section-inner">
+          <p class="section-label"><span>01</span><span>/</span><span>Prosp</span><span>/</span><span>The AI setter</span></p>
+          <div class="case-intro">
+            <h2 id="setter-title">Hundreds of people raised their hand. Everyone got the same copy-paste.</h2>
+            <p>Prosp grew with &ldquo;comment AI and I'll send it to you&rdquo; posts on LinkedIn. Every post pulled hundreds of warm comments. One setter answered them by hand with the same template, with no record of who replied or booked.</p>
+          </div>
+
+          <div class="scene race" data-race>
+            <div class="scene-head">
+              <p class="scene-title">Same 10 comments on a &ldquo;comment AI&rdquo; post. Two ways to answer them.</p>
+              <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
+            </div>
+            <div class="race-lanes">
+              <div class="lane lane--manual" data-lane="manual">
+                <div class="lane-top"><span class="lane-name">By hand</span><span class="lane-clock" data-clock>00:00</span></div>
+                <div class="lane-live"><p class="live-label">Right now</p><p class="live-now" data-now>Waiting for comments</p><p class="live-detail" data-detail>&nbsp;</p><div class="live-steps" data-steps></div></div>
+                <ol class="lane-list" data-list></ol>
+                <div class="lane-foot">Answered <span><span data-done>0</span> / 10</span></div>
+              </div>
+              <div class="lane lane--ai" data-lane="ai">
+                <div class="lane-top"><span class="lane-name">AI setter</span><span class="lane-clock" data-clock>00:00</span></div>
+                <div class="lane-live"><p class="live-label">Right now</p><p class="live-now" data-now>Waiting for comments</p><p class="live-detail" data-detail>&nbsp;</p><div class="live-steps" data-steps></div></div>
+                <ol class="lane-list" data-list></ol>
+                <div class="lane-foot">Handled <span><span data-done>0</span> / 10</span></div>
+              </div>
+            </div>
+            <p class="scene-note">Illustrative leads and names. Timings from the real system: about 5 minutes a lead by hand, about 30 seconds with the setter, and a human still sends every message. The clock runs fast.</p>
+          </div>
+
+          <div class="case-intro" style="margin-top:clamp(48px,6vw,80px)">
+            <h2>Six steps from a comment to a booked call.</h2>
+            <p>AI does the reading, sorting and first drafts. A person still sends every message, because that's where trust lives.</p>
+          </div>
+          <ol class="flow" aria-label="AI setter pipeline">
+            <li class="flow-step"><p class="flow-index"><span>01</span><span class="flow-tag">Input</span></p><h3>A post goes live</h3><p>A free resource on offer: &ldquo;comment AI and I'll send it.&rdquo;</p></li>
+            <li class="flow-step"><p class="flow-index"><span>02</span><span class="flow-tag">Capture</span></p><h3>Every commenter is pulled in</h3><p>Name, headline and the exact words of their comment, the signal most tools throw away.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>03</span><span class="flow-tag">AI</span></p><h3>Each lead gets marked</h3><p>Claude reads the comment and profile and marks it hot, warm, cold or skip. Spam and vendor pitches get filtered out.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>04</span><span class="flow-tag">AI</span></p><h3>A personal first message</h3><p>Written for each lead in the tone its intent deserves, with the resource link inside.</p></li>
+            <li class="flow-step is-human"><p class="flow-index"><span>05</span><span class="flow-tag">Human</span></p><h3>Routed, reviewed, sent</h3><p>Matched to the right one of five brand accounts. The setter reads, edits if needed and hits send.</p></li>
+            <li class="flow-step"><p class="flow-index"><span>06</span><span class="flow-tag">Track</span></p><h3>Tracked to the booking</h3><p>Sent, replied, qualified, booked. Duplicates caught, so one person on two posts counts once.</p></li>
+          </ol>
+          <p class="flow-legend"><span class="legend-ai">AI does the work</span><span class="legend-human">A person decides</span><span>Plumbing</span></p>
+
+          <div class="metrics" style="margin-top:clamp(48px,6vw,80px)">
+            <div class="metric"><strong><span class="metric-from">5m</span> <span class="metric-arrow">&rarr;</span> 30s</strong><span>Handling time per lead</span></div>
+            <div class="metric"><strong>1,000+</strong><span>Warm leads processed every month</span></div>
+            <div class="metric"><strong>5</strong><span>Brand accounts, one operator</span></div>
+          </div>
+
+          <div class="case-intro" style="margin-top:clamp(48px,6vw,80px)">
+            <h2>The setter never had to open the spreadsheet.</h2>
+            <p>Every earlier tracker died because the operator wouldn't use a spreadsheet. So I stopped asking. They kept writing notes in a doc the way they already worked, and the system read the doc and updated the funnel on its own. Most automation dies at adoption. This one didn't.</p>
+          </div>
+          <ol class="flow" aria-label="Adoption fix">
+            <li class="flow-step is-human"><p class="flow-index"><span>A</span><span class="flow-tag">Human</span></p><h3>Notes, as usual</h3><p>Free-form, in a doc. No new tool, no new habit.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>B</span><span class="flow-tag">AI</span></p><h3>The doc gets read</h3><p>A parser turns messy notes into clean funnel stages.</p></li>
+            <li class="flow-step"><p class="flow-index"><span>C</span><span class="flow-tag">Track</span></p><h3>The funnel updates itself</h3><p>Leadership sees the numbers. Nobody does data entry.</p></li>
+          </ol>
+
+          <ul class="stack" style="margin-top:28px">
+            <li>Claude API</li><li>Prompt caching</li><li>Google Apps Script</li><li>Google Sheets</li><li>LinkedIn comment scraper</li><li>Doc-to-sheet parser</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. Onboarding -->
+      <section class="c2x-section case-section" id="onboarding" aria-labelledby="onboarding-title">
+        <div class="section-inner">
+          <p class="section-label"><span>02</span><span>/</span><span>Prosp</span><span>/</span><span>Onboarding</span></p>
+          <div class="case-intro">
+            <h2 id="onboarding-title">Onboarding rebuilt around where people actually got stuck.</h2>
+            <p>Instead of guessing why new users dropped off, I read through 30+ support conversations, found the real drop-off point, and rebuilt the onboarding emails and in-app tour around it.</p>
+          </div>
+          <ol class="flow" aria-label="Onboarding rebuild">
+            <li class="flow-step"><p class="flow-index"><span>01</span><span class="flow-tag">Input</span></p><h3>30+ support chats</h3><p>What new users actually asked, in their own words.</p></li>
+            <li class="flow-step"><p class="flow-index"><span>02</span><span class="flow-tag">Find</span></p><h3>The real drop-off point</h3><p>Questions grouped by theme until one step clearly stood out as where people got lost.</p></li>
+            <li class="flow-step is-human"><p class="flow-index"><span>03</span><span class="flow-tag">Ship</span></p><h3>Emails and a product tour</h3><p>Onboarding emails and an Intercom tour written around that step, with tracking to measure it.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 3. Affiliates -->
+      <section class="c2x-section case-section" id="affiliates" aria-labelledby="affiliates-title">
+        <div class="section-inner">
+          <p class="section-label"><span>03</span><span>/</span><span>Prosp</span><span>/</span><span>Affiliates</span></p>
+          <div class="case-intro">
+            <h2 id="affiliates-title">614 affiliates. 41 of them drove 80% of the revenue.</h2>
+            <p>I audited the whole program, split it into groups by behaviour, and found the small set of partners worth all the attention. Then I built tailored pages for key partners and a win-back campaign for the quiet middle.</p>
+          </div>
+          <div class="scene" data-reveal>
+            <div class="scene-head"><p class="scene-title">Where affiliate revenue really came from</p></div>
+            <div class="share">
+              <div class="share-row"><p><span>Share of affiliates</span><b>41 of 614 &middot; 6.7%</b></p><div class="share-bar"><i style="--to:6.7%"></i></div></div>
+              <div class="share-row"><p><span>Share of affiliate revenue</span><b>80%</b></p><div class="share-bar"><i style="--to:80%"></i></div></div>
+            </div>
+          </div>
+          <div class="metrics" style="margin-top:28px">
+            <div class="metric"><strong>51%</strong><span>Opens on the win-back email</span></div>
+            <div class="metric"><strong>8.9%</strong><span>Clicks</span></div>
+            <div class="metric"><strong>0</strong><span>Spam complaints</span></div>
+          </div>
+          <p style="margin:22px 0 0;color:var(--ink-2)">Plus tailored landing pages and blog assets for four partner brands: Demandii, LinkedOtter, FluidCRM and Lars Kruger.</p>
+        </div>
+      </section>
+
+      <!-- 4. Website -->
+      <section class="c2x-section case-section" id="website" aria-labelledby="website-title">
+        <div class="section-inner">
+          <p class="section-label"><span>04</span><span>/</span><span>Prosp</span><span>/</span><span>Website</span></p>
+          <div class="case-intro">
+            <h2 id="website-title">Prosp's site, redesigned with Claude.</h2>
+            <p>I redesigned Prosp's website end to end, using Claude to write and build it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. AI video -->
+      <section class="c2x-section case-section" id="video" aria-labelledby="video-title">
+        <div class="section-inner">
+          <p class="section-label"><span>05</span><span>/</span><span>Pebble</span><span>/</span><span>AI video</span></p>
+          <div class="case-intro">
+            <h2 id="video-title">An AI video pipeline that shipped 20+ pieces a week.</h2>
+            <p>For Pebble, a language-learning app, I ran short-form video made with AI, and wrote the playbook so anyone on the team could produce on-brand pieces the same way.</p>
+          </div>
+          <ol class="flow" aria-label="AI video pipeline">
+            <li class="flow-step"><p class="flow-index"><span>01</span><span class="flow-tag">Brief</span></p><h3>Prompts and scenes</h3><p>Each video planned scene by scene against a locked brand kit.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>02</span><span class="flow-tag">AI</span></p><h3>Generated and voiced</h3><p>Scenes, voiceover and captions produced with AI tools.</p></li>
+            <li class="flow-step is-human"><p class="flow-index"><span>03</span><span class="flow-tag">Human</span></p><h3>QA and ship</h3><p>Every piece reviewed before it went out. 20+ review-ready pieces a week.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 6. Hiring -->
+      <section class="c2x-section case-section" id="hiring" aria-labelledby="hiring-title">
+        <div class="section-inner">
+          <p class="section-label"><span>06</span><span>/</span><span>Everis</span><span>/</span><span>Hiring</span></p>
+          <div class="case-intro">
+            <h2 id="hiring-title">AI hiring that didn't need the company explained every time.</h2>
+            <p>AI-assisted hiring flows and tests built on Testlify, with one shared source of truth about the company, so every hiring step ran on the same context.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section blue-section" aria-labelledby="next-title">
+        <div class="section-inner case-next">
+          <div>
+            <p class="section-label"><span>Next</span><span>/</span><span>Your team</span></p>
+            <h2 id="next-title" style="margin:22px 0 0;font-family:var(--font-display);font-size:clamp(30px,3.4vw,46px);line-height:1.06;">Leads waiting on a reply?</h2>
+          </div>
+          <a class="text-cta" href="../../#contact">[ Let's talk ]</a>
+        </div>
+      </section>
     </main>
   </body>
 </html>

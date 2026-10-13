@@ -4,35 +4,119 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Peoplebox.ai | C2X</title>
-    <meta name="description" content="How Chay led the human-review layer behind an AI product with annotation, QA, and repeatable rules.">
+    <meta name="description" content="How Chay's team taught an AI recruiter to read engineering roles: tagging, review loops and fine-tuning to 98% accuracy, shipped in under 3 months.">
     <link rel="canonical" href="https://beingchay.com/portfolio/work/peoplebox-ai/">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="beingchay">
     <meta property="og:title" content="Peoplebox.ai | C2X">
-    <meta property="og:description" content="Human review, annotation, and QA systems that made messy AI requirements repeatable.">
+    <meta property="og:description" content="Tagging, review loops and fine-tuning that took an AI recruiter to 98% accuracy.">
     <meta property="og:url" content="https://beingchay.com/portfolio/work/peoplebox-ai/">
     <meta property="og:image" content="https://beingchay.com/assets/consultation-hero-desktop.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Peoplebox.ai | C2X">
-    <meta name="twitter:description" content="Human review, annotation, and QA systems that made messy AI requirements repeatable.">
-    <meta name="twitter:image" content="https://beingchay.com/assets/consultation-hero-desktop.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../c2x.css">
+    <link rel="stylesheet" href="../../case.css?v=20261006a">
+    <script defer src="../../anims.js?v=20261006a"></script>
   <script defer src="/scripts/vercel-analytics-init.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body class="c2x-body">
-    <main class="c2x-section hero-section">
-      <div class="section-inner">
-        <p class="section-label"><span>Work</span><span>/</span><span>Peoplebox.ai</span></p>
-        <h1>Peoplebox.ai</h1>
-        <div class="hero-bottom">
-          <p>Led a 5-engineer team on the human-review layer behind an AI product: annotation, QA, and review loops that turned messy requirements into repeatable rules.</p>
-          <a class="text-cta" href="../../">[ Back to C2X ]</a>
+    <main>
+      <section class="c2x-section case-hero" aria-labelledby="case-title">
+        <div class="section-inner">
+          <p class="section-label"><span>Work</span><span>/</span><span>Peoplebox.ai</span><span>/</span><span>YC S22</span></p>
+          <h1 id="case-title">Teaching an AI recruiter to read roles</h1>
+          <div class="hero-bottom">
+            <p>Lead, Data Management &amp; Annotation, Feb 2025 to Jan 2026. I led a five-person team on the data, review and fine-tuning loop behind Peoplebox's AI recruiter, from planning to production in under 3 months.</p>
+            <a class="text-cta" href="../../">[ Back ]</a>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="c2x-section case-section" aria-labelledby="problem-title">
+        <div class="section-inner">
+          <p class="section-label"><span>01</span><span>/</span><span>The problem</span></p>
+          <div class="case-intro">
+            <h2 id="problem-title">An AI can't match a candidate to a role it can't read.</h2>
+            <p>&ldquo;SDE-3, Platform&rdquo; and &ldquo;Sr. Backend Engineer (Go)&rdquo; are close to the same job. &ldquo;Staff SRE&rdquo; and &ldquo;Junior QA Automation&rdquo; are nowhere near each other. Before the recruiter could match anyone, the model had to understand domain and seniority the way a good recruiter does. Engineering roles are the example here, the work covered more.</p>
+          </div>
+          <div class="scene roles" data-roles>
+            <div class="scene-head">
+              <p class="scene-title">From raw job titles to a model that matches candidates</p>
+              <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
+            </div>
+            <div class="roles-body">
+              <div>
+                <p class="roles-col-label">Roles in &middot; tagged &middot; reviewed</p>
+                <ol class="role-list" data-role-list></ol>
+              </div>
+              <div class="roles-model">
+                <p class="roles-col-label">The model</p>
+                <div class="model-inner">
+                  <p class="model-round" data-round>Collecting labelled roles</p>
+                  <div class="model-meter" data-meter><i></i></div>
+                  <p class="model-score" data-meter-label>Model is guessing</p>
+                  <p class="model-phase" data-phase></p>
+                </div>
+                <div class="model-inner">
+                  <div class="model-match" data-match>
+                    <p><b>Candidate:</b> backend engineer, 6 years, Go</p>
+                    <p><b>Role:</b> Sr. Backend Engineer (Go)</p>
+                    <p><span class="pill pill--hot">Strong match</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="scene-note">Example roles. The 98% is the real result after recurring fine-tuning; the climb shown here is illustrative.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section" aria-labelledby="loop-title">
+        <div class="section-inner">
+          <p class="section-label"><span>02</span><span>/</span><span>The loop</span></p>
+          <div class="case-intro">
+            <h2 id="loop-title">Five steps, run again and again until it was right.</h2>
+            <p>The model only got better because the data behind it got better. Every round tightened the labels, ruled on the edge cases and fed it back in.</p>
+          </div>
+          <ol class="flow" aria-label="Data and fine-tuning loop">
+            <li class="flow-step"><p class="flow-index"><span>01</span><span class="flow-tag">Data</span></p><h3>Pull in the roles</h3><p>Large sets of real job roles, the messy titles companies actually write.</p></li>
+            <li class="flow-step is-human"><p class="flow-index"><span>02</span><span class="flow-tag">Human</span></p><h3>Tag every role</h3><p>Annotators label each one by domain and seniority against a shared rubric.</p></li>
+            <li class="flow-step is-human"><p class="flow-index"><span>03</span><span class="flow-tag">Review</span></p><h3>Review and rule on edge cases</h3><p>Every label checked. Tricky cases decided once, written down as rules, reused.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>04</span><span class="flow-tag">AI</span></p><h3>Fine-tune and test</h3><p>Reviewed data trains the model. Accuracy measured every round.</p></li>
+            <li class="flow-step is-ai"><p class="flow-index"><span>05</span><span class="flow-tag">AI</span></p><h3>Match candidates to roles</h3><p>The recruiter predicts who fits the roles clients need filled.</p></li>
+            <li class="flow-step"><p class="flow-index"><span>06</span><span class="flow-tag">Feedback</span></p><h3>Clients close the loop</h3><p>Beta feedback from clients came straight back into the labelling rules.</p></li>
+          </ol>
+          <p class="flow-legend"><span class="legend-ai">AI does the work</span><span class="legend-human">People decide</span><span>Plumbing</span></p>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section" aria-labelledby="result-title">
+        <div class="section-inner">
+          <p class="section-label"><span>03</span><span>/</span><span>The result</span></p>
+          <div class="case-intro">
+            <h2 id="result-title">Shipped to real hiring teams in under 3 months.</h2>
+            <p>Clients like Hasura and Razorpay used it to hire. I reported daily to the CEO and CTO, working alongside product and engineering.</p>
+          </div>
+          <div class="metrics">
+            <div class="metric"><strong>98%</strong><span>Accuracy after fine-tuning, 5% above Gemini 2.5 Pro at the time</span></div>
+            <div class="metric"><strong>&lt;3 mo</strong><span>Planning to production</span></div>
+            <div class="metric"><strong>5</strong><span>People on my team</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="c2x-section case-section blue-section" aria-labelledby="next-title">
+        <div class="section-inner case-next">
+          <div>
+            <p class="section-label"><span>Next</span><span>/</span><span>Your data</span></p>
+            <h2 id="next-title" style="margin:22px 0 0;font-family:var(--font-display);font-size:clamp(30px,3.4vw,46px);line-height:1.06;">Need an AI that actually knows your domain?</h2>
+          </div>
+          <a class="text-cta" href="../../#contact">[ Let's talk ]</a>
+        </div>
+      </section>
     </main>
   </body>
 </html>
