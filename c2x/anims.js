@@ -50,6 +50,7 @@
     if (reduce || !('IntersectionObserver' in window)) {
       revealEls.forEach(function (el) { el.classList.add('is-visible'); });
     } else {
+      document.documentElement.classList.add('reveal-ready');
       var rio = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); rio.unobserve(e.target); } });
       }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
