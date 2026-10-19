@@ -1,0 +1,254 @@
+/* Landing motion: the work ring, the hero load-in, the services strip and the
+   scroll-filled statement. Hidden start states only apply under html.js and
+   without reduced motion, so nothing stays invisible if the script fails. */
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ---------- Work ring: six cards of real work on a tilted, spinning wheel ---------- */
+
+.ring-stage {
+  position: absolute;
+  z-index: 6;
+  top: calc(var(--header-h) + clamp(8px, 2vw, 28px));
+  right: clamp(8px, 4vw, 72px);
+  width: clamp(300px, 34vw, 500px);
+  aspect-ratio: 1;
+  perspective: 6000px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ring-stage.is-dragging { cursor: grabbing; }
+
+.ring-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  height: 380px;
+  transform: translate(-50%, -50%) scale(var(--ring-scale, 0.9));
+  transform-style: preserve-3d;
+}
+
+.ring-list {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translate3d(0, -20px, 0) rotateX(66deg) rotateZ(-48deg);
+}
+
+.ring-item {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--ring-rot, 0deg) - var(--i) * 60deg)) translateZ(-227px) rotateX(33deg);
+}
+
+.ring-card,
+.ring-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* the back is a copy of the front, turned so it reads from behind too */
+.ring-back { transform: rotateY(180deg); }
+
+/* content runs along the wheel's axis, so it reads with a slight upward slant */
+.ring-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.ring-card--panel { background: var(--panel); color: var(--ink); border: 2px solid var(--ink); }
+.ring-card--blue { background: var(--accent); color: var(--panel); }
+.ring-card--ink { background: var(--ink); color: var(--panel); }
+.ring-card--photo { background: var(--ink); }
+.ring-card--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.ring-kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.ring-big {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 132px;
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+}
+
+.ring-line {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.ring-rows { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+.ring-rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.ring-pill {
+  padding: 3px 8px 2px;
+  border: 2px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.ring-pill--fill { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+.ring-pill--ink { background: var(--ink); border-color: var(--ink); color: var(--panel); }
+
+.ring-wordmark { width: 82%; height: auto; }
+
+.ring-bar { position: relative; height: 26px; border: 2px solid var(--panel); }
+.ring-bar i { position: absolute; inset: 0 auto 0 0; width: 80%; background: var(--panel); }
+
+/* ---------- Hero load-in ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-photo {
+    clip-path: inset(100% 0 0 0);
+    animation: shutter-open 1100ms var(--ease-in-out) 150ms forwards;
+  }
+
+  .js .hero-name,
+  .js .hero-role,
+  .js .hero-bottom {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: rise 800ms var(--ease-out) forwards;
+  }
+
+  .js .hero-name { animation-delay: 380ms; }
+  .js .hero-role { animation-delay: 470ms; }
+  .js .hero-bottom { animation-delay: 1250ms; }
+
+  /* opacity only: the through line is measured from this paragraph */
+  .js .hero-standfirst {
+    opacity: 0;
+    animation: fade-in 900ms ease 1100ms forwards;
+  }
+
+  .js .hero-section h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .js .hero-section h1 .w > span {
+    display: inline-block;
+    transform: translateY(105%);
+    animation: line-up 900ms var(--ease-out) forwards;
+    animation-delay: calc(var(--wi) * 32ms + 560ms);
+  }
+
+  .js .ring-stage {
+    opacity: 0;
+    transform: scale(0.92);
+    animation: ring-in 1400ms var(--ease-out) 300ms forwards;
+  }
+}
+
+@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes line-up { to { transform: none; } }
+@keyframes shutter-open { to { clip-path: inset(0 0 0 0); } }
+@keyframes ring-in { to { opacity: 1; transform: none; } }
+
+/* ---------- Services strip ---------- */
+
+.services-strip {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 52px) 0;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(182, 181, 171, 0.7);
+}
+
+.services-track {
+  display: flex;
+  width: max-content;
+}
+
+.services-run {
+  display: flex;
+  align-items: center;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.services-run li {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.6vw, 40px);
+  padding-right: clamp(20px, 2.6vw, 40px);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6.4vw, 104px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.services-run li::after {
+  content: "";
+  flex: none;
+  width: 0.42em;
+  height: 0.42em;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .services-track { animation: strip 42s linear infinite; }
+  .services-strip:hover .services-track { animation-play-state: paused; }
+}
+
+@keyframes strip { to { transform: translateX(-50%); } }
+
+/* ---------- Statement that fills with ink as it scrolls past ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-fill] .fw { opacity: 0.16; transition: opacity 260ms ease; }
+  .js [data-fill] .fw.is-lit { opacity: 1; }
+}
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 760px) {
+  .ring-stage {
+    top: calc(var(--header-h) + 4px);
+    right: -6px;
+    width: 196px;
+  }
+}
+
+@media (hover: none) {
+  .ring-stage { cursor: default; }
+}

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/portfolio/">
+    <script>document.documentElement.classList.add('js')</script>
     <title>Chay Patil · AI workflow consultant | C2X</title>
     <meta name="description" content="Chay Patil designs context-rich AI systems that turn scattered tools, knowledge, and workflows into execution.">
     <link rel="canonical" href="https://beingchay.com/portfolio/">
@@ -23,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./c2x.css?v=20261019a">
     <link rel="stylesheet" href="./case.css?v=20261006a">
+    <link rel="stylesheet" href="./motion.css?v=20261019a">
   <script defer src="/scripts/vercel-analytics-init.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   </head>
@@ -104,6 +106,41 @@
             <div class="hero-bottom">
               <p class="hero-location"><span></span> Mumbai, India <time data-ist-time>--:-- IST</time></p>
               <a class="text-cta hero-cta" href="./book/?package=audit" tabindex="-1"><span class="cta-bracket">[</span><span class="cta-words"><span>Let's</span><span>talk</span></span><span class="cta-bracket">]</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="ring-stage" aria-hidden="true">
+          <div class="ring-scene">
+            <div class="ring-list">
+              <div class="ring-item" style="--i:0"><div class="ring-card ring-card--panel"><div class="ring-face">
+                <p class="ring-kicker">AI setter &middot; Prosp</p>
+                <ul class="ring-rows"><li>Marcus T. <span class="ring-pill ring-pill--fill">HOT</span></li><li>Priya N. <span class="ring-pill">WARM</span></li><li>Aisha K. <span class="ring-pill">COLD</span></li></ul>
+                <p class="ring-line">30 seconds a lead, not 5 minutes</p>
+              </div></div></div>
+              <div class="ring-item" style="--i:1"><div class="ring-card ring-card--blue"><div class="ring-face">
+                <p class="ring-kicker">Peoplebox.ai &middot; YC S22</p>
+                <p class="ring-big">98%</p>
+                <p class="ring-line">AI recruiter accuracy after fine-tuning</p>
+              </div></div></div>
+              <div class="ring-item" style="--i:2"><div class="ring-card ring-card--ink"><div class="ring-face">
+                <p class="ring-kicker">My own venture</p>
+                <img class="ring-wordmark" src="../assets/logos/fallout-wordmark.png" alt="" width="900" height="378" decoding="async">
+                <p class="ring-line">600K+ organic monthly impressions</p>
+              </div></div></div>
+              <div class="ring-item" style="--i:3"><div class="ring-card ring-card--photo">
+                <img src="../assets/images/pebble-ai-video-still.jpg" alt="" width="760" height="760" decoding="async">
+              </div></div>
+              <div class="ring-item" style="--i:4"><div class="ring-card ring-card--panel"><div class="ring-face">
+                <p class="ring-kicker">Ticombo</p>
+                <p class="ring-line">New events, listed on their own</p>
+                <ul class="ring-rows"><li>Arena show <span class="ring-pill ring-pill--ink">LISTED</span></li><li>Club night <span class="ring-pill ring-pill--ink">LISTED</span></li><li>Festival pass <span class="ring-pill ring-pill--ink">LISTED</span></li></ul>
+              </div></div></div>
+              <div class="ring-item" style="--i:5"><div class="ring-card ring-card--blue"><div class="ring-face">
+                <p class="ring-kicker">Affiliates &middot; Prosp</p>
+                <p class="ring-big">80%</p>
+                <p class="ring-line">of revenue from 41 of 614 partners</p>
+                <div class="ring-bar"><i></i></div>
+              </div></div></div>
             </div>
           </div>
         </div>
@@ -339,6 +376,17 @@
         </div>
       </section>
 
+      <div class="services-strip" aria-label="What I build">
+        <div class="services-track">
+          <ul class="services-run">
+            <li>AI setters</li><li>Lead scoring</li><li>Onboarding fixes</li><li>Affiliate programs</li><li>AI video</li><li>Model fine-tuning</li><li>Event automation</li>
+          </ul>
+          <ul class="services-run" aria-hidden="true">
+            <li>AI setters</li><li>Lead scoring</li><li>Onboarding fixes</li><li>Affiliate programs</li><li>AI video</li><li>Model fine-tuning</li><li>Event automation</li>
+          </ul>
+        </div>
+      </div>
+
       <section id="method" class="c2x-section method-section" aria-labelledby="method-title">
         <div class="section-inner">
           <div class="section-topline">
@@ -347,7 +395,7 @@
           </div>
 
           <div class="section-intro compact-intro">
-            <h2 id="method-title">The model is the easy part. The system is the job.</h2>
+            <h2 id="method-title" data-fill>The model is the easy part. The system is the job.</h2>
             <p>I build both: the AI that does the work, and the system that makes its output safe to ship.</p>
           </div>
 
@@ -385,7 +433,7 @@
         <div class="section-inner">
           <p class="section-label"><span>04</span><span>/</span><span>The through line</span></p>
           <div class="section-intro through-intro">
-            <h2 id="through-title">One continuous line, from context to execution.</h2>
+            <h2 id="through-title" data-fill>One continuous line, from context to execution.</h2>
             <p>Buying the model is the easy part. Every startup runs on the same one now. What you can't buy is the line that runs from what your company already knows to what its AI actually does with it. That's where adoption really lives: context going in, judgment in the middle, work you can trust coming out. It isn't another subscription. It's one line, drawn through a single workflow, then the next, then the next.</p>
           </div>
 
@@ -432,5 +480,6 @@
     <script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js" defer></script>
     <script src="./c2x.js?v=20260725a" defer></script>
     <script src="./anims.js?v=20261006a" defer></script>
+    <script src="./motion.js?v=20261019a" defer></script>
   </body>
 </html>
