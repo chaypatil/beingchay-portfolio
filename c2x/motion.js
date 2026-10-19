@@ -77,6 +77,31 @@
   fit();
   window.addEventListener('resize', fit);
 
+  // opens big; a short scroll lifts it and settles it halfway between that size
+  // and one that fits a short screen (never less than a 10% shrink)
+  var SETTLE = 80, ringP = -1, ringQueued = false;
+  function settleTarget() {
+    var big = stage.clientWidth;
+    var fitted = Math.min(big, window.innerHeight * 0.54);
+    stage.style.setProperty('--ring-end', Math.min((big + fitted) / 2 / big, 0.9).toFixed(3));
+  }
+  function settle() {
+    ringQueued = false;
+    var p = reduce ? 1 : Math.max(0, Math.min(1, window.scrollY / SETTLE));
+    if (Math.abs(p - ringP) < 0.002) return;
+    ringP = p;
+    stage.style.setProperty('--ring-p', p.toFixed(3));
+  }
+  function queueSettle() {
+    if (ringQueued) return;
+    ringQueued = true;
+    requestAnimationFrame(settle);
+  }
+  settleTarget();
+  settle();
+  window.addEventListener('scroll', queueSettle, { passive: true });
+  window.addEventListener('resize', function () { settleTarget(); queueSettle(); });
+
   function frame(now) {
     var dt = last === null ? 0 : Math.min(now - last, 64) / 1000;
     last = now;

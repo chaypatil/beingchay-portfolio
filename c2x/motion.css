@@ -17,7 +17,13 @@
   top: calc(var(--header-h) - 84px);
   right: clamp(8px, 10vw, 170px);
   pointer-events: none;
-  width: min(clamp(300px, 34vw, 500px), 54svh);
+  width: clamp(300px, 34vw, 500px);
+  /* opens big, then the first ~80px of scroll lift it and settle it smaller
+     (motion.js sets --ring-p 0..1 and --ring-end). translate/scale are kept
+     apart from transform so the load-in animation cannot override them. */
+  transform-origin: 50% 0;
+  translate: 0 calc(var(--ring-p, 0) * -32px);
+  scale: calc(1 - var(--ring-p, 0) * (1 - var(--ring-end, 0.9)));
   aspect-ratio: 1;
   perspective: 6000px;
   cursor: grab;
@@ -262,6 +268,8 @@
     top: calc(var(--header-h) + 4px);
     right: -6px;
     width: 196px;
+    translate: none;
+    scale: none;
   }
 }
 
