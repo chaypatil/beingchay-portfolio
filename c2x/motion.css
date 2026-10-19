@@ -212,13 +212,8 @@
   .practice-map { min-height: 0; gap: 22px; margin-top: 56px; }
   .practice-map p { transform: none; }
 
-  .ring-stage {
-    top: calc(var(--header-h) + 4px);
-    right: -6px;
-    width: 196px;
-    translate: none;
-    scale: none;
-  }
+  /* no wheel on phones: too small to read there, and it crowded the name */
+  .ring-stage { display: none; }
 }
 
 @media (hover: none) {
