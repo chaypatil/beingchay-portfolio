@@ -98,7 +98,7 @@
     dragging = true;
     stage.classList.add('is-dragging');
     px = e.clientX; py = e.clientY; pt = performance.now(); vel = 0;
-    if (stage.setPointerCapture) stage.setPointerCapture(e.pointerId);
+    if (e.target.setPointerCapture) e.target.setPointerCapture(e.pointerId);
     start();
   });
   stage.addEventListener('pointermove', function (e) {

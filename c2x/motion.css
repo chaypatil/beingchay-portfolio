@@ -9,12 +9,15 @@
 
 /* ---------- Work ring: six cards of real work on a tilted, spinning wheel ---------- */
 
+/* sits over the header bar (120) but under the menu (128+), breaking out of the frame;
+   only the cards take the pointer, so the Menu button underneath stays clickable */
 .ring-stage {
   position: absolute;
-  z-index: 6;
-  top: calc(var(--header-h) + clamp(8px, 2vw, 28px));
-  right: clamp(8px, 4vw, 72px);
-  width: clamp(300px, 34vw, 500px);
+  z-index: 125;
+  top: calc(var(--header-h) - 84px);
+  right: clamp(8px, 10vw, 170px);
+  pointer-events: none;
+  width: min(clamp(300px, 34vw, 500px), 54svh);
   aspect-ratio: 1;
   perspective: 6000px;
   cursor: grab;
@@ -54,6 +57,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  pointer-events: auto;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
