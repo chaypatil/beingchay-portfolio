@@ -1453,3 +1453,54 @@ body.c2x-body {
     clip-path: inset(0 0 0 0);
   }
 }
+
+/* ---------- Hero identity: whose site this is, before anything else ---------- */
+
+.hero-inner {
+  grid-template-rows: auto 1fr auto auto auto;
+}
+
+.hero-id {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 26px);
+  align-self: center;
+  margin: clamp(24px, 4vw, 40px) 0;
+}
+
+.hero-photo {
+  width: clamp(88px, 8.5vw, 124px);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--ink);
+  background: var(--faint);
+}
+
+.hero-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.3vw, 46px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero-role {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.hero-layer--reveal .hero-role { color: var(--panel); }
+.hero-layer--reveal .hero-photo { border-color: var(--panel); }
+
+@media (max-width: 760px) {
+  /* the generic section padding was overriding the hero's own, pushing Let's talk below the fold */
+  .hero-section { padding: 0; }
+  .hero-id { margin: 20px 0; }
+}
