@@ -1,5 +1,5 @@
-/* Landing motion: splits the hero headline for its rise, fills the through-line
-   statement with ink as it scrolls past, and spins the work ring (drag to turn it). */
+/* Landing motion: splits the hero headline for its rise and spins the work ring
+   (drag to turn it; the first bit of scroll settles it smaller). */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -15,41 +15,6 @@
         return '<span class="w"><span style="--wi:' + i + '">' + esc(w) + '</span></span>';
       }).join(' ');
     });
-  }
-
-  /* ---------- Statement that fills with ink as it scrolls past ---------- */
-  var fills = [];
-  if (!reduce) {
-    document.querySelectorAll('[data-fill]').forEach(function (el) {
-      var words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map(function (w) { return '<span class="fw">' + esc(w) + '</span>'; }).join(' ');
-      fills.push({ el: el, words: el.querySelectorAll('.fw'), lit: -1 });
-    });
-  }
-
-  var fillQueued = false;
-  function updateFills() {
-    fillQueued = false;
-    var vh = window.innerHeight;
-    fills.forEach(function (f) {
-      var r = f.el.getBoundingClientRect();
-      var p = (vh * 0.85 - r.top) / (r.height + vh * 0.3);
-      p = Math.max(0, Math.min(1, p));
-      var n = Math.round(p * f.words.length);
-      if (n === f.lit) return;
-      for (var i = 0; i < f.words.length; i++) f.words[i].classList.toggle('is-lit', i < n);
-      f.lit = n;
-    });
-  }
-  function queueFills() {
-    if (fillQueued || !fills.length) return;
-    fillQueued = true;
-    requestAnimationFrame(updateFills);
-  }
-  if (fills.length) {
-    window.addEventListener('scroll', queueFills, { passive: true });
-    window.addEventListener('resize', queueFills);
-    queueFills();
   }
 
   /* ---------- Work ring ---------- */

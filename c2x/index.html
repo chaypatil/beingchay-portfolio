@@ -48,7 +48,7 @@
     <div class="menu-scrim" hidden></div>
     <aside id="site-menu" class="menu-panel" aria-label="Site menu" aria-hidden="true" hidden>
       <div class="menu-panel-top">
-        <p><span></span> Menu / 01-05</p>
+        <p><span></span> Menu / 01-04</p>
         <button class="menu-close" type="button" aria-label="Close menu">
           <span>Close</span>
           <i aria-hidden="true"></i>
@@ -58,8 +58,7 @@
         <a href="#signal"><span>01</span><strong>Signal</strong><em>[ Direction ]</em></a>
         <a href="#work"><span>02</span><strong>Work</strong></a>
         <a href="#method"><span>03</span><strong>Practice</strong></a>
-        <a href="#through-line"><span>04</span><strong>Through line</strong></a>
-        <a href="#contact"><span>05</span><strong>Contact</strong></a>
+        <a href="#contact"><span>04</span><strong>Contact</strong></a>
       </nav>
       <div class="menu-footer">
         <a href="/privacy">Privacy</a>
@@ -239,42 +238,15 @@
                   </div>
                   <p>An AI recruiter has to know a Staff SRE from a junior QA before it can match anyone. My team tagged roles by domain and seniority, reviewed every label, and fed it back until the model hit 98%.</p>
                 </div>
-                <div class="scene roles" data-roles>
-                  <div class="scene-head">
-                    <p class="scene-title">From raw job titles to a model that matches candidates</p>
-                    <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
-                  </div>
-                  <div class="roles-body">
-                    <div>
-                      <p class="roles-col-label">Roles in &middot; tagged &middot; reviewed</p>
-                      <ol class="role-list" data-role-list></ol>
-                    </div>
-                    <div class="roles-model">
-                      <p class="roles-col-label">The model</p>
-                      <div class="model-inner">
-                        <p class="model-round" data-round>Collecting labelled roles</p>
-                        <div class="model-meter" data-meter><i></i></div>
-                        <p class="model-score" data-meter-label>Model is guessing</p>
-                        <p class="model-phase" data-phase></p>
-                      </div>
-                      <div class="model-inner">
-                        <div class="model-match" data-match>
-                          <p><b>Candidate:</b> backend engineer, 6 years, Go</p>
-                          <p><b>Role:</b> Sr. Backend Engineer (Go)</p>
-                          <p><span class="pill pill--hot">Strong match</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="scene-note">Example roles. The 98% is the real result after recurring fine-tuning; the climb shown here is illustrative.</p>
+                <div class="metrics exp-metrics">
+                  <div class="metric"><strong>98%</strong><span>Accuracy after fine-tuning, 5% above Gemini 2.5 Pro at the time</span></div>
+                  <div class="metric"><strong>&lt;3 mo</strong><span>Planning to production</span></div>
+                  <div class="metric"><strong>5</strong><span>People on my team</span></div>
                 </div>
               </div>
 
               <ul class="exp-summary">
-                <li><b>Team</b>Led a 5-person data and QA team at a YC-backed AI startup</li>
                 <li><b>Data</b>Engineering roles tagged by domain and seniority, every label reviewed</li>
-                <li><b>Accuracy</b>98% through recurring fine-tuning, 5% above Gemini 2.5 Pro at the time</li>
-                <li><b>Shipped</b>Planning to production in under 3 months</li>
                 <li><b>Clients</b>Used by teams like Hasura and Razorpay to hire</li>
                 <li><b>Loop</b>Client feedback turned into labelling rules and review standards</li>
               </ul>
@@ -301,31 +273,6 @@
                     <h3>Live events, listed automatically</h3>
                   </div>
                   <p>Resellers can only sell what's on the marketplace. Instead of someone copying new events over by hand, automations watched live event sites and listed each new one for resellers.</p>
-                </div>
-                <div class="scene events" data-events>
-                  <div class="scene-head">
-                    <p class="scene-title">New events, found and listed without anyone copying them over</p>
-                    <button class="scene-replay" type="button" data-replay>[ Replay ]</button>
-                  </div>
-                  <div class="events-body">
-                    <div>
-                      <p class="roles-col-label">Watching</p>
-                      <ul class="sources">
-                        <li data-source="Venue calendar">Venue calendar</li>
-                        <li data-source="Promoter page">Promoter page</li>
-                        <li data-source="Box office">Box office</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <p class="roles-col-label">Detected</p>
-                      <ol class="feed" data-feed></ol>
-                    </div>
-                    <div>
-                      <p class="roles-col-label">On the marketplace &middot; <span data-listed>0</span> listed</p>
-                      <ol class="board" data-board></ol>
-                    </div>
-                  </div>
-                  <p class="scene-note">Illustrative events and sources.</p>
                 </div>
               </div>
 
@@ -383,16 +330,6 @@
         </div>
       </section>
 
-      <div class="services-strip" aria-label="What I build">
-        <div class="services-track">
-          <ul class="services-run">
-            <li>AI setters</li><li>Lead scoring</li><li>Onboarding fixes</li><li>Affiliate programs</li><li>AI video</li><li>Model fine-tuning</li><li>Event automation</li>
-          </ul>
-          <ul class="services-run" aria-hidden="true">
-            <li>AI setters</li><li>Lead scoring</li><li>Onboarding fixes</li><li>Affiliate programs</li><li>AI video</li><li>Model fine-tuning</li><li>Event automation</li>
-          </ul>
-        </div>
-      </div>
 
       <section id="method" class="c2x-section method-section" aria-labelledby="method-title">
         <div class="section-inner">
@@ -402,7 +339,7 @@
           </div>
 
           <div class="section-intro compact-intro">
-            <h2 id="method-title" data-fill>The model is the easy part. The system is the job.</h2>
+            <h2 id="method-title">The model is the easy part. The system is the job.</h2>
             <p>I build both: the AI that does the work, and the system that makes its output safe to ship.</p>
           </div>
 
@@ -433,18 +370,8 @@
               <span class="axis-detail practice-stage"><em>Operating system</em></span>
             </li>
           </ol>
-        </div>
-      </section>
 
-      <section id="through-line" class="c2x-section through-section" aria-labelledby="through-title">
-        <div class="section-inner">
-          <p class="section-label"><span>04</span><span>/</span><span>The through line</span></p>
-          <div class="section-intro through-intro">
-            <h2 id="through-title" data-fill>One continuous line, from context to execution.</h2>
-            <p>Buying the model is the easy part. Every startup runs on the same one now. What you can't buy is the line that runs from what your company already knows to what its AI actually does with it. That's where adoption really lives: context going in, judgment in the middle, work you can trust coming out. It isn't another subscription. It's one line, drawn through a single workflow, then the next, then the next.</p>
-          </div>
-
-          <div class="through-line-map" aria-label="Context to execution line">
+          <div class="through-line-map practice-map" aria-label="Context to execution line">
             <span class="tl-endpoint tl-endpoint-context">Context<span class="tl-letter tl-letter-c" aria-hidden="true">C</span></span>
             <span class="axis-marker" aria-hidden="true"><i></i></span>
             <p>That's the through line. It holds from context <span class="tl-two" aria-label="to">2</span> execution, and stays intact after I hand it off.</p>
@@ -457,7 +384,7 @@
         <div class="contact-layer contact-layer--base">
           <div class="section-inner contact-inner">
             <div class="section-topline">
-              <p class="section-label"><span>05</span><span>/</span><span>Contact</span></p>
+              <p class="section-label"><span>04</span><span>/</span><span>Contact</span></p>
             </div>
             <div class="section-intro contact-intro">
               <h2 id="contact-title">Got a workflow that's more manual than it should be?</h2>
@@ -469,7 +396,7 @@
         <div class="contact-layer contact-layer--reveal" aria-hidden="true">
           <div class="section-inner contact-inner">
             <div class="section-topline">
-              <p class="section-label"><span>05</span><span>/</span><span>Contact</span></p>
+              <p class="section-label"><span>04</span><span>/</span><span>Contact</span></p>
             </div>
             <div class="section-intro contact-intro">
               <h2>Got a workflow that's more manual than it should be?</h2>

@@ -1,6 +1,6 @@
-/* Landing motion: the work ring, the hero load-in, the services strip and the
-   scroll-filled statement. Hidden start states only apply under html.js and
-   without reduced motion, so nothing stays invisible if the script fails. */
+/* Landing motion: the work ring and the hero load-in. Hidden start states only
+   apply under html.js and without reduced motion, so nothing stays invisible
+   if the script fails. */
 
 :root {
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -200,70 +200,18 @@
 @keyframes shutter-open { to { clip-path: inset(0 0 0 0); } }
 @keyframes ring-in { to { opacity: 1; transform: none; } }
 
-/* ---------- Services strip ---------- */
+/* ---------- Quieter work list: static stats, the through line closing Practice ---------- */
 
-.services-strip {
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
-  padding: clamp(28px, 4vw, 52px) 0;
-  background: var(--cream);
-  border-bottom: 1px solid rgba(182, 181, 171, 0.7);
-}
-
-.services-track {
-  display: flex;
-  width: max-content;
-}
-
-.services-run {
-  display: flex;
-  align-items: center;
-  flex: none;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.services-run li {
-  display: flex;
-  align-items: center;
-  gap: clamp(20px, 2.6vw, 40px);
-  padding-right: clamp(20px, 2.6vw, 40px);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(44px, 6.4vw, 104px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-}
-
-.services-run li::after {
-  content: "";
-  flex: none;
-  width: 0.42em;
-  height: 0.42em;
-  background: var(--accent);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .services-track { animation: strip 42s linear infinite; }
-  .services-strip:hover .services-track { animation-play-state: paused; }
-}
-
-@keyframes strip { to { transform: translateX(-50%); } }
-
-/* ---------- Statement that fills with ink as it scrolls past ---------- */
-
-@media (prefers-reduced-motion: no-preference) {
-  .js [data-fill] .fw { opacity: 0.16; transition: opacity 260ms ease; }
-  .js [data-fill] .fw.is-lit { opacity: 1; }
-}
+.exp-metrics { margin-top: clamp(20px, 3vw, 32px); }
+.practice-map { margin-top: clamp(64px, 9vw, 120px); }
 
 /* ---------- Phones ---------- */
 
 @media (max-width: 760px) {
+  /* the C -> 2 -> X diagram was cramped on phones: give each line room */
+  .practice-map { min-height: 0; gap: 22px; margin-top: 56px; }
+  .practice-map p { transform: none; }
+
   .ring-stage {
     top: calc(var(--header-h) + 4px);
     right: -6px;
